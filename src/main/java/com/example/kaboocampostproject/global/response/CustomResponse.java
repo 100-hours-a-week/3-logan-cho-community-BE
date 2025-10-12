@@ -47,4 +47,8 @@ public class CustomResponse<T> {
                 .build();
     }
 
+    // 유효성 검사용 실패응답 함께 반환
+    public static <T> CustomResponse<T> onFailure(String code, String message, T data) {
+        return new CustomResponse<>(false, code, message, data);
+    }
 }

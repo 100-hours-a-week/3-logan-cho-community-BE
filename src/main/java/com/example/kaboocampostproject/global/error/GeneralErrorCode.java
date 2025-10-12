@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum GeneralErrorCode implements BaseErrorCode {
-    ACCESS_TOKEN_EXPIRED(HttpStatus.BAD_REQUEST, "JWT400_01" , "토큰이 만료되었습니다.")
-
+    // 유효성 검사
+    VALIDATION_FAILED(HttpStatus.BAD_REQUEST, "VALID400_0", "잘못된 파라미터 입니다.");
     ;
     private HttpStatus httpStatus;
     private String code;
