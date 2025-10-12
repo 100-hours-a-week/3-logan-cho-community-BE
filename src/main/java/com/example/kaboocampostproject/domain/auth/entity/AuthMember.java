@@ -10,12 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Builder
-@Table(
-        name = "auth_member",
-        indexes = {
-                @Index(name = "idx_auth_member_email", columnList = "email")//이메일 보조인덱스 추가
-        }
-)
+@Table(name = "auth_member")
 public class AuthMember {
 
     @Id
@@ -28,7 +23,7 @@ public class AuthMember {
     @Setter
     private Member member;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 40, nullable = false, unique = true)
     private String email;
 
     @Column(length = 100, nullable = false)
