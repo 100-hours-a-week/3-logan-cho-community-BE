@@ -2,7 +2,7 @@ package com.example.kaboocampostproject.domain.comment.controller;
 
 import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.comment.dto.CommentReqDTO;
-import com.example.kaboocampostproject.domain.comment.service.CommentService;
+import com.example.kaboocampostproject.domain.comment.service.CommentMongoService;
 import com.example.kaboocampostproject.global.response.CustomResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/posts/{postId}/comments")
 public class CommentController {
 
-    private final CommentService commentService;
+    private final CommentMongoService commentService;
 
     // 댓글 생성
     @PostMapping
