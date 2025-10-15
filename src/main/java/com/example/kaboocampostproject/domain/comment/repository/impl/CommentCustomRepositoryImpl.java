@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
@@ -19,6 +20,25 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
     private final MongoTemplate mongo;
 
     private static final String COLLECTION = "comments";
+
+    @Override
+    public boolean updateCommentContent(String commentId, Long authorId, String newContent) {
+        Query query = new Query(
+                Criteria.where("_id").is(commentId)
+                        .and("authorId").is(authorId)
+                        .and("deletedAt").is(null)
+        );
+
+        Update update = new Update()
+                .set("content", newContent)
+                .set("updatedAt", Instant.now());
+
+        var result = mongo.updateFirst(query, update, CommentDocument.class);
+        return result.getModifiedCount() > 0;
+    }
+
+
+    //================== 커서 키반 페이징 ====================
 
     private void includeCommentSimpleFields(Query query) {
         query.fields()
@@ -72,4 +92,39 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
         includeCommentSimpleFields(q);
         return mongo.find(q, CommentDocument.class, COLLECTION);
     }
+
+
+
+    //================== 소프트 딜리트 ====================
+
+    // 댓글 id 기준
+    @Override
+    public boolean softDeleteByCommentId(String commentId, Long authorId) {
+        Query query = new Query(
+                Criteria.where("_id").is(commentId)
+                        .and("authorId").is(authorId)
+                        .and("deletedAt").is(null)
+        );
+        Update update = new Update().set("deletedAt", Instant.now());
+        var result = mongo.updateFirst(query, update, CommentDocument.class);
+        return result.getModifiedCount() > 0;
+    }
+
+    // 게시물 작성자 기준
+    @Override
+    public void softDeleteByAuthorId(Long authorId) {
+        Query query = Query.query(Criteria.where("authorId").is(authorId));
+        Update update = new Update().set("deletedAt", Instant.now());
+        mongo.updateMulti(query, update, CommentDocument.class);
+    }
+
+    // 게시물 아이디 기준
+    @Override
+    public void softDeleteByPostId(String postId) {
+        Query query = Query.query(Criteria.where("postId").is(postId));
+        Update update = new Update().set("deletedAt", Instant.now());
+        mongo.updateMulti(query, update, CommentDocument.class);
+    }
+
+
 }

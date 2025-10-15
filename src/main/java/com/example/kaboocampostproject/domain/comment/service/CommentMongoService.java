@@ -9,6 +9,7 @@ import com.example.kaboocampostproject.domain.comment.error.CommentException;
 import com.example.kaboocampostproject.domain.comment.repository.CommentMongoRepository;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheService;
+import com.example.kaboocampostproject.domain.s3.util.CloudFrontUtil;
 import com.example.kaboocampostproject.global.cursor.Cursor;
 import com.example.kaboocampostproject.global.cursor.CursorCodec;
 import com.example.kaboocampostproject.global.cursor.PageSlice;
@@ -16,14 +17,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
-public class CommentService {
+public class CommentMongoService {
 
     private static final int PAGE_SIZE = 10;
 
@@ -32,40 +31,27 @@ public class CommentService {
     private final MemberProfileCacheService memberProfileCacheService;
     private final CursorCodec cursorCodec;
 
-    @Transactional
     public void createComment(Long memberId, String postId, CommentReqDTO dto) {
         commentRepository.save(CommentConverter.toEntity(memberId, postId, dto));
     }
 
-    @Transactional
     public void updateComment(Long memberId, String commentId, CommentReqDTO dto) {
-        CommentDocument comment = commentRepository.findByIdAndDeletedAtIsNull(commentId)
-                .orElseThrow(() -> new CommentException(CommentErrorCode.COMMENT_NOT_FOUND));
-
-        if (!comment.getAuthorId().equals(memberId))
-            throw new CommentException(CommentErrorCode.COMMENT_AUTHOR_NOT_MATCH);
-
-        comment.setContent(dto.content());
-        commentRepository.save(comment);
+        boolean update = commentRepository.updateCommentContent(commentId, memberId, dto.content());
+        if (update) {
+            throw new CommentException(CommentErrorCode.COMMENT_UPDATE_FAIL);
+        }
     }
 
-    @Transactional
     public void deleteComment(Long memberId, String commentId) {
-        CommentDocument comment = commentRepository.findByIdAndDeletedAtIsNull(commentId)
-                .orElseThrow(() -> new CommentException(CommentErrorCode.COMMENT_NOT_FOUND));
-
-        if (!comment.getAuthorId().equals(memberId))
-            throw new CommentException(CommentErrorCode.COMMENT_AUTHOR_NOT_MATCH);
-
-
-        comment.setDeletedAt(Instant.now());
-        commentRepository.save(comment);
+        boolean update = commentRepository.softDeleteByCommentId(commentId, memberId);
+        if (update) {
+            throw new CommentException(CommentErrorCode.COMMENT_UPDATE_FAIL);
+        }
     }
 
     // =====================커서로 조회하는 메서드=====================
 
     // 최신 순 첫페이지
-    @Transactional(readOnly = true)
     public PageSlice<CommentSliceItem> findFirstByPost(String postId) {
         List<CommentDocument> docs =
                 commentRepository.findFirstByPostIdOrderByCreatedAtDesc(postId, PAGE_SIZE + 1);
@@ -74,7 +60,6 @@ public class CommentService {
     }
 
     // 최신 순 다음 페이지
-    @Transactional(readOnly = true)
     public PageSlice<CommentSliceItem> findNextByPost(String postId, String cursorToken) {
         Cursor cursor = cursorCodec.decode(cursorToken);
         if (cursor.strategy() != Cursor.CursorStrategy.RECENT) {
@@ -112,7 +97,7 @@ public class CommentService {
                     CommentSliceItem.AuthorProfile author = CommentSliceItem.AuthorProfile.builder()
                             .id(p != null ? p.id() : null)
                             .name(p != null ? p.name() : null)
-                            .profileImageUrl(p != null ? p.profileImageUrl() : null)
+                            .profileImageUrl(p != null ? CloudFrontUtil.toImageUrl(p.profileImageObjectKey()) : null)
                             .build();
 
                     boolean isUpdated = doc.getUpdatedAt() != null
