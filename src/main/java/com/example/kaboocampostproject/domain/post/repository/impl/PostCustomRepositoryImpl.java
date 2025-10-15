@@ -25,7 +25,8 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     // 조회수 원자적 증가
     @Override
     public void incrementViews(String postId, long count) {
-        Query query = new Query(Criteria.where(PostDocument.PostFields.id).is(postId));
+        Query query = new Query(Criteria.where(PostDocument.PostFields.id).is(postId)
+                .and(PostDocument.PostFields.deletedAt).is(null));
         Update update = new Update().inc(PostDocument.PostFields.views, count);
         mongo.updateFirst(query, update, PostDocument.class);
 
