@@ -1,6 +1,7 @@
 package com.example.kaboocampostproject.domain.post.service;
 
 
+import com.example.kaboocampostproject.domain.comment.repository.CommentMongoRepository;
 import com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto;
 import com.example.kaboocampostproject.domain.like.repository.PostLikeRepository;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
@@ -15,15 +16,15 @@ import com.example.kaboocampostproject.domain.post.dto.res.PostSliceItem;
 import com.example.kaboocampostproject.domain.post.error.PostErrorCode;
 import com.example.kaboocampostproject.domain.post.error.PostException;
 import com.example.kaboocampostproject.domain.post.repository.PostMongoRepository;
+import com.example.kaboocampostproject.domain.s3.service.S3Service;
+import com.example.kaboocampostproject.domain.s3.util.S3Util;
 import com.example.kaboocampostproject.global.cursor.Cursor;
 import com.example.kaboocampostproject.global.cursor.CursorCodec;
 import com.example.kaboocampostproject.global.cursor.PageSlice;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
-import org.springframework.data.mongodb.core.query.*;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,42 +36,84 @@ public class PostMongoService {
 
     private final PostMongoRepository postRepository;
     private final PostLikeRepository postLikeRepository;
+    private final CommentMongoRepository commentRepository;
     private final PostViewService postViewService;
     private final MemberProfileCacheService memberProfileCacheService;
     private final CursorCodec codec;
+    private final S3Service s3Service;
+    private final S3Util s3Util;
+
     private static final int PAGE_SIZE = 10;
 
     public void create(Long authorId, PostCreatReqDTO postCreatReqDTO) {
         PostDocument post = PostConverter.toEntity(authorId, postCreatReqDTO);
+        // 이미지 존재 시 업로드 검증
+        if (postCreatReqDTO.imageObjectKeys() != null && !postCreatReqDTO.imageObjectKeys().isEmpty()) {
+            postCreatReqDTO.imageObjectKeys().forEach(s3Service::verifyS3Upload);
+        }
         postRepository.save(post);
     }
 
+    private List<String> calculateRemaining(List<String> oldImages, List<String> addedImages, List<String> removedImages) {
+        List<String> result = oldImages.stream().filter(s -> !removedImages.contains(s))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        result.addAll(addedImages);
+        return result;
+    }
     // 게시물 수정
     public void updatePost(Long memberId, String postId, PostUpdateReqDTO req) {
-        PostDocument post = postRepository.findByIdAndDeletedAtIsNull(postId)
-                .orElseThrow(() -> new PostException(PostErrorCode.POST_NOT_FOUND));
-        // 작성자 검증
-        if (!post.getAuthorId().equals(memberId)) {
-            throw new PostException(PostErrorCode.POST_AUTHOR_NOT_MATCH);
-        }
+
+        // 추가, 삭제 요청된 이미지 오브젝트 키
+        List<String> addedImages = (req.addedImageObjectKeys()!=null)
+                ? req.addedImageObjectKeys()
+                : new ArrayList<>();
+        List<String> removedImages = (req.removedImageObjectKeys()!=null)
+                ? req.removedImageObjectKeys()
+                : new ArrayList<>();
+
+        // 존재여부
+        boolean isImageAdded = !addedImages.isEmpty();
+        boolean isImageRemoved = !removedImages.isEmpty();
 
 
-        // 타이틀이나 내용이 null이면 수정하지 않도록 방어
-        if (req.title() != null) post.setTitle(req.title());
-        if (req.contents() != null) post.setContent(req.contents());
+        List<String> oldImages = (isImageAdded || isImageRemoved)
+                ? postRepository.findImageObjectKeys(postId, memberId)
+                : new ArrayList<>();
 
-        if (req.imageUrls() != null) {
-            if (req.imageUrls().size() > 3) {// 유효성검사로 수정 고려
-                throw new PostException(PostErrorCode.TOO_MANY_IMAGES);
+
+        // 업로드 검증
+        if (isImageAdded) {
+
+            int imageCnt = oldImages.size()
+                            + addedImages.size()
+                            - removedImages.size();
+
+            if (imageCnt > 3) {
+                throw new  PostException(PostErrorCode.TOO_MANY_IMAGES);
             }
-            // 사진 수정 호출해서 거기서 처리
+
+            addedImages.forEach(s3Service::verifyS3Upload);
+        }
+        // 삭제 체킹
+        if (isImageRemoved) {
+            removedImages.forEach(image -> {
+                if (!oldImages.contains(image))
+                    throw new PostException(PostErrorCode.POST_IMAGE_NOT_FOUND);
+            });
         }
 
-        if (!post.getAuthorId().equals(memberId)) {
-            throw new PostException(PostErrorCode.POST_AUTHOR_NOT_MATCH);
-        }
-        postRepository.save(post);
-        // 댓글도 모두 소프트딜리트 처리 필요
+        List<String> remainingImages = calculateRemaining(oldImages, addedImages, removedImages);
+
+        // DB 업데이트
+        boolean updated = postRepository.updatePostFields(memberId, postId, req, remainingImages);
+        if (!updated) throw new PostException(PostErrorCode.POST_UPDATED_FAIL);
+
+        // 삭제할 이미지 있다면 삭제
+        removedImages.forEach(s3Util::delete);
+
+        // 댓글도 모두 소프트딜리트
+        commentRepository.softDeleteByPostId(postId);
     }
 
     // 게시물 삭제

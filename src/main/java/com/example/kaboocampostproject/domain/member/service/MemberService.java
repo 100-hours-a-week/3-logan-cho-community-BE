@@ -12,6 +12,7 @@ import com.example.kaboocampostproject.domain.member.entity.UserRole;
 import com.example.kaboocampostproject.domain.member.error.MemberErrorCode;
 import com.example.kaboocampostproject.domain.member.error.MemberException;
 import com.example.kaboocampostproject.domain.member.repository.MemberRepository;
+import com.example.kaboocampostproject.domain.s3.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class MemberService {
     private final MemberProfileCacheService memberProfileCacheService;
     private final PasswordEncoder passwordEncoder;
     private final AuthMemberRepository authMemberRepository;
+    private final S3Service s3Service;
 
     public void createMember(MemberRegisterReqDTO memberDTO) {
         AuthMember authMember = authMemberRepository.findByEmail(memberDTO.email()).orElse(null);
@@ -34,6 +36,12 @@ public class MemberService {
         String encodedPassword = passwordEncoder.encode(memberDTO.password());
         UserRole userRole = UserRole.ROLE_USER; // 우선 모두 기본 사용자.
         Member member = MemberConverter.toEntity(memberDTO, encodedPassword, userRole);
+
+        // 프로필 이미지 있다면 검증하기
+        if (member.getImageObjectKey() != null && !member.getImageObjectKey().isEmpty()) {
+            s3Service.verifyS3Upload(member.getImageObjectKey());
+        }
+
         memberRepository.save(member);
     }
 
@@ -56,10 +64,15 @@ public class MemberService {
     public void updateMemberImage(Long memberId, UpdateMemberReqDTO.MemberProfileImage memberImageUrl) {
         Member member = memberRepository.findById(memberId).orElseThrow(() ->
                 new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
-        if (member.getImageUrl() != null){
-            // s3 기존 이미지 삭제
+
+        //기존에 프로필사진이 있었다면, 오프젝트 키는 변경되지 않으므로 그대로 저장
+        if (member.getImageObjectKey() != null){
+            // 업로드 검사
+            s3Service.verifyS3Upload(member.getImageObjectKey());
+            return;
         }
-        member.updateImageUrl(memberImageUrl.imageUrl());
+        // 없었다면 추가
+        member.updateImageObjectKey(memberImageObjectKey.imageObjectKey());
         memberProfileCacheService.cacheProfile(MemberConverter.toProfile(member));
     }
 
