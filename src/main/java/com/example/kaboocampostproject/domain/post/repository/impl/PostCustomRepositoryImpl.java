@@ -1,8 +1,10 @@
 package com.example.kaboocampostproject.domain.post.repository.impl;
 
 import com.example.kaboocampostproject.domain.post.document.PostDocument;
+import com.example.kaboocampostproject.domain.post.dto.req.PostUpdateReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSimple;
 import com.example.kaboocampostproject.domain.post.repository.PostCustomRepository;
+import com.mongodb.client.result.UpdateResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -12,6 +14,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -22,6 +25,40 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
 
     private static final String COLLECTION = "posts";
 
+
+
+
+    @Override
+    public List<String> findImageObjectKeys(String postId, Long memberId) {
+        Query query = new Query(
+                Criteria.where("_id").is(postId)
+                        .and("authorId").is(memberId)
+                        .and("deletedAt").is(null)
+        );
+        query.fields().include("imageObjectKeys"); // 이미지만 가져오기
+        PostDocument post = mongo.findOne(query, PostDocument.class);
+        return post != null ? post.getImageObjectKeys() : new ArrayList<>();
+    }
+
+    @Override
+    public boolean updatePostFields(Long memberId, String postId, PostUpdateReqDTO req, List<String> remainingImages) {
+        // 작성자 아이디, 기 삭제여부 검증
+        Query query = new Query(
+                Criteria.where("_id").is(postId)
+                        .and("authorId").is(memberId)
+                        .and("deletedAt").is(null)
+        );
+
+        Update update = new Update();
+        if (req.title() != null) update.set("title", req.title());
+        if (req.contents() != null) update.set("content", req.contents());
+        if (remainingImages != null) update.set("imageObjectKeys", remainingImages);
+
+        UpdateResult result = mongo.updateFirst(query, update, PostDocument.class);
+        return result.getModifiedCount() > 0;
+    }
+
+
     // 조회수 원자적 증가
     @Override
     public void incrementViews(String postId, long count) {
@@ -31,6 +68,8 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
         mongo.updateFirst(query, update, PostDocument.class);
 
     }
+
+    //================== 커서키반 페이징 ====================
 
     private void includePostSimpleFields(Query query) {
         query.fields()
@@ -130,4 +169,22 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
 
         return mongo.find(q, PostSimple.class, COLLECTION);
     }
+
+    //================== 소프트 딜리트 ====================
+
+    @Override
+    public boolean softDelete(String postId, Long memberId) {
+
+        // 작성자 아이디, 기 삭제여부 검증
+        Query query = new Query(
+                Criteria.where("_id").is(postId)
+                        .and("authorId").is(memberId)
+                        .and("deletedAt").is(null)
+        );
+        Update update = new Update().set("deletedAt", Instant.now());
+        UpdateResult result = mongo.updateFirst(query, update, PostDocument.class);
+
+        return result.getModifiedCount() > 0;
+    }
+
 }

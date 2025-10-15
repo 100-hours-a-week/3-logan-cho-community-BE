@@ -118,16 +118,20 @@ public class PostMongoService {
 
     // 게시물 삭제
     public void deletePost(Long memberId, String postId) {
-        PostDocument post = postRepository.findByIdAndDeletedAtIsNull(postId)
+
+        boolean idUpdated = postRepository.softDelete(postId, memberId);
+        if (!idUpdated) throw new PostException(PostErrorCode.POST_UPDATED_FAIL);
+
+        //기존 쿼리. 부하테스트 시 속도비교 예정
+        /*PostDocument post = postRepository.findByIdAndDeletedAtIsNull(postId)
                 .orElseThrow(() -> new PostException(PostErrorCode.POST_NOT_FOUND));
         // 작성자 검증
         if (!post.getAuthorId().equals(memberId)) {
             throw new PostException(PostErrorCode.POST_AUTHOR_NOT_MATCH);
         }
-
         // 소프트딜리트
         post.setDeletedAt(Instant.now());
-        postRepository.save(post);
+        postRepository.save(post);*/
     }
 
     // 게시물 상세조회
