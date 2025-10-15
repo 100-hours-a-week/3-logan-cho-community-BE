@@ -13,6 +13,6 @@ public class UpdateMemberReqDTO {
             @ValidName String name
     ){}
     public record MemberProfileImage (
-            String imageUrl
+            String imageObjectKey
     ){}
 }

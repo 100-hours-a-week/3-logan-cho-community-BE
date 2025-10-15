@@ -7,6 +7,7 @@ import com.example.kaboocampostproject.domain.post.dto.req.PostCreatReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostDetailResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSimple;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSliceItem;
+import com.example.kaboocampostproject.domain.s3.util.CloudFrontUtil;
 
 public class PostConverter {
     public static PostDocument toEntity(Long memberId, PostCreatReqDTO dto) {
@@ -14,7 +15,7 @@ public class PostConverter {
                 .authorId(memberId)
                 .title(dto.title())
                 .content(dto.content())
-                .imageUrls(dto.imageUrls())
+                .imageObjectKeys(dto.imageObjectKeys())
                 .build();
     }
 
@@ -22,7 +23,7 @@ public class PostConverter {
         return PostDetailResDTO.builder()
                 .title(post.getTitle())
                 .content(post.getContent())
-                .imageUrls(post.getImageUrls())
+                .imageUrls(CloudFrontUtil.toImageUrls(post.getImageObjectKeys()))
                 .views(post.getViews())
                 .likes(postLike.likeCount())
                 .amILiking(postLike.amILike())
@@ -40,7 +41,7 @@ public class PostConverter {
         PostSliceItem.AuthorProfile author = PostSliceItem.AuthorProfile.builder()
                 .id(memberProfile.id())
                 .name(memberProfile.name())
-                .profileImageUrl(memberProfile.profileImageUrl())
+                .profileImageUrl(CloudFrontUtil.toImageUrl(memberProfile.profileImageObjectKey()))
                 .build();
 
         return PostSliceItem.builder()

@@ -61,7 +61,7 @@ public class MemberService {
         memberProfileCacheService.cacheProfile(MemberConverter.toProfile(member));
     }
 
-    public void updateMemberImage(Long memberId, UpdateMemberReqDTO.MemberProfileImage memberImageUrl) {
+    public void updateMemberImage(Long memberId, UpdateMemberReqDTO.MemberProfileImage memberImageObjectKey) {
         Member member = memberRepository.findById(memberId).orElseThrow(() ->
                 new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
 

@@ -13,5 +13,5 @@ public record MemberRegisterReqDTO(
         @Email @NotBlank String email,
         @ValidPassword String password,
         @ValidName String name,
-        @Nullable String imageUrl
+        @Nullable String imageObjectKey
 ) { }

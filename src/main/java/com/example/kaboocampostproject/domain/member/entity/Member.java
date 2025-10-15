@@ -26,7 +26,7 @@ public class Member extends BaseTimeEntity {
     private String name;
 
     @Column(length = 30)
-    private String imageUrl;
+    private String imageObjectKey;
 
     // cascadeType.ALL 하지 않은 이유 : member 소프트 딜리트시 AuthMember는 @SQLDelete 없어서 하드딜리트 가능
     @OneToOne(mappedBy = "member", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -40,14 +40,14 @@ public class Member extends BaseTimeEntity {
         this.name = name;
     }
 
-    public void updateImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void updateImageObjectKey(String imageObjectKey) {
+        this.imageObjectKey = imageObjectKey;
     }
 
     @Builder
-    public Member(String name, @Nullable String imageUrl) {
+    public Member(String name, @Nullable String imageObjectKey) {
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.imageObjectKey = imageObjectKey;
     }
     public void setAuthMember(AuthMember authMember) {
         this.authMember = authMember;

@@ -43,7 +43,7 @@ public class PostDocument {
     private String title;
     private String content;
     private long views = 0L;
-    private List<String> imageUrls;
+    private List<String> imageObjectKeys;
 
     @CreatedDate
     private Instant createdAt;
@@ -54,16 +54,16 @@ public class PostDocument {
     private Instant deletedAt;
 
     @Builder
-    public PostDocument(Long authorId, String title, String content, List<String> imageUrls) {
+    public PostDocument(Long authorId, String title, String content, List<String> imageObjectKeys) {
         this.authorId = authorId;
         this.title = title;
         this.content = content;
-        this.imageUrls = imageUrls;
+        this.imageObjectKeys = imageObjectKeys;
     }
 
     // 수정용
     public void setTitle(String title) { this.title = title; }
     public void setContent(String content) { this.content = content; }
-    public void setImageUrls(List<String> imageUrls) { this.imageUrls = imageUrls; }
+    public void setImageObjectKeys(List<String> imageObjectKeys) { this.imageObjectKeys = imageObjectKeys; }
     public void setDeletedAt(Instant deletedAt) { this.deletedAt = deletedAt; }
 }

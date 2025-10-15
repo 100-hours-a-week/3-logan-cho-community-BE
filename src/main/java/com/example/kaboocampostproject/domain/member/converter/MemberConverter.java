@@ -10,7 +10,7 @@ public class MemberConverter {
     public static Member toEntity(MemberRegisterReqDTO dto, String encodedPassword, UserRole userRole) {
         Member member = Member.builder()
                 .name(dto.name())
-                .imageUrl(dto.imageUrl())
+                .imageObjectKey(dto.imageObjectKey())
                 .build();
 
         AuthMember authMember = AuthMember.builder()
@@ -29,7 +29,7 @@ public class MemberConverter {
         return MemberProfileCacheDTO.builder()
                 .id(member.getId())
                 .name(member.getName())
-                .profileImageUrl(member.getImageUrl())
+                .profileImageObjectKey(member.getImageObjectKey())
                 .build();
     }
 }

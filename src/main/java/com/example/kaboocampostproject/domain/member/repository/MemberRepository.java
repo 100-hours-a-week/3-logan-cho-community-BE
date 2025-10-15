@@ -14,7 +14,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("""
         SELECT new com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO(
-            m.id, m.name, m.imageUrl
+            m.id, m.name, m.imageObjectKey
         )
         FROM Member m
         WHERE m.id = :memberId
@@ -23,7 +23,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("""
         SELECT new com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO(
-            m.id, m.name, m.imageUrl
+            m.id, m.name, m.imageObjectKey
         )
         FROM Member m
         WHERE m.id IN :memberIds

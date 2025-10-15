@@ -6,6 +6,6 @@ import lombok.Builder;
 public record MemberProfileCacheDTO(
         Long id,
         String name,
-        String profileImageUrl
+        String profileImageObjectKey
 ) {
 }
