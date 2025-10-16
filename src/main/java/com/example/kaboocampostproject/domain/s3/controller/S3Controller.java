@@ -45,7 +45,8 @@ public class S3Controller {
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, resDTO));
     }
     // 이미지 조회용 CloudFront Signed Cookie 발급
-    @PostMapping("/cloud-front/images/signed-cookie")
+    // /api/auth/signed-cookie가 나을지 고민입니다.
+    @PostMapping("/images/signed-cookie")
     public ResponseEntity<CustomResponse<Void>> issueSignedCookieForView(
             HttpServletResponse response) {
         s3Service.generateSignedCookieForView( response);
