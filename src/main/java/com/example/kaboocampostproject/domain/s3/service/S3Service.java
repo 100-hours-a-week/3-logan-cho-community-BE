@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.s3.model.HeadObjectResponse;
 import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
@@ -36,7 +35,7 @@ public class S3Service  {
 
     // 프로필 이미지 Presigned URL 생성 (오브젝트 키 : 덮어쓰기)
     public PresignedUrlResDTO generateProfilePresignedUrl(Long memberId, UploadReqDTO request) {
-        String objectKey = String.format("images/profiles/%d/%s", memberId, request.fileName());
+        String objectKey = String.format("images/profiles/%d", memberId);
         // 이미지만 받기
         if (!request.mimeType().startsWith("image/")) {
             throw new S3Exception(S3ErrorCode.INVALID_FILE_TYPE);
