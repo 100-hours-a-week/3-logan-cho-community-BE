@@ -110,7 +110,7 @@ public class PostMongoService {
         if (!updated) throw new PostException(PostErrorCode.POST_UPDATED_FAIL);
 
         // 삭제할 이미지 있다면 삭제
-        removedImages.forEach(s3Util::delete);
+        removedImages.forEach(s3Util::delete);/// 이것도 직접 삭제하지 말고, 캐싱해뒀다가 배치 삭제하기 전략 적용 고민 (verifyS3Upload() 내부 삭제로직도 마찬가지 )
 
         // 댓글도 모두 소프트딜리트
         commentRepository.softDeleteByPostId(postId);
