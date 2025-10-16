@@ -21,6 +21,11 @@ import org.springframework.web.bind.annotation.*;
 public class S3Controller {
 
     private final S3Service s3Service;
+    /*
+    * ***진짜 근본적인 고민****
+    * "과연 대용량 파일도 아닌 10MB 이하의 이미지 파일을 저장하는데 pre-signed url을 사용해서 rtt를 2-3회나 발생시키는 것이 과연 이득인가?"
+    * 서버가 직접 올리지는 않으니 서버의 부하는 줄어들긴 할 것이다. 하지만 그것이 그렇게 메리트가 있는가?
+    * */
     // 이렇게 Presigned url 발급 api를 나누는 것이 좋을지
     // /api/images/presigned-url?resource=member&initial=true
     // 와 같은 방식이 좋을지 궁금합니다
