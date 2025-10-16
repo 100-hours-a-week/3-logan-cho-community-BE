@@ -35,7 +35,15 @@ public class S3Service  {
 
     // 프로필 이미지 Presigned URL 생성 (오브젝트 키 : 덮어쓰기)
     public PresignedUrlResDTO generateProfilePresignedUrl(Long memberId, UploadReqDTO request) {
+
+        /*
+        * 덮어쓰기 전략 수정 필요
+        * 문제점 : 객체(멤버,포스트) 첫 생성 시, id를 알 수 없음
+        * 해결방안 : 객체 생성 이미지 추가 발급요청이라면 objectKey를 init/member/{uuid}.png 같은 방식으로 만들어두고, 이미지 업로드 검사 시점에, 이미지를 한번 더 바꿔버리기...?
+        * 근데 이게 과연 이득이 맞는가? 사실 고정 objectKey 사용하면, cdn이 캐싱된 정보의 수정여부를 알 수 없다고 한다.
+        * */
         String objectKey = String.format("images/profiles/%d", memberId);
+
         // 이미지만 받기
         if (!request.mimeType().startsWith("image/")) {
             throw new S3Exception(S3ErrorCode.INVALID_FILE_TYPE);

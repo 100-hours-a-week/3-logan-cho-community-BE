@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 public class S3Controller {
 
     private final S3Service s3Service;
-
+    // 이렇게 Presigned url 발급 api를 나누는 것이 좋을지
+    // /api/images/presigned-url?resource=member&initial=true
+    // 와 같은 방식이 좋을지 궁금합니다
     @PostMapping("/members/images/presigned-url")
     public ResponseEntity<CustomResponse<PresignedUrlResDTO>> getProfilePresignedUrl(
             @RequestBody @Valid UploadReqDTO request,
@@ -31,7 +33,8 @@ public class S3Controller {
 
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, resDTO));
     }
-
+    // 게시물 등록 이전 이미치 첨부 시, {postId}를 모르므로 바디에 nullable 하게 넣기..?
+    // 사실 굳이 오브젝트 키에 postId가 필요없긴한데.. 추후 s3에서 파일 관리를 위해서(안할 것 같지만) 넣어두는 것이 나을지...
     @PostMapping("/posts/{postId}/images/presigned-url")
     public ResponseEntity<CustomResponse<PresignedUrlListResDTO>> getPostImagePresignedUrl(
             @PathVariable Long postId,
