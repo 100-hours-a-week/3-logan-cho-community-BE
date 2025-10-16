@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: ${DB_HOST}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # 개발 중에는 create / create-drop / update 중 선택
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+
+  data:
+    mongodb:
+      uri: ${MONGO_URL}
+
+  profiles:
+    active: dev
+
+
+auth:
+  token:
+    hmacSecretBase64: ${JWT_SECRET_KEY} #jwt 서명키
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace   # Hibernate 6 (파라미터 바인딩 로그)
+
+aws:
+  credentials:
+    access-key: ${AWS_ACCESS_KEY_ID}
+    secret-key: ${AWS_SECRET_ACCESS_KEY}
+  region: ap-northeast-2
+  s3:
+    bucket: ${AWS_S3_BUCKET_NAME}
+  cloudfront:
+    domain: ${AWS_CLOUDFRONT_DOMAIN}
+    key-pair-id: ${AWS_CLOUDFRONT_KEY_PAIR_ID}
+    private-key: ${AWS_CLOUDFRONT_PRIVATE_KEY}
