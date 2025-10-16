@@ -28,6 +28,8 @@ public class AuthMember {
 
     @Column(length = 100, nullable = false)
     private String password;
+    // 최근 비밀번호 변경시간 컬럼 추가
+    // 과거 비밀번호도 별도 테이블 분리 저장 oldPassword( password, createdAt )
 
     @Enumerated(EnumType.STRING)
     UserRole role;
