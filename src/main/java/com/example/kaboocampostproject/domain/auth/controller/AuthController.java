@@ -1,6 +1,7 @@
 package com.example.kaboocampostproject.domain.auth.controller;
 
 import com.example.kaboocampostproject.domain.auth.dto.AccessJwtResDTO;
+import com.example.kaboocampostproject.domain.auth.dto.EmailCheckReqDTO;
 import com.example.kaboocampostproject.domain.auth.dto.LoginReqDTO;
 import com.example.kaboocampostproject.domain.auth.jwt.dto.IssuedJwts;
 import com.example.kaboocampostproject.domain.auth.jwt.dto.ReissueJwts;
@@ -41,5 +42,11 @@ public class AuthController {
     public ResponseEntity<CustomResponse<Void>> logout(HttpServletResponse response){
         authMemberService.logout(response);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
+    }
+
+    @PostMapping("/check-email")
+    public ResponseEntity<CustomResponse<Boolean>> checkEmailDuplicate(@RequestBody EmailCheckReqDTO emailDto) {
+        boolean isDuplicate = authMemberService.isEmailDuplicate(emailDto);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, isDuplicate));
     }
 }

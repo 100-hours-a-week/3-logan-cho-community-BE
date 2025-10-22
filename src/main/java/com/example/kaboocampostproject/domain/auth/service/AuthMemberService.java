@@ -1,5 +1,6 @@
 package com.example.kaboocampostproject.domain.auth.service;
 
+import com.example.kaboocampostproject.domain.auth.dto.EmailCheckReqDTO;
 import com.example.kaboocampostproject.domain.auth.dto.LoginReqDTO;
 import com.example.kaboocampostproject.domain.auth.jwt.JwtProvider;
 import com.example.kaboocampostproject.domain.auth.jwt.dto.IssuedJwts;
@@ -99,5 +100,9 @@ public class AuthMemberService {
             throw new MemberException(MemberErrorCode.PASSWORD_NOT_MATCH);
         }
         authMember.updatePassword(encodedPassword);
+    }
+
+    public boolean isEmailDuplicate(EmailCheckReqDTO emailDto) {
+        return authMemberRepository.existsByEmail(emailDto.email());
     }
 }
