@@ -4,6 +4,7 @@ import com.example.kaboocampostproject.domain.comment.converter.CommentConverter
 import com.example.kaboocampostproject.domain.comment.document.CommentDocument;
 import com.example.kaboocampostproject.domain.comment.dto.CommentReqDTO;
 import com.example.kaboocampostproject.domain.comment.dto.CommentSliceItem;
+import com.example.kaboocampostproject.domain.comment.dto.CommentSliceResDTO;
 import com.example.kaboocampostproject.domain.comment.error.CommentErrorCode;
 import com.example.kaboocampostproject.domain.comment.error.CommentException;
 import com.example.kaboocampostproject.domain.comment.repository.CommentMongoRepository;
@@ -15,7 +16,6 @@ import com.example.kaboocampostproject.global.cursor.CursorCodec;
 import com.example.kaboocampostproject.global.cursor.PageSlice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +30,7 @@ public class CommentMongoService {
 
     private final MemberProfileCacheService memberProfileCacheService;
     private final CursorCodec cursorCodec;
+    private final CloudFrontUtil cloudFrontUtil;
 
     public void createComment(Long memberId, String postId, CommentReqDTO dto) {
         commentRepository.save(CommentConverter.toEntity(memberId, postId, dto));
@@ -52,7 +53,7 @@ public class CommentMongoService {
     // =====================커서로 조회하는 메서드=====================
 
     // 최신 순 첫페이지
-    public PageSlice<CommentSliceItem> findFirstByPost(String postId) {
+    public CommentSliceResDTO findFirstByPost(String postId) {
         List<CommentDocument> docs =
                 commentRepository.findFirstByPostIdOrderByCreatedAtDesc(postId, PAGE_SIZE + 1);
 
@@ -60,7 +61,7 @@ public class CommentMongoService {
     }
 
     // 최신 순 다음 페이지
-    public PageSlice<CommentSliceItem> findNextByPost(String postId, String cursorToken) {
+    public CommentSliceResDTO findNextByPost(String postId, String cursorToken) {
         Cursor cursor = cursorCodec.decode(cursorToken);
         if (cursor.strategy() != Cursor.CursorStrategy.RECENT) {
             throw new IllegalArgumentException("지원하지 않는 커서 전략입니다: " + cursor.strategy());
@@ -75,12 +76,16 @@ public class CommentMongoService {
     }
 
     // 멤버프로필 가져와서 PageSlice 생성하기
-    private PageSlice<CommentSliceItem> buildSlice(String postId, List<CommentDocument> docsPlusOne) {
+    private CommentSliceResDTO buildSlice(String postId, List<CommentDocument> docsPlusOne) {
         boolean hasNext = docsPlusOne.size() > PAGE_SIZE;
         List<CommentDocument> content = hasNext ? docsPlusOne.subList(0, PAGE_SIZE) : docsPlusOne;
 
         if (content.isEmpty()) {
-            return new PageSlice<>(postId, List.of(), null, false);
+            return CommentSliceResDTO.builder()
+                    .cdnBaseUrl(cloudFrontUtil.getDomain())
+                    .parentId(postId)
+                    .comments(PageSlice.empty())
+                    .build();
         }
 
         // 작성자 프로필 일괄 조회 (redis -> mysql)
@@ -94,23 +99,7 @@ public class CommentMongoService {
         List<CommentSliceItem> items = content.stream()
                 .map(doc -> {
                     MemberProfileCacheDTO p = profiles.get(doc.getAuthorId());
-                    CommentSliceItem.AuthorProfile author = CommentSliceItem.AuthorProfile.builder()
-                            .id(p != null ? p.id() : null)
-                            .name(p != null ? p.name() : null)
-                            .profileImageUrl(p != null ? CloudFrontUtil.toImageUrl(p.profileImageObjectKey()) : null)
-                            .build();
-
-                    boolean isUpdated = doc.getUpdatedAt() != null
-                            && doc.getCreatedAt() != null
-                            && doc.getUpdatedAt().isAfter(doc.getCreatedAt());
-
-                    return CommentSliceItem.builder()
-                            .commentId(doc.getId())
-                            .content(doc.getContent())
-                            .createdAt(doc.getCreatedAt())
-                            .isUpdated(isUpdated)
-                            .author(author)
-                            .build();
+                    return CommentConverter.toSliceItem(doc, p);
                 })
                 .toList();
 
@@ -122,7 +111,14 @@ public class CommentMongoService {
             nextCursor = cursorCodec.encode(new Cursor(Cursor.CursorStrategy.RECENT, pos));
         }
 
-        return new PageSlice<>(postId, items, nextCursor, hasNext);
+        PageSlice<CommentSliceItem> pageSlice = new PageSlice<>( items, nextCursor, hasNext);
+        // 레퍼로 감싸서 반환 (cdn 도메인 반환 위해서.)
+        return CommentSliceResDTO.builder()
+                .cdnBaseUrl(cloudFrontUtil.getDomain())
+                .parentId(postId)
+                .comments(pageSlice)
+                .build();
+
     }
 
 }

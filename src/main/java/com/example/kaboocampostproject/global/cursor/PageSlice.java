@@ -5,9 +5,11 @@ import jakarta.annotation.Nullable;
 import java.util.List;
 
 public record PageSlice<T>(
-        @Nullable String parentId,
         List<T> items,
         String nextCursor,
         boolean hasNext
 ) {
+    public static <T> PageSlice<T> empty() {
+        return new PageSlice<>(List.of(), null, false);
+    }
 }

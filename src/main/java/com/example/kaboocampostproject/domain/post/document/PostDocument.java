@@ -66,4 +66,8 @@ public class PostDocument {
     public void setContent(String content) { this.content = content; }
     public void setImageObjectKeys(List<String> imageObjectKeys) { this.imageObjectKeys = imageObjectKeys; }
     public void setDeletedAt(Instant deletedAt) { this.deletedAt = deletedAt; }
+
+    public boolean isUpdated() {
+        return updatedAt.isAfter(createdAt);
+    }
 }

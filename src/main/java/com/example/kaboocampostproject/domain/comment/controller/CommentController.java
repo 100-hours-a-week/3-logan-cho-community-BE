@@ -50,4 +50,17 @@ public class CommentController {
 
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
     }
+
+
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<CustomResponse<CommentSliceResDTO>> getCommentList(
+            @PathVariable String postId,
+            @RequestParam(required=false) String cursor
+    ) {
+        CommentSliceResDTO result = (cursor != null)
+                ? commentService.findNextByPost(postId, cursor)
+                : commentService.findFirstByPost(postId);
+
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, result));
+    }
 }
