@@ -14,8 +14,6 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 @RequiredArgsConstructor
 public class MongoDBConfig {
 
-//    private final MongoMappingContext mongoMappingContext;
-
     @Bean
     public MappingMongoConverter mappingMongoConverter(
             MongoDatabaseFactory mongoDatabaseFactory,
