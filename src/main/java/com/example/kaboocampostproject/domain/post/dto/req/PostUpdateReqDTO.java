@@ -7,7 +7,7 @@ import java.util.List;
 public record PostUpdateReqDTO(
         String postId,
         @Nullable String title,
-        @Nullable String contents,
+        @Nullable String content,
         @Nullable List<String> addedImageObjectKeys,
         @Nullable List<String> removedImageObjectKeys
 ) {

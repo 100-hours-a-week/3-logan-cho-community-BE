@@ -11,7 +11,8 @@ public record CommentSliceItem(
         String content,
         Instant createdAt,
         boolean isUpdated,
-        @Nullable AuthorProfile author
+        @Nullable AuthorProfile author,
+        boolean isMine
 ) {
     // 작성자 프로필
     @Builder
