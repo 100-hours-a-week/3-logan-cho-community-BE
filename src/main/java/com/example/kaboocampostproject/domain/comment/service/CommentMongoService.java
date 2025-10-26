@@ -99,7 +99,8 @@ public class CommentMongoService {
         List<CommentSliceItem> items = content.stream()
                 .map(doc -> {
                     MemberProfileCacheDTO p = profiles.get(doc.getAuthorId());
-                    return CommentConverter.toSliceItem(doc, p);
+                    boolean isMine = memberId.equals(doc.getAuthorId());
+                    return CommentConverter.toSliceItem(doc, p, isMine);
                 })
                 .toList();
 
