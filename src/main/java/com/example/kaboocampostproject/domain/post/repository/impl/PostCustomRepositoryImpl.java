@@ -51,7 +51,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
 
         Update update = new Update();
         if (req.title() != null) update.set("title", req.title());
-        if (req.contents() != null) update.set("content", req.contents());
+        if (req.content() != null) update.set("content", req.content());
         if (remainingImages != null) update.set("imageObjectKeys", remainingImages);
 
         UpdateResult result = mongo.updateFirst(query, update, PostDocument.class);

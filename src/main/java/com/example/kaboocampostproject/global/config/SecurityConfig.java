@@ -50,8 +50,21 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Policy (이용약관 / 개인정보 처리방침) 공개 체인
+     */
     @Bean
-    @Order(1)
+    @Order(1) // docsChain과 같은 레벨 혹은 그 바로 뒤
+    SecurityFilterChain policyChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/policy/**", "/css/**")
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(a -> a.anyRequest().permitAll());
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
     public SecurityFilterChain apiChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
 
         http
