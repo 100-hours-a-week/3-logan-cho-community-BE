@@ -16,7 +16,8 @@ public record PostDetailResDTO (
         long likes,
         boolean amILiking,
         Instant createdAt,
-        boolean isUpdated
+        boolean isUpdated,
+        boolean isMine
 ) {
     @Builder
     public record AuthorProfile(Long id, String name, String profileImageObjectKey) {}

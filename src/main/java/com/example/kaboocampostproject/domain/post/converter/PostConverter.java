@@ -19,7 +19,7 @@ public class PostConverter {
                 .build();
     }
 
-    public static PostDetailResDTO toPostDetail(String cdnBaseUrl, PostDocument post, PostLikeStatsDto postLike, Long authorId, MemberProfileCacheDTO profile) {
+    public static PostDetailResDTO toPostDetail(String cdnBaseUrl, PostDocument post, PostLikeStatsDto postLike, Long authorId, MemberProfileCacheDTO profile, boolean isMine) {
         PostDetailResDTO.AuthorProfile authorProfile =  PostDetailResDTO.AuthorProfile.builder()
                                                         .id(authorId)
                                                         .name(profile.name())
@@ -37,6 +37,7 @@ public class PostConverter {
                 .amILiking(postLike.amILike())
                 .createdAt(post.getCreatedAt())
                 .isUpdated(post.isUpdated())
+                .isMine(isMine)
                 .build();
     }
 

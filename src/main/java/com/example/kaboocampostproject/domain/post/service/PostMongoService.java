@@ -153,7 +153,9 @@ public class PostMongoService {
         // view 증가(로컬 map)
         postViewService.incrementViewCount(postId);
 
-        return PostConverter.toPostDetail(cloudFrontUtil.getDomain(), post, postLikeState, post.getAuthorId(), memberProfileCacheDTO);
+        boolean isMine = memberId.equals(post.getAuthorId());
+
+        return PostConverter.toPostDetail(cloudFrontUtil.getDomain(), post, postLikeState, post.getAuthorId(), memberProfileCacheDTO, isMine);
     }
 
 

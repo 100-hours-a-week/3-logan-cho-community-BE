@@ -15,7 +15,7 @@ public class CommentConverter {
                 .build();
     }
 
-    public static CommentSliceItem toSliceItem(CommentDocument comment, MemberProfileCacheDTO authorProfile) {
+    public static CommentSliceItem toSliceItem(CommentDocument comment, MemberProfileCacheDTO authorProfile, boolean isMine) {
 
         CommentSliceItem.AuthorProfile author = null;
         if (authorProfile != null) {
@@ -32,6 +32,7 @@ public class CommentConverter {
                 .createdAt(comment.getCreatedAt())
                 .isUpdated(comment.isUpdated())
                 .author(author)
+                .isMine(isMine)
                 .build();
     }
 }
