@@ -16,5 +16,5 @@ public record CommentSliceItem(
 ) {
     // 작성자 프로필
     @Builder
-    public record AuthorProfile(Long id, String name, String profileImageObjectKey) {}
+    public record AuthorProfile(Long id, String name, @Nullable String profileImageObjectKey) {}
 }

@@ -45,7 +45,9 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
                 .include(CommentDocument.CommentFields.id)
                 .include(CommentDocument.CommentFields.content)
                 .include(CommentDocument.CommentFields.authorId)
-                .include(CommentDocument.CommentFields.createdAt);
+                .include(CommentDocument.CommentFields.createdAt)
+                .include(CommentDocument.CommentFields.updatedAt)
+                .include(CommentDocument.CommentFields.postId);
     }
 
     // 최신 순 첫 페이지
