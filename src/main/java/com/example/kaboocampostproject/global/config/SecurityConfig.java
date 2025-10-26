@@ -4,10 +4,12 @@ import com.example.kaboocampostproject.domain.auth.jwt.JwtAccessDeniedHandler;
 import com.example.kaboocampostproject.domain.auth.jwt.JwtAuthenticationEntryPoint;
 import com.example.kaboocampostproject.domain.auth.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,14 +35,6 @@ public class SecurityConfig {
     }
 
 
-    // 허용할 URL을 배열의 형태로 관리
-    private final String[] allowedUrls = {
-            //회원가입
-            "api/members",
-            // 로그인 로그아웃
-            "/api/auth" //로그인, 로그아웃, 토큰 재발급
-    };
-
     @Bean
     @Order(0)
     SecurityFilterChain docsChain(HttpSecurity http) throws Exception {
@@ -56,20 +50,36 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Policy (이용약관 / 개인정보 처리방침) 공개 체인
+     */
     @Bean
-    @Order(1)
+    @Order(1) // docsChain과 같은 레벨 혹은 그 바로 뒤
+    SecurityFilterChain policyChain(HttpSecurity http) throws Exception {
+        http
+                .securityMatcher("/policy/**", "/css/**")
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(a -> a.anyRequest().permitAll());
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
     public SecurityFilterChain apiChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
 
         http
                 .securityMatcher("/api/**")
-                .csrf(AbstractHttpConfigurer::disable)//커스텀 필터 따로 사용(기본은 세션기반)
+                .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(httpBasic -> httpBasic.disable())//헤더에 비번 담아서 보내는 basic인증방식 jwt에서는 비활성화
                 .sessionManagement(session -> session//세션 비활성화(무상태)
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())//bean에서 corsConfigurationSource 찾아와서 알아서 등록
                 .authorizeHttpRequests(a -> a
-                        .requestMatchers(allowedUrls).permitAll()
+                        // 회원가입
+                        .requestMatchers(HttpMethod.POST, "/api/members").permitAll()
+                        // 로그인, 로그아웃, jwt재발급
+                        .requestMatchers("/api/auth").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex
@@ -94,5 +104,15 @@ public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    ApplicationRunner printChains(org.springframework.security.web.FilterChainProxy proxy) {
+        return args -> proxy.getFilterChains().forEach(chain -> {
+            System.out.println("=== SecurityFilterChain === " + chain); // toString에 RequestMatcher 요약 포함
+            chain.getFilters().forEach(f ->
+                    System.out.println(" - " + f.getClass().getName())
+            );
+        });
     }
 }

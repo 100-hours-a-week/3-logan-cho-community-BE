@@ -23,7 +23,11 @@ import java.util.*;
 public class CloudFrontUtil {
 
     @Value("${aws.cloudfront.domain}")
-    private static String cloudFrontDomain;
+    private String cloudFrontDomain;
+
+    public String getDomain() {
+        return cloudFrontDomain;
+    }
 
     @Value("${aws.cloudfront.key-pair-id}")
     private String keyPairId;
@@ -111,14 +115,6 @@ public class CloudFrontUtil {
                 .encodeToString(signatureBytes)
                 .replace("\n", "")
                 .replace("\r", "");
-    }
-
-    //오브젝트 키에 클라우드 프론트 도메인을 붙혀줌
-    public static String toImageUrl(String imageObjectKey) {
-        return cloudFrontDomain + "/" + imageObjectKey;
-    }
-    public static List<String> toImageUrls(List<String> imageObjectKey) {
-        return imageObjectKey.stream().map(CloudFrontUtil::toImageUrl).toList();
     }
 
 }

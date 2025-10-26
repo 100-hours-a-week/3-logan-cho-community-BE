@@ -1,7 +1,5 @@
 package com.example.kaboocampostproject.domain.post.dto.res;
 
-import com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto;
-import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import lombok.Builder;
 
 import java.time.Instant;
@@ -17,7 +15,7 @@ public record PostSliceItem(
 ) {
     // 작성자 프로필
     @Builder
-    public record AuthorProfile(Long id, String name, String profileImageUrl) {}
+    public record AuthorProfile(Long id, String name, String profileImageObjectKey) {}
     //좋아요 정보
     @Builder
     public record LikeInfo(long count, boolean amILike) {}

@@ -2,6 +2,7 @@ package com.example.kaboocampostproject.domain.comment.controller;
 
 import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.comment.dto.CommentReqDTO;
+import com.example.kaboocampostproject.domain.comment.dto.CommentSliceResDTO;
 import com.example.kaboocampostproject.domain.comment.service.CommentMongoService;
 import com.example.kaboocampostproject.global.response.CustomResponse;
 import jakarta.validation.Valid;
@@ -12,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/posts/{postId}/comments")
+@RequestMapping("/api/posts")
 public class CommentController {
 
     private final CommentMongoService commentService;
 
     // 댓글 생성
-    @PostMapping
+    @PostMapping("/{postId}/comments")
     public ResponseEntity<CustomResponse<Void>> createComment(
             @PathVariable String postId,
             @MemberIdInfo Long memberId,
@@ -29,9 +30,8 @@ public class CommentController {
     }
 
     // 댓글 수정
-    @PutMapping("/{commentId}")
+    @PutMapping("/comments/{commentId}")
     public ResponseEntity<CustomResponse<Void>> updateComment(
-            @PathVariable String postId,
             @PathVariable String commentId,
             @MemberIdInfo Long memberId,
             @RequestBody @Valid CommentReqDTO commentReqDTO
@@ -41,14 +41,27 @@ public class CommentController {
     }
 
     // 댓글 삭제
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<CustomResponse<Void>> deleteComment(
-            @PathVariable String postId,
             @PathVariable String commentId,
             @MemberIdInfo Long memberId
     ) {
         commentService.deleteComment(memberId, commentId);
 
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
+    }
+
+
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<CustomResponse<CommentSliceResDTO>> getCommentList(
+            @PathVariable String postId,
+            @RequestParam(required=false) String cursor,
+            @MemberIdInfo Long memberId
+    ) {
+        CommentSliceResDTO result = (cursor != null)
+                ? commentService.findNextByPost(memberId, postId, cursor)
+                : commentService.findFirstByPost(memberId, postId);
+
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, result));
     }
 }

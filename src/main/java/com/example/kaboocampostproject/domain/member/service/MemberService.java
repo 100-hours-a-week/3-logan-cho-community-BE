@@ -3,11 +3,11 @@ package com.example.kaboocampostproject.domain.member.service;
 import com.example.kaboocampostproject.domain.auth.entity.AuthMember;
 import com.example.kaboocampostproject.domain.auth.repository.AuthMemberRepository;
 import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReqDTO;
+import com.example.kaboocampostproject.domain.member.dto.response.MemberProfileAndEmailResDTO;
 import com.example.kaboocampostproject.domain.member.entity.Member;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheService;
 import com.example.kaboocampostproject.domain.member.converter.MemberConverter;
 import com.example.kaboocampostproject.domain.member.dto.request.MemberRegisterReqDTO;
-import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import com.example.kaboocampostproject.domain.member.entity.UserRole;
 import com.example.kaboocampostproject.domain.member.error.MemberErrorCode;
 import com.example.kaboocampostproject.domain.member.error.MemberException;
@@ -46,31 +46,25 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public MemberProfileCacheDTO getMemberProfile(Long memberId) {
-        MemberProfileCacheDTO profile = memberProfileCacheService.getProfile(memberId);
-        if (profile == null) {
-            throw new MemberException(MemberErrorCode.MEMBER_NOT_FOND);
-        }
-        return profile;
+    public MemberProfileAndEmailResDTO getMemberProfileAndEmail(Long memberId) {
+        return memberRepository.getMemberProfileAndEmail(memberId)
+                .orElseThrow(()-> new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
     }
 
     public void updateMemberName(Long memberId, UpdateMemberReqDTO.MemberName memberName) {
         Member member = memberRepository.findById(memberId).orElseThrow(() ->
                 new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
         member.updateName(memberName.name());
-        memberProfileCacheService.cacheProfile(MemberConverter.toProfile(member));
+         memberProfileCacheService.cacheProfile(MemberConverter.toProfile(member));
     }
 
     public void updateMemberImage(Long memberId, UpdateMemberReqDTO.MemberProfileImage memberImageObjectKey) {
         Member member = memberRepository.findById(memberId).orElseThrow(() ->
                 new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
 
-        //기존에 프로필사진이 있었다면, 오프젝트 키는 변경되지 않으므로 그대로 저장
-        if (member.getImageObjectKey() != null){
-            // 업로드 검사
-            s3Service.verifyS3Upload(member.getImageObjectKey());
-            return;
-        }
+        // 업로드 검사
+        s3Service.verifyS3Upload(member.getImageObjectKey());
+
         // 없었다면 추가
         member.updateImageObjectKey(memberImageObjectKey.imageObjectKey());
         memberProfileCacheService.cacheProfile(MemberConverter.toProfile(member));

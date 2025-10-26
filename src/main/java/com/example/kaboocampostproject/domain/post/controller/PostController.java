@@ -5,6 +5,7 @@ import com.example.kaboocampostproject.domain.post.dto.req.PostCreatReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.req.PostUpdateReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostDetailResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSliceItem;
+import com.example.kaboocampostproject.domain.post.dto.res.PostSliceResDTO;
 import com.example.kaboocampostproject.domain.post.service.PostMongoService;
 import com.example.kaboocampostproject.global.cursor.Cursor;
 import com.example.kaboocampostproject.global.cursor.PageSlice;
@@ -37,12 +38,12 @@ public class PostController {
     }
 
     @GetMapping
-    public ResponseEntity<CustomResponse<PageSlice<PostSliceItem>>> getPostList(
+    public ResponseEntity<CustomResponse<PostSliceResDTO>> getPostList(
             @RequestParam(required=false) String cursor,
-            @RequestParam(required=false, defaultValue="createdAt") Cursor.CursorStrategy strategy,
+            @RequestParam(required=false, defaultValue="RECENT") Cursor.CursorStrategy strategy,
             @MemberIdInfo Long memberId
     ) {
-        PageSlice<PostSliceItem> result = (cursor != null)
+        PostSliceResDTO result = (cursor != null)
                 ? postMongoService.findNext(memberId, cursor)
                 : postMongoService.findFirst(memberId, strategy);
 

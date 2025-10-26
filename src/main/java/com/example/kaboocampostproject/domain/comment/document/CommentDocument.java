@@ -58,4 +58,8 @@ public class CommentDocument {
     public void setDeletedAt(Instant deletedAt) {
         this.deletedAt = deletedAt;
     }
+
+    public boolean isUpdated() {
+        return updatedAt.isAfter(createdAt);
+    }
 }

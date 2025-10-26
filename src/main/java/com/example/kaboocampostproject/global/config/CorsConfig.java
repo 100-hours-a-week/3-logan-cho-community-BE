@@ -22,7 +22,7 @@ public class CorsConfig {//cross-origin 응답을 JS에서 읽을 수 있는지 
         // 크리덴셜 필요한 경로들
         List<String> CRED_PATHS = List.of(
                 "/api/auth",
-                "/api/cloud-front/images/signed-cookie"
+                "/api/images/signed-cookie"
         );
         CorsConfiguration cred = new CorsConfiguration();
         cred.setAllowedOriginPatterns(PROD_ORIGINS);

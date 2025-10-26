@@ -2,9 +2,9 @@ package com.example.kaboocampostproject.domain.member.controller;
 
 import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.auth.service.AuthMemberService;
-import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import com.example.kaboocampostproject.domain.member.dto.request.MemberRegisterReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReqDTO;
+import com.example.kaboocampostproject.domain.member.dto.response.MemberProfileAndEmailResDTO;
 import com.example.kaboocampostproject.domain.member.service.MemberService;
 import com.example.kaboocampostproject.global.response.CustomResponse;
 import jakarta.validation.Valid;
@@ -28,9 +28,9 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity<CustomResponse<MemberProfileCacheDTO>> getMemberProfile(@MemberIdInfo Long memberId) {
+    public ResponseEntity<CustomResponse<MemberProfileAndEmailResDTO>> getMemberProfileAndEmail(@MemberIdInfo Long memberId) {
 
-        MemberProfileCacheDTO profile = memberService.getMemberProfile(memberId);
+        MemberProfileAndEmailResDTO profile = memberService.getMemberProfileAndEmail(memberId);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, profile));
     }
 

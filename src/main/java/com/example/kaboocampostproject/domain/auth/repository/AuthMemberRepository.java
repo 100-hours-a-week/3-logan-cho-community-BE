@@ -9,4 +9,5 @@ public interface AuthMemberRepository extends JpaRepository<AuthMember, Long> {
 
     Optional<AuthMember> findByMemberId(Long memberId);
     Optional<AuthMember> findByEmail(String email);
+    boolean existsByEmail(String email);
 }

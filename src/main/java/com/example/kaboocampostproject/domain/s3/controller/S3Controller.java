@@ -6,6 +6,7 @@ import com.example.kaboocampostproject.domain.s3.dto.req.UploadListReqDTO;
 import com.example.kaboocampostproject.domain.s3.dto.req.UploadReqDTO;
 import com.example.kaboocampostproject.domain.s3.dto.res.PresignedUrlListResDTO;
 import com.example.kaboocampostproject.domain.s3.dto.res.PresignedUrlResDTO;
+import com.example.kaboocampostproject.domain.s3.enums.FileDomain;
 import com.example.kaboocampostproject.domain.s3.service.S3Service;
 import com.example.kaboocampostproject.global.response.CustomResponse;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,36 +22,29 @@ import org.springframework.web.bind.annotation.*;
 public class S3Controller {
 
     private final S3Service s3Service;
-    /*
-    * ***진짜 근본적인 고민****
-    * "과연 대용량 파일도 아닌 10MB 이하의 이미지 파일을 저장하는데 pre-signed url을 사용해서 rtt를 2-3회나 발생시키는 것이 과연 이득인가?"
-    * 서버가 직접 올리지는 않으니 서버의 부하는 줄어들긴 할 것이다. 하지만 그것이 그렇게 메리트가 있는가?
-    * */
-    // 이렇게 Presigned url 발급 api를 나누는 것이 좋을지
-    // /api/images/presigned-url?resource=member&initial=true
-    // 와 같은 방식이 좋을지 궁금합니다
+
     @PostMapping("/members/images/presigned-url")
     public ResponseEntity<CustomResponse<PresignedUrlResDTO>> getProfilePresignedUrl(
-            @RequestBody @Valid UploadReqDTO request,
-            @MemberIdInfo Long memberId) {
+            @RequestBody @Valid UploadReqDTO request) {
 
-        PresignedUrlResDTO resDTO = s3Service.generateProfilePresignedUrl(memberId, request);
+        FileDomain fileDomain = FileDomain.PROFILE;
+
+        PresignedUrlResDTO resDTO = s3Service.generatePresignedUrl(fileDomain, request);
 
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, resDTO));
     }
-    // 게시물 등록 이전 이미치 첨부 시, {postId}를 모르므로 바디에 nullable 하게 넣기..?
-    // 사실 굳이 오브젝트 키에 postId가 필요없긴한데.. 추후 s3에서 파일 관리를 위해서(안할 것 같지만) 넣어두는 것이 나을지...
-    @PostMapping("/posts/{postId}/images/presigned-url")
+
+    @PostMapping("/posts/images/presigned-url")
     public ResponseEntity<CustomResponse<PresignedUrlListResDTO>> getPostImagePresignedUrl(
-            @PathVariable Long postId,
             @RequestBody @Valid UploadListReqDTO request) {
 
-        PresignedUrlListResDTO resDTO = s3Service.generatePostPresignedUrls(postId, request);
+        FileDomain fileDomain = FileDomain.POST;
+
+        PresignedUrlListResDTO resDTO = s3Service.generatePresignedUrls(fileDomain, request);
 
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, resDTO));
     }
-    // 이미지 조회용 CloudFront Signed Cookie 발급
-    // /api/auth/signed-cookie가 나을지 고민입니다.
+
     @PostMapping("/images/signed-cookie")
     public ResponseEntity<CustomResponse<Void>> issueSignedCookieForView(
             HttpServletResponse response) {

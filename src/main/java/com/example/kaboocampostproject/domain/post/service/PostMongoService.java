@@ -13,10 +13,12 @@ import com.example.kaboocampostproject.domain.post.dto.req.PostUpdateReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostDetailResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSimple;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSliceItem;
+import com.example.kaboocampostproject.domain.post.dto.res.PostSliceResDTO;
 import com.example.kaboocampostproject.domain.post.error.PostErrorCode;
 import com.example.kaboocampostproject.domain.post.error.PostException;
 import com.example.kaboocampostproject.domain.post.repository.PostMongoRepository;
 import com.example.kaboocampostproject.domain.s3.service.S3Service;
+import com.example.kaboocampostproject.domain.s3.util.CloudFrontUtil;
 import com.example.kaboocampostproject.domain.s3.util.S3Util;
 import com.example.kaboocampostproject.global.cursor.Cursor;
 import com.example.kaboocampostproject.global.cursor.CursorCodec;
@@ -44,6 +46,7 @@ public class PostMongoService {
     private final S3Util s3Util;
 
     private static final int PAGE_SIZE = 10;
+    private final CloudFrontUtil cloudFrontUtil;
 
     public void create(Long authorId, PostCreatReqDTO postCreatReqDTO) {
         PostDocument post = PostConverter.toEntity(authorId, postCreatReqDTO);
@@ -110,7 +113,7 @@ public class PostMongoService {
         if (!updated) throw new PostException(PostErrorCode.POST_UPDATED_FAIL);
 
         // 삭제할 이미지 있다면 삭제
-        removedImages.forEach(s3Util::delete);
+        removedImages.forEach(s3Util::delete);/// 이것도 직접 삭제하지 말고, 캐싱해뒀다가 배치 삭제하기 전략 적용 고민 (verifyS3Upload() 내부 삭제로직도 마찬가지 )
 
         // 댓글도 모두 소프트딜리트
         commentRepository.softDeleteByPostId(postId);
@@ -145,17 +148,21 @@ public class PostMongoService {
                 .findPostLikeStatsByPostId(postId, memberId)
                 .orElse(new PostLikeStatsDto(postId, 0L, false));
 
+        MemberProfileCacheDTO memberProfileCacheDTO = memberProfileCacheService.getProfile(post.getAuthorId());
+
         // view 증가(로컬 map)
         postViewService.incrementViewCount(postId);
 
-        return PostConverter.toPostDetail(post, postLikeState);//
+        boolean isMine = memberId.equals(post.getAuthorId());
+
+        return PostConverter.toPostDetail(cloudFrontUtil.getDomain(), post, postLikeState, post.getAuthorId(), memberProfileCacheDTO, isMine);
     }
 
 
     // =====================커서로 조회하는 메서드=====================
 
     // 첫 페이지 조회
-    public PageSlice<PostSliceItem> findFirst(Long memberId, Cursor.CursorStrategy strategy) {
+    public PostSliceResDTO findFirst(Long memberId, Cursor.CursorStrategy strategy) {
         List<PostSimple> posts = switch (strategy) {
             case RECENT -> postRepository.findFirstByCreatedAt(PAGE_SIZE + 1);
             case POPULAR -> postRepository.findFirstByView(PAGE_SIZE + 1);
@@ -165,7 +172,7 @@ public class PostMongoService {
     }
 
     // 다음 페이지 조회
-    public PageSlice<PostSliceItem> findNext(Long memberId, String cursorToken) {
+    public PostSliceResDTO findNext(Long memberId, String cursorToken) {
         Cursor cursor = codec.decode(cursorToken);
 
         List<PostSimple> posts = switch (cursor.strategy()) {
@@ -183,7 +190,7 @@ public class PostMongoService {
     }
 
     // 멤버프로필, like 개수 등 부가정보 가져와서 PageSlice 생성하기
-    private PageSlice<PostSliceItem> buildPageSlice(Long memberId, List<PostSimple> posts, Cursor.CursorStrategy strategy) {
+    private PostSliceResDTO buildPageSlice(Long memberId, List<PostSimple> posts, Cursor.CursorStrategy strategy) {
         boolean hasNext = posts.size() > PAGE_SIZE;
 
         // 마지막 여부 확인위해, 하나 더 가져왔으니 자르기.
@@ -201,7 +208,10 @@ public class PostMongoService {
         }
 
         if (content.isEmpty()) {
-            return new PageSlice<>(null, List.of(), nextCursor, false);
+            return PostSliceResDTO.builder()
+                    .cdnBaseUrl(cloudFrontUtil.getDomain())
+                    .posts(PageSlice.empty())
+                    .build();
         }
 
 
@@ -216,19 +226,29 @@ public class PostMongoService {
         Map<String, PostLikeStatsDto> likeMap = likeStats.stream()
                 .collect(Collectors.toMap(PostLikeStatsDto::postId, dto -> dto));
 
+
+
         //PostSliceItem로 병합
         List<PostSliceItem> items = content.stream()
                 .map(post -> {
+                    // 좋아요 매칭
                     PostLikeStatsDto like = likeMap.getOrDefault(
                             post.postId(),
                             new PostLikeStatsDto(post.postId(), 0L, false)
                     );
+                    // 프로필 매칭
                     MemberProfileCacheDTO authorProfile = authorProfiles.get(post.authorId());
+                    // 병합
                     return PostConverter.toPostSliceItem(post, like, authorProfile);
                 })
                 .toList();
 
-        return new PageSlice<>(null, items, nextCursor, hasNext);
+        PageSlice<PostSliceItem> pageSlice = new PageSlice<>(items, nextCursor, hasNext);
+
+        return PostSliceResDTO.builder()
+                .cdnBaseUrl(cloudFrontUtil.getDomain())
+                .posts(pageSlice)
+                .build();
     }
 
 }

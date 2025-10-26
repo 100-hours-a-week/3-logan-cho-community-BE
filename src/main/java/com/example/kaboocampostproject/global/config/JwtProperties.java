@@ -2,16 +2,13 @@ package com.example.kaboocampostproject.global.config;
 
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 
-// auth.token.* 를 yml에 넣어주세요 (아래 예시 참고)
 @Configuration
 @Getter
 public class JwtProperties {
