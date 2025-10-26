@@ -53,15 +53,15 @@ public class CommentMongoService {
     // =====================커서로 조회하는 메서드=====================
 
     // 최신 순 첫페이지
-    public CommentSliceResDTO findFirstByPost(String postId) {
+    public CommentSliceResDTO findFirstByPost(Long memberId, String postId) {
         List<CommentDocument> docs =
                 commentRepository.findFirstByPostIdOrderByCreatedAtDesc(postId, PAGE_SIZE + 1);
 
-        return buildSlice(postId, docs);
+        return buildSlice(memberId, postId, docs);
     }
 
     // 최신 순 다음 페이지
-    public CommentSliceResDTO findNextByPost(String postId, String cursorToken) {
+    public CommentSliceResDTO findNextByPost(Long memberId, String postId, String cursorToken) {
         Cursor cursor = cursorCodec.decode(cursorToken);
         if (cursor.strategy() != Cursor.CursorStrategy.RECENT) {
             throw new IllegalArgumentException("지원하지 않는 커서 전략입니다: " + cursor.strategy());
@@ -72,11 +72,11 @@ public class CommentMongoService {
                 commentRepository.findNextByPostIdOrderByCreatedAtDesc(
                         postId, pos.createdAt(), pos.id(), PAGE_SIZE + 1);
 
-        return buildSlice(postId, docs);
+        return buildSlice(memberId, postId, docs);
     }
 
     // 멤버프로필 가져와서 PageSlice 생성하기
-    private CommentSliceResDTO buildSlice(String postId, List<CommentDocument> docsPlusOne) {
+    private CommentSliceResDTO buildSlice(Long memberId, String postId, List<CommentDocument> docsPlusOne) {
         boolean hasNext = docsPlusOne.size() > PAGE_SIZE;
         List<CommentDocument> content = hasNext ? docsPlusOne.subList(0, PAGE_SIZE) : docsPlusOne;
 

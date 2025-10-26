@@ -55,11 +55,12 @@ public class CommentController {
     @GetMapping("/{postId}/comments")
     public ResponseEntity<CustomResponse<CommentSliceResDTO>> getCommentList(
             @PathVariable String postId,
-            @RequestParam(required=false) String cursor
+            @RequestParam(required=false) String cursor,
+            @MemberIdInfo Long memberId
     ) {
         CommentSliceResDTO result = (cursor != null)
-                ? commentService.findNextByPost(postId, cursor)
-                : commentService.findFirstByPost(postId);
+                ? commentService.findNextByPost(memberId, postId, cursor)
+                : commentService.findFirstByPost(memberId, postId);
 
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, result));
     }
