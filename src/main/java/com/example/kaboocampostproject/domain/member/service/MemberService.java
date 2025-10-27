@@ -2,6 +2,8 @@ package com.example.kaboocampostproject.domain.member.service;
 
 import com.example.kaboocampostproject.domain.auth.entity.AuthMember;
 import com.example.kaboocampostproject.domain.auth.repository.AuthMemberRepository;
+import com.example.kaboocampostproject.domain.like.entity.PostLike;
+import com.example.kaboocampostproject.domain.like.repository.PostLikeRepository;
 import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.response.MemberProfileAndEmailResDTO;
 import com.example.kaboocampostproject.domain.member.entity.Member;
@@ -18,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -27,6 +31,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final AuthMemberRepository authMemberRepository;
     private final S3Service s3Service;
+    private final PostLikeRepository postLikeRepository;
 
     public void createMember(MemberRegisterReqDTO memberDTO) {
         AuthMember authMember = authMemberRepository.findByEmail(memberDTO.email()).orElse(null);
@@ -72,7 +77,12 @@ public class MemberService {
 
     // 소프트 딜리트
     public void deleteMember(Long memberId) {
-        memberRepository.deleteById(memberId);
+        List<PostLike> postLikes = postLikeRepository.findAllByMemberId(memberId);
+        postLikeRepository.deleteAll(postLikes);
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
+        memberRepository.delete(member);
         memberProfileCacheService.removeProfileCached(memberId);
     }
 
