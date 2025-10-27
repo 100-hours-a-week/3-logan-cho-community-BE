@@ -86,7 +86,7 @@ public class S3Service  {
 
         cookies.forEach((name, value) -> {
             ResponseCookie cookie = ResponseCookie.from(name, value)
-                    .domain("cdn.{우리도메인}.com")//cloudFront 도메인
+                    .domain("dyzhozaq7uxin.cloudfront.net")//cloudFront 도메인
                     .path("/public/") // 퍼블릭 하위
                     .httpOnly(true)
                     .secure(true)
