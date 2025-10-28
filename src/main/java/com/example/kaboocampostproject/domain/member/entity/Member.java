@@ -25,7 +25,7 @@ public class Member extends BaseTimeEntity {
     @Column(length = 10, nullable = false)
     private String name;
 
-    @Column(length = 30)
+    @Column(length = 255)
     private String imageObjectKey;
 
 
