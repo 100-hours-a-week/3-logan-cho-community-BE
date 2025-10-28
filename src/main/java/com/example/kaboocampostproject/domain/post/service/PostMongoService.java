@@ -3,6 +3,7 @@ package com.example.kaboocampostproject.domain.post.service;
 
 import com.example.kaboocampostproject.domain.comment.repository.CommentMongoRepository;
 import com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto;
+import com.example.kaboocampostproject.domain.like.entity.PostLike;
 import com.example.kaboocampostproject.domain.like.repository.PostLikeRepository;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheService;
@@ -157,6 +158,26 @@ public class PostMongoService {
 
         return PostConverter.toPostDetail(cloudFrontUtil.getDomain(), post, postLikeState, post.getAuthorId(), memberProfileCacheDTO, isMine);
     }
+
+    // 게시물 좋아요
+    public void likePost(Long memberId, String postId) {
+        boolean isAlreadyLike = postLikeRepository.existsByMemberIdAndPostId(memberId, postId);
+        if(isAlreadyLike) {
+            return;
+        }
+        PostLike postLike = PostLike.of(memberId, postId);
+        postLikeRepository.save(postLike);
+    }
+
+    // 게시물 좋아요
+    public void unLikePost(Long memberId, String postId) {
+        PostLike postLike = postLikeRepository.findByMemberIdAndPostId(memberId, postId);
+        if(postLike == null) {
+            return;
+        }
+        postLikeRepository.delete(postLike);
+    }
+
 
 
     // =====================커서로 조회하는 메서드=====================

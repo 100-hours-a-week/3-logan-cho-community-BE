@@ -8,7 +8,6 @@ import com.example.kaboocampostproject.domain.post.dto.res.PostSliceItem;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSliceResDTO;
 import com.example.kaboocampostproject.domain.post.service.PostMongoService;
 import com.example.kaboocampostproject.global.cursor.Cursor;
-import com.example.kaboocampostproject.global.cursor.PageSlice;
 import com.example.kaboocampostproject.global.response.CustomResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -66,6 +65,20 @@ public class PostController {
     public ResponseEntity<CustomResponse<Void>> deletePost(@PathVariable String postId,
                                                            @MemberIdInfo Long memberId) {
         postMongoService.deletePost(memberId, postId);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
+    }
+
+    @PostMapping("/{postId}/likes")
+    public ResponseEntity<CustomResponse<Void>> likePost(@PathVariable String postId,
+                                                         @MemberIdInfo Long memberId) {
+        postMongoService.likePost(memberId, postId);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.CREATED));
+    }
+
+    @DeleteMapping("/{postId}/likes")
+    public ResponseEntity<CustomResponse<Void>> unLikePost(@PathVariable String postId,
+                                                         @MemberIdInfo Long memberId) {
+        postMongoService.unLikePost(memberId, postId);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
     }
 }

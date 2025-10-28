@@ -3,7 +3,6 @@ package com.example.kaboocampostproject.domain.like.repository;
 
 import com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto;
 import com.example.kaboocampostproject.domain.like.entity.PostLike;
-import com.example.kaboocampostproject.domain.like.entity.PostLikeId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,17 +10,17 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface PostLikeRepository extends JpaRepository<PostLike, PostLikeId> {
+public interface PostLikeRepository extends JpaRepository<PostLike, Long> {
 
     @Query("""
         SELECT new com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto(
-            pl.id.postId,
+            pl.postId,
             COUNT(pl),
-            MAX(CASE WHEN pl.member.id = :memberId THEN true ELSE false END)
+            MAX(CASE WHEN pl.memberId = :memberId THEN true ELSE false END)
         )
         FROM PostLike pl
-        WHERE pl.id.postId IN :postIds
-        GROUP BY pl.id.postId
+        WHERE pl.postId IN :postIds
+        GROUP BY pl.postId
     """)
     List<PostLikeStatsDto> findPostLikeStats(
             @Param("postIds") List<String> postIds,
@@ -30,16 +29,22 @@ public interface PostLikeRepository extends JpaRepository<PostLike, PostLikeId> 
 
     @Query("""
     SELECT new com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto(
-        pl.id.postId,
+        pl.postId,
         COUNT(pl),
-        MAX(CASE WHEN pl.member.id = :memberId THEN true ELSE false END)
+        MAX(CASE WHEN pl.memberId = :memberId THEN true ELSE false END)
     )
     FROM PostLike pl
-    WHERE pl.id.postId = :postId
-    GROUP BY pl.id.postId
+    WHERE pl.postId = :postId
+    GROUP BY pl.postId
 """)
     Optional<PostLikeStatsDto> findPostLikeStatsByPostId(
             @Param("postId") String postId,
             @Param("memberId") Long memberId
     );
+
+    boolean existsByMemberIdAndPostId(Long memberId, String postId); //좋아요 여부
+
+    PostLike findByMemberIdAndPostId(Long memberId, String postId);
+
+    List<PostLike> findAllByMemberId(Long memberId);
 }

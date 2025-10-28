@@ -50,7 +50,7 @@ public class CloudFrontUtil {
                 {
                   "Statement": [
                     {
-                      "Resource": "https://%s/images/*",
+                      "Resource": "https://%s/public/images/*",
                       "Condition": {
                         "DateLessThan": {
                           "AWS:EpochTime": %d

@@ -80,6 +80,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/members").permitAll()
                         // 로그인, 로그아웃, jwt재발급
                         .requestMatchers("/api/auth").permitAll()
+                        // 이메일 중복검사
+                        .requestMatchers("/api/auth/check-email").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex

@@ -95,10 +95,10 @@ public class AuthMemberService {
         AuthMember authMember = authMemberRepository.findById(memberId).orElseThrow(()->
                 new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
 
-        String encodedPassword = passwordEncoder.encode(password.oldPassword());
-        if (!passwordEncoder.matches(authMember.getPassword(), encodedPassword)) {
+        if (!passwordEncoder.matches(password.oldPassword(), authMember.getPassword())) {
             throw new MemberException(MemberErrorCode.PASSWORD_NOT_MATCH);
         }
+        String encodedPassword = passwordEncoder.encode(password.newPassword());
         authMember.updatePassword(encodedPassword);
     }
 

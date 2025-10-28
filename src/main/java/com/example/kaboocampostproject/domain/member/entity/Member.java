@@ -22,19 +22,15 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 12, nullable = false)
     private String name;
 
-    @Column(length = 30)
+    @Column(length = 255)
     private String imageObjectKey;
 
-    // cascadeType.ALL 하지 않은 이유 : member 소프트 딜리트시 AuthMember는 @SQLDelete 없어서 하드딜리트 가능
-    @OneToOne(mappedBy = "member", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private AuthMember authMember;
 
-    // member 소프트딜리트 시, 게시물 좋아요도 소프트딜리트 처리 위해 양방향 매핑 추가
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PostLike> postLikes = new ArrayList<>();
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private AuthMember authMember;
 
     public void updateName(String name) {
         this.name = name;

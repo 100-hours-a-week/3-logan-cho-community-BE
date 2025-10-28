@@ -43,7 +43,7 @@ public class PostViewService {
         viewQueue.offer(postId); // 큐에 작업 추가
     }
 
-    @Scheduled(fixedRate = 60_000)
+    @Scheduled(fixedRate = 10_000)
     public void flushToMongo() {
         if (viewMap.isEmpty()) return;
 

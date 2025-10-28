@@ -2,8 +2,11 @@ package com.example.kaboocampostproject.domain.auth.entity;
 
 import com.example.kaboocampostproject.domain.member.entity.Member;
 import com.example.kaboocampostproject.domain.member.entity.UserRole;
+import com.example.kaboocampostproject.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,7 +14,9 @@ import lombok.*;
 @Getter
 @Builder
 @Table(name = "auth_member")
-public class AuthMember {
+@SQLDelete(sql = "UPDATE auth_member SET deleted_at = NOW() WHERE id = ?")
+@Where(clause = "deleted_at IS NULL")
+public class AuthMember extends BaseTimeEntity {
 
     @Id
     @Column(name = "member_id")
