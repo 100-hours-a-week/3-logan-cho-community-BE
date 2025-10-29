@@ -66,7 +66,7 @@ public class MemberService {
 
         // 없는 멤버는 아닌지 재검증
         AuthMember authMember = authMemberRepository.findByEmailWithDeleted(dto.email());
-        if (authMember != null) {
+        if (authMember == null) {
             throw new MemberException(MemberErrorCode.MEMBER_NOT_FOND);
         }
         Member member = memberRepository.findById(authMember.getId()).orElseThrow(() ->
