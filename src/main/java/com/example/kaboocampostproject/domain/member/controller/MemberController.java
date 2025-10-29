@@ -8,6 +8,8 @@ import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReq
 import com.example.kaboocampostproject.domain.member.dto.response.MemberProfileAndEmailResDTO;
 import com.example.kaboocampostproject.domain.member.service.MemberService;
 import com.example.kaboocampostproject.global.response.CustomResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -71,8 +73,10 @@ public class MemberController {
     }
 
     @DeleteMapping
-    public ResponseEntity<CustomResponse<Void>> deleteMember(@MemberIdInfo Long memberId) {
+    public ResponseEntity<CustomResponse<Void>> deleteMember(@MemberIdInfo Long memberId,
+                                                             HttpServletResponse response) {
         memberService.deleteMember(memberId);
+        authMemberService.logout(response);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
     }
 }
