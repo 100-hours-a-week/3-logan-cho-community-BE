@@ -44,4 +44,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
         """)
     Optional<MemberProfileAndEmailResDTO> getMemberProfileAndEmail(@Param("memberId") Long memberId);
 
+    @Query(
+            value = "SELECT * FROM members WHERE id = :memberId",
+            nativeQuery = true
+    )
+    Optional<Member> findByIdWithDeleted(@Param("memberId") Long memberId);
 }

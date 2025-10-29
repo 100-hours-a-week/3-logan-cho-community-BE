@@ -69,7 +69,7 @@ public class MemberService {
         if (authMember == null) {
             throw new MemberException(MemberErrorCode.MEMBER_NOT_FOND);
         }
-        Member member = memberRepository.findById(authMember.getId()).orElseThrow(() ->
+        Member member = memberRepository.findByIdWithDeleted(authMember.getId()).orElseThrow(() ->
                 new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
 
         authMember.recoverAuthMember();
