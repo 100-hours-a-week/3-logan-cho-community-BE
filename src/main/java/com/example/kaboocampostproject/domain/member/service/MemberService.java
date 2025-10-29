@@ -1,9 +1,11 @@
 package com.example.kaboocampostproject.domain.member.service;
 
+import com.example.kaboocampostproject.domain.auth.email.EmailVerifier;
 import com.example.kaboocampostproject.domain.auth.entity.AuthMember;
 import com.example.kaboocampostproject.domain.auth.repository.AuthMemberRepository;
 import com.example.kaboocampostproject.domain.like.entity.PostLike;
 import com.example.kaboocampostproject.domain.like.repository.PostLikeRepository;
+import com.example.kaboocampostproject.domain.member.dto.request.RecoverMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.response.MemberProfileAndEmailResDTO;
 import com.example.kaboocampostproject.domain.member.entity.Member;
@@ -16,6 +18,7 @@ import com.example.kaboocampostproject.domain.member.error.MemberException;
 import com.example.kaboocampostproject.domain.member.repository.MemberRepository;
 import com.example.kaboocampostproject.domain.s3.service.S3Service;
 import com.example.kaboocampostproject.domain.s3.util.S3Util;
+import com.example.kaboocampostproject.global.metadata.RedisMetadata;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,9 +37,14 @@ public class MemberService {
     private final S3Service s3Service;
     private final S3Util s3Util;
     private final PostLikeRepository postLikeRepository;
+    private final EmailVerifier emailVerifier;
 
     public void createMember(MemberRegisterReqDTO memberDTO) {
-        AuthMember authMember = authMemberRepository.findByEmail(memberDTO.email()).orElse(null);
+
+        // 이메일 인증여부 검증
+        emailVerifier.validateToken(memberDTO.email(), memberDTO.emailVerifiedToken(), RedisMetadata.EMAIL_VERIFIED_TOKEN_SIGNUP);
+
+        AuthMember authMember = authMemberRepository.findByEmailWithDeleted(memberDTO.email());
         if (authMember != null) {
             throw new MemberException(MemberErrorCode.MEMBER_EMAIL_DUPLICATED);
         }
@@ -50,6 +58,22 @@ public class MemberService {
         }
 
         memberRepository.save(member);
+    }
+
+    public void recoverMember(RecoverMemberReqDTO dto) {
+        // 이메일 검증여부 확인
+        emailVerifier.validateToken(dto.email(), dto.verificationCode(), RedisMetadata.EMAIL_VERIFIED_TOKEN_RECOVER);
+
+        // 없는 멤버는 아닌지 재검증
+        AuthMember authMember = authMemberRepository.findByEmailWithDeleted(dto.email());
+        if (authMember != null) {
+            throw new MemberException(MemberErrorCode.MEMBER_NOT_FOND);
+        }
+        Member member = memberRepository.findById(authMember.getId()).orElseThrow(() ->
+                new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
+
+        authMember.recoverAuthMember();
+        member.recoverMember();
     }
 
     @Transactional(readOnly = true)

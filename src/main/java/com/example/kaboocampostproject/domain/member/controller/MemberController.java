@@ -3,6 +3,7 @@ package com.example.kaboocampostproject.domain.member.controller;
 import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.auth.service.AuthMemberService;
 import com.example.kaboocampostproject.domain.member.dto.request.MemberRegisterReqDTO;
+import com.example.kaboocampostproject.domain.member.dto.request.RecoverMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.response.MemberProfileAndEmailResDTO;
 import com.example.kaboocampostproject.domain.member.service.MemberService;
@@ -25,6 +26,15 @@ public class MemberController {
     public ResponseEntity<CustomResponse<Void>> register(@RequestBody @Valid MemberRegisterReqDTO memberDto) {
         memberService.createMember(memberDto);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.CREATED));
+    }
+
+    // 회원 복구
+    @PostMapping("/recover")
+    public ResponseEntity<CustomResponse<Void>> recoverMember(
+            @RequestBody RecoverMemberReqDTO recoverMemberReqDTO
+    ) {
+        memberService.recoverMember(recoverMemberReqDTO);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK));
     }
 
     @GetMapping

@@ -42,4 +42,7 @@ public class AuthMember extends BaseTimeEntity {
     public void updatePassword(String password) {
         this.password = password;
     }
+    public void recoverAuthMember() {
+        this.deletedAt = null;
+    }
 }
