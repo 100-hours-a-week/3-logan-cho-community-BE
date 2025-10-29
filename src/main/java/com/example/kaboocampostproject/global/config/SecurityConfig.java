@@ -82,6 +82,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth").permitAll()
                         // 이메일 인증 코드 발송, 검증
                         .requestMatchers("/api/auth/signup/email-verification-code").permitAll()
+                        .requestMatchers("/api/auth/signup/email-verification-code/retry").permitAll()
                         .requestMatchers("/api/auth/recover/email-verification-code").permitAll()
 
                         .requestMatchers("/api/members/recover").permitAll()

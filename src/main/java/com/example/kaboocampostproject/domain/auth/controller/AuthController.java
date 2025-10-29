@@ -50,23 +50,27 @@ public class AuthController {
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
     }
 
-//    @PostMapping("/check-email")
-//    public ResponseEntity<CustomResponse<Boolean>> checkEmailDuplicate(@RequestBody SendEmailReqDTO emailDto) {
-//        boolean isDuplicate = authMemberService.isEmailDuplicate(emailDto);
-//        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, isDuplicate));
-//    }
 
 
     /// ===== 회원가입용 ======
     // 이메일 인증코드 발송
-    // 재 가입회원 재 요청 필요.
+    // 탈퇴 회원 검증 O (첫 요청)
     @PostMapping("/signup/email-verification-code")
     public ResponseEntity<CustomResponse<SendEmailResDTO>> sendEmailVerificationCodeToSignup(
             @RequestBody SendEmailReqDTO sendEmailReqDTO
     ) {
-        SendEmailResDTO result = authMemberService.checkDuplicationAndSendEmail(sendEmailReqDTO);
+        SendEmailResDTO result = authMemberService.sendEmailWithLeavedCheck(sendEmailReqDTO);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, result));
     }
+    // 탈퇴회원 검증 X (재요청)
+    @PostMapping("/signup/email-verification-code/retry")
+    public ResponseEntity<CustomResponse<Void>> resendEmailVerificationCodeToSignup(
+            @RequestBody SendEmailReqDTO sendEmailReqDTO
+    ) {
+        authMemberService.sendEmailWithoutLeavedCheck(sendEmailReqDTO);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK));
+    }
+
 
     // 인증코드 검증, 토큰 발급
     @PutMapping("/signup/email-verification-code")
@@ -85,11 +89,11 @@ public class AuthController {
     /// ======== 회원 복구용 ========
     // 이메일 인증코드 발송
     @PostMapping("/recover/email-verification-code")
-    public ResponseEntity<CustomResponse<SendEmailResDTO>> sendEmailVerificationCodeToRecover(
+    public ResponseEntity<CustomResponse<Void>> sendEmailVerificationCodeToRecover(
             @RequestBody SendEmailReqDTO sendEmailReqDTO
     ) {
-        SendEmailResDTO result = authMemberService.checkDuplicationAndSendEmail(sendEmailReqDTO);
-        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, result));
+        authMemberService.checkLeavedMemberAndSendEmail(sendEmailReqDTO);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.CREATED));
     }
 
     // 인증코드 검증, 토큰 발급

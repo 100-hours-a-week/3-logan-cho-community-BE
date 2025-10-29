@@ -109,13 +109,10 @@ public class AuthMemberService {
     }
 
     /// ================= 이메일 ==================
-    public boolean isEmailDuplicate(SendEmailReqDTO emailDto) {
 
-        return authMemberRepository.existsByEmail(emailDto.email());
-    }
-
+    // 초기 전송용 (삭제회원 이메일 미전송)
     // 이메일 전송 클릭 시 ->  중복검사 -> 재가입 여부확인 -> 이메일 인증번호 전송
-    public SendEmailResDTO checkDuplicationAndSendEmail(SendEmailReqDTO sendEmailReqDTO) {
+    public SendEmailResDTO sendEmailWithLeavedCheck(SendEmailReqDTO sendEmailReqDTO) {
 
         AuthMember authMember = authMemberRepository.findByEmailWithDeleted(sendEmailReqDTO.email());
         if (authMember != null) {
@@ -130,6 +127,19 @@ public class AuthMemberService {
 
         return new SendEmailResDTO(false);
     }
+    // 삭제여부 미검증
+    public void sendEmailWithoutLeavedCheck(SendEmailReqDTO sendEmailReqDTO) {
+
+        AuthMember authMember = authMemberRepository.findByEmail(sendEmailReqDTO.email()).orElse(null);
+        if (authMember != null) {
+            // 이메일 중복검사
+            if(authMember.getDeletedAt() == null) throw new AuthMemberException(AuthMemberErrorCode.MEMBER_EMAIL_DUPLICATED);
+        }
+
+        // 회원가입용 이메일 인증번호 전송
+        emailVerifier.sendVerificationEmail(sendEmailReqDTO.email(), RedisMetadata.EMAIL_VERIFICATION_CODE_SIGNUP);
+    }
+
 
     public void checkLeavedMemberAndSendEmail(SendEmailReqDTO sendEmailReqDTO) {
         AuthMember authMember = authMemberRepository.findByEmailWithDeleted(sendEmailReqDTO.email());
