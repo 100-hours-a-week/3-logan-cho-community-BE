@@ -257,6 +257,9 @@ public class PostMongoService {
                             post.postId(),
                             new PostLikeStatsDto(post.postId(), 0L, false)
                     );
+                    if (post.authorId()==null){
+                        return PostConverter.toPostSliceItem(post, like, null);
+                    }
                     // 프로필 매칭
                     MemberProfileCacheDTO authorProfile = authorProfiles.get(post.authorId());
                     // 병합

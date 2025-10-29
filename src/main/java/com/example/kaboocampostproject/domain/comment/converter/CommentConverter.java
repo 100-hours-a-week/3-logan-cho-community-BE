@@ -17,14 +17,11 @@ public class CommentConverter {
 
     public static CommentSliceItem toSliceItem(CommentDocument comment, MemberProfileCacheDTO authorProfile, boolean isMine) {
 
-        CommentSliceItem.AuthorProfile author = null;
-        if (authorProfile != null) {
-            author = CommentSliceItem.AuthorProfile.builder()
-                    .id(authorProfile.id())
-                    .name(authorProfile.name())
-                    .profileImageObjectKey(authorProfile.profileImageObjectKey())
-                    .build();
-        }
+        CommentSliceItem.AuthorProfile author = CommentSliceItem.AuthorProfile.builder()
+                .id(authorProfile!=null ? authorProfile.id() : null)
+                .name(authorProfile!=null ? authorProfile.name() : "(탈퇴한 사용자)")
+                .profileImageObjectKey(authorProfile!=null ? authorProfile.profileImageObjectKey() : null)
+                .build();
 
         return CommentSliceItem.builder()
                 .commentId(comment.getId())
