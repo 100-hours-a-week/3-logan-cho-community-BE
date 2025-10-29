@@ -1,4 +1,4 @@
-package com.example.kaboocampostproject.domain.auth.dto;
+package com.example.kaboocampostproject.domain.auth.dto.res;
 
 import com.example.kaboocampostproject.domain.auth.jwt.dto.IssuedJwts;
 

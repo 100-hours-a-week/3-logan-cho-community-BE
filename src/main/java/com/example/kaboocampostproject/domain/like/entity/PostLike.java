@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 @Table(
         name = "post_likes",
         indexes = {
-                @Index(name = "idx_post_likes_composite", columnList = "post_id, member_id, deleted_at")
+                @Index(name = "idx_post_likes_composite", columnList = "post_id, member_id, deleted_at"),
+                @Index(name = "idx_post_likes_member", columnList = "member_id")
         },
         uniqueConstraints = {
                 @UniqueConstraint(

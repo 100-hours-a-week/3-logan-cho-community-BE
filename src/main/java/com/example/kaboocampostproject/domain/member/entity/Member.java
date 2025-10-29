@@ -32,6 +32,13 @@ public class Member extends BaseTimeEntity {
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private AuthMember authMember;
 
+
+    @Builder
+    public Member(String name, @Nullable String imageObjectKey) {
+        this.name = name;
+        this.imageObjectKey = imageObjectKey;
+    }
+
     public void updateName(String name) {
         this.name = name;
     }
@@ -40,12 +47,11 @@ public class Member extends BaseTimeEntity {
         this.imageObjectKey = imageObjectKey;
     }
 
-    @Builder
-    public Member(String name, @Nullable String imageObjectKey) {
-        this.name = name;
-        this.imageObjectKey = imageObjectKey;
-    }
     public void setAuthMember(AuthMember authMember) {
         this.authMember = authMember;
+    }
+
+    public void recoverMember(){
+        this.deletedAt = null;
     }
 }

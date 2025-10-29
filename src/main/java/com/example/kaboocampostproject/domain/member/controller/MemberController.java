@@ -3,10 +3,13 @@ package com.example.kaboocampostproject.domain.member.controller;
 import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.auth.service.AuthMemberService;
 import com.example.kaboocampostproject.domain.member.dto.request.MemberRegisterReqDTO;
+import com.example.kaboocampostproject.domain.member.dto.request.RecoverMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.response.MemberProfileAndEmailResDTO;
 import com.example.kaboocampostproject.domain.member.service.MemberService;
 import com.example.kaboocampostproject.global.response.CustomResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,15 @@ public class MemberController {
     public ResponseEntity<CustomResponse<Void>> register(@RequestBody @Valid MemberRegisterReqDTO memberDto) {
         memberService.createMember(memberDto);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.CREATED));
+    }
+
+    // 회원 복구
+    @PostMapping("/recover")
+    public ResponseEntity<CustomResponse<Void>> recoverMember(
+            @RequestBody RecoverMemberReqDTO recoverMemberReqDTO
+    ) {
+        memberService.recoverMember(recoverMemberReqDTO);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK));
     }
 
     @GetMapping
@@ -61,8 +73,10 @@ public class MemberController {
     }
 
     @DeleteMapping
-    public ResponseEntity<CustomResponse<Void>> deleteMember(@MemberIdInfo Long memberId) {
+    public ResponseEntity<CustomResponse<Void>> deleteMember(@MemberIdInfo Long memberId,
+                                                             HttpServletResponse response) {
         memberService.deleteMember(memberId);
+        authMemberService.logout(response);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
     }
 }

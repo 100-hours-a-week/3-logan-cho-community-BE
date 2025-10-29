@@ -1,4 +1,4 @@
-package com.example.kaboocampostproject.domain.auth.dto;
+package com.example.kaboocampostproject.domain.auth.dto.req;
 
 public record LoginReqDTO (
         String email,

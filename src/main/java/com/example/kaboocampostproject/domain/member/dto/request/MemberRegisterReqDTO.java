@@ -13,5 +13,7 @@ public record MemberRegisterReqDTO(
         @Email @NotBlank String email,
         @ValidPassword String password,
         @ValidName String name,
-        @Nullable String imageObjectKey
+        @Nullable String imageObjectKey,
+        // 이메일 검증 후 받은 토큰
+        String emailVerifiedToken
 ) { }

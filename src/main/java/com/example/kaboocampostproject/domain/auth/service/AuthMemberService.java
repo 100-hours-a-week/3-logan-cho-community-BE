@@ -1,7 +1,11 @@
 package com.example.kaboocampostproject.domain.auth.service;
 
-import com.example.kaboocampostproject.domain.auth.dto.EmailCheckReqDTO;
-import com.example.kaboocampostproject.domain.auth.dto.LoginReqDTO;
+import com.example.kaboocampostproject.domain.auth.dto.req.SendEmailReqDTO;
+import com.example.kaboocampostproject.domain.auth.dto.req.LoginReqDTO;
+import com.example.kaboocampostproject.domain.auth.dto.res.SendEmailResDTO;
+import com.example.kaboocampostproject.domain.auth.email.EmailVerifier;
+import com.example.kaboocampostproject.domain.auth.error.AuthMemberErrorCode;
+import com.example.kaboocampostproject.domain.auth.error.AuthMemberException;
 import com.example.kaboocampostproject.domain.auth.jwt.JwtProvider;
 import com.example.kaboocampostproject.domain.auth.jwt.dto.IssuedJwts;
 import com.example.kaboocampostproject.domain.auth.entity.AuthMember;
@@ -12,6 +16,7 @@ import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReq
 import com.example.kaboocampostproject.domain.member.error.MemberErrorCode;
 import com.example.kaboocampostproject.domain.member.error.MemberException;
 import com.example.kaboocampostproject.global.metadata.JwtMetadata;
+import com.example.kaboocampostproject.global.metadata.RedisMetadata;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,6 +36,7 @@ public class AuthMemberService {
     private final AuthMemberRepository authMemberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
+    private final EmailVerifier emailVerifier;
 
     private static final String REFRESH_COOKIE_PATH = "/api/auth";
 
@@ -102,7 +108,47 @@ public class AuthMemberService {
         authMember.updatePassword(encodedPassword);
     }
 
-    public boolean isEmailDuplicate(EmailCheckReqDTO emailDto) {
-        return authMemberRepository.existsByEmail(emailDto.email());
+    /// ================= 이메일 ==================
+
+    // 초기 전송용 (삭제회원 이메일 미전송)
+    // 이메일 전송 클릭 시 ->  중복검사 -> 재가입 여부확인 -> 이메일 인증번호 전송
+    public SendEmailResDTO sendEmailWithLeavedCheck(SendEmailReqDTO sendEmailReqDTO) {
+
+        AuthMember authMember = authMemberRepository.findByEmailWithDeleted(sendEmailReqDTO.email());
+        if (authMember != null) {
+            // 이메일 중복검사
+            if(authMember.getDeletedAt() == null) throw new AuthMemberException(AuthMemberErrorCode.MEMBER_EMAIL_DUPLICATED);
+            // 삭제된 멤버 알림
+            return new SendEmailResDTO(true);
+        }
+
+        // 회원가입용 이메일 인증번호 전송
+        emailVerifier.sendVerificationEmail(sendEmailReqDTO.email(), RedisMetadata.EMAIL_VERIFICATION_CODE_SIGNUP);
+
+        return new SendEmailResDTO(false);
+    }
+    // 삭제여부 미검증
+    public void sendEmailWithoutLeavedCheck(SendEmailReqDTO sendEmailReqDTO) {
+
+        AuthMember authMember = authMemberRepository.findByEmail(sendEmailReqDTO.email()).orElse(null);
+        if (authMember != null) {
+            // 이메일 중복검사
+            if(authMember.getDeletedAt() == null) throw new AuthMemberException(AuthMemberErrorCode.MEMBER_EMAIL_DUPLICATED);
+        }
+
+        // 회원가입용 이메일 인증번호 전송
+        emailVerifier.sendVerificationEmail(sendEmailReqDTO.email(), RedisMetadata.EMAIL_VERIFICATION_CODE_SIGNUP);
+    }
+
+
+    public void checkLeavedMemberAndSendEmail(SendEmailReqDTO sendEmailReqDTO) {
+        AuthMember authMember = authMemberRepository.findByEmailWithDeleted(sendEmailReqDTO.email());
+        if (authMember == null) {
+            throw new MemberException(MemberErrorCode.MEMBER_NOT_FOND_BY_EMAIL);
+        }else if (authMember.getDeletedAt() == null) {
+            throw new AuthMemberException(AuthMemberErrorCode.INVALID_RECOVER_MEMBER);
+        }
+        // 회원 복구용 이메일 인증번호 전송
+        emailVerifier.sendVerificationEmail(sendEmailReqDTO.email(), RedisMetadata.EMAIL_VERIFICATION_CODE_RECOVER);
     }
 }

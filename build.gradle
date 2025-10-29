@@ -45,12 +45,18 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.3'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 
+    // mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
     // redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
 
     // S3
     implementation "software.amazon.awssdk:s3:2.25.11"
+
+    // 타임리프
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 tasks.named('test') {
