@@ -37,7 +37,6 @@ public class MemberService {
     private final S3Service s3Service;
     private final S3Util s3Util;
     private final PostLikeRepository postLikeRepository;
-    private final EmailVerifier emailVerifier;
 
     public void createMember(MemberRegisterReqDTO memberDTO) {
 
@@ -55,22 +54,6 @@ public class MemberService {
         }
 
         memberRepository.save(member);
-    }
-
-    public void recoverMember(RecoverMemberReqDTO dto) {
-        // 이메일 검증여부 확인
-        emailVerifier.validateToken(dto.email(), dto.verificationCode(), RedisMetadata.EMAIL_VERIFIED_TOKEN_RECOVER);
-
-        // 없는 멤버는 아닌지 재검증
-        AuthMember authMember = authMemberRepository.findByEmailWithDeleted(dto.email());
-        if (authMember == null) {
-            throw new MemberException(MemberErrorCode.MEMBER_NOT_FOND);
-        }
-        Member member = memberRepository.findByIdWithDeleted(authMember.getId()).orElseThrow(() ->
-                new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
-
-        authMember.recoverAuthMember();
-        member.recoverMember();
     }
 
     @Transactional(readOnly = true)

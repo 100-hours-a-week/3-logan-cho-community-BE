@@ -30,15 +30,6 @@ public class MemberController {
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.CREATED));
     }
 
-    // 회원 복구
-    @PostMapping("/recover")
-    public ResponseEntity<CustomResponse<Void>> recoverMember(
-            @RequestBody RecoverMemberReqDTO recoverMemberReqDTO
-    ) {
-        memberService.recoverMember(recoverMemberReqDTO);
-        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK));
-    }
-
     @GetMapping
     public ResponseEntity<CustomResponse<MemberProfileAndEmailResDTO>> getMemberProfileAndEmail(@MemberIdInfo Long memberId) {
 
