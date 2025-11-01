@@ -1,6 +1,5 @@
 package com.example.kaboocampostproject.domain.member.service;
 
-import com.example.kaboocampostproject.domain.auth.email.EmailVerifier;
 import com.example.kaboocampostproject.domain.auth.entity.AuthMember;
 import com.example.kaboocampostproject.domain.auth.repository.AuthMemberRepository;
 import com.example.kaboocampostproject.domain.like.entity.PostLike;
