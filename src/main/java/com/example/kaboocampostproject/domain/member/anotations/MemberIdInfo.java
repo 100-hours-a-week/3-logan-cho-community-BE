@@ -1,4 +1,4 @@
-package com.example.kaboocampostproject.domain.auth.jwt.anotations;
+package com.example.kaboocampostproject.domain.member.anotations;
 
 import io.swagger.v3.oas.annotations.Parameter;
 

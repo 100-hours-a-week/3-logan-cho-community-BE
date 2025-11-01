@@ -1,7 +1,6 @@
 package com.example.kaboocampostproject.domain.s3.controller;
 
 
-import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.s3.dto.req.UploadListReqDTO;
 import com.example.kaboocampostproject.domain.s3.dto.req.UploadReqDTO;
 import com.example.kaboocampostproject.domain.s3.dto.res.PresignedUrlListResDTO;

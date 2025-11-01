@@ -1,6 +1,6 @@
 package com.example.kaboocampostproject.domain.comment.controller;
 
-import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
+import com.example.kaboocampostproject.domain.member.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.comment.dto.CommentReqDTO;
 import com.example.kaboocampostproject.domain.comment.dto.CommentSliceResDTO;
 import com.example.kaboocampostproject.domain.comment.service.CommentMongoService;

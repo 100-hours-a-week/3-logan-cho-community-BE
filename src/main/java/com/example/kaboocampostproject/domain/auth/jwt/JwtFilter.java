@@ -1,5 +1,6 @@
 package com.example.kaboocampostproject.domain.auth.jwt;
 
+import com.example.kaboocampostproject.domain.auth.jwt.dto.AccessClaims;
 import com.example.kaboocampostproject.domain.auth.jwt.exception.JwtErrorCode;
 import com.example.kaboocampostproject.domain.auth.jwt.exception.JwtException;
 import jakarta.servlet.FilterChain;

@@ -1,7 +1,8 @@
-package com.example.kaboocampostproject.domain.auth.jwt.anotations.resolver;
+package com.example.kaboocampostproject.domain.member.anotations.resolver;
 
 import com.example.kaboocampostproject.domain.auth.jwt.JwtProvider;
-import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
+import com.example.kaboocampostproject.domain.member.anotations.MemberIdInfo;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -25,12 +26,7 @@ public class MemberIdArgumentResolver implements HandlerMethodArgumentResolver {
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
-        String token = webRequest.getHeader("Authorization");
-        if (token != null && token.startsWith("Bearer ")) {
-            token = token.substring(7);
-            Long memberId = jwtProvider.getMemberId(token);
-            return memberId;
-        }
-        return null;
+        HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+        return request.getAttribute("memberId");
     }
 }
