@@ -29,8 +29,10 @@ public class JwtFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer ")) {
             String accessToken = header.substring(7);
             try {
-                Authentication auth = jwtProvider.getAuthentication(accessToken);
+                AccessClaims claims = jwtProvider.parseAndValidateAccess(accessToken);
+                Authentication auth = jwtProvider.getAuthentication(claims);
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                request.setAttribute("memberId", claims.userId());
             } catch (JwtException e) {
                 SecurityContextHolder.clearContext();
                 request.setAttribute("exception", e.getErrorCode());
