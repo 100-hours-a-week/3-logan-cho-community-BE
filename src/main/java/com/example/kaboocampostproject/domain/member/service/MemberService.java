@@ -41,9 +41,6 @@ public class MemberService {
 
     public void createMember(MemberRegisterReqDTO memberDTO) {
 
-        // 이메일 인증여부 검증
-        emailVerifier.validateToken(memberDTO.email(), memberDTO.emailVerifiedToken(), RedisMetadata.EMAIL_VERIFIED_TOKEN_SIGNUP);
-
         AuthMember authMember = authMemberRepository.findByEmailWithDeleted(memberDTO.email());
         if (authMember != null) {
             throw new MemberException(MemberErrorCode.MEMBER_EMAIL_DUPLICATED);
