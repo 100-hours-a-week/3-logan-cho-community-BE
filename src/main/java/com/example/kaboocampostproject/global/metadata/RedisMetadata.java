@@ -23,6 +23,9 @@ public enum RedisMetadata {
     EMAIL_VERIFIED_TOKEN_SIGNUP("EMAIL_VERIFIED_TOKEN:SIGNUP:", DataType.STRING, Duration.ofMinutes(10)),
     EMAIL_VERIFICATION_CODE_RECOVER("EMAIL_VERIFICATION_CODE:RECOVER:", DataType.STRING, Duration.ofMinutes(5)),
     EMAIL_VERIFIED_TOKEN_RECOVER("EMAIL_VERIFIED_TOKEN:RECOVER:", DataType.STRING, Duration.ofMinutes(10)),
+
+
+    LOGIN_SESSION("LOGIN_SESSION:", DataType.HASH, Duration.ofDays(30)),
     ;
 
     private final String prefix;
