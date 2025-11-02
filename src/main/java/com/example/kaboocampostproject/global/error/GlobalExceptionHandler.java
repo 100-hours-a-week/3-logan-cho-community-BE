@@ -1,6 +1,5 @@
 package com.example.kaboocampostproject.global.error;
 
-import com.example.kaboocampostproject.domain.auth.jwt.exception.JwtException;
 import com.example.kaboocampostproject.global.response.CustomResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -40,13 +39,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(GeneralErrorCode.VALIDATION_FAILED.getHttpStatus())
                 .body(GeneralErrorCode.VALIDATION_FAILED.getCode());
-    }
-
-    @ExceptionHandler(JwtException.class)
-    public ResponseEntity<?> handleJwtException(JwtException e) {
-        BaseErrorCode errorCode = e.getErrorCode();
-        return ResponseEntity.status(errorCode.getHttpStatus())
-                .body(CustomResponse.onFailure(errorCode.getCode(), errorCode.getMessage()));
     }
 
     @ExceptionHandler(CustomException.class)

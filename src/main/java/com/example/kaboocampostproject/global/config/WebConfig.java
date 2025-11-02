@@ -1,6 +1,6 @@
 package com.example.kaboocampostproject.global.config;
 
-import com.example.kaboocampostproject.domain.auth.jwt.anotations.resolver.MemberIdArgumentResolver;
+import com.example.kaboocampostproject.domain.auth.anotations.resolver.MemberIdArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

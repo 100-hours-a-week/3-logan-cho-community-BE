@@ -1,14 +1,12 @@
 package com.example.kaboocampostproject.domain.member.controller;
 
-import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
+import com.example.kaboocampostproject.domain.auth.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.auth.service.AuthMemberService;
 import com.example.kaboocampostproject.domain.member.dto.request.MemberRegisterReqDTO;
-import com.example.kaboocampostproject.domain.member.dto.request.RecoverMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.request.UpdateMemberReqDTO;
 import com.example.kaboocampostproject.domain.member.dto.response.MemberProfileAndEmailResDTO;
 import com.example.kaboocampostproject.domain.member.service.MemberService;
 import com.example.kaboocampostproject.global.response.CustomResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
