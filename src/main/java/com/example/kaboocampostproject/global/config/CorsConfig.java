@@ -11,7 +11,8 @@ import java.util.List;
 @Configuration
 public class CorsConfig {//cross-origin 응답을 JS에서 읽을 수 있는지 통제
     private static final List<String> PROD_ORIGINS = List.of(
-            "http://localhost:*"
+            "http://localhost:*",
+            "http://3.35.185.103:3000"
     );
 
     @Bean
