@@ -1,5 +1,7 @@
 package com.example.kaboocampostproject.global.config;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -9,39 +11,35 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @Configuration
+@RequiredArgsConstructor
+@EnableConfigurationProperties(CorsProperties.class)
 public class CorsConfig {//cross-origin 응답을 JS에서 읽을 수 있는지 통제
-    private static final List<String> PROD_ORIGINS = List.of(
-            "http://localhost:*",
-            "http://3.35.185.103:3000"
-    );
+    private final CorsProperties corsProperties;
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-        //쿠키 허용 api
-        // 크리덴셜 필요한 경로들
-        List<String> CRED_PATHS = List.of(
-                "/api/auth",
-                "/api/images/signed-cookie"
-        );
-        CorsConfiguration cred = new CorsConfiguration();
-        cred.setAllowedOriginPatterns(PROD_ORIGINS);
-        cred.setAllowCredentials(true);// 쿠키를 포함한 요청 허용
-        cred.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
-        cred.setAllowedHeaders(List.of("*"));
-        cred.setMaxAge(3600L);
-        for (String path : CRED_PATHS) {
-            source.registerCorsConfiguration(path, cred);
+        // 공통 베이스 설정
+        CorsConfiguration base = new CorsConfiguration();
+        base.setAllowedOriginPatterns(corsProperties.getAllowedOriginPatterns());
+        base.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        base.setAllowedHeaders(List.of("*"));
+        base.setMaxAge(3600L);
+
+        // 쿠키 허용 경로
+        CorsConfiguration cred = new CorsConfiguration(base);
+        cred.setAllowCredentials(true);
+
+        if (corsProperties.getCredPaths() != null) {
+            for (String path : corsProperties.getCredPaths()) {
+                source.registerCorsConfiguration(path, cred);
+            }
         }
 
-        //쿠키 비 허용
-        CorsConfiguration nonCred = new CorsConfiguration();
-        nonCred.setAllowedOriginPatterns(PROD_ORIGINS);
-        nonCred.setAllowCredentials(false);// 쿠키를 포함한 요청 거부
-        nonCred.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
-        nonCred.setAllowedHeaders(List.of("*"));
-        nonCred.setMaxAge(3600L);
+        // 쿠키 불필요 경로
+        CorsConfiguration nonCred = new CorsConfiguration(base);
+        nonCred.setAllowCredentials(false);
         source.registerCorsConfiguration("/api/**", nonCred);
 
         return source;
