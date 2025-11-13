@@ -4,6 +4,7 @@ package com.example.kaboocampostproject.domain.like.repository;
 import com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto;
 import com.example.kaboocampostproject.domain.like.entity.PostLike;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -47,4 +48,13 @@ public interface PostLikeRepository extends JpaRepository<PostLike, Long> {
     PostLike findByMemberIdAndPostId(Long memberId, String postId);
 
     List<PostLike> findAllByMemberId(Long memberId);
+
+    @Modifying
+    @Query("""
+        UPDATE PostLike 
+        SET deletedAt = CURRENT_TIMESTAMP 
+        WHERE memberId = :memberId
+        AND deletedAt is null
+        """)
+    void softDeleteAllByMemberId(@Param("memberId") Long memberId);
 }
