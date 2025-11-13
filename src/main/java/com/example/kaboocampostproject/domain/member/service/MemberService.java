@@ -105,8 +105,8 @@ public class MemberService {
 
     // 소프트 딜리트
     public void deleteMember(Long memberId) {
-        List<PostLike> postLikes = postLikeRepository.findAllByMemberId(memberId);
-        postLikeRepository.deleteAll(postLikes);
+        // postLike 벌크수정
+        postLikeRepository.softDeleteAllByMemberId(memberId);
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOND));
