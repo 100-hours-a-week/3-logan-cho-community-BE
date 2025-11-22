@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${/millions/backend/DB_HOST}
-    username: ${/millions/backend/DB_USERNAME}
-    password: ${/millions/backend/DB_PASSWORD}
+    url: ${DB_HOST}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -15,13 +15,13 @@ spring:
 
   data:
     mongodb:
-      uri: ${/millions/backend/MONGO_URL}
+      uri: ${MONGO_URL}
 
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${/millions/backend/MAIL_USER}
-    password: ${/millions/backend/MAIL_PASSWORD}
+    username: ${MAIL_USER_NAME}
+    password: ${MAIL_APP_PASSWORD}
 
   profiles:
     active: dev
@@ -29,7 +29,7 @@ spring:
 
 auth:
   token:
-    hmacSecretBase64: ${/millions/backend/JWT_SECRET_KEY} # jwt 서명키
+    hmacSecretBase64: ${JWT_SECRET_KEY} #jwt 서명키
 
 logging:
   level:
@@ -38,15 +38,15 @@ logging:
 
 aws:
   credentials:
-    access-key: ${/millions/backend/AWS_ACCESS_KEY}
-    secret-key: ${/millions/backend/AWS_SECRET_KEY}
+    access-key: ${AWS_ACCESS_KEY_ID}
+    secret-key: ${AWS_SECRET_ACCESS_KEY}
   region: ap-northeast-2
   s3:
-    bucket: ${/millions/backend/S3_BUCKET}   # ← SSM에 새로 하나 만드는 걸 추천
+    bucket: ${AWS_S3_BUCKET_NAME}
   cloudfront:
-    domain: ${/millions/backend/CLOUDFRONT_DOMAIN}
-    key-pair-id: ${/millions/backend/CLOUDFRONT_KEYPAIR}
-    private-key: ${/millions/backend/CLOUDFRONT_PRIVATE_KEY}
+    domain: ${AWS_CLOUDFRONT_DOMAIN}
+    key-pair-id: ${AWS_CLOUDFRONT_KEY_PAIR_ID}
+    private-key: ${AWS_CLOUDFRONT_PRIVATE_KEY}
 
 
 app:
@@ -72,10 +72,3 @@ app:
       - "/api/auth"
       - "/api/auth/signup/**"
       - "/api/auth/recover/**"
-
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health
