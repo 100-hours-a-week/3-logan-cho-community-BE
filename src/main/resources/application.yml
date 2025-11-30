@@ -99,8 +99,6 @@ management:
   server:
     base-path: /api
   metrics:
-    enable:
-      system:
-        cpu: false      # system.cpu.*
-      process:
-        cpu: false      # process.cpu.*
+    binders:
+      processor: false
+
