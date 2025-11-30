@@ -73,8 +73,6 @@ jobs:
   deploy-was:
     needs: build-and-push-WAS-ECR
     runs-on: ubuntu-latest
-    environment: production
-
     steps:
       # SSH Action을 사용하여 WAS 인스턴스에 원격 명령 실행
       - name: Deploy WAS via SSH and Docker
@@ -109,7 +107,7 @@ jobs:
             docker stop $CONTAINER_NAME || true
             docker rm $CONTAINER_NAME || true
 
-            # Spring Boot 앱 실행 (호스트 포트 8080 매핑)
+            # Spring 실행
             docker run -d \
               --name $CONTAINER_NAME \
               -p 8080:8080 \
