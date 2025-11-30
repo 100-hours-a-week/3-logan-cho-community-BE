@@ -90,15 +90,3 @@ app:
       - "/api/auth/signup/**"
       - "/api/auth/recover/**"
 
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health
-  server:
-    base-path: /api
-  metrics:
-    binders:
-      processor: false
-

@@ -58,8 +58,6 @@ dependencies {
     // 타임리프
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-
     // SSM
     implementation "io.awspring.cloud:spring-cloud-aws-starter-parameter-store:3.3.0"
 }
