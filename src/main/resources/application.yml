@@ -1,4 +1,16 @@
 spring:
+  config:
+    import: "optional:aws-parameterstore:/millions/backend/"
+
+  cloud:
+    aws:
+      parameterstore:
+        enabled: true
+      region:
+        static: ap-northeast-2
+      credentials:
+        instance-profile: true
+
   datasource:
     url: ${DB_HOST}
     username: ${DB_USERNAME}
@@ -20,8 +32,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USER_NAME}
-    password: ${MAIL_APP_PASSWORD}
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
 
   profiles:
     active: dev
@@ -57,6 +69,8 @@ app:
       - "http://3.35.185.103:3000"
       - "http://millons-io.store"
       - "http://millons-io.store:3000"
+      - "https://nginx.millons-io.store"
+      - "https://millons-io.store"
     cred-paths:
       - "/api/auth"
       - "/api/images/signed-cookie"

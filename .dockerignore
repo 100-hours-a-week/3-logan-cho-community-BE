@@ -1,0 +1,8 @@
+**/bin/
+**/target/
+**/.gradle/
+**/.idea/
+**/.mvn/
+**/build/
+!build/libs/*.jar # 빌드된 JAR 파일은 포함해야 하므로 예외 처리
+*.log
