@@ -28,6 +28,9 @@ spring:
   data:
     mongodb:
       uri: ${MONGO_URL}
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
 
   mail:
     host: smtp.gmail.com
