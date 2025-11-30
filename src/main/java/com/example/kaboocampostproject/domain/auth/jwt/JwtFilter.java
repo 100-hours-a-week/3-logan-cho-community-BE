@@ -1,5 +1,6 @@
 package com.example.kaboocampostproject.domain.auth.jwt;
 
+import com.example.kaboocampostproject.domain.auth.jwt.dto.AccessClaims;
 import com.example.kaboocampostproject.domain.auth.jwt.exception.JwtErrorCode;
 import com.example.kaboocampostproject.domain.auth.jwt.exception.JwtException;
 import jakarta.servlet.FilterChain;
@@ -29,8 +30,10 @@ public class JwtFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer ")) {
             String accessToken = header.substring(7);
             try {
-                Authentication auth = jwtProvider.getAuthentication(accessToken);
+                AccessClaims claims = jwtProvider.parseAndValidateAccess(accessToken);
+                Authentication auth = jwtProvider.getAuthentication(claims);
                 SecurityContextHolder.getContext().setAuthentication(auth);
+                request.setAttribute("memberId", claims.userId());
             } catch (JwtException e) {
                 SecurityContextHolder.clearContext();
                 request.setAttribute("exception", e.getErrorCode());

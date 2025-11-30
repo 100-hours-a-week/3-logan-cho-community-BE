@@ -38,7 +38,7 @@ public class CommentMongoService {
 
     public void updateComment(Long memberId, String commentId, CommentReqDTO dto) {
         boolean update = commentRepository.updateCommentContent(commentId, memberId, dto.content());
-        if (update) {
+        if (!update) {
             throw new CommentException(CommentErrorCode.COMMENT_UPDATE_FAIL);
         }
     }

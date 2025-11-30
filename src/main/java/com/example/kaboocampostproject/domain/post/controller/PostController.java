@@ -1,10 +1,9 @@
 package com.example.kaboocampostproject.domain.post.controller;
 
-import com.example.kaboocampostproject.domain.auth.jwt.anotations.MemberIdInfo;
+import com.example.kaboocampostproject.domain.member.anotations.MemberIdInfo;
 import com.example.kaboocampostproject.domain.post.dto.req.PostCreatReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.req.PostUpdateReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostDetailResDTO;
-import com.example.kaboocampostproject.domain.post.dto.res.PostSliceItem;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSliceResDTO;
 import com.example.kaboocampostproject.domain.post.service.PostMongoService;
 import com.example.kaboocampostproject.global.cursor.Cursor;

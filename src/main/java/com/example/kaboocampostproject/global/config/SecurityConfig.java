@@ -5,6 +5,7 @@ import com.example.kaboocampostproject.domain.auth.jwt.JwtAuthenticationEntryPoi
 import com.example.kaboocampostproject.domain.auth.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,10 +23,12 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
+@EnableConfigurationProperties(SecurityProperties.class)
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final SecurityProperties securityProperties;
 
     @Bean // 빈에 등록하면 spring이 전역 필터에도 등록해버릴 수 있음 (필터 두번 동작됨)
     public FilterRegistrationBean<JwtFilter> jwtFilterRegistration(JwtFilter jwtFilter) {
@@ -75,18 +78,16 @@ public class SecurityConfig {
                 .sessionManagement(session -> session//세션 비활성화(무상태)
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())//bean에서 corsConfigurationSource 찾아와서 알아서 등록
-                .authorizeHttpRequests(a -> a
-                        // 회원가입
-                        .requestMatchers(HttpMethod.POST, "/api/members").permitAll()
-                        // 로그인, 로그아웃, jwt재발급
-                        .requestMatchers("/api/auth").permitAll()
-                        // 이메일 인증 코드 발송, 검증
-                        .requestMatchers("/api/auth/signup/email-verification-code").permitAll()
-                        .requestMatchers("/api/auth/signup/email-verification-code/retry").permitAll()
-                        .requestMatchers("/api/auth/recover/email-verification-code").permitAll()
+                .authorizeHttpRequests(a -> {
+                            // yaml에 정의된 public-apis
+                            if (securityProperties.getPublicApis() != null && !securityProperties.getPublicApis().isEmpty()) {
+                                a.requestMatchers(securityProperties.getPublicApis().toArray(new String[0])).permitAll();
+                            }
+                            // 회원가입은 post만 허용
+                            a.requestMatchers(HttpMethod.POST, "/api/members").permitAll();
 
-                        .requestMatchers("/api/members/recover").permitAll()
-                        .anyRequest().authenticated()
+                            a.anyRequest().authenticated();
+                        }
                 )
                 .exceptionHandling(ex -> ex
                         .accessDeniedHandler(jwtAccessDeniedHandler)

@@ -1,4 +1,16 @@
 spring:
+  config:
+    import: "optional:aws-parameterstore:/millions/backend/"
+
+  cloud:
+    aws:
+      parameterstore:
+        enabled: true
+      region:
+        static: ap-northeast-2
+      credentials:
+        instance-profile: true
+
   datasource:
     url: ${DB_HOST}
     username: ${DB_USERNAME}
@@ -20,8 +32,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USER_NAME}
-    password: ${MAIL_APP_PASSWORD}
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
 
   profiles:
     active: dev
@@ -47,3 +59,45 @@ aws:
     domain: ${AWS_CLOUDFRONT_DOMAIN}
     key-pair-id: ${AWS_CLOUDFRONT_KEY_PAIR_ID}
     private-key: ${AWS_CLOUDFRONT_PRIVATE_KEY}
+
+
+app:
+  cors:
+    allowed-origin-patterns:
+      - "http://localhost:*"
+      # 배포서버
+      - "http://3.35.185.103:3000"
+      - "http://millons-io.store"
+      - "http://millons-io.store:3000"
+      - "https://nginx.millons-io.store"
+      - "https://millons-io.store"
+    cred-paths:
+      - "/api/auth"
+      - "/api/images/signed-cookie"
+
+  security:
+    public-apis:
+      - "/api/auth"
+      - "/api/auth/signup/email-verification-code"
+      - "/api/auth/signup/email-verification-code/retry"
+      - "/api/auth/recover/email-verification-code"
+      - "/api/members/recover"
+    jwt-exclude-paths:
+      - "/api/auth"
+      - "/api/auth/signup/**"
+      - "/api/auth/recover/**"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  server:
+    base-path: /api
+  metrics:
+    enable:
+      system:
+        cpu: false      # system.cpu.*
+      process:
+        cpu: false      # process.cpu.*

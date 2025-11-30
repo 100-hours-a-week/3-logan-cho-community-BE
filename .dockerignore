@@ -1,0 +1,6 @@
+.bin/
+target/
+.gradle/
+.idea/
+.mvn/
+*.log

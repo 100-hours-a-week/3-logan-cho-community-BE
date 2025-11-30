@@ -153,8 +153,7 @@ public class JwtProvider {
         }
     }
 
-    public Authentication getAuthentication(String accessJwt) {
-        AccessClaims accessClaims = parseAndValidateAccess(accessJwt);
+    public Authentication getAuthentication(AccessClaims accessClaims) {
         UserDetails userDetails = new PrincipalDetails(accessClaims);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
