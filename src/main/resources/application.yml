@@ -74,6 +74,7 @@ app:
       - "http://millons-io.store:3000"
       - "https://nginx.millons-io.store"
       - "https://millons-io.store"
+      - "https://www.millons-io.store"
     cred-paths:
       - "/api/auth"
       - "/api/images/signed-cookie"
