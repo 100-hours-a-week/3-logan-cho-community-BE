@@ -32,10 +32,6 @@ spring:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
 
-  logging:
-    level:
-      org.springframework.mail: DEBUG
-      com.sun.mail.smtp: DEBUG
   mail:
     host: smtp.gmail.com
     port: 587
@@ -54,6 +50,8 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace   # Hibernate 6 (파라미터 바인딩 로그)
+    org.springframework.mail: DEBUG
+    com.sun.mail.smtp: DEBUG
 
 aws:
   credentials:
