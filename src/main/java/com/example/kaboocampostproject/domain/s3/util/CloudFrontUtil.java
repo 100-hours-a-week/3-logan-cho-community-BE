@@ -26,7 +26,7 @@ public class CloudFrontUtil {
     private String cloudFrontDomain;
 
     public String getDomain() {
-        return cloudFrontDomain;
+        return "https://" + cloudFrontDomain;
     }
 
     @Value("${aws.cloudfront.key-pair-id}")
