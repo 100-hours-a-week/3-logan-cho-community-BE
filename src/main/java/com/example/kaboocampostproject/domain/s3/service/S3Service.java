@@ -29,7 +29,8 @@ import java.util.UUID;
 public class S3Service  {
     private final S3Util s3Util;
     private final CloudFrontUtil cloudFrontUtil;
-
+    @Value("${aws.cloudfront.domain}")
+    private String signedCookieDomain;
 
     public PresignedUrlListResDTO generatePresignedUrls(FileDomain domain, UploadListReqDTO requestList) {
         List<PresignedUrlResDTO> urls = requestList.files().stream()
@@ -46,7 +47,7 @@ public class S3Service  {
         }
 
         String uuid = UUID.randomUUID().toString();
-        String objectKey = String.format("%s/%s-%s", domain.getBasePath(), uuid, file.fileName());
+        String objectKey = String.format("%s/%s", domain.getBasePath(), uuid);
         String presignedUrl = s3Util.createPresignedUrl(objectKey, file.mimeType());
 
         return new PresignedUrlResDTO(presignedUrl, objectKey);
@@ -86,7 +87,7 @@ public class S3Service  {
 
         cookies.forEach((name, value) -> {
             ResponseCookie cookie = ResponseCookie.from(name, value)
-                    .domain("dyzhozaq7uxin.cloudfront.net")//cloudFront 도메인
+                    .domain(signedCookieDomain)//cloudFront 도메인
                     .path("/public/") // 퍼블릭 하위
                     .httpOnly(true)
                     .secure(true)

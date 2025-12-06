@@ -59,6 +59,7 @@ aws:
   s3:
     bucket: ${AWS_S3_BUCKET_NAME}
   cloudfront:
+    signed-cookie-domain: ${SIGNED_COOKIE_DOMAIN}
     domain: ${AWS_CLOUDFRONT_DOMAIN}
     key-pair-id: ${AWS_CLOUDFRONT_KEY_PAIR_ID}
     private-key: ${AWS_CLOUDFRONT_PRIVATE_KEY}
