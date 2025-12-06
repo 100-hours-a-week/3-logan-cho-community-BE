@@ -52,14 +52,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
 
-    // S3
-    implementation "software.amazon.awssdk:s3:2.25.11"
-
     // 타임리프
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-    // SSM
-    implementation "io.awspring.cloud:spring-cloud-aws-starter-parameter-store:3.3.0"
+    // ========== AWS ==============
+    // aws sdk의 버전을 고정 (v2) (버전 묶음 선언서)
+    implementation platform("software.amazon.awssdk:bom:2.25.40")
+    // aws cloud 의 버전을 고정 (v2)
+    implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.3.0")
+
+    implementation "software.amazon.awssdk:s3"
+    implementation "io.awspring.cloud:spring-cloud-aws-starter-parameter-store"
+
 }
 
 tasks.named('test') {
