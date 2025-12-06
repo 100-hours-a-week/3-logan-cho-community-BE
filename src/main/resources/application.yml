@@ -89,3 +89,4 @@ app:
       - "/api/auth/recover/email-verification-code"
       - "/api/members/recover"
       - "/api/health"
+      - "/api/test-redis"
