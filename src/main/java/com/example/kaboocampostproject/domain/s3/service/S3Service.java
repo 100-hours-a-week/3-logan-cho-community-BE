@@ -29,7 +29,7 @@ import java.util.UUID;
 public class S3Service  {
     private final S3Util s3Util;
     private final CloudFrontUtil cloudFrontUtil;
-    @Value("${aws.cloudfront.domain}")
+    @Value("${aws.cloudfront.signed-cookie-domain}")
     private String signedCookieDomain;
 
     public PresignedUrlListResDTO generatePresignedUrls(FileDomain domain, UploadListReqDTO requestList) {
