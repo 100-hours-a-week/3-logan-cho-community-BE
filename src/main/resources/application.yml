@@ -88,8 +88,4 @@ app:
       - "/api/auth/signup/email-verification-code/retry"
       - "/api/auth/recover/email-verification-code"
       - "/api/members/recover"
-    jwt-exclude-paths:
-      - "/api/auth"
-      - "/api/auth/signup/**"
-      - "/api/auth/recover/**"
-
+      - "/api/health"
