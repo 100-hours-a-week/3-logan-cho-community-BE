@@ -18,11 +18,4 @@ public class SecurityProperties {
         this.publicApis = publicApis;
     }
 
-    public List<String> getJwtExcludePaths() {
-        return jwtExcludePaths;
-    }
-
-    public void setJwtExcludePaths(List<String> jwtExcludePaths) {
-        this.jwtExcludePaths = jwtExcludePaths;
-    }
 }
