@@ -11,7 +11,7 @@ public class TestController {
     @Autowired
     private StringRedisTemplate redis;
 
-    @GetMapping("/test-redis")
+    @GetMapping("/api/test-redis")
     public String test() {
         System.out.println("connect 성공");
         redis.opsForValue().set("hello", "world");
