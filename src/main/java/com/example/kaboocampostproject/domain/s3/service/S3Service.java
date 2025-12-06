@@ -47,7 +47,7 @@ public class S3Service  {
         }
 
         String uuid = UUID.randomUUID().toString();
-        String objectKey = String.format("%s/%s-%s", domain.getBasePath(), uuid, file.fileName());
+        String objectKey = String.format("%s/%s", domain.getBasePath(), uuid);
         String presignedUrl = s3Util.createPresignedUrl(objectKey, file.mimeType());
 
         return new PresignedUrlResDTO(presignedUrl, objectKey);
