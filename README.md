@@ -85,13 +85,12 @@
   - total : 455USD
   </details>
 
-### Infra architacture
-- 도메인 모듈: 멤버, 게시글, 댓글, 좋아요, S3, 인증.
-- 글로벌 계층: `config`(CORS/보안/Swagger/S3/Redis/JWT), `error`(단일 에러 코드/핸들러), `response`, `validator`, `cursor`(페이지네이션).
-- 인증/인가: `JwtFilter`, `JwtProvider`, `PrincipalDetails`로 Security 필터 체인 구성. 퍼블릭/보호 API 분리.
-- 데이터 접근: Spring Data JPA(MySQL) + Spring Data MongoDB, 커스텀 리포지토리로 복잡 쿼리 대응.
-- 캐시/토큰: Redis로 이메일 인증 코드/토큰 상태 관리.
+### Infra Structure
+- 현재 설계 상황
+<img width="987" height="633" alt="image" src="https://github.com/user-attachments/assets/be30040c-c454-490b-a688-079d307edb59" />
 
+- 최종 설계
+<img width="909" height="591" alt="image" src="https://github.com/user-attachments/assets/f7d6c844-2f35-4277-92ae-fceb131d9636" />
 
 
 
