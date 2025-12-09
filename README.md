@@ -111,14 +111,14 @@
 | <img src="docs/images/board.png" width="400" alt="게시글 목록"> | <img src="docs/images/post-detail.png" width="400" alt="게시글 상세"> |
 
 ### 게시글 편집
-| 게시글 등록                                                           | 게시글 수정                                                         |
-|------------------------------------------------------------------|----------------------------------------------------------------|
-| <img src="docs/images/writep-post.png" width="400" alt="게시글 등록"> | <img src="docs/images/edit-post.png" width="400" alt="게시글 수정"> |
+| 게시글 등록                                                          | 게시글 수정                                                         |
+|-----------------------------------------------------------------|----------------------------------------------------------------|
+| <img src="docs/images/write-post.png" width="400" alt="게시글 등록"> | <img src="docs/images/edit-post.png" width="400" alt="게시글 수정"> |
 
 ### 회원 복구
 | 복구 팝업                                                                    | 회원 복구                                                         |
 |--------------------------------------------------------------------------|---------------------------------------------------------------|
-| <img src="docs/images/recover-possiblility.png" width="400" alt="마이페이지"> | <img src="docs/images/recover.png" width="400" alt="비밀번호 변경"> |
+| <img src="docs/images/recover-possibility.png" width="400" alt="마이페이지"> | <img src="docs/images/recover.png" width="400" alt="비밀번호 변경"> |
 
 
 <details>
