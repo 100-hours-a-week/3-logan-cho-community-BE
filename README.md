@@ -86,9 +86,6 @@
   </details>
 
 ### Infra Structure
-- 현재 설계 상황
-<img width="987" height="633" alt="image" src="https://github.com/user-attachments/assets/be30040c-c454-490b-a688-079d307edb59" />
-
 - 최종 설계
 <img width="909" height="591" alt="image" src="https://github.com/user-attachments/assets/f7d6c844-2f35-4277-92ae-fceb131d9636" />
 
