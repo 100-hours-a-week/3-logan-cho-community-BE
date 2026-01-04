@@ -46,7 +46,8 @@ public class SecurityConfig {
                         "/",
                         "/swagger-ui/**",
                         "/swagger-resources/**",
-                        "/v3/api-docs/**"
+                        "/v3/api-docs/**",
+                        "/actuator/**"
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a.anyRequest().permitAll());
