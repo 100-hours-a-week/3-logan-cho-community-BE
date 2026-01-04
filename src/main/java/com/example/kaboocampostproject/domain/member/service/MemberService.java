@@ -41,8 +41,8 @@ public class MemberService {
 
     public void createMember(MemberRegisterReqDTO memberDTO) {
 
-        // 이메일 인증여부 검증
-        emailVerifier.validateToken(memberDTO.email(), memberDTO.emailVerifiedToken(), RedisMetadata.EMAIL_VERIFIED_TOKEN_SIGNUP);
+        // 이메일 인증여부 검증 (K6 부하테스트를 위해 임시 비활성화)
+        // emailVerifier.validateToken(memberDTO.email(), memberDTO.emailVerifiedToken(), RedisMetadata.EMAIL_VERIFIED_TOKEN_SIGNUP);
 
         AuthMember authMember = authMemberRepository.findByEmailWithDeleted(memberDTO.email());
         if (authMember != null) {
