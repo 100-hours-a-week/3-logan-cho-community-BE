@@ -43,6 +43,8 @@ public class PostDocument {
     private String title;
     private String content;
     private long views = 0L;
+    private long likeCount = 0L;
+    private long commentCount = 0L;
     private List<String> imageObjectKeys;
 
     @CreatedDate

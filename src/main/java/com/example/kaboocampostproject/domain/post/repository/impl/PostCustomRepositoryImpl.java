@@ -69,6 +69,42 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
 
     }
 
+    // 좋아요 개수 원자적 증가
+    @Override
+    public void incrementLikeCount(String postId) {
+        Query query = new Query(Criteria.where(PostDocument.PostFields.id).is(postId)
+                .and(PostDocument.PostFields.deletedAt).is(null));
+        Update update = new Update().inc(PostDocument.PostFields.likeCount, 1);
+        mongo.updateFirst(query, update, PostDocument.class);
+    }
+
+    // 좋아요 개수 원자적 감소
+    @Override
+    public void decrementLikeCount(String postId) {
+        Query query = new Query(Criteria.where(PostDocument.PostFields.id).is(postId)
+                .and(PostDocument.PostFields.deletedAt).is(null));
+        Update update = new Update().inc(PostDocument.PostFields.likeCount, -1);
+        mongo.updateFirst(query, update, PostDocument.class);
+    }
+
+    // 댓글 개수 원자적 증가
+    @Override
+    public void incrementCommentCount(String postId) {
+        Query query = new Query(Criteria.where(PostDocument.PostFields.id).is(postId)
+                .and(PostDocument.PostFields.deletedAt).is(null));
+        Update update = new Update().inc(PostDocument.PostFields.commentCount, 1);
+        mongo.updateFirst(query, update, PostDocument.class);
+    }
+
+    // 댓글 개수 원자적 감소
+    @Override
+    public void decrementCommentCount(String postId) {
+        Query query = new Query(Criteria.where(PostDocument.PostFields.id).is(postId)
+                .and(PostDocument.PostFields.deletedAt).is(null));
+        Update update = new Update().inc(PostDocument.PostFields.commentCount, -1);
+        mongo.updateFirst(query, update, PostDocument.class);
+    }
+
     //================== 커서키반 페이징 ====================
 
     private void includePostSimpleFields(Query query) {
@@ -77,7 +113,9 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
             .include(PostDocument.PostFields.title)
             .include(PostDocument.PostFields.views)
             .include(PostDocument.PostFields.authorId)
-            .include(PostDocument.PostFields.createdAt);
+            .include(PostDocument.PostFields.createdAt)
+            .include(PostDocument.PostFields.likeCount)
+            .include(PostDocument.PostFields.commentCount);
     }
 
 

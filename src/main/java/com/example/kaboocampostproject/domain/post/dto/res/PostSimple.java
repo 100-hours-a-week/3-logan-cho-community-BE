@@ -9,5 +9,7 @@ public record PostSimple(
             String title,
             long views,
             Long authorId,
-            Instant createdAt
+            Instant createdAt,
+            long likeCount,
+            long commentCount
 ){}

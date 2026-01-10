@@ -18,6 +18,18 @@ public interface PostCustomRepository {
     // 조회수 증가 (inc)
     void incrementViews(String postId, long count);
 
+    // 좋아요 개수 증가
+    void incrementLikeCount(String postId);
+
+    // 좋아요 개수 감소
+    void decrementLikeCount(String postId);
+
+    // 댓글 개수 증가
+    void incrementCommentCount(String postId);
+
+    // 댓글 개수 감소
+    void decrementCommentCount(String postId);
+
     // 최신순 첫 페이지
     List<PostSimple> findFirstByCreatedAt(int sizePlusOne);
 

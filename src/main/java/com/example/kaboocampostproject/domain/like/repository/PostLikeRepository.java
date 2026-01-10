@@ -49,6 +49,8 @@ public interface PostLikeRepository extends JpaRepository<PostLike, Long> {
 
     List<PostLike> findAllByMemberId(Long memberId);
 
+    List<PostLike> findByMemberIdAndPostIdIn(Long memberId, List<String> postIds);
+
     @Modifying
     @Query("""
         UPDATE PostLike 

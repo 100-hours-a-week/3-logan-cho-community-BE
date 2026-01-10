@@ -20,7 +20,7 @@ public class PostConverter {
                 .build();
     }
 
-    public static PostDetailResDTO toPostDetail(String cdnBaseUrl, PostDocument post, PostLikeStatsDto postLike, Long authorId, MemberProfileCacheDTO profile, boolean isMine) {
+    public static PostDetailResDTO toPostDetail(String cdnBaseUrl, PostDocument post, boolean amILike, Long authorId, MemberProfileCacheDTO profile, boolean isMine) {
         PostDetailResDTO.AuthorProfile authorProfile =  PostDetailResDTO.AuthorProfile.builder()
                                                         .id(profile!=null ? authorId : null)
                                                         .name(profile!=null ? profile.name() : "(탈퇴한 사용자)")
@@ -34,20 +34,15 @@ public class PostConverter {
                 .imageObjectKeys(post.getImageObjectKeys())
                 .authorProfile(authorProfile)
                 .views(post.getViews())
-                .likes(postLike.likeCount())
-                .amILiking(postLike.amILike())
+                .likes(post.getLikeCount())
+                .amILiking(amILike)
                 .createdAt(post.getCreatedAt())
                 .isUpdated(post.isUpdated())
                 .isMine(isMine)
                 .build();
     }
 
-    public static PostSliceItem toPostSliceItem(PostSimple post, PostLikeStatsDto postLike, @Nullable MemberProfileCacheDTO memberProfile) {
-        PostSliceItem.LikeInfo likeInfo = PostSliceItem.LikeInfo.builder()
-                .count(postLike.likeCount())
-                .amILike(postLike.amILike())
-                .build();
-
+    public static PostSliceItem toPostSliceItem(PostSimple post, boolean amILike, @Nullable MemberProfileCacheDTO memberProfile) {
         PostSliceItem.AuthorProfile author = PostSliceItem.AuthorProfile.builder()
                 .id(memberProfile!=null ? memberProfile.id() : null)
                 .name(memberProfile!=null ? memberProfile.name() : "(탈퇴한 사용자)")
@@ -60,7 +55,8 @@ public class PostConverter {
                 .views(post.views())
                 .createdAt(post.createdAt())
                 .author(author)
-                .like(likeInfo)
+                .commentCount(post.commentCount())
+                .amILike(amILike)
                 .build();
     }
 }

@@ -10,6 +10,7 @@ import com.example.kaboocampostproject.domain.comment.error.CommentException;
 import com.example.kaboocampostproject.domain.comment.repository.CommentMongoRepository;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheService;
+import com.example.kaboocampostproject.domain.post.repository.PostMongoRepository;
 import com.example.kaboocampostproject.domain.s3.util.CloudFrontUtil;
 import com.example.kaboocampostproject.global.cursor.Cursor;
 import com.example.kaboocampostproject.global.cursor.CursorCodec;
@@ -27,6 +28,7 @@ public class CommentMongoService {
     private static final int PAGE_SIZE = 10;
 
     private final CommentMongoRepository commentRepository;
+    private final PostMongoRepository postRepository;
 
     private final MemberProfileCacheService memberProfileCacheService;
     private final CursorCodec cursorCodec;
@@ -34,6 +36,9 @@ public class CommentMongoService {
 
     public void createComment(Long memberId, String postId, CommentReqDTO dto) {
         commentRepository.save(CommentConverter.toEntity(memberId, postId, dto));
+
+        // 댓글 개수 증가
+        postRepository.incrementCommentCount(postId);
     }
 
     public void updateComment(Long memberId, String commentId, CommentReqDTO dto) {
@@ -44,10 +49,17 @@ public class CommentMongoService {
     }
 
     public void deleteComment(Long memberId, String commentId) {
+        // 댓글 정보 조회
+        CommentDocument comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CommentException(CommentErrorCode.COMMENT_NOT_FOUND));
+
         boolean update = commentRepository.softDeleteByCommentId(commentId, memberId);
-        if (update) {
+        if (!update) {
             throw new CommentException(CommentErrorCode.COMMENT_UPDATE_FAIL);
         }
+
+        // 댓글 개수 감소
+        postRepository.decrementCommentCount(comment.getPostId());
     }
 
     // =====================커서로 조회하는 메서드=====================

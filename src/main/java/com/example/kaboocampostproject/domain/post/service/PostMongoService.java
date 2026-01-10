@@ -144,10 +144,8 @@ public class PostMongoService {
         PostDocument post = postRepository.findByIdAndDeletedAtIsNull(postId)
                 .orElseThrow(() -> new PostException(PostErrorCode.POST_NOT_FOUND));
 
-        //like 정보 가져오기 (내가 좋아요하는지 여부도)
-        PostLikeStatsDto postLikeState = postLikeRepository
-                .findPostLikeStatsByPostId(postId, memberId)
-                .orElse(new PostLikeStatsDto(postId, 0L, false));
+        // 내가 좋아요했는지 여부 조회
+        boolean amILike = postLikeRepository.existsByMemberIdAndPostId(memberId, postId);
 
         MemberProfileCacheDTO memberProfileCacheDTO = memberProfileCacheService.getProfile(post.getAuthorId());
 
@@ -156,7 +154,7 @@ public class PostMongoService {
 
         boolean isMine = memberId.equals(post.getAuthorId());
 
-        return PostConverter.toPostDetail(cloudFrontUtil.getDomain(), post, postLikeState, post.getAuthorId(), memberProfileCacheDTO, isMine);
+        return PostConverter.toPostDetail(cloudFrontUtil.getDomain(), post, amILike, post.getAuthorId(), memberProfileCacheDTO, isMine);
     }
 
     // 게시물 좋아요
@@ -167,15 +165,21 @@ public class PostMongoService {
         }
         PostLike postLike = PostLike.of(memberId, postId);
         postLikeRepository.save(postLike);
+
+        // 좋아요 개수 증가
+        postRepository.incrementLikeCount(postId);
     }
 
-    // 게시물 좋아요
+    // 게시물 좋아요 취소
     public void unLikePost(Long memberId, String postId) {
         PostLike postLike = postLikeRepository.findByMemberIdAndPostId(memberId, postId);
         if(postLike == null) {
             return;
         }
         postLikeRepository.delete(postLike);
+
+        // 좋아요 개수 감소
+        postRepository.decrementLikeCount(postId);
     }
 
 
@@ -242,28 +246,25 @@ public class PostMongoService {
         // Redis-> MySql 순서로 작성자 프로필 조회
         Map<Long, MemberProfileCacheDTO> authorProfiles = memberProfileCacheService.getProfiles(authorIds);
 
-        // MySql에서 좋아요 개수, 내가 좋아요했는지 조회
-        List<PostLikeStatsDto> likeStats = postLikeRepository.findPostLikeStats(postIds, memberId);
-        Map<String, PostLikeStatsDto> likeMap = likeStats.stream()
-                .collect(Collectors.toMap(PostLikeStatsDto::postId, dto -> dto));
+        // MySql에서 내가 좋아요한 게시물 목록만 조회
+        List<PostLike> myLikes = postLikeRepository.findByMemberIdAndPostIdIn(memberId, postIds);
+        Map<String, Boolean> likeMap = myLikes.stream()
+                .collect(Collectors.toMap(PostLike::getPostId, like -> true));
 
 
 
         //PostSliceItem로 병합
         List<PostSliceItem> items = content.stream()
                 .map(post -> {
-                    // 좋아요 매칭
-                    PostLikeStatsDto like = likeMap.getOrDefault(
-                            post.postId(),
-                            new PostLikeStatsDto(post.postId(), 0L, false)
-                    );
+                    // 좋아요 여부 확인
+                    boolean amILike = likeMap.getOrDefault(post.postId(), false);
                     if (post.authorId()==null){
-                        return PostConverter.toPostSliceItem(post, like, null);
+                        return PostConverter.toPostSliceItem(post, amILike, null);
                     }
                     // 프로필 매칭
                     MemberProfileCacheDTO authorProfile = authorProfiles.get(post.authorId());
                     // 병합
-                    return PostConverter.toPostSliceItem(post, like, authorProfile);
+                    return PostConverter.toPostSliceItem(post, amILike, authorProfile);
                 })
                 .toList();
 
