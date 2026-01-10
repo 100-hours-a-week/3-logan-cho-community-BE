@@ -5,4 +5,4 @@ spring:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
       ssl:
-        enabled: true
+        enabled: ${IS_ELASTIC_CACHE}
