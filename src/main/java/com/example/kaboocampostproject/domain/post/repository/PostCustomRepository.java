@@ -30,6 +30,12 @@ public interface PostCustomRepository {
     // 댓글 개수 감소
     void decrementCommentCount(String postId);
 
+    // 오늘 업데이트된 게시물 ID 목록 조회 (배치용)
+    List<String> findPostIdsUpdatedToday();
+
+    // 게시물의 카운트 값 동기화 (배치용)
+    void syncCounts(String postId, long likeCount, long commentCount);
+
     // 최신순 첫 페이지
     List<PostSimple> findFirstByCreatedAt(int sizePlusOne);
 

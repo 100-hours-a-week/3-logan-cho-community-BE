@@ -51,6 +51,9 @@ public interface PostLikeRepository extends JpaRepository<PostLike, Long> {
 
     List<PostLike> findByMemberIdAndPostIdIn(Long memberId, List<String> postIds);
 
+    // 게시물의 실제 좋아요 개수 조회 (배치용)
+    long countByPostId(String postId);
+
     @Modifying
     @Query("""
         UPDATE PostLike 

@@ -105,6 +105,42 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
         mongo.updateFirst(query, update, PostDocument.class);
     }
 
+    //================== 배치 동기화 ====================
+
+    // 오늘 업데이트된 게시물 ID 목록 조회
+    @Override
+    public List<String> findPostIdsUpdatedToday() {
+        Instant startOfToday = Instant.now().atZone(java.time.ZoneId.systemDefault())
+                .toLocalDate()
+                .atStartOfDay(java.time.ZoneId.systemDefault())
+                .toInstant();
+
+        Query query = new Query(
+                Criteria.where(PostDocument.PostFields.updatedAt).gte(startOfToday)
+                        .and(PostDocument.PostFields.deletedAt).is(null)
+        );
+        query.fields().include(PostDocument.PostFields.id);
+
+        return mongo.find(query, PostDocument.class, COLLECTION)
+                .stream()
+                .map(PostDocument::getId)
+                .toList();
+    }
+
+    // 게시물의 카운트 값 동기화
+    @Override
+    public void syncCounts(String postId, long likeCount, long commentCount) {
+        Query query = new Query(
+                Criteria.where(PostDocument.PostFields.id).is(postId)
+                        .and(PostDocument.PostFields.deletedAt).is(null)
+        );
+        Update update = new Update()
+                .set(PostDocument.PostFields.likeCount, likeCount)
+                .set(PostDocument.PostFields.commentCount, commentCount);
+
+        mongo.updateFirst(query, update, PostDocument.class);
+    }
+
     //================== 커서키반 페이징 ====================
 
     private void includePostSimpleFields(Query query) {
