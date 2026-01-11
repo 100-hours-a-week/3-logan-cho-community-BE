@@ -1,0 +1,15 @@
+{
+  "name": "db-benchmark",
+  "version": "1.0.0",
+  "description": "MySQL vs MongoDB Performance Benchmark",
+  "main": "src/index.js",
+  "scripts": {
+    "generate": "node src/generator.js",
+    "bench": "node src/benchmark.js"
+  },
+  "dependencies": {
+    "mysql2": "^3.6.0",
+    "mongodb": "^6.0.0",
+    "faker": "^5.5.3"
+  }
+}
