@@ -38,3 +38,6 @@ out/
 
 ## .env ##
 .env
+
+## test용 노드모듈 제외.
+node_modules/
