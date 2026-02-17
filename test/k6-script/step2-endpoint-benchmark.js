@@ -4,7 +4,7 @@
  * 목적: 각 API 엔드포인트의 개별 성능을 측정
  *
  * 실행 방법:
- *   k6 run --env BASE_URL=http://localhost:8080 --env TEST_LABEL=before k6-script/step2-endpoint-benchmark.js
+ *   k6 run --env BASE_URL=http://localhost:8080 --env TEST_LABEL=before test/k6-script/step2-endpoint-benchmark.js
  *
  * 전제 조건:
  *   - Step 1 (step1-seed-background.js)이 먼저 실행되어 배경 데이터가 존재해야 함

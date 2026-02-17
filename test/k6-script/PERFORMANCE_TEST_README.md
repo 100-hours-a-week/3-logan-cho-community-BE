@@ -103,7 +103,7 @@ docker compose version
 ```bash
 # Git 클론
 git clone <repository-url>
-cd <project-directory>/k6-script
+cd <project-directory>/test/k6-script
 
 # 결과 저장 디렉토리 생성
 mkdir -p performance-results
@@ -159,8 +159,8 @@ export BASE_URL=https://api.your-domain.com
 ### 4. InfluxDB와 Grafana 시작
 
 ```bash
-# k6-script 디렉토리에서 실행
-cd k6-script
+# test/k6-script 디렉토리에서 실행
+cd test/k6-script
 
 # InfluxDB와 Grafana 컨테이너 시작
 docker compose up -d influxdb grafana
