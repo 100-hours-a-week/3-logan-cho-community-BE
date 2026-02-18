@@ -1,0 +1,9 @@
+results/*
+!results/.gitkeep
+!results/medium_warm/
+results/medium_warm/*
+!results/medium_warm/summary.csv
+!results/medium_warm/metadata.txt
+!results/medium_warm/explain_A_bin.txt
+!results/medium_warm/explain_D2_bin.txt
+!results/medium_warm/explain_A_str.txt

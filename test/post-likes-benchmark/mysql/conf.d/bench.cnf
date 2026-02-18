@@ -1,0 +1,13 @@
+[mysqld]
+default_time_zone = '+00:00'
+skip-name-resolve = 1
+innodb_flush_method = O_DIRECT_NO_FSYNC
+innodb_flush_log_at_trx_commit = 1
+sync_binlog = 1
+binlog_expire_logs_seconds = 3600
+log_bin = mysql-bin
+server_id = 1
+sql_mode = STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION
+
+[mysql]
+default_character_set = utf8mb4
