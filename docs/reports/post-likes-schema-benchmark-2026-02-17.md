@@ -1,9 +1,25 @@
-# post_likes 최소 벤치마크 리포트 (2026-02-17)
+# post_likes 테이블 설계 검증 리포트 (2026-02-17)
 
-## 목적
-- 복합키 vs 단일키 구조 차이를 최소 실험으로 수치화
-- `post_id` 타입 차이(`BINARY(12)` vs `VARCHAR(24)`)는 복합키에서만 검증
-- 재현 가능한 고정 조건으로 결과 해석을 단순화
+## 실험 목적
+- 피드 집계 쿼리의 최적 테이블 구조를 결정한다.
+- 읽기 성능뿐 아니라 데이터 삽입 비용까지 함께 평가한다.
+- `post_id`를 `BINARY(12)`로 저장할 때의 효과를 정량 검증한다.
+
+검증 대상 쿼리:
+```sql
+SELECT pl.post_id,
+       COUNT(*) AS like_count,
+       MAX(CASE WHEN pl.member_id = ? THEN TRUE ELSE FALSE END) AS amILiking
+FROM post_likes pl
+WHERE pl.post_id IN (?, ?, ?, ...)
+  AND pl.deleted_at IS NULL
+GROUP BY pl.post_id;
+```
+
+## 실험 가설
+1. 복합키 vs 단일키+보조인덱스의 조회 속도는 큰 차이가 없을 수 있다.
+2. 단일키+보조인덱스는 보조 인덱스 유지로 쓰기 비용(write amplification)이 증가할 수 있다.
+3. 복합키 구조에서 `BINARY(12)`는 `VARCHAR(24)`보다 공간/조회 성능에 유리할 수 있다.
 
 ## 고정 조건
 - `dist=skew`, `id_pattern=objectid`, `feed IN=50`
@@ -11,7 +27,7 @@
 - scale: `medium` (`posts=140000`, `members=260000`, `likes=900000`)
 - DB: MySQL 8.4 (Docker), `buffer_pool=48MB`, `mem_limit=384m`
 
-## 케이스
+## 실험 케이스
 - `A_bin`: `PK(post_id, member_id)`, `post_id BINARY(12)`
 - `D2_bin`: `PK(id)`, `UNIQUE(member_id, post_id)`, `KEY(deleted_at, post_id, member_id)`, `post_id BINARY(12)`
 - `A_str`: `PK(post_id, member_id)`, `post_id VARCHAR(24)`
@@ -34,7 +50,7 @@
 | D2_bin | feed_select_in50 | 1.290 | 499.000 | 0.000 | 51.594 | 87.250 |
 | A_str | feed_select_in50 | 2.086 | 501.000 | 0.000 | 56.688 | 0.000 |
 
-## 해석
+## 실험 결과 해석
 1. 복합키 vs 단일키 (`A_bin` vs `D2_bin`)
 - 읽기(`feed_select`)는 비슷하지만, 쓰기(`bulk_insert`)는 `A_bin`이 더 빠름.
 - `D2_bin`은 보조 인덱스 유지로 `bp_read_requests`가 크게 증가(약 1.65배).
@@ -44,6 +60,12 @@
 - `BINARY(12)`가 `VARCHAR(24)`보다 테이블 크기 작음 (`44.609MB` vs `56.688MB`).
 - feed 쿼리도 `A_bin`이 더 빠름 (`1.233ms` vs `2.086ms`).
 - 동일 복합키 구조에서 타입 차이만으로 크기/읽기 성능 차이가 재현됨.
+
+## 인사이트 요약
+- 이 쿼리 패턴에서는 복합키와 단일키의 조회 성능 차이가 크지 않았다.
+- 단일키+보조인덱스는 삽입 시 인덱스 유지비로 쓰기 부담이 증가했다.
+- `post_id`를 `BINARY(12)`로 저장하면 동일 구조에서 공간과 조회 모두 개선됐다.
+- 읽기와 쓰기가 모두 많은 좋아요 도메인에서는 write amplification을 설계 판단에 반드시 포함해야 한다.
 
 ## EXPLAIN ANALYZE 근거 요약
 - `A_bin`: `PRIMARY` range scan, actual rows `337`, actual time `0.021..0.123ms`
