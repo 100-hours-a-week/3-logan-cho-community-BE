@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 토큰/명령 노출 방지: 상위 셸 xtrace가 켜져 있어도 비활성화
+case "$-" in
+  *x*) set +x ;;
+esac
+
+WORKDIR="${CODEX_GH_WORKDIR:-$(pwd)}"
+REPO="${CODEX_GH_REPO:-}"
+ASK_POLICY="${CODEX_ASK_POLICY:-on-request}"
+SANDBOX_MODE="${CODEX_SANDBOX_MODE:-workspace-write}"
+SKIP_PREFLIGHT="false"
+
+usage() {
+  cat <<'EOF'
+사용법: bin/codex-gh [options] [-- <extra codex args>]
+
+옵션:
+  -C, --cd <dir>          Codex 작업 디렉터리 (기본: 현재 디렉터리)
+  -R, --repo <owner/repo> preflight 확인용 저장소
+      --skip-preflight    gh 인증/권한 확인 생략
+  -h, --help              도움말 출력
+EOF
+}
+
+require_cmd() {
+  command -v "$1" >/dev/null 2>&1 || {
+    echo "Missing command: $1" >&2
+    exit 1
+  }
+}
+
+detect_repo() {
+  local remote
+  remote="$(git -C "$WORKDIR" config --get remote.origin.url 2>/dev/null || true)"
+  [[ -n "$remote" ]] || return 0
+
+  case "$remote" in
+    git@github.com:*)
+      remote="${remote#git@github.com:}"
+      ;;
+    https://github.com/*)
+      remote="${remote#https://github.com/}"
+      ;;
+    http://github.com/*)
+      remote="${remote#http://github.com/}"
+      ;;
+    *)
+      return 0
+      ;;
+  esac
+
+  remote="${remote%.git}"
+  printf '%s' "$remote"
+}
+
+EXTRA_ARGS=()
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -C|--cd)
+      [[ $# -ge 2 ]] || { echo "Missing value for $1" >&2; exit 1; }
+      WORKDIR="$2"
+      shift 2
+      ;;
+    -R|--repo)
+      [[ $# -ge 2 ]] || { echo "Missing value for $1" >&2; exit 1; }
+      REPO="$2"
+      shift 2
+      ;;
+    --skip-preflight)
+      SKIP_PREFLIGHT="true"
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      EXTRA_ARGS+=("$@")
+      break
+      ;;
+    *)
+      EXTRA_ARGS+=("$1")
+      shift
+      ;;
+  esac
+done
+
+require_cmd gh
+require_cmd codex
+
+export GH_PAGER=cat
+
+if [[ -z "${GH_TOKEN:-}" ]]; then
+  GH_TOKEN_FROM_GH="$(gh auth token 2>/dev/null || true)"
+  if [[ -n "$GH_TOKEN_FROM_GH" ]]; then
+    export GH_TOKEN="$GH_TOKEN_FROM_GH"
+  fi
+  unset GH_TOKEN_FROM_GH
+fi
+
+if [[ -z "${GH_TOKEN:-}" ]]; then
+  echo "GH_TOKEN이 비어 있다. 먼저 실행: gh auth login -h github.com" >&2
+  exit 1
+fi
+
+export GITHUB_TOKEN="${GITHUB_TOKEN:-$GH_TOKEN}"
+
+if [[ "$SKIP_PREFLIGHT" != "true" ]]; then
+  gh auth status >/dev/null
+
+  if [[ -z "$REPO" ]]; then
+    REPO="$(detect_repo)"
+  fi
+
+  if [[ -n "$REPO" ]]; then
+    VIEWER_PERMISSION="$(gh repo view "$REPO" --json viewerPermission --jq '.viewerPermission')"
+    HAS_ISSUES="$(gh repo view "$REPO" --json hasIssuesEnabled --jq '.hasIssuesEnabled')"
+    PUSH_ALLOWED="$(gh api "repos/$REPO" --jq '.permissions.push')"
+
+    echo "Repo: $REPO"
+    echo "viewerPermission=$VIEWER_PERMISSION"
+    echo "hasIssuesEnabled=$HAS_ISSUES"
+    echo "permissions.push=$PUSH_ALLOWED"
+  fi
+fi
+
+exec codex -C "$WORKDIR" -a "$ASK_POLICY" -s "$SANDBOX_MODE" "${EXTRA_ARGS[@]}"
