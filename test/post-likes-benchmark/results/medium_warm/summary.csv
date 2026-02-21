@@ -1,0 +1,7 @@
+case,operation,repeat_count,avg_elapsed_ms,avg_innodb_buffer_pool_read_requests_delta,avg_innodb_rows_inserted_delta,data_length_mb,index_length_mb
+A_bin,bulk_insert,3,8019.207,7715016.333,900000.000,44.609,0.000
+A_bin,feed_select_in50,3,1.233,500.000,0.000,44.609,0.000
+D2_bin,bulk_insert,3,9070.633,12744914.667,900000.000,51.594,87.250
+D2_bin,feed_select_in50,3,1.290,499.000,0.000,51.594,87.250
+A_str,bulk_insert,3,8616.920,7758888.667,900000.000,56.688,0.000
+A_str,feed_select_in50,3,2.086,501.000,0.000,56.688,0.000

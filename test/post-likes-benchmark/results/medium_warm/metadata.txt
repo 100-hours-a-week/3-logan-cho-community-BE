@@ -1,0 +1,14 @@
+run_at_utc=2026-02-17T13:53:29Z
+scale=medium
+dist=skew
+id_pattern=objectid
+feed_in_size=50
+repeats=3
+warmup_count=1
+cases=A_bin,D2_bin,A_str
+buffer_pool_mb=48
+mysql_memory_limit=384m
+mysql_cpu_limit=2.0
+num_posts=140000
+num_members=260000
+num_likes=900000
