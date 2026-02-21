@@ -45,6 +45,9 @@ public class PostDocument {
     private long views = 0L;
     private List<String> imageObjectKeys;
 
+    private long likes = 0L;
+    private long comments = 0L;
+
     @CreatedDate
     private Instant createdAt;
 

@@ -65,6 +65,17 @@ aws:
     private-key: ${AWS_CLOUDFRONT_PRIVATE_KEY}
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
+  health:
+    defaults:
+      enabled: false
+    ping:
+      enabled: true
+
 app:
   cors:
     allowed-origin-patterns:

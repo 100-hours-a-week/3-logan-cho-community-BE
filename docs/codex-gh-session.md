@@ -34,6 +34,7 @@ gh auth login -h github.com
 ## 4) 주의사항
 - 토큰 값은 출력하지 않는다.
 - repo를 지정하지 않으면 현재 작업 디렉터리의 `remote.origin.url`에서 자동 감지한다.
+- 기능 브랜치는 `develop`에서 만들고 PR base도 `develop`으로 사용한다.
 
 ## 5) 실패 시 확인
 - `GH_TOKEN이 비어 있다`:
