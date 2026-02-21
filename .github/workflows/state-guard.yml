@@ -1,0 +1,23 @@
+name: state-guard
+
+on:
+  pull_request:
+    paths:
+      - ".ai/state/**"
+      - ".ai/scripts/verify-before-commit.sh"
+      - ".github/workflows/state-guard.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify state guardrails
+        shell: bash
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          bash .ai/scripts/verify-before-commit.sh --base-ref "origin/${{ github.base_ref }}"
