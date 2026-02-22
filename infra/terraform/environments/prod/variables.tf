@@ -62,7 +62,7 @@ variable "health_check_path" {
 }
 
 variable "ami_id" {
-  description = "AMI ID for app instances"
+  description = "AMI ID for app instances (recommended: Golden AMI built from infra/packer)"
   type        = string
 }
 
@@ -79,7 +79,7 @@ variable "key_name" {
 }
 
 variable "app_user_data" {
-  description = "Cloud-init/user-data script for app instances"
+  description = "Cloud-init/user-data script for app instances (used to write /etc/default/kaboocam-app and start app.service)"
   type        = string
   default     = null
 }

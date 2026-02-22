@@ -4,5 +4,6 @@
 
 ## 규칙
 - Terraform 코드는 `infra/terraform/` 하위에서 관리합니다.
-- 환경별 분리가 필요하면 `infra/terraform/envs/<env>/` 형태를 사용합니다.
+- 환경별 분리는 `infra/terraform/environments/<env>/` 형태를 사용합니다.
 - 재사용 모듈은 `infra/terraform/modules/` 하위로 관리합니다.
+- Golden AMI(Packer) 빌드 코드는 `infra/packer/` 하위에서 관리합니다.

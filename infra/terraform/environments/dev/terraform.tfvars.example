@@ -13,12 +13,13 @@ private_subnet_cidrs = [
   "10.20.11.0/24"
 ]
 
-ami_id              = "ami-xxxxxxxxxxxxxxxxx"
+ami_id              = "ami-xxxxxxxxxxxxxxxxx" # Golden AMI artifact_id from infra/packer build
 instance_type       = "t3.micro"
 asg_min_size        = 2
 asg_max_size        = 4
 asg_desired_capacity = 2
 asg_cpu_target      = 60
+# app_user_data     = file("user-data/golden-ami-app.sh")
 
 rds_master_username = "appadmin"
 rds_master_password = "CHANGE_ME"

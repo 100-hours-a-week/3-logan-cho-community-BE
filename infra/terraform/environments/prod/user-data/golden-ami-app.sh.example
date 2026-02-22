@@ -1,0 +1,19 @@
+#!/bin/bash
+set -euxo pipefail
+
+cat > /etc/default/kaboocam-app <<'EOT'
+APP_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/kaboocam-post-prod-app:stable
+SPRING_PROFILES_ACTIVE=prod
+SERVER_PORT=8080
+TZ=Asia/Seoul
+JAVA_TOOL_OPTIONS=-Xms512m -Xmx1024m
+EOT
+
+cat > /etc/default/monitoring <<'EOT'
+APP_NAME=kaboocam-prod-backend
+EOT
+
+systemctl daemon-reload
+systemctl enable app.service
+systemctl restart app.service
+systemctl restart monitoring.service || true

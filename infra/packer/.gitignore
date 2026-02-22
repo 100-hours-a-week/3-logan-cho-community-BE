@@ -1,0 +1,15 @@
+# Packer build artifacts
+manifest.json
+*.pkrvars.hcl
+!example.pkrvars.hcl
+
+# Packer local state
+.packer.d/
+
+# Crash logs
+crash.log
+crash.*.log
+
+# OS files
+.DS_Store
+Thumbs.db

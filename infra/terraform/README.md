@@ -25,6 +25,8 @@ infra/terraform/
 ## 사용 방법
 - 각 환경 디렉터리에서 `backend.hcl.example`을 복사해 실제 backend 설정값을 채웁니다.
 - 각 환경 디렉터리에서 `terraform.tfvars.example`을 복사해 환경값을 채웁니다.
+- AMI는 `infra/packer`에서 빌드한 Golden AMI ID를 `ami_id`에 주입합니다.
+- Golden AMI 런타임용 user-data는 `environments/<env>/user-data/golden-ami-app.sh.example`를 복사해 사용합니다.
 - 초기화 예시:
   - `terraform -chdir=infra/terraform/environments/dev init -backend-config=backend.hcl`
   - `terraform -chdir=infra/terraform/environments/dev plan -var-file=terraform.tfvars`

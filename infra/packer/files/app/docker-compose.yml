@@ -1,0 +1,16 @@
+services:
+  app:
+    image: ${APP_IMAGE:?APP_IMAGE is required}
+    container_name: kaboocam-app
+    restart: always
+    network_mode: host
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-prod}
+      - SERVER_PORT=${SERVER_PORT:-8080}
+      - TZ=${TZ:-Asia/Seoul}
+      - JAVA_TOOL_OPTIONS=${JAVA_TOOL_OPTIONS:-}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
