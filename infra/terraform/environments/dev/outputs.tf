@@ -27,3 +27,23 @@ output "ecr_repository_url" {
   description = "ECR repository URL"
   value       = aws_ecr_repository.app.repository_url
 }
+
+output "media_bucket_name" {
+  description = "Media S3 bucket name"
+  value       = module.private_content_delivery.bucket_name
+}
+
+output "media_cloudfront_domain" {
+  description = "CloudFront domain used by application"
+  value       = module.private_content_delivery.access_domain
+}
+
+output "media_cloudfront_distribution_id" {
+  description = "CloudFront distribution ID for private media"
+  value       = module.private_content_delivery.distribution_id
+}
+
+output "media_parameter_names" {
+  description = "SSM parameter names created for media config"
+  value       = module.media_parameter_store.all_parameter_names
+}

@@ -22,11 +22,9 @@ infra/packer/
 │   └── cleanup.sh
 └── files/
     ├── app/
-    │   ├── docker-compose.yml
-    │   └── app.env.example
+    │   └── docker-compose.yml
     ├── monitoring/
     │   ├── docker-compose.yml
-    │   ├── monitoring.env.example
     │   └── promtail-config.yaml
     └── systemd/
         ├── app.service
@@ -48,11 +46,12 @@ packer build -var-file=dev.pkrvars.hcl .
 ## Terraform 연동
 
 1. `infra/terraform/environments/<env>/terraform.tfvars`의 `ami_id`에 빌드된 AMI ID를 설정합니다.
-2. 인스턴스 런타임 환경파일(`/etc/default/kaboocam-app`) 생성을 위해 `app_user_data`를 설정합니다.
+2. 인스턴스 내 `/etc/default/kaboocam-app.template`를 참고해 런타임 환경파일(`/etc/default/kaboocam-app`)을 `app_user_data`로 생성합니다.
 3. ASG 인스턴스에서 `app.service`를 활성화해 컨테이너를 기동합니다.
 
 ## 민감정보 정책
 
 - 실제 빌드 변수 파일(`*.pkrvars.hcl`)은 커밋하지 않습니다.
-- `example.pkrvars.hcl`, `*.env.example`만 버전 관리합니다.
+- `.env.example`류 파일은 저장소에 포함하지 않습니다.
+- `example.pkrvars.hcl`에는 실제 시크릿을 넣지 않습니다.
 - 실제 시크릿은 SSM Parameter Store/Secrets Manager로 주입하는 방식을 권장합니다.

@@ -1,6 +1,7 @@
 project_name = "kaboocam-post"
 environment  = "prod"
 aws_region   = "ap-northeast-2"
+aws_account_id = "123456789012"
 
 availability_zones = ["ap-northeast-2a", "ap-northeast-2c"]
 vpc_cidr           = "10.20.0.0/16"
@@ -29,6 +30,24 @@ rds_skip_final_snapshot = false
 rds_final_snapshot_identifier = "kaboocam-post-prod-final"
 
 redis_node_type = "cache.t4g.micro"
+
+media_bucket_name = "kaboocam-post-prod-media-unique-bucket-name"
+media_signed_cookie_domain = "example.com"
+media_s3_cors_allowed_origins = [
+  "https://example.com",
+  "https://www.example.com"
+]
+media_cloudfront_aliases = [
+  "cdn.example.com"
+]
+media_cloudfront_acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+media_cloudfront_public_key_pem = <<-EOT
+-----BEGIN PUBLIC KEY-----
+REPLACE_WITH_REAL_PUBLIC_KEY
+-----END PUBLIC KEY-----
+EOT
+media_cloudfront_private_key_base64 = "REPLACE_WITH_BASE64_PRIVATE_KEY"
+media_parameter_store_path_prefix   = "/millions/backend"
 
 tags = {
   Owner = "platform-team"

@@ -67,8 +67,19 @@ if [ -n "${LOKI_URL:-}" ]; then
   sed -i "s|http://loki:3100/loki/api/v1/push|${LOKI_URL}|g" /opt/monitoring/promtail-config.yaml
 fi
 
-cp /opt/monitoring/monitoring.env.example /etc/default/monitoring.example
-cp /opt/app/app.env.example /etc/default/kaboocam-app.example
+cat > /etc/default/monitoring.template <<'EOT'
+# Promtail label name
+APP_NAME=backend
+EOT
+
+cat > /etc/default/kaboocam-app.template <<'EOT'
+# Fill and copy to /etc/default/kaboocam-app by user_data
+APP_IMAGE=123456789012.dkr.ecr.ap-northeast-2.amazonaws.com/kaboocam-post:latest
+SPRING_PROFILES_ACTIVE=prod
+SERVER_PORT=8080
+TZ=Asia/Seoul
+JAVA_TOOL_OPTIONS=-Xms256m -Xmx512m
+EOT
 
 # Register systemd services
 cp /tmp/monitoring.service /etc/systemd/system/monitoring.service

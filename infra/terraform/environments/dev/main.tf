@@ -163,6 +163,61 @@ module "iam_app" {
   tags = local.default_tags
 }
 
+module "private_content_delivery" {
+  source = "../../shared/modules/private-content-delivery"
+
+  name_prefix               = "${local.name_prefix}-media"
+  bucket_name               = var.media_bucket_name
+  bucket_force_destroy      = var.media_bucket_force_destroy
+  cors_allowed_origins      = var.media_s3_cors_allowed_origins
+  read_object_prefixes      = var.media_cloudfront_read_object_prefixes
+  cloudfront_public_key_pem = var.media_cloudfront_public_key_pem
+  aliases                   = var.media_cloudfront_aliases
+  acm_certificate_arn       = var.media_cloudfront_acm_certificate_arn
+  price_class               = var.media_cloudfront_price_class
+  tags                      = local.default_tags
+}
+
+module "iam_presign_s3_access" {
+  source = "../../shared/modules/iam-object-storage-policy"
+
+  policy_name     = "${local.name_prefix}-presign-s3-policy"
+  role_name       = module.iam_app.role_name
+  bucket_arn      = module.private_content_delivery.bucket_arn
+  object_prefixes = var.media_presign_object_prefixes
+  tags            = local.default_tags
+}
+
+module "iam_parameter_store_read" {
+  source = "../../shared/modules/iam-parameter-store-read-policy"
+
+  policy_name           = "${local.name_prefix}-parameter-read-policy"
+  role_name             = module.iam_app.role_name
+  aws_region            = var.aws_region
+  aws_account_id        = var.aws_account_id
+  parameter_path_prefix = var.media_parameter_store_path_prefix
+  tags                  = local.default_tags
+}
+
+module "media_parameter_store" {
+  source = "../../shared/modules/ssm-parameters"
+
+  path_prefix = var.media_parameter_store_path_prefix
+
+  string_parameters = {
+    AWS_S3_BUCKET_NAME         = module.private_content_delivery.bucket_name
+    AWS_CLOUDFRONT_DOMAIN      = module.private_content_delivery.access_domain
+    AWS_CLOUDFRONT_KEY_PAIR_ID = module.private_content_delivery.public_key_id
+    SIGNED_COOKIE_DOMAIN       = var.media_signed_cookie_domain
+  }
+
+  secure_string_parameters = {
+    AWS_CLOUDFRONT_PRIVATE_KEY = var.media_cloudfront_private_key_base64
+  }
+
+  tags = local.default_tags
+}
+
 module "alb" {
   source = "../../modules/alb"
 

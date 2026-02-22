@@ -14,6 +14,11 @@ variable "aws_region" {
   type        = string
 }
 
+variable "aws_account_id" {
+  description = "AWS account ID for IAM/SSM ARN construction"
+  type        = string
+}
+
 variable "availability_zones" {
   description = "Two availability zones for 3-tier deployment"
   type        = list(string)
@@ -213,6 +218,75 @@ variable "redis_apply_immediately" {
   description = "Apply Redis changes immediately"
   type        = bool
   default     = false
+}
+
+variable "media_bucket_name" {
+  description = "Private S3 bucket name for media objects"
+  type        = string
+}
+
+variable "media_bucket_force_destroy" {
+  description = "Force-destroy media bucket objects on deletion"
+  type        = bool
+  default     = false
+}
+
+variable "media_s3_cors_allowed_origins" {
+  description = "Allowed origins for browser uploads to pre-signed S3 URLs"
+  type        = list(string)
+  default     = ["https://millons-io.store", "https://www.millons-io.store"]
+}
+
+variable "media_cloudfront_public_key_pem" {
+  description = "CloudFront public key in PEM format used by key group"
+  type        = string
+}
+
+variable "media_cloudfront_private_key_base64" {
+  description = "Base64 private key for generating signed cookies in application"
+  type        = string
+  sensitive   = true
+}
+
+variable "media_cloudfront_aliases" {
+  description = "Optional CloudFront aliases used by clients"
+  type        = list(string)
+  default     = []
+}
+
+variable "media_cloudfront_acm_certificate_arn" {
+  description = "Optional ACM certificate ARN for CloudFront aliases"
+  type        = string
+  default     = null
+}
+
+variable "media_cloudfront_price_class" {
+  description = "CloudFront price class for media delivery"
+  type        = string
+  default     = "PriceClass_200"
+}
+
+variable "media_cloudfront_read_object_prefixes" {
+  description = "S3 object path patterns that CloudFront can read"
+  type        = list(string)
+  default     = ["public/images/*"]
+}
+
+variable "media_presign_object_prefixes" {
+  description = "S3 object prefixes where application can put/get/delete for pre-signed flow"
+  type        = list(string)
+  default     = ["public/images/profiles", "public/images/posts"]
+}
+
+variable "media_signed_cookie_domain" {
+  description = "Cookie domain for CloudFront signed cookie"
+  type        = string
+}
+
+variable "media_parameter_store_path_prefix" {
+  description = "SSM Parameter Store path prefix consumed by application"
+  type        = string
+  default     = "/millions/backend"
 }
 
 variable "ecr_repository_name" {
