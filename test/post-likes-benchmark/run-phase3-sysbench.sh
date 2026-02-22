@@ -450,7 +450,7 @@ NR == 1 { next }
   if ($15 > row_max[c]) row_max[c] = $15;
 }
 END {
-  print "case\truns\teps_mean\teps_sd\tavg_ms_mean\tavg_ms_sd\tavg_ms_cv_pct\tavg_ms_ci95\tp50_ms_mean\tp95_ms_mean\tp99_ms_mean\tinnodb_buffer_pool_reads_mean\tinnodb_pages_written_mean\tinnodb_data_reads_mean\tinnodb_data_writes_mean\tinnodb_rows_inserted_mean\tfinal_row_count";
+  print "case\truns\teps_mean\teps_sd\tavg_ms_mean\tavg_ms_sd\tavg_ms_cv_pct\tavg_ms_ci95\tp50_ms_mean\tp95_ms_mean\tp99_ms_mean\tinnodb_buffer_pool_reads_mean\tinnodb_pages_written_mean\tinnodb_data_reads_mean\tinnodb_data_writes_mean\tinnodb_rows_inserted_mean\tbp_reads_per_insert\tdata_reads_per_insert\tpages_written_per_insert\tdata_writes_per_insert\tfinal_row_count";
 
   split("C S_rand S_ai", cases, " ");
   for (i = 1; i <= 3; i++) {
@@ -469,6 +469,18 @@ END {
     writes_mean = writes_sum[c] / n[c];
     rows_mean = rows_sum[c] / n[c];
 
+    if (rows_mean > 0) {
+      bp_per_insert = bp_mean / rows_mean;
+      reads_per_insert = reads_mean / rows_mean;
+      pages_per_insert = pages_mean / rows_mean;
+      writes_per_insert = writes_mean / rows_mean;
+    } else {
+      bp_per_insert = 0;
+      reads_per_insert = 0;
+      pages_per_insert = 0;
+      writes_per_insert = 0;
+    }
+
     if (n[c] > 1) {
       eps_var = (eps_sq[c] - n[c] * eps_mean * eps_mean) / (n[c] - 1);
       avg_var = (avg_sq[c] - n[c] * avg_mean * avg_mean) / (n[c] - 1);
@@ -484,9 +496,11 @@ END {
     avg_cv = (avg_mean > 0 ? (avg_sd / avg_mean) * 100 : 0);
     avg_ci95 = (n[c] > 1 ? 1.96 * avg_sd / sqrt(n[c]) : 0);
 
-    printf "%s\t%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%d\n",
+    printf "%s\t%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.4f\t%.4f\t%.4f\t%.4f\t%d\n",
       c, n[c], eps_mean, eps_sd, avg_mean, avg_sd, avg_cv, avg_ci95, p50_mean, p95_mean, p99_mean,
-      bp_mean, pages_mean, reads_mean, writes_mean, rows_mean, row_max[c];
+      bp_mean, pages_mean, reads_mean, writes_mean, rows_mean,
+      bp_per_insert, reads_per_insert, pages_per_insert, writes_per_insert,
+      row_max[c];
   }
 }' "${RAW_TSV}" > "${CASE_SUMMARY_TSV}"
 }
@@ -500,19 +514,27 @@ NR == 1 { next }
     c_reads = $14 + 0;
     c_pages = $13 + 0;
     c_writes = $15 + 0;
+    c_bp_per = $17 + 0;
+    c_reads_per = $18 + 0;
+    c_pages_per = $19 + 0;
+    c_writes_per = $20 + 0;
   } else {
     bp_red = (c_bp > 0 ? (c_bp - ($12 + 0)) / c_bp * 100 : 0);
     reads_red = (c_reads > 0 ? (c_reads - ($14 + 0)) / c_reads * 100 : 0);
     pages_red = (c_pages > 0 ? (c_pages - ($13 + 0)) / c_pages * 100 : 0);
     writes_red = (c_writes > 0 ? (c_writes - ($15 + 0)) / c_writes * 100 : 0);
+    bp_per_red = (c_bp_per > 0 ? (c_bp_per - ($17 + 0)) / c_bp_per * 100 : 0);
+    reads_per_red = (c_reads_per > 0 ? (c_reads_per - ($18 + 0)) / c_reads_per * 100 : 0);
+    pages_per_red = (c_pages_per > 0 ? (c_pages_per - ($19 + 0)) / c_pages_per * 100 : 0);
+    writes_per_red = (c_writes_per > 0 ? (c_writes_per - ($20 + 0)) / c_writes_per * 100 : 0);
 
-    printf "%s\t%.3f\t%.3f\t%.3f\t%.3f\n", $1, bp_red, reads_red, pages_red, writes_red;
+    printf "%s\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n", $1, bp_red, reads_red, pages_red, writes_red, bp_per_red, reads_per_red, pages_per_red, writes_per_red;
   }
 }
 ' "${CASE_SUMMARY_TSV}" > "${IO_COMPARE_TSV}.tmp"
 
   {
-    echo -e "variant\tbuffer_pool_reads_reduction_pct\tdata_reads_reduction_pct\tpages_written_reduction_pct\tdata_writes_reduction_pct"
+    echo -e "variant\tbuffer_pool_reads_reduction_pct\tdata_reads_reduction_pct\tpages_written_reduction_pct\tdata_writes_reduction_pct\tbuffer_pool_reads_per_insert_reduction_pct\tdata_reads_per_insert_reduction_pct\tpages_written_per_insert_reduction_pct\tdata_writes_per_insert_reduction_pct"
     cat "${IO_COMPARE_TSV}.tmp"
   } > "${IO_COMPARE_TSV}"
   rm -f "${IO_COMPARE_TSV}.tmp"

@@ -5,9 +5,8 @@
 - 완료:
   - 1단계 covering 선검증 (`phase1_covering_medium`)
   - 2단계 인덱스 구조/공간/임계점 (`phase2_index_size_medium`)
-  - 3단계 sysbench 랜덤 I/O 실측 (`phase3_sysbench_medium_L2`, 5 runs)
+  - 3단계 sysbench 랜덤 I/O 실측 (`phase3_sysbench_medium_L1/L2/L3`, 각 5 runs)
 - 미완료:
-  - 3단계의 L1/L3 축 동일 반복
   - percentile 계측 정밀화(현재 sysbench 출력 한계 존재)
 
 ---
@@ -98,21 +97,19 @@
 
 ---
 
-## 5) 3단계 결과 해석 (sysbench, medium/L2, runs=5)
+## 5) 3단계 결과 해석 (sysbench)
 출처:
-- `test/post-likes-benchmark/results/phase3_sysbench_medium_L2/raw.tsv`
-- `test/post-likes-benchmark/results/phase3_sysbench_medium_L2/case_summary.tsv`
-- `test/post-likes-benchmark/results/phase3_sysbench_medium_L2/io_compare.tsv`
+- `docs/reports/post-likes-phase3-sysbench-matrix-2026-02-22.md`
 
-### 5-1) 워크로드 구성
+### 5-1) 워크로드 구성 (공통)
 - prefill: 전체 90만 중 63만(70%) 선적재
 - 측정 런: 남은 source window를 run별 분할
-- run 설정: `threads=4`, `time=20s`, `runs=5`
+- run 설정: `threads=4`, `time=20s`, `runs=5` (레벨별 동일)
 - 각 event:
   - exists check 1회
   - insert(ignore) 1회
 
-### 5-2) 평균 결과(5 runs)
+### 5-2) 대표 결과(L2, 5 runs)
 | case | eps_mean | avg_ms_mean | bp_reads_mean | data_reads_mean | pages_written_mean | data_writes_mean | rows_inserted_mean |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | C | 1281.178 | 3.126 | 49118.6 | 49119.6 | 67569.2 | 116014.4 | 25634.4 |
@@ -147,6 +144,7 @@
 1. `S_rand`는 처리량/지연/I/O 모두 악화. non-monotonic PK가 랜덤 I/O를 줄이지 못하고 오히려 늘림.
 2. `S_ai`는 I/O 카운터는 개선됐지만 처리량/지연은 악화. 즉 I/O 절감이 곧 TPS 개선으로 직결되지는 않음.
 3. 3단계 결과는 "random I/O를 없애는가"보다 "어느 인덱스/경로로 이동시키고, 그 이동이 throughput에 어떤 2차 비용을 만드는가"를 분리해서 봐야 함을 보여줌.
+4. 전체 L1/L2/L3 매트릭스 기준 해석은 별도 문서(`post-likes-phase3-sysbench-matrix-2026-02-22.md`)를 따른다.
 
 ---
 
@@ -196,7 +194,7 @@
 ---
 
 ## 8) 남은 작업(이 PR 이후 계속)
-1. 3단계를 `L1/L3`로 확장해 인덱스 수 증가에 따른 I/O/TPS 추세선 확인.
-2. `runs` 확대(예: 10~15)로 CI 폭 축소.
-3. percentile 계측 보강(대안 계측 도입 또는 sysbench 버전/옵션 교체) 후 p95/p99 재수집.
+1. `runs` 확대(예: 10~15)로 CI 폭 축소.
+2. percentile 계측 보강(대안 계측 도입 또는 sysbench 버전/옵션 교체) 후 p95/p99 재수집.
+3. `data_writes_per_insert` 이상치 구간(L1/S_ai) 원인 분해.
 4. 최종 리포트에서 운영 적용 권고안(복합 PK 유지 vs 단일 PK 전환 조건)을 명시.
