@@ -1,0 +1,19 @@
+[Unit]
+Description=Kaboocam App Container
+After=docker.service network-online.target
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/app
+EnvironmentFile=-/etc/default/kaboocam-app
+ExecStartPre=/usr/bin/docker compose --env-file /etc/default/kaboocam-app -f /opt/app/docker-compose.yml pull --quiet
+ExecStart=/usr/bin/docker compose --env-file /etc/default/kaboocam-app -f /opt/app/docker-compose.yml up -d --remove-orphans
+ExecStop=/usr/bin/docker compose --env-file /etc/default/kaboocam-app -f /opt/app/docker-compose.yml down
+ExecReload=/usr/bin/docker compose --env-file /etc/default/kaboocam-app -f /opt/app/docker-compose.yml up -d --remove-orphans
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target

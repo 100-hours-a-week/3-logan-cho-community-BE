@@ -1,0 +1,54 @@
+project_name = "kaboocam-post"
+environment  = "prod"
+aws_region   = "ap-northeast-2"
+aws_account_id = "123456789012"
+
+availability_zones = ["ap-northeast-2a", "ap-northeast-2c"]
+vpc_cidr           = "10.20.0.0/16"
+public_subnet_cidrs = [
+  "10.20.0.0/24",
+  "10.20.1.0/24"
+]
+private_subnet_cidrs = [
+  "10.20.10.0/24",
+  "10.20.11.0/24"
+]
+
+ami_id              = "ami-xxxxxxxxxxxxxxxxx" # Golden AMI artifact_id from infra/packer build
+instance_type       = "t3.small"
+asg_min_size        = 3
+asg_max_size        = 6
+asg_desired_capacity = 3
+asg_cpu_target      = 60
+# app_user_data     = file("user-data/golden-ami-app.sh")
+
+rds_master_username = "appadmin"
+rds_master_password = "CHANGE_ME"
+rds_instance_class  = "db.t4g.small"
+rds_backup_retention_days = 7
+rds_skip_final_snapshot = false
+rds_final_snapshot_identifier = "kaboocam-post-prod-final"
+
+redis_node_type = "cache.t4g.micro"
+
+media_bucket_name = "kaboocam-post-prod-media-unique-bucket-name"
+media_signed_cookie_domain = "example.com"
+media_s3_cors_allowed_origins = [
+  "https://example.com",
+  "https://www.example.com"
+]
+media_cloudfront_aliases = [
+  "cdn.example.com"
+]
+media_cloudfront_acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+media_cloudfront_public_key_pem = <<-EOT
+-----BEGIN PUBLIC KEY-----
+REPLACE_WITH_REAL_PUBLIC_KEY
+-----END PUBLIC KEY-----
+EOT
+media_cloudfront_private_key_base64 = "REPLACE_WITH_BASE64_PRIVATE_KEY"
+media_parameter_store_path_prefix   = "/millions/backend"
+
+tags = {
+  Owner = "platform-team"
+}
