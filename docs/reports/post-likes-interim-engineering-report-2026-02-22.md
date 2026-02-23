@@ -1,5 +1,9 @@
 # post_likes PK 재검증 중간 엔지니어링 리포트 (Issue #64)
 
+> 참고: 이 문서는 실행 로그 중심의 중간본이다.  
+> 이슈 #64의 가설 검증 흐름(가설1~4, A/B/C 판정)에 맞춘 기준 문서는
+> `docs/reports/post-likes-hypothesis-validation-report-2026-02-23.md` 이다.
+
 ## 0) 범위와 상태
 - 본 문서는 Issue #64의 1~3단계 중 현재 완료된 단위를 기준으로 작성한 중간 보고다.
 - 완료:
