@@ -1,4 +1,4 @@
-# [DB-ENGINE] post_likes PK 전략 재검증 결과 보고 (Issue #64)
+# [DB-ENGINE] post_likes PK 전략 검증 결과 보고 (Issue #64)
 
 > 이 문서는 초기 실험 버전이다.  
 > `fixed-events` 및 `C/S` 2축으로 재실행한 최신 기준 보고서는  
