@@ -17,13 +17,13 @@ LEVEL="${LEVEL:-L2}"
 
 RUNS="${RUNS:-5}"
 THREADS="${THREADS:-4}"
-TIME_SECONDS="${TIME_SECONDS:-20}"
 PREFILL_RATIO="${PREFILL_RATIO:-0.70}"
+EVENTS_PER_RUN="${EVENTS_PER_RUN:-auto}"
 
 DIST_MODE="skew"
 ID_PATTERN="objectid"
 
-RESULT_DIR="${SCRIPT_DIR}/results/phase3_sysbench_${SCALE}_${LEVEL}"
+RESULT_DIR="${SCRIPT_DIR}/results/phase3_sysbench_${SCALE}_${LEVEL}_cs"
 META_TXT="${RESULT_DIR}/metadata.txt"
 RAW_TSV="${RESULT_DIR}/raw.tsv"
 CASE_SUMMARY_TSV="${RESULT_DIR}/case_summary.tsv"
@@ -232,20 +232,7 @@ CREATE TABLE post_likes_case (
   ${common_indexes}
 ) ENGINE=InnoDB;"
       ;;
-    S_rand)
-      mysql_query "DROP TABLE IF EXISTS post_likes_case;
-CREATE TABLE post_likes_case (
-  id BINARY(12) NOT NULL,
-  post_id BINARY(12) NOT NULL,
-  member_id BIGINT NOT NULL,
-  created_at DATETIME(6) NOT NULL,
-  deleted_at DATETIME(6) NULL,
-  PRIMARY KEY (id),
-  ${common_indexes},
-  KEY idx_feed_deleted_post_member (deleted_at, post_id, member_id)
-) ENGINE=InnoDB;"
-      ;;
-    S_ai)
+    S)
       mysql_query "DROP TABLE IF EXISTS post_likes_case;
 CREATE TABLE post_likes_case (
   id BIGINT NOT NULL AUTO_INCREMENT,
@@ -278,18 +265,7 @@ FROM bench_likes_enriched
 WHERE source_id <= ${prefill_rows}
 ORDER BY source_id;"
       ;;
-    S_rand)
-      mysql_query "INSERT INTO post_likes_case (id, post_id, member_id, created_at, deleted_at)
-SELECT UNHEX(SUBSTRING(SHA2(CONCAT('pk-', source_id), 256), 1, 24)),
-       post_id,
-       member_id,
-       created_at,
-       NULL
-FROM bench_likes_enriched
-WHERE source_id <= ${prefill_rows}
-ORDER BY source_id;"
-      ;;
-    S_ai)
+    S)
       mysql_query "INSERT INTO post_likes_case (post_id, member_id, created_at, deleted_at)
 SELECT post_id, member_id, created_at, NULL
 FROM bench_likes_enriched
@@ -357,6 +333,7 @@ run_sysbench_once() {
   local run_idx="$2"
   local sid_min="$3"
   local sid_max="$4"
+  local events_count="$5"
   local before_file after_file out_file
   local eps avg_latency p95_report total_events p50_hist p95_hist p99_hist
   local bp_reads_delta pages_written_delta data_reads_delta data_writes_delta rows_inserted_delta row_count
@@ -375,8 +352,8 @@ run_sysbench_once() {
     --mysql-password="${MYSQL_ROOT_PASSWORD}" \
     --mysql-db="${BENCH_DB}" \
     --threads="${THREADS}" \
-    --time="${TIME_SECONDS}" \
-    --events=0 \
+    --time=0 \
+    --events="${events_count}" \
     --histogram=on \
     --report-interval=0 \
     --case_id="${case_id}" \
@@ -452,8 +429,8 @@ NR == 1 { next }
 END {
   print "case\truns\teps_mean\teps_sd\tavg_ms_mean\tavg_ms_sd\tavg_ms_cv_pct\tavg_ms_ci95\tp50_ms_mean\tp95_ms_mean\tp99_ms_mean\tinnodb_buffer_pool_reads_mean\tinnodb_pages_written_mean\tinnodb_data_reads_mean\tinnodb_data_writes_mean\tinnodb_rows_inserted_mean\tbp_reads_per_insert\tdata_reads_per_insert\tpages_written_per_insert\tdata_writes_per_insert\tfinal_row_count";
 
-  split("C S_rand S_ai", cases, " ");
-  for (i = 1; i <= 3; i++) {
+  split("C S", cases, " ");
+  for (i = 1; i <= 2; i++) {
     c = cases[i];
     if (n[c] == 0) continue;
 
@@ -518,7 +495,7 @@ NR == 1 { next }
     c_reads_per = $18 + 0;
     c_pages_per = $19 + 0;
     c_writes_per = $20 + 0;
-  } else {
+  } else if ($1 == "S") {
     bp_red = (c_bp > 0 ? (c_bp - ($12 + 0)) / c_bp * 100 : 0);
     reads_red = (c_reads > 0 ? (c_reads - ($14 + 0)) / c_reads * 100 : 0);
     pages_red = (c_pages > 0 ? (c_pages - ($13 + 0)) / c_pages * 100 : 0);
@@ -543,8 +520,11 @@ NR == 1 { next }
 run_case() {
   local case_id="$1"
   local prefill_rows="$2"
-  local sid_min_global sid_max_global window_size sid_min sid_max
+  local sid_min_global sid_max_global window_size sid_min sid_max range_size events_count
   local run_idx
+
+  # Keep the exact same source distribution per case by re-initializing dataset.
+  init_dataset
 
   create_case_table "${case_id}"
   prefill_case_data "${case_id}" "${prefill_rows}"
@@ -564,8 +544,20 @@ run_case() {
     else
       sid_max=${sid_max_global}
     fi
-    log "sysbench run case=${case_id} run=${run_idx} sid=[${sid_min},${sid_max}]"
-    run_sysbench_once "${case_id}" "${run_idx}" "${sid_min}" "${sid_max}"
+
+    range_size=$((sid_max - sid_min + 1))
+    if [[ "${EVENTS_PER_RUN}" == "auto" ]]; then
+      events_count="${range_size}"
+    else
+      events_count="${EVENTS_PER_RUN}"
+      if (( events_count > range_size )); then
+        echo "EVENTS_PER_RUN (${events_count}) must be <= sid range size (${range_size}) for fixed-workload fairness" >&2
+        exit 1
+      fi
+    fi
+
+    log "sysbench run case=${case_id} run=${run_idx} sid=[${sid_min},${sid_max}] events=${events_count}"
+    run_sysbench_once "${case_id}" "${run_idx}" "${sid_min}" "${sid_max}" "${events_count}"
   done
 }
 
@@ -579,7 +571,7 @@ main() {
 
   mkdir -p "${RESULT_DIR}"
 
-  cat > "${META_TXT}" <<EOF
+  cat > "${META_TXT}" <<EOF_META
 run_at_utc=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 scale=${SCALE}
 level=${LEVEL}
@@ -593,19 +585,18 @@ num_members=${NUM_MEMBERS}
 num_likes=${NUM_LIKES}
 runs=${RUNS}
 threads=${THREADS}
-time_seconds=${TIME_SECONDS}
 prefill_ratio=${PREFILL_RATIO}
 prefill_rows=${prefill_rows}
-cases=C,S_rand,S_ai
-EOF
+run_mode=fixed_events
+events_per_run=${EVENTS_PER_RUN}
+cases=C,S
+EOF_META
 
   printf 'case\trun\ttotal_events\tevents_per_sec\tavg_latency_ms\tp50_ms\tp95_ms\tp99_ms\tp95_report_ms\tinnodb_buffer_pool_reads_delta\tinnodb_pages_written_delta\tinnodb_data_reads_delta\tinnodb_data_writes_delta\tinnodb_rows_inserted_delta\trow_count_after_run\n' > "${RAW_TSV}"
 
   compose_up_mysql
-  init_dataset
   run_case "C" "${prefill_rows}"
-  run_case "S_rand" "${prefill_rows}"
-  run_case "S_ai" "${prefill_rows}"
+  run_case "S" "${prefill_rows}"
   aggregate_case_summary
   build_io_compare
 

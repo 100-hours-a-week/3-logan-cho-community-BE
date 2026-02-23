@@ -1,10 +1,10 @@
--- post_likes insert-centric workload for phase3
--- Event flow:
+-- post_likes insert-centric workload for phase3 (C vs S)
+-- Event flow per transaction:
 -- 1) exists check (src path)
 -- 2) insert ignore (src like path)
 
 sysbench.cmdline.options = {
-  case_id = {"schema case: C | S_rand | S_ai", "C"},
+  case_id = {"schema case: C | S", "C"},
   sid_min = {"minimum source_id (inclusive)", 1},
   sid_max = {"maximum source_id (inclusive)", 1000},
   sid_step = {"source_id step per event", 1}
@@ -59,21 +59,10 @@ WHERE pl.post_id = b.post_id
 LIMIT 1
 ]], sid))
 
-  if case_id == "S_ai" then
+  if case_id == "S" then
     con:query(string.format([[
 INSERT IGNORE INTO post_likes_case (post_id, member_id, created_at, deleted_at)
 SELECT post_id, member_id, created_at, NULL
-FROM bench_likes_enriched
-WHERE source_id = %d
-]], sid))
-  elseif case_id == "S_rand" then
-    con:query(string.format([[
-INSERT IGNORE INTO post_likes_case (id, post_id, member_id, created_at, deleted_at)
-SELECT UNHEX(SUBSTRING(SHA2(CONCAT('pk-', source_id), 256), 1, 24)),
-       post_id,
-       member_id,
-       created_at,
-       NULL
 FROM bench_likes_enriched
 WHERE source_id = %d
 ]], sid))

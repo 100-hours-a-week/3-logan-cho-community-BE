@@ -16,10 +16,11 @@ SCALE="${SCALE:-medium}"
 DIST_MODE="skew"
 ID_PATTERN="objectid"
 
-RESULT_DIR="${SCRIPT_DIR}/results/phase2_index_size_${SCALE}"
+RESULT_DIR="${SCRIPT_DIR}/results/phase2_index_size_${SCALE}_cs"
 META_TXT="${RESULT_DIR}/metadata.txt"
 SUMMARY_TSV="${RESULT_DIR}/summary.tsv"
 BREAK_EVEN_TSV="${RESULT_DIR}/break_even.tsv"
+DENSITY_TSV="${RESULT_DIR}/density_summary.tsv"
 
 require_cmd() {
   local cmd="$1"
@@ -209,20 +210,7 @@ CREATE TABLE post_likes_case (
   ${common_indexes}
 ) ENGINE=InnoDB;"
       ;;
-    S_rand)
-      mysql_query "DROP TABLE IF EXISTS post_likes_case;
-CREATE TABLE post_likes_case (
-  id BINARY(12) NOT NULL,
-  post_id BINARY(12) NOT NULL,
-  member_id BIGINT NOT NULL,
-  created_at DATETIME(6) NOT NULL,
-  deleted_at DATETIME(6) NULL,
-  PRIMARY KEY (id),
-  ${common_indexes},
-  KEY idx_feed_deleted_post_member (deleted_at, post_id, member_id)
-) ENGINE=InnoDB;"
-      ;;
-    S_ai)
+    S)
       mysql_query "DROP TABLE IF EXISTS post_likes_case;
 CREATE TABLE post_likes_case (
   id BIGINT NOT NULL AUTO_INCREMENT,
@@ -253,18 +241,7 @@ FROM bench_likes_source s
 JOIN bench_posts p ON p.post_seq = s.post_seq
 ORDER BY s.source_id;"
       ;;
-    S_rand)
-      mysql_query "INSERT INTO post_likes_case (id, post_id, member_id, created_at, deleted_at)
-SELECT UNHEX(SUBSTRING(SHA2(CONCAT('pk-', s.source_id), 256), 1, 24)),
-       p.post_id_bin,
-       s.member_id,
-       s.created_at,
-       NULL
-FROM bench_likes_source s
-JOIN bench_posts p ON p.post_seq = s.post_seq
-ORDER BY s.source_id;"
-      ;;
-    S_ai)
+    S)
       mysql_query "INSERT INTO post_likes_case (post_id, member_id, created_at, deleted_at)
 SELECT p.post_id_bin, s.member_id, s.created_at, NULL
 FROM bench_likes_source s
@@ -295,25 +272,56 @@ common_index_names_for_level() {
 collect_case_stats() {
   local level="$1"
   local case_id="$2"
-  local common_names index_stats_raw index_stats_tsv page_size
+  local common_names index_stats_raw index_stats_tsv page_size row_count
   local data_mb index_mb primary_mb secondary_total_mb common_secondary_mb extra_single_mb index_count common_count
+  local primary_leaf_pages primary_rows_per_leaf secondary_leaf_pages_total secondary_rows_per_leaf_total
+  local common_secondary_leaf_pages common_secondary_rows_per_leaf
 
   mysql_query "ANALYZE TABLE post_likes_case;" >/dev/null
+
+  row_count="$(mysql_query "SELECT COUNT(*) FROM post_likes_case;" | tail -n1)"
 
   index_stats_raw="${RESULT_DIR}/${level}_${case_id}_index_stats_raw.tsv"
   index_stats_tsv="${RESULT_DIR}/${level}_${case_id}_index_stats.tsv"
 
-  mysql_query "SELECT index_name, stat_value
+  mysql_query "SELECT index_name, stat_name, stat_value
 FROM mysql.innodb_index_stats
 WHERE database_name='${BENCH_DB}'
   AND table_name='post_likes_case'
-  AND stat_name='size'
-ORDER BY index_name;" > "${index_stats_raw}"
+  AND stat_name IN ('size', 'n_leaf_pages', 'n_diff_pfx01')
+ORDER BY index_name, stat_name;" > "${index_stats_raw}"
 
   page_size="$(mysql_query "SELECT @@innodb_page_size;" | tail -n1)"
 
-  awk -F'\t' -v ps="${page_size}" 'BEGIN { print "index_name\tpages\tsize_mb" }
-  { printf "%s\t%s\t%.3f\n", $1, $2, ($2 * ps) / 1024 / 1024 }' "${index_stats_raw}" > "${index_stats_tsv}"
+  awk -F'\t' -v ps="${page_size}" -v rows="${row_count}" '
+BEGIN {
+  print "index_name\tsize_pages\tsize_mb\tn_leaf_pages\tn_diff_pfx01\trows_per_leaf_page";
+}
+function flush() {
+  if (cur == "") return;
+  size_mb = (size_pages * ps) / 1024 / 1024;
+  rows_per_leaf = (leaf_pages > 0 ? rows / leaf_pages : 0);
+  printf "%s\t%d\t%.3f\t%d\t%d\t%.3f\n", cur, size_pages, size_mb, leaf_pages, n_diff, rows_per_leaf;
+}
+{
+  idx = $1;
+  st = $2;
+  val = $3 + 0;
+
+  if (idx != cur) {
+    flush();
+    cur = idx;
+    size_pages = 0;
+    leaf_pages = 0;
+    n_diff = 0;
+  }
+
+  if (st == "size") size_pages = val;
+  else if (st == "n_leaf_pages") leaf_pages = val;
+  else if (st == "n_diff_pfx01") n_diff = val;
+}
+END { flush(); }
+' "${index_stats_raw}" > "${index_stats_tsv}"
 
   read -r data_mb index_mb < <(
     mysql_query "SELECT ROUND(data_length / 1024 / 1024, 3), ROUND(index_length / 1024 / 1024, 3)
@@ -323,32 +331,99 @@ WHERE table_schema = '${BENCH_DB}'
   )
 
   primary_mb="$(awk -F'\t' '$1 == "PRIMARY" { print $3 }' "${index_stats_tsv}")"
-  if [[ -z "${primary_mb}" ]]; then
-    primary_mb="0.000"
-  fi
+  if [[ -z "${primary_mb}" ]]; then primary_mb="0.000"; fi
+
+  primary_leaf_pages="$(awk -F'\t' '$1 == "PRIMARY" { print $4 }' "${index_stats_tsv}")"
+  if [[ -z "${primary_leaf_pages}" ]]; then primary_leaf_pages="0"; fi
+
+  primary_rows_per_leaf="$(awk -F'\t' '$1 == "PRIMARY" { print $6 }' "${index_stats_tsv}")"
+  if [[ -z "${primary_rows_per_leaf}" ]]; then primary_rows_per_leaf="0.000"; fi
 
   secondary_total_mb="$(awk -F'\t' 'NR > 1 && $1 != "PRIMARY" { s += $3 } END { printf "%.3f", s + 0 }' "${index_stats_tsv}")"
+  secondary_leaf_pages_total="$(awk -F'\t' 'NR > 1 && $1 != "PRIMARY" { s += $4 } END { printf "%d", s + 0 }' "${index_stats_tsv}")"
+
+  index_count="$(awk 'NR > 1 { c++ } END { print c + 0 }' "${index_stats_tsv}")"
+  if (( secondary_leaf_pages_total > 0 && index_count > 1 )); then
+    secondary_rows_per_leaf_total="$(awk -v r="${row_count}" -v n="${index_count}" -v l="${secondary_leaf_pages_total}" 'BEGIN{printf "%.3f", (r * (n-1)) / l}')"
+  else
+    secondary_rows_per_leaf_total="0.000"
+  fi
 
   common_names="$(common_index_names_for_level "${level}")"
+  common_count="$(echo "${common_names}" | awk '{print NF}')"
+
   common_secondary_mb="$(awk -F'\t' -v n="${common_names}" '
 BEGIN {
   split(n, arr, " ");
   for (i in arr) if (arr[i] != "") m[arr[i]] = 1;
 }
 NR > 1 && ($1 in m) { s += $3 }
-END { printf "%.3f", s + 0 }' "${index_stats_tsv}")"
+END { printf "%.3f", s + 0 }
+' "${index_stats_tsv}")"
 
-  extra_single_mb="$(awk -F'\t' '$1 == "idx_feed_deleted_post_member" { print $3 }' "${index_stats_tsv}")"
-  if [[ -z "${extra_single_mb}" ]]; then
-    extra_single_mb="0.000"
+  common_secondary_leaf_pages="$(awk -F'\t' -v n="${common_names}" '
+BEGIN {
+  split(n, arr, " ");
+  for (i in arr) if (arr[i] != "") m[arr[i]] = 1;
+}
+NR > 1 && ($1 in m) { s += $4 }
+END { printf "%d", s + 0 }
+' "${index_stats_tsv}")"
+
+  if (( common_secondary_leaf_pages > 0 && common_count > 0 )); then
+    common_secondary_rows_per_leaf="$(awk -v r="${row_count}" -v c="${common_count}" -v l="${common_secondary_leaf_pages}" 'BEGIN{printf "%.3f", (r * c) / l}')"
+  else
+    common_secondary_rows_per_leaf="0.000"
   fi
 
-  index_count="$(awk 'NR > 1 { c++ } END { print c + 0 }' "${index_stats_tsv}")"
-  common_count="$(echo "${common_names}" | awk '{print NF}')"
+  extra_single_mb="$(awk -F'\t' '$1 == "idx_feed_deleted_post_member" { print $3 }' "${index_stats_tsv}")"
+  if [[ -z "${extra_single_mb}" ]]; then extra_single_mb="0.000"; fi
 
-  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-    "${level}" "${case_id}" "${data_mb}" "${index_mb}" "${primary_mb}" "${secondary_total_mb}" \
-    "${common_secondary_mb}" "${extra_single_mb}" "${index_count}" "${common_count}" >> "${SUMMARY_TSV}"
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+    "${level}" "${case_id}" "${row_count}" "${data_mb}" "${index_mb}" "${primary_mb}" \
+    "${secondary_total_mb}" "${common_secondary_mb}" "${extra_single_mb}" "${index_count}" \
+    "${common_count}" "${primary_leaf_pages}" "${primary_rows_per_leaf}" \
+    "${secondary_leaf_pages_total}" "${secondary_rows_per_leaf_total}" \
+    "${common_secondary_leaf_pages}" "${common_secondary_rows_per_leaf}" >> "${SUMMARY_TSV}"
+}
+
+build_density_summary() {
+  awk -F'\t' '
+NR == 1 { next }
+{
+  key = $1 FS $2;
+  row[key] = $0;
+}
+END {
+  print "level\trow_count\tc_primary_rows_per_leaf\ts_primary_rows_per_leaf\tprimary_rows_per_leaf_delta_pct\tc_common_secondary_rows_per_leaf\ts_common_secondary_rows_per_leaf\tcommon_secondary_rows_per_leaf_delta_pct\tc_secondary_rows_per_leaf_total\ts_secondary_rows_per_leaf_total\tsecondary_rows_per_leaf_total_delta_pct";
+
+  split("L1 L2 L3", levels, " ");
+  for (i = 1; i <= 3; i++) {
+    lvl = levels[i];
+    if (!(lvl FS "C" in row) || !(lvl FS "S" in row)) continue;
+
+    split(row[lvl FS "C"], c, FS);
+    split(row[lvl FS "S"], s, FS);
+
+    row_count = c[3] + 0;
+
+    c_p = c[13] + 0;
+    s_p = s[13] + 0;
+    p_delta = (c_p > 0 ? (s_p - c_p) / c_p * 100 : 0);
+
+    c_cs = c[17] + 0;
+    s_cs = s[17] + 0;
+    cs_delta = (c_cs > 0 ? (s_cs - c_cs) / c_cs * 100 : 0);
+
+    c_st = c[15] + 0;
+    s_st = s[15] + 0;
+    st_delta = (c_st > 0 ? (s_st - c_st) / c_st * 100 : 0);
+
+    printf "%s\t%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\n",
+      lvl, row_count, c_p, s_p, p_delta, c_cs, s_cs, cs_delta, c_st, s_st, st_delta;
+  }
+}
+' "${SUMMARY_TSV}" > "${DENSITY_TSV}"
 }
 
 calculate_break_even() {
@@ -359,49 +434,46 @@ NR == 1 { next }
   row[key] = $0;
 }
 END {
-  print "level\tvariant\textra_single_cost_mb\tcommon_secondary_saving_total_mb\tsaving_per_secondary_mb\tcommon_secondary_count\tbreak_even_k\tover_break_even";
+  print "level\tvariant\trow_count\textra_feed_index_mb\tclustered_row_increase_mb\teffective_extra_cost_mb\tcommon_secondary_saving_total_mb\tsaving_per_secondary_mb\tcommon_secondary_count\tbreak_even_k\tover_break_even";
 
-  n_levels = split("L1 L2 L3", levels, " ");
-  n_vars = split("S_rand S_ai", vars, " ");
-
-  for (li = 1; li <= n_levels; li++) {
+  split("L1 L2 L3", levels, " ");
+  for (li = 1; li <= 3; li++) {
     lvl = levels[li];
+    if (!(lvl FS "C" in row) || !(lvl FS "S" in row)) continue;
+
     split(row[lvl FS "C"], c, FS);
+    split(row[lvl FS "S"], s, FS);
 
-    for (vi = 1; vi <= n_vars; vi++) {
-      v = vars[vi];
-      split(row[lvl FS v], s, FS);
+    row_count = s[3] + 0;
 
-      common_count = s[10] + 0;
-      extra = s[8] + 0;
-      saving_total = (c[7] + 0) - (s[7] + 0);
+    extra_feed = s[9] + 0;
+    clustered_inc = (s[6] + 0) - (c[6] + 0);
+    if (clustered_inc < 0) clustered_inc = 0;
+    effective_extra = extra_feed + clustered_inc;
 
-      if (common_count > 0) {
-        saving_per = saving_total / common_count;
-      } else {
-        saving_per = 0;
-      }
+    common_count = s[11] + 0;
+    saving_total = (c[8] + 0) - (s[8] + 0);
+    saving_per = (common_count > 0 ? saving_total / common_count : 0);
 
-      if (saving_per > 0) {
-        break_even = int((extra / saving_per) + 0.999999);
-        over = (common_count >= break_even ? "yes" : "no");
-      } else {
-        break_even = "inf";
-        over = "no";
-      }
-
-      printf "%s\t%s\t%.3f\t%.3f\t%.3f\t%d\t%s\t%s\n",
-        lvl, v, extra, saving_total, saving_per, common_count, break_even, over;
+    if (saving_per > 0) {
+      break_even = int((effective_extra / saving_per) + 0.999999);
+      over = (common_count >= break_even ? "yes" : "no");
+    } else {
+      break_even = "inf";
+      over = "no";
     }
+
+    printf "%s\tS\t%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f\t%d\t%s\t%s\n",
+      lvl, row_count, extra_feed, clustered_inc, effective_extra, saving_total, saving_per, common_count, break_even, over;
   }
-}' "${SUMMARY_TSV}" > "${BREAK_EVEN_TSV}"
+}
+' "${SUMMARY_TSV}" > "${BREAK_EVEN_TSV}"
 }
 
 run_level() {
   local level="$1"
   run_level_case "${level}" "C"
-  run_level_case "${level}" "S_rand"
-  run_level_case "${level}" "S_ai"
+  run_level_case "${level}" "S"
 }
 
 run_level_case() {
@@ -415,7 +487,7 @@ run_level_case() {
 main() {
   mkdir -p "${RESULT_DIR}"
 
-  cat > "${META_TXT}" <<EOF
+  cat > "${META_TXT}" <<EOF_META
 run_at_utc=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 scale=${SCALE}
 dist=${DIST_MODE}
@@ -427,20 +499,22 @@ num_posts=${NUM_POSTS}
 num_members=${NUM_MEMBERS}
 num_likes=${NUM_LIKES}
 levels=L1,L2,L3
-cases=C,S_rand,S_ai
-EOF
+cases=C,S
+EOF_META
 
-  printf 'level\tcase\tdata_mb\tindex_mb\tprimary_mb\tsecondary_total_mb\tcommon_secondary_mb\textra_single_mb\tindex_count\tcommon_index_count\n' > "${SUMMARY_TSV}"
+  printf 'level\tcase\trow_count\tdata_mb\tindex_mb\tprimary_mb\tsecondary_total_mb\tcommon_secondary_mb\textra_single_mb\tindex_count\tcommon_index_count\tprimary_leaf_pages\tprimary_rows_per_leaf\tsecondary_leaf_pages_total\tsecondary_rows_per_leaf_total\tcommon_secondary_leaf_pages\tcommon_secondary_rows_per_leaf\n' > "${SUMMARY_TSV}"
 
   compose_up_mysql
   init_dataset
   run_level "L1"
   run_level "L2"
   run_level "L3"
+  build_density_summary
   calculate_break_even
 
   log "phase2 completed"
   log "summary: ${SUMMARY_TSV}"
+  log "density: ${DENSITY_TSV}"
   log "break-even: ${BREAK_EVEN_TSV}"
   log "metadata: ${META_TXT}"
 }

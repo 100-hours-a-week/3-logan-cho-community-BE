@@ -9,7 +9,7 @@ BENCH_DB="${BENCH_DB:-likes_bench}"
 MYSQL_PORT="${MYSQL_PORT:-13306}"
 MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD:-rootpw}"
 BUFFER_POOL_MB="${BUFFER_POOL_MB:-48}"
-MYSQL_MEMORY_LIMIT="${MYSQL_MEMORY_LIMIT:-384m}"
+MYSQL_MEMORY_LIMIT="${MYSQL_MEMORY_LIMIT:-768m}"
 MYSQL_CPU_LIMIT="${MYSQL_CPU_LIMIT:-2.0}"
 SCALE="${SCALE:-medium}"
 FEED_IN_SIZE="${FEED_IN_SIZE:-50}"
@@ -17,7 +17,7 @@ FEED_IN_SIZE="${FEED_IN_SIZE:-50}"
 DIST_MODE="skew"
 ID_PATTERN="objectid"
 
-RESULT_DIR="${SCRIPT_DIR}/results/phase1_covering_${SCALE}"
+RESULT_DIR="${SCRIPT_DIR}/results/phase1_covering_${SCALE}_cs"
 META_TXT="${RESULT_DIR}/metadata.txt"
 SUMMARY_TSV="${RESULT_DIR}/summary.tsv"
 
@@ -183,21 +183,7 @@ CREATE TABLE post_likes_case (
   KEY idx_member (member_id)
 ) ENGINE=InnoDB;"
       ;;
-    S_rand)
-      mysql_query "DROP TABLE IF EXISTS post_likes_case;
-CREATE TABLE post_likes_case (
-  id BINARY(12) NOT NULL,
-  post_id BINARY(12) NOT NULL,
-  member_id BIGINT NOT NULL,
-  created_at DATETIME(6) NOT NULL,
-  deleted_at DATETIME(6) NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY uk_member_post_deleted (member_id, post_id, deleted_at),
-  KEY idx_feed_deleted_post_member (deleted_at, post_id, member_id),
-  KEY idx_member (member_id)
-) ENGINE=InnoDB;"
-      ;;
-    S_ai)
+    S)
       mysql_query "DROP TABLE IF EXISTS post_likes_case;
 CREATE TABLE post_likes_case (
   id BIGINT NOT NULL AUTO_INCREMENT,
@@ -227,23 +213,14 @@ insert_case_data() {
 SELECT p.post_id_bin, s.member_id, s.created_at, NULL
 FROM bench_likes_source s
 JOIN bench_posts p ON p.post_seq = s.post_seq
-ORDER BY p.post_id_bin, s.member_id;"
+ORDER BY s.source_id;"
       ;;
-    S_rand)
-      mysql_query "INSERT INTO post_likes_case (id, post_id, member_id, created_at, deleted_at)
-SELECT UNHEX(SUBSTRING(SHA2(CONCAT('pk-', s.source_id), 256), 1, 24)),
-       p.post_id_bin,
-       s.member_id,
-       s.created_at,
-       NULL
-FROM bench_likes_source s
-JOIN bench_posts p ON p.post_seq = s.post_seq;"
-      ;;
-    S_ai)
+    S)
       mysql_query "INSERT INTO post_likes_case (post_id, member_id, created_at, deleted_at)
 SELECT p.post_id_bin, s.member_id, s.created_at, NULL
 FROM bench_likes_source s
-JOIN bench_posts p ON p.post_seq = s.post_seq;"
+JOIN bench_posts p ON p.post_seq = s.post_seq
+ORDER BY s.source_id;"
       ;;
   esac
 }
@@ -369,7 +346,7 @@ mysql_cpu_limit=${MYSQL_CPU_LIMIT}
 num_posts=${NUM_POSTS}
 num_members=${NUM_MEMBERS}
 num_likes=${NUM_LIKES}
-cases=C,S_rand,S_ai
+cases=C,S
 EOF
 
   printf 'case\tquery_id\tkey\tusing_index\textra\n' > "${SUMMARY_TSV}"
@@ -377,8 +354,7 @@ EOF
   compose_up_mysql
   init_dataset
   run_case_phase1 "C"
-  run_case_phase1 "S_rand"
-  run_case_phase1 "S_ai"
+  run_case_phase1 "S"
 
   log "phase1 completed"
   log "summary: ${SUMMARY_TSV}"

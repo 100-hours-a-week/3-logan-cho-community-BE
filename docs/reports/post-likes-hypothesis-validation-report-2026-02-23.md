@@ -1,5 +1,9 @@
 # [DB-ENGINE] post_likes PK 전략 재검증 결과 보고 (Issue #64)
 
+> 이 문서는 초기 실험 버전이다.  
+> `fixed-events` 및 `C/S` 2축으로 재실행한 최신 기준 보고서는  
+> `docs/reports/post-likes-hypothesis-validation-report-2026-02-23-cs.md` 이다.
+
 ## 1. 목적
 본 보고서는 Issue #64의 핵심 질문을 검증하기 위한 결과 보고다.
 
