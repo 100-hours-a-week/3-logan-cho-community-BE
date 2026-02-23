@@ -6,6 +6,24 @@
 - 절대 I/O 카운터와 처리량 차이가 함께 변할 때 발생하는 해석 왜곡을 방지하기 위해,
   insert 1건당 정규화 지표를 함께 본다.
 
+## 용어 정의
+- `C`:
+  - 복합 PK 전략
+  - `PRIMARY KEY (post_id, member_id)`
+- `S_rand`:
+  - 단일 PK 전략(non-monotonic)
+  - `PRIMARY KEY (id BINARY(12))`
+  - `idx_feed_deleted_post_member (deleted_at, post_id, member_id)` 추가
+- `S_ai`:
+  - 단일 PK 전략(monotonic, 대조군)
+  - `PRIMARY KEY (id BIGINT AUTO_INCREMENT)`
+  - `idx_feed_deleted_post_member (deleted_at, post_id, member_id)` 추가
+
+- `L1/L2/L3`:
+  - `L1`: `uk_member_post_deleted`, `idx_member`
+  - `L2`: `L1 + idx_created + idx_deleted_created`
+  - `L3`: `L2 + idx_post_created + idx_member_created + idx_deleted_member`
+
 ## 실행 조건 (공통)
 - 스크립트: `test/post-likes-benchmark/run-phase3-sysbench.sh`
 - `SCALE=medium`, `RUNS=5`, `THREADS=4`, `TIME_SECONDS=20`, `PREFILL_RATIO=0.70`

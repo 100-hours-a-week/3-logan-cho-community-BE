@@ -24,6 +24,32 @@ Issue #64의 사전 가설을 그대로 기준으로 검증했다.
 ---
 
 ## 3. 검증 설계 요약
+### 3-0. 용어 정의
+- `C`:
+  - 복합 PK 전략
+  - `PRIMARY KEY (post_id, member_id)`
+- `S_rand`:
+  - 단일 PK 전략(non-monotonic)
+  - `PRIMARY KEY (id BINARY(12))`
+  - 단일 PK 케이스에서 feed 경로 보장을 위해 `idx_feed_deleted_post_member (deleted_at, post_id, member_id)`를 추가로 가짐
+- `S_ai`:
+  - 단일 PK 전략(monotonic, 대조군)
+  - `PRIMARY KEY (id BIGINT AUTO_INCREMENT)`
+  - `S_rand`와 동일하게 `idx_feed_deleted_post_member`를 가짐
+
+- `L1/L2/L3` (인덱스 단계):
+  - `L1`:
+    - `uk_member_post_deleted (member_id, post_id, deleted_at)`
+    - `idx_member (member_id)`
+  - `L2`:
+    - `L1` + `idx_created (created_at)` + `idx_deleted_created (deleted_at, created_at)`
+  - `L3`:
+    - `L2` + `idx_post_created (post_id, created_at)`
+    - `idx_member_created (member_id, created_at)`
+    - `idx_deleted_member (deleted_at, member_id)`
+
+즉 `L1 -> L2 -> L3`는 "보조 인덱스 수가 점진적으로 증가하는 시나리오"를 의미한다.
+
 ### 3-1. 공통 전제
 - `post_id=BINARY(12)` 고정(Mongo ObjectId 가정)
 - `SCALE=medium`: post 140k, member 260k, likes 900k
