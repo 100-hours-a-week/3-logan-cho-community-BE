@@ -1,0 +1,2 @@
+cmdstat_setex:calls=7,usec=7968,usec_per_call=1138.29,rejected_calls=0,failed_calls=0
+cmdstat_mget:calls=12437,usec=162736,usec_per_call=13.08,rejected_calls=0,failed_calls=0
