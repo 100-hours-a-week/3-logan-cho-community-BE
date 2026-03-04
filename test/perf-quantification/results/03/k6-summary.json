@@ -1,0 +1,240 @@
+{
+    "metrics": {
+        "http_req_duration": {
+            "p(95)": 73.47342504999999,
+            "avg": 33.635828271891405,
+            "min": 3.899291,
+            "med": 27.812396,
+            "max": 430.024834,
+            "p(90)": 56.638625000000005,
+            "thresholds": {
+                "p(95)<5000": false
+            }
+        },
+        "vus": {
+            "value": 20,
+            "min": 0,
+            "max": 20
+        },
+        "iterations": {
+            "count": 2243,
+            "rate": 35.89968230631841
+        },
+        "http_req_failed": {
+            "passes": 20,
+            "fails": 2264,
+            "thresholds": {
+                "rate<0.02": false
+            },
+            "value": 0.008756567425569177
+        },
+        "http_req_duration{expected_response:true}": {
+            "min": 4.243417,
+            "med": 27.866771,
+            "max": 177.741792,
+            "p(90)": 56.7248169,
+            "p(95)": 73.47342504999999,
+            "avg": 33.68880010600706
+        },
+        "http_req_blocked": {
+            "max": 17.940416,
+            "p(90)": 0.04382940000000001,
+            "p(95)": 0.11603309999999964,
+            "avg": 0.20715018607705765,
+            "min": 0.001292,
+            "med": 0.00875
+        },
+        "checks": {
+            "passes": 2243,
+            "fails": 0,
+            "value": 1
+        },
+        "iteration_duration": {
+            "avg": 536.491804010254,
+            "min": 506.020584,
+            "med": 530.975875,
+            "max": 682.961917,
+            "p(90)": 559.0236082,
+            "p(95)": 578.9072798
+        },
+        "http_reqs": {
+            "count": 2284,
+            "rate": 36.5558958482529
+        },
+        "data_sent": {
+            "count": 790373,
+            "rate": 12650.08453120455
+        },
+        "data_received": {
+            "count": 1747759,
+            "rate": 27973.24692287506
+        },
+        "http_req_connecting": {
+            "p(95)": 0,
+            "avg": 0.16724839360770583,
+            "min": 0,
+            "med": 0,
+            "max": 16.373959,
+            "p(90)": 0,
+            "thresholds": {
+                "p(95)<500": false
+            }
+        },
+        "http_req_sending": {
+            "avg": 0.09619496453590203,
+            "min": 0.003209,
+            "med": 0.025687500000000002,
+            "max": 9.534084,
+            "p(90)": 0.13207920000000006,
+            "p(95)": 0.27998744999999936
+        },
+        "vus_max": {
+            "max": 20,
+            "value": 20,
+            "min": 20
+        },
+        "http_req_receiving": {
+            "p(95)": 1.0219063499999994,
+            "avg": 0.26624816155866876,
+            "min": 0.007583,
+            "med": 0.078146,
+            "max": 32.373041,
+            "p(90)": 0.596592
+        },
+        "http_req_waiting": {
+            "med": 27.415771,
+            "max": 421.66425,
+            "p(90)": 55.64893740000002,
+            "p(95)": 73.27831064999998,
+            "avg": 33.27338514579681,
+            "min": 3.58825
+        },
+        "http_req_tls_handshaking": {
+            "avg": 0,
+            "min": 0,
+            "med": 0,
+            "max": 0,
+            "p(90)": 0,
+            "p(95)": 0
+        },
+        "detail_duration": {
+            "avg": 33.244749769059304,
+            "min": 4.243417,
+            "med": 27.796667,
+            "max": 177.741792,
+            "p(90)": 53.2874336,
+            "p(95)": 70.71014579999999
+        }
+    },
+    "setup_data": {
+        "samplePostIds": [
+            "69a679baa8727babecb3def4",
+            "6934479755ecb7a6eec368c8",
+            "693421b4df377fb1c5b967a0",
+            "6934201d760b79821d0c929f",
+            "69341de70da0ac2bd24b5485",
+            "69341cf90da0ac2bd24b5484",
+            "690726209aea925554379ae8",
+            "69004ff54020c28094a3bd2a",
+            "69004feb4020c28094a3bd29",
+            "69004dd64020c28094a3bd28"
+        ],
+        "users": [
+            {
+                "email": "perf-user-0@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzcyNjA3NTY5LCJleHAiOjE3NzI2MDkzNjksInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.QlQ9PHSvLybOpt_GHzyl2OUJEYJw7CcipMoXaKEJHvU"
+            },
+            {
+                "email": "perf-user-1@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzcyNjA3NTY5LCJleHAiOjE3NzI2MDkzNjksInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.KUgo_I8ugkm1wmZwf4GGkmOqAEeWv0MNNfAKXPNCBYw"
+            },
+            {
+                "email": "perf-user-2@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwiaWF0IjoxNzcyNjA3NTY5LCJleHAiOjE3NzI2MDkzNjksInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.PMraUsjzflu4ZpuOUkxnCGg0TD6aqrZ38aJzplp5Tww"
+            },
+            {
+                "email": "perf-user-3@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzcyNjA3NTY5LCJleHAiOjE3NzI2MDkzNjksInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.zE04vs-StifBfNYuMdu9Ay1qbWq8CWOVjyrwO0mmk2g"
+            },
+            {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiaWF0IjoxNzcyNjA3NTcwLCJleHAiOjE3NzI2MDkzNzAsInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.FxZ_MD4NZ6xT26PkZjrRutcaOtF1CWabkJDKhMQdYAI",
+                "email": "perf-user-4@example.com"
+            },
+            {
+                "email": "perf-user-5@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNzcyNjA3NTcwLCJleHAiOjE3NzI2MDkzNzAsInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.FOTI3DbWPdX4YhFfCpDQW4M_pzugnnlIBFg9t4KJogA"
+            },
+            {
+                "email": "perf-user-6@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3IiwiaWF0IjoxNzcyNjA3NTcwLCJleHAiOjE3NzI2MDkzNzAsInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.iuwu5XllzXU1dgs8iN4TjGOwESjdY6TD1xoO1BRq2Dg"
+            },
+            {
+                "email": "perf-user-7@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiaWF0IjoxNzcyNjA3NTcwLCJleHAiOjE3NzI2MDkzNzAsInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.ro8HD6NPo4LivxstJH683uU_uYkQZDvKrT7oB0NG92E"
+            },
+            {
+                "email": "perf-user-8@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5IiwiaWF0IjoxNzcyNjA3NTcwLCJleHAiOjE3NzI2MDkzNzAsInR5cCI6IkFDQ0VTU19KV1QiLCJyb2xlIjoiUk9MRV9VU0VSIn0.h8ocSJgqlchWWy4cE3ME62mRNbQtD3NtBjMv--Gf4hk"
+            },
+            {
+                "email": "perf-user-9@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsImlhdCI6MTc3MjYwNzU3MCwiZXhwIjoxNzcyNjA5MzcwLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.Pgoh6cu62M15eDPvc6o4OtpcAM3sacb8_80uPSjJiyo"
+            },
+            {
+                "email": "perf-user-10@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMSIsImlhdCI6MTc3MjYwNzU3MCwiZXhwIjoxNzcyNjA5MzcwLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.jm0jpuyn-qu3OzMagzIVfrk0p6nPXmWbF-ez02YfbWk"
+            },
+            {
+                "email": "perf-user-11@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMiIsImlhdCI6MTc3MjYwNzU3MCwiZXhwIjoxNzcyNjA5MzcwLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.Iu45supcoD-j2JtKjPTwNSw1Z0YI4OiCNyen_yrJiV4"
+            },
+            {
+                "email": "perf-user-12@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMyIsImlhdCI6MTc3MjYwNzU3MCwiZXhwIjoxNzcyNjA5MzcwLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.tS3U14WpIFXaS40sualezvHVX31dcWefZUe2KrEe54I"
+            },
+            {
+                "email": "perf-user-13@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTc3MjYwNzU3MCwiZXhwIjoxNzcyNjA5MzcwLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.X4pPPAe4s2plvF3243sWNKvSpesmpeeiT7fdF3wYNCE"
+            },
+            {
+                "email": "perf-user-14@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNSIsImlhdCI6MTc3MjYwNzU3MCwiZXhwIjoxNzcyNjA5MzcwLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.dfdIPN4zforBCag1oXsTNqZSXHDGFy0-dOSN_0ZxCX0"
+            },
+            {
+                "email": "perf-user-15@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNiIsImlhdCI6MTc3MjYwNzU3MCwiZXhwIjoxNzcyNjA5MzcwLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.5qPRExHGqkRhtGzDELWLBo5QHK5Y3-oyjOR_JVnn71Y"
+            },
+            {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNyIsImlhdCI6MTc3MjYwNzU3MSwiZXhwIjoxNzcyNjA5MzcxLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.YRLETc2oVA357AJKGTF5GGdxaQQDBkOvK05dq9gBGDg",
+                "email": "perf-user-16@example.com"
+            },
+            {
+                "email": "perf-user-17@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxOCIsImlhdCI6MTc3MjYwNzU3MSwiZXhwIjoxNzcyNjA5MzcxLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.WRcv9ajooN3fIKTX8VFXrgN8vsL0tpUnSVPjaX9_2-0"
+            },
+            {
+                "email": "perf-user-18@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxOSIsImlhdCI6MTc3MjYwNzU3MSwiZXhwIjoxNzcyNjA5MzcxLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.7rQ4HgD-o7tb2sY6kRWFZ0QDVXfrQeoi2PRamjT5bS8"
+            },
+            {
+                "email": "perf-user-19@example.com",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMCIsImlhdCI6MTc3MjYwNzU3MSwiZXhwIjoxNzcyNjA5MzcxLCJ0eXAiOiJBQ0NFU1NfSldUIiwicm9sZSI6IlJPTEVfVVNFUiJ9.ecLa20kRzqboFRuc61IwX0BPq4zq6mK5lFq1-IYrYH0"
+            }
+        ]
+    },
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {},
+        "checks": {
+                "detail_ok": {
+                    "id": "0aa3c4ef660eb0ec689e8aebadfbf358",
+                    "passes": 2243,
+                    "fails": 0,
+                    "name": "detail_ok",
+                    "path": "::detail_ok"
+                }
+            }
+    }
+}

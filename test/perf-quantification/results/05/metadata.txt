@@ -1,0 +1,12 @@
+Experiment: 05
+Date: 2026-03-04T07:00:34Z
+Runner: run-exp05-redis-pipeline.sh
+Host: choui-MacBookPro.local
+Note: Redis Pipeline A/B 비교
+Environment:
+  BASE_URL=
+  MYSQL_HOST=
+  MYSQL_PORT=
+  MYSQL_DB=
+  MONGO_URI=
+  REDIS_HOST=127.0.0.1

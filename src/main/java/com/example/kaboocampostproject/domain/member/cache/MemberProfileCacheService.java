@@ -41,6 +41,10 @@ public class MemberProfileCacheService {
 
     // 없는 Member(소프트딜리트)는 map에 미포함
     public Map<Long, MemberProfileCacheDTO> getProfiles(List<Long> memberIds) {
+        return getProfiles(memberIds, true);
+    }
+
+    public Map<Long, MemberProfileCacheDTO> getProfiles(List<Long> memberIds, boolean usePipeline) {
         if (memberIds == null || memberIds.isEmpty()) return Collections.emptyMap();
 
         RedisMetadata redisMeta = RedisMetadata.MEMBER_PROFILE;
@@ -49,6 +53,15 @@ public class MemberProfileCacheService {
         List<Long> distinctMemberIds = memberIds.stream().distinct().toList();
 
         // redis에서 캐싱데이터 가져오기
+        if (!usePipeline) {
+            Map<Long, MemberProfileCacheDTO> rawResult = new LinkedHashMap<>();
+            for (Long memberId : distinctMemberIds) {
+                MemberProfileCacheDTO profileCached = getProfile(memberId);
+                if (profileCached != null) rawResult.put(memberId, profileCached);
+            }
+            return rawResult;
+        }
+
         List<String> keys = distinctMemberIds.stream()
                 .map(redisMeta::keyOf)
                 .toList();

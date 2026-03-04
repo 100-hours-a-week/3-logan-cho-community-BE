@@ -39,11 +39,12 @@ public class PostController {
     public ResponseEntity<CustomResponse<PostSliceResDTO>> getPostList(
             @RequestParam(required=false) String cursor,
             @RequestParam(required=false, defaultValue="RECENT") Cursor.CursorStrategy strategy,
+            @RequestParam(required=false, defaultValue="true") boolean usePipeline,
             @MemberIdInfo Long memberId
     ) {
         PostSliceResDTO result = (cursor != null)
-                ? postMongoService.findNext(memberId, cursor)
-                : postMongoService.findFirst(memberId, strategy);
+                ? postMongoService.findNext(memberId, cursor, usePipeline)
+                : postMongoService.findFirst(memberId, strategy, usePipeline);
 
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK, result));
     }

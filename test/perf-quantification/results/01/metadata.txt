@@ -1,0 +1,12 @@
+Experiment: 01
+Date: 2026-03-04T06:52:52Z
+Runner: run-exp01-next-key-lock.sh
+Host: choui-MacBookPro.local
+Note: next-key lock repro with large dataset
+Environment:
+  BASE_URL=
+  MYSQL_HOST=127.0.0.1
+  MYSQL_PORT=13306
+  MYSQL_DB=perfcmp
+  MONGO_URI=
+  REDIS_HOST=
