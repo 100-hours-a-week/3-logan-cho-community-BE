@@ -1,0 +1,3058 @@
+time="2026-03-02T16:13:15Z" level=error msg="accepts 1 arg(s), received 3: arg should either be \"-\", if reading script from stdin, or a path to a script file"
+time="2026-03-02T16:13:37Z" level=error msg="accepts 1 arg(s), received 3: arg should either be \"-\", if reading script from stdin, or a path to a script file"
+time="2026-03-02T16:13:42Z" level=error msg="accepts 1 arg(s), received 3: arg should either be \"-\", if reading script from stdin, or a path to a script file"
+time="2026-03-02T16:13:50Z" level=error msg="accepts 1 arg(s), received 3: arg should either be \"-\", if reading script from stdin, or a path to a script file"
+time="2026-03-02T16:13:52Z" level=error msg="accepts 1 arg(s), received 3: arg should either be \"-\", if reading script from stdin, or a path to a script file"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 10 max VUs, 1m0s max duration (incl. graceful stop):
+              * main: 10 looping VUs for 30s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m05.0s), 10/10 VUs, 10 complete and 0 interrupted iterations
+main   [   3% ] 10 VUs  00.8s/30s
+
+running (0m06.0s), 10/10 VUs, 30 complete and 0 interrupted iterations
+main   [   6% ] 10 VUs  01.8s/30s
+
+running (0m07.0s), 10/10 VUs, 50 complete and 0 interrupted iterations
+main   [   9% ] 10 VUs  02.8s/30s
+
+running (0m08.0s), 10/10 VUs, 70 complete and 0 interrupted iterations
+main   [  13% ] 10 VUs  03.8s/30s
+
+running (0m09.0s), 10/10 VUs, 80 complete and 0 interrupted iterations
+main   [  16% ] 10 VUs  04.8s/30s
+
+running (0m10.0s), 10/10 VUs, 100 complete and 0 interrupted iterations
+main   [  19% ] 10 VUs  05.8s/30s
+
+running (0m11.0s), 10/10 VUs, 120 complete and 0 interrupted iterations
+main   [  23% ] 10 VUs  06.8s/30s
+
+running (0m12.0s), 10/10 VUs, 140 complete and 0 interrupted iterations
+main   [  26% ] 10 VUs  07.8s/30s
+
+running (0m13.0s), 10/10 VUs, 160 complete and 0 interrupted iterations
+main   [  29% ] 10 VUs  08.8s/30s
+
+running (0m14.0s), 10/10 VUs, 180 complete and 0 interrupted iterations
+main   [  33% ] 10 VUs  09.8s/30s
+
+running (0m15.0s), 10/10 VUs, 200 complete and 0 interrupted iterations
+main   [  36% ] 10 VUs  10.8s/30s
+
+running (0m16.0s), 10/10 VUs, 220 complete and 0 interrupted iterations
+main   [  39% ] 10 VUs  11.8s/30s
+
+running (0m17.0s), 10/10 VUs, 240 complete and 0 interrupted iterations
+main   [  43% ] 10 VUs  12.8s/30s
+
+running (0m18.0s), 10/10 VUs, 260 complete and 0 interrupted iterations
+main   [  46% ] 10 VUs  13.8s/30s
+
+running (0m19.0s), 10/10 VUs, 270 complete and 0 interrupted iterations
+main   [  49% ] 10 VUs  14.8s/30s
+
+running (0m20.0s), 10/10 VUs, 290 complete and 0 interrupted iterations
+main   [  53% ] 10 VUs  15.8s/30s
+
+running (0m21.0s), 10/10 VUs, 310 complete and 0 interrupted iterations
+main   [  56% ] 10 VUs  16.8s/30s
+
+running (0m22.0s), 10/10 VUs, 330 complete and 0 interrupted iterations
+main   [  59% ] 10 VUs  17.8s/30s
+
+running (0m23.0s), 10/10 VUs, 350 complete and 0 interrupted iterations
+main   [  63% ] 10 VUs  18.8s/30s
+
+running (0m24.0s), 10/10 VUs, 370 complete and 0 interrupted iterations
+main   [  66% ] 10 VUs  19.8s/30s
+
+running (0m25.0s), 10/10 VUs, 390 complete and 0 interrupted iterations
+main   [  69% ] 10 VUs  20.8s/30s
+
+running (0m26.0s), 10/10 VUs, 402 complete and 0 interrupted iterations
+main   [  73% ] 10 VUs  21.8s/30s
+
+running (0m27.0s), 10/10 VUs, 420 complete and 0 interrupted iterations
+main   [  76% ] 10 VUs  22.8s/30s
+
+running (0m28.0s), 10/10 VUs, 440 complete and 0 interrupted iterations
+main   [  79% ] 10 VUs  23.8s/30s
+
+running (0m29.0s), 10/10 VUs, 460 complete and 0 interrupted iterations
+main   [  83% ] 10 VUs  24.8s/30s
+
+running (0m30.0s), 10/10 VUs, 480 complete and 0 interrupted iterations
+main   [  86% ] 10 VUs  25.8s/30s
+
+running (0m31.0s), 10/10 VUs, 500 complete and 0 interrupted iterations
+main   [  89% ] 10 VUs  26.8s/30s
+
+running (0m32.0s), 10/10 VUs, 520 complete and 0 interrupted iterations
+main   [  93% ] 10 VUs  27.8s/30s
+
+running (0m33.0s), 10/10 VUs, 540 complete and 0 interrupted iterations
+main   [  96% ] 10 VUs  28.8s/30s
+
+running (0m34.0s), 10/10 VUs, 560 complete and 0 interrupted iterations
+main   [  99% ] 10 VUs  29.8s/30s
+{
+  "metrics": [
+    "iteration_duration",
+    "iterations",
+    "http_req_receiving",
+    "data_sent",
+    "http_req_connecting",
+    "detail_duration",
+    "http_req_blocked",
+    "http_req_sending",
+    "http_reqs",
+    "http_req_waiting",
+    "data_received",
+    "http_req_tls_handshaking",
+    "http_req_failed",
+    "http_req_duration{expected_response:true}",
+    "vus_max",
+    "checks",
+    "vus",
+    "http_req_duration"
+  ],
+  "stats": {
+    "detail_p95": 54.18692485,
+    "failed_rate": 0.9328968903436988
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (0m34.4s), 00/10 VUs, 570 complete and 0 interrupted iterations
+main ✓ [ 100% ] 10 VUs  30s
+time="2026-03-02T16:14:30Z" level=error msg="thresholds on metrics 'http_req_failed' have been crossed"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 1m0s max duration (incl. graceful stop):
+              * main: 1 looping VUs for 30s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m02.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+main   [   1% ] 1 VUs  00.4s/30s
+
+running (0m03.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+main   [   5% ] 1 VUs  01.4s/30s
+
+running (0m04.0s), 1/1 VUs, 4 complete and 0 interrupted iterations
+main   [   8% ] 1 VUs  02.4s/30s
+
+running (0m05.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+main   [  11% ] 1 VUs  03.4s/30s
+
+running (0m06.0s), 1/1 VUs, 8 complete and 0 interrupted iterations
+main   [  15% ] 1 VUs  04.4s/30s
+
+running (0m07.0s), 1/1 VUs, 10 complete and 0 interrupted iterations
+main   [  18% ] 1 VUs  05.4s/30s
+
+running (0m08.0s), 1/1 VUs, 12 complete and 0 interrupted iterations
+main   [  21% ] 1 VUs  06.4s/30s
+
+running (0m09.0s), 1/1 VUs, 14 complete and 0 interrupted iterations
+main   [  25% ] 1 VUs  07.4s/30s
+
+running (0m10.0s), 1/1 VUs, 16 complete and 0 interrupted iterations
+main   [  28% ] 1 VUs  08.4s/30s
+
+running (0m11.0s), 1/1 VUs, 18 complete and 0 interrupted iterations
+main   [  31% ] 1 VUs  09.4s/30s
+
+running (0m12.0s), 1/1 VUs, 20 complete and 0 interrupted iterations
+main   [  35% ] 1 VUs  10.5s/30s
+
+running (0m13.0s), 1/1 VUs, 21 complete and 0 interrupted iterations
+main   [  38% ] 1 VUs  11.4s/30s
+
+running (0m14.0s), 1/1 VUs, 23 complete and 0 interrupted iterations
+main   [  41% ] 1 VUs  12.4s/30s
+
+running (0m15.0s), 1/1 VUs, 25 complete and 0 interrupted iterations
+main   [  45% ] 1 VUs  13.4s/30s
+
+running (0m16.0s), 1/1 VUs, 27 complete and 0 interrupted iterations
+main   [  48% ] 1 VUs  14.4s/30s
+
+running (0m17.0s), 1/1 VUs, 29 complete and 0 interrupted iterations
+main   [  51% ] 1 VUs  15.4s/30s
+
+running (0m18.0s), 1/1 VUs, 31 complete and 0 interrupted iterations
+main   [  55% ] 1 VUs  16.4s/30s
+
+running (0m19.0s), 1/1 VUs, 33 complete and 0 interrupted iterations
+main   [  58% ] 1 VUs  17.4s/30s
+
+running (0m20.0s), 1/1 VUs, 35 complete and 0 interrupted iterations
+main   [  61% ] 1 VUs  18.4s/30s
+
+running (0m21.0s), 1/1 VUs, 37 complete and 0 interrupted iterations
+main   [  65% ] 1 VUs  19.4s/30s
+
+running (0m22.0s), 1/1 VUs, 39 complete and 0 interrupted iterations
+main   [  68% ] 1 VUs  20.4s/30s
+
+running (0m23.0s), 1/1 VUs, 40 complete and 0 interrupted iterations
+main   [  71% ] 1 VUs  21.4s/30s
+
+running (0m24.0s), 1/1 VUs, 42 complete and 0 interrupted iterations
+main   [  75% ] 1 VUs  22.4s/30s
+
+running (0m25.0s), 1/1 VUs, 44 complete and 0 interrupted iterations
+main   [  78% ] 1 VUs  23.4s/30s
+
+running (0m26.0s), 1/1 VUs, 46 complete and 0 interrupted iterations
+main   [  81% ] 1 VUs  24.4s/30s
+
+running (0m27.0s), 1/1 VUs, 48 complete and 0 interrupted iterations
+main   [  85% ] 1 VUs  25.4s/30s
+
+running (0m28.0s), 1/1 VUs, 50 complete and 0 interrupted iterations
+main   [  88% ] 1 VUs  26.4s/30s
+
+running (0m29.0s), 1/1 VUs, 51 complete and 0 interrupted iterations
+main   [  91% ] 1 VUs  27.4s/30s
+
+running (0m30.0s), 1/1 VUs, 53 complete and 0 interrupted iterations
+main   [  95% ] 1 VUs  28.4s/30s
+
+running (0m31.0s), 1/1 VUs, 55 complete and 0 interrupted iterations
+main   [  98% ] 1 VUs  29.4s/30s
+{
+  "metrics": [
+    "http_req_duration{expected_response:true}",
+    "detail_duration",
+    "vus_max",
+    "http_req_sending",
+    "iterations",
+    "data_received",
+    "http_req_receiving",
+    "vus",
+    "checks",
+    "http_req_connecting",
+    "http_reqs",
+    "iteration_duration",
+    "http_req_failed",
+    "http_req_blocked",
+    "http_req_waiting",
+    "http_req_tls_handshaking",
+    "data_sent",
+    "http_req_duration"
+  ],
+  "stats": {
+    "detail_p95": 43.54452499999998,
+    "failed_rate": 0.7857142857142857
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (0m31.6s), 0/1 VUs, 57 complete and 0 interrupted iterations
+main ✓ [ 100% ] 1 VUs  30s
+time="2026-03-02T16:15:05Z" level=error msg="thresholds on metrics 'http_req_failed' have been crossed"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 1m0s max duration (incl. graceful stop):
+              * main: 1 looping VUs for 30s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m02.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+main   [   2% ] 1 VUs  00.5s/30s
+
+running (0m03.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+main   [   5% ] 1 VUs  01.5s/30s
+
+running (0m04.0s), 1/1 VUs, 4 complete and 0 interrupted iterations
+main   [   8% ] 1 VUs  02.5s/30s
+
+running (0m05.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+main   [  12% ] 1 VUs  03.5s/30s
+
+running (0m06.0s), 1/1 VUs, 8 complete and 0 interrupted iterations
+main   [  15% ] 1 VUs  04.5s/30s
+
+running (0m07.0s), 1/1 VUs, 10 complete and 0 interrupted iterations
+main   [  18% ] 1 VUs  05.5s/30s
+
+running (0m08.0s), 1/1 VUs, 12 complete and 0 interrupted iterations
+main   [  22% ] 1 VUs  06.5s/30s
+
+running (0m09.0s), 1/1 VUs, 14 complete and 0 interrupted iterations
+main   [  25% ] 1 VUs  07.5s/30s
+
+running (0m10.0s), 1/1 VUs, 15 complete and 0 interrupted iterations
+main   [  28% ] 1 VUs  08.5s/30s
+
+running (0m11.0s), 1/1 VUs, 17 complete and 0 interrupted iterations
+main   [  32% ] 1 VUs  09.5s/30s
+
+running (0m12.0s), 1/1 VUs, 19 complete and 0 interrupted iterations
+main   [  35% ] 1 VUs  10.5s/30s
+
+running (0m13.0s), 1/1 VUs, 21 complete and 0 interrupted iterations
+main   [  38% ] 1 VUs  11.5s/30s
+
+running (0m14.0s), 1/1 VUs, 23 complete and 0 interrupted iterations
+main   [  42% ] 1 VUs  12.5s/30s
+
+running (0m15.0s), 1/1 VUs, 25 complete and 0 interrupted iterations
+main   [  45% ] 1 VUs  13.5s/30s
+
+running (0m16.0s), 1/1 VUs, 26 complete and 0 interrupted iterations
+main   [  48% ] 1 VUs  14.5s/30s
+
+running (0m17.0s), 1/1 VUs, 28 complete and 0 interrupted iterations
+main   [  52% ] 1 VUs  15.5s/30s
+
+running (0m18.0s), 1/1 VUs, 30 complete and 0 interrupted iterations
+main   [  55% ] 1 VUs  16.5s/30s
+
+running (0m19.0s), 1/1 VUs, 32 complete and 0 interrupted iterations
+main   [  58% ] 1 VUs  17.5s/30s
+
+running (0m20.0s), 1/1 VUs, 34 complete and 0 interrupted iterations
+main   [  62% ] 1 VUs  18.5s/30s
+
+running (0m21.0s), 1/1 VUs, 36 complete and 0 interrupted iterations
+main   [  65% ] 1 VUs  19.5s/30s
+
+running (0m22.0s), 1/1 VUs, 38 complete and 0 interrupted iterations
+main   [  68% ] 1 VUs  20.5s/30s
+
+running (0m23.0s), 1/1 VUs, 40 complete and 0 interrupted iterations
+main   [  72% ] 1 VUs  21.5s/30s
+
+running (0m24.0s), 1/1 VUs, 42 complete and 0 interrupted iterations
+main   [  75% ] 1 VUs  22.5s/30s
+
+running (0m25.0s), 1/1 VUs, 43 complete and 0 interrupted iterations
+main   [  78% ] 1 VUs  23.5s/30s
+
+running (0m26.0s), 1/1 VUs, 45 complete and 0 interrupted iterations
+main   [  82% ] 1 VUs  24.5s/30s
+
+running (0m27.0s), 1/1 VUs, 47 complete and 0 interrupted iterations
+main   [  85% ] 1 VUs  25.5s/30s
+
+running (0m28.0s), 1/1 VUs, 49 complete and 0 interrupted iterations
+main   [  88% ] 1 VUs  26.5s/30s
+
+running (0m29.0s), 1/1 VUs, 51 complete and 0 interrupted iterations
+main   [  92% ] 1 VUs  27.5s/30s
+
+running (0m30.0s), 1/1 VUs, 53 complete and 0 interrupted iterations
+main   [  95% ] 1 VUs  28.5s/30s
+
+running (0m31.0s), 1/1 VUs, 55 complete and 0 interrupted iterations
+main   [  98% ] 1 VUs  29.5s/30s
+{
+  "metrics": [
+    "http_req_blocked",
+    "http_req_sending",
+    "http_req_failed",
+    "checks",
+    "iteration_duration",
+    "detail_duration",
+    "vus_max",
+    "data_sent",
+    "http_req_waiting",
+    "vus",
+    "http_req_duration",
+    "iterations",
+    "http_req_connecting",
+    "http_req_duration{expected_response:true}",
+    "http_req_receiving",
+    "http_req_tls_handshaking",
+    "http_reqs",
+    "data_received"
+  ],
+  "stats": {
+    "detail_p95": 51.69196719999997,
+    "failed_rate": 0.20408163265306123
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (0m31.9s), 0/1 VUs, 57 complete and 0 interrupted iterations
+main ✓ [ 100% ] 1 VUs  30s
+time="2026-03-02T16:15:39Z" level=error msg="thresholds on metrics 'http_req_failed' have been crossed"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 3m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 3m0s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m02.0s), 20/20 VUs, 0 complete and 0 interrupted iterations
+main   [   0% ] 20 VUs  0m00.2s/3m0s
+
+running (0m03.0s), 20/20 VUs, 40 complete and 0 interrupted iterations
+main   [   1% ] 20 VUs  0m01.2s/3m0s
+
+running (0m04.0s), 20/20 VUs, 60 complete and 0 interrupted iterations
+main   [   1% ] 20 VUs  0m02.2s/3m0s
+
+running (0m05.0s), 20/20 VUs, 100 complete and 0 interrupted iterations
+main   [   2% ] 20 VUs  0m03.2s/3m0s
+
+running (0m06.0s), 20/20 VUs, 140 complete and 0 interrupted iterations
+main   [   2% ] 20 VUs  0m04.2s/3m0s
+
+running (0m07.0s), 20/20 VUs, 180 complete and 0 interrupted iterations
+main   [   3% ] 20 VUs  0m05.2s/3m0s
+
+running (0m08.0s), 20/20 VUs, 220 complete and 0 interrupted iterations
+main   [   3% ] 20 VUs  0m06.2s/3m0s
+
+running (0m09.0s), 20/20 VUs, 260 complete and 0 interrupted iterations
+main   [   4% ] 20 VUs  0m07.2s/3m0s
+
+running (0m10.0s), 20/20 VUs, 300 complete and 0 interrupted iterations
+main   [   5% ] 20 VUs  0m08.2s/3m0s
+
+running (0m11.0s), 20/20 VUs, 328 complete and 0 interrupted iterations
+main   [   5% ] 20 VUs  0m09.2s/3m0s
+
+running (0m12.0s), 20/20 VUs, 360 complete and 0 interrupted iterations
+main   [   6% ] 20 VUs  0m10.2s/3m0s
+
+running (0m13.0s), 20/20 VUs, 400 complete and 0 interrupted iterations
+main   [   6% ] 20 VUs  0m11.2s/3m0s
+
+running (0m14.0s), 20/20 VUs, 440 complete and 0 interrupted iterations
+main   [   7% ] 20 VUs  0m12.2s/3m0s
+
+running (0m15.0s), 20/20 VUs, 480 complete and 0 interrupted iterations
+main   [   7% ] 20 VUs  0m13.2s/3m0s
+
+running (0m16.0s), 20/20 VUs, 520 complete and 0 interrupted iterations
+main   [   8% ] 20 VUs  0m14.2s/3m0s
+
+running (0m17.0s), 20/20 VUs, 560 complete and 0 interrupted iterations
+main   [   8% ] 20 VUs  0m15.2s/3m0s
+
+running (0m18.0s), 20/20 VUs, 580 complete and 0 interrupted iterations
+main   [   9% ] 20 VUs  0m16.2s/3m0s
+
+running (0m19.0s), 20/20 VUs, 620 complete and 0 interrupted iterations
+main   [  10% ] 20 VUs  0m17.2s/3m0s
+
+running (0m20.0s), 20/20 VUs, 660 complete and 0 interrupted iterations
+main   [  10% ] 20 VUs  0m18.2s/3m0s
+
+running (0m21.0s), 20/20 VUs, 700 complete and 0 interrupted iterations
+main   [  11% ] 20 VUs  0m19.2s/3m0s
+
+running (0m22.0s), 20/20 VUs, 740 complete and 0 interrupted iterations
+main   [  11% ] 20 VUs  0m20.2s/3m0s
+
+running (0m23.0s), 20/20 VUs, 780 complete and 0 interrupted iterations
+main   [  12% ] 20 VUs  0m21.2s/3m0s
+
+running (0m24.0s), 20/20 VUs, 820 complete and 0 interrupted iterations
+main   [  12% ] 20 VUs  0m22.2s/3m0s
+
+running (0m25.0s), 20/20 VUs, 860 complete and 0 interrupted iterations
+main   [  13% ] 20 VUs  0m23.2s/3m0s
+
+running (0m26.0s), 20/20 VUs, 880 complete and 0 interrupted iterations
+main   [  13% ] 20 VUs  0m24.2s/3m0s
+
+running (0m27.0s), 20/20 VUs, 920 complete and 0 interrupted iterations
+main   [  14% ] 20 VUs  0m25.2s/3m0s
+
+running (0m28.0s), 20/20 VUs, 960 complete and 0 interrupted iterations
+main   [  15% ] 20 VUs  0m26.2s/3m0s
+
+running (0m29.0s), 20/20 VUs, 1000 complete and 0 interrupted iterations
+main   [  15% ] 20 VUs  0m27.2s/3m0s
+
+running (0m30.0s), 20/20 VUs, 1040 complete and 0 interrupted iterations
+main   [  16% ] 20 VUs  0m28.2s/3m0s
+
+running (0m31.0s), 20/20 VUs, 1080 complete and 0 interrupted iterations
+main   [  16% ] 20 VUs  0m29.2s/3m0s
+
+running (0m32.0s), 20/20 VUs, 1120 complete and 0 interrupted iterations
+main   [  17% ] 20 VUs  0m30.2s/3m0s
+
+running (0m33.0s), 20/20 VUs, 1140 complete and 0 interrupted iterations
+main   [  17% ] 20 VUs  0m31.2s/3m0s
+
+running (0m34.0s), 20/20 VUs, 1180 complete and 0 interrupted iterations
+main   [  18% ] 20 VUs  0m32.2s/3m0s
+
+running (0m35.0s), 20/20 VUs, 1220 complete and 0 interrupted iterations
+main   [  18% ] 20 VUs  0m33.2s/3m0s
+
+running (0m36.0s), 20/20 VUs, 1260 complete and 0 interrupted iterations
+main   [  19% ] 20 VUs  0m34.2s/3m0s
+
+running (0m37.0s), 20/20 VUs, 1300 complete and 0 interrupted iterations
+main   [  20% ] 20 VUs  0m35.2s/3m0s
+
+running (0m38.0s), 20/20 VUs, 1320 complete and 0 interrupted iterations
+main   [  20% ] 20 VUs  0m36.2s/3m0s
+
+running (0m39.0s), 20/20 VUs, 1360 complete and 0 interrupted iterations
+main   [  21% ] 20 VUs  0m37.2s/3m0s
+
+running (0m40.0s), 20/20 VUs, 1400 complete and 0 interrupted iterations
+main   [  21% ] 20 VUs  0m38.2s/3m0s
+
+running (0m41.0s), 20/20 VUs, 1440 complete and 0 interrupted iterations
+main   [  22% ] 20 VUs  0m39.2s/3m0s
+
+running (0m42.0s), 20/20 VUs, 1480 complete and 0 interrupted iterations
+main   [  22% ] 20 VUs  0m40.2s/3m0s
+
+running (0m43.0s), 20/20 VUs, 1520 complete and 0 interrupted iterations
+main   [  23% ] 20 VUs  0m41.2s/3m0s
+
+running (0m44.0s), 20/20 VUs, 1540 complete and 0 interrupted iterations
+main   [  23% ] 20 VUs  0m42.2s/3m0s
+
+running (0m45.0s), 20/20 VUs, 1580 complete and 0 interrupted iterations
+main   [  24% ] 20 VUs  0m43.2s/3m0s
+
+running (0m46.0s), 20/20 VUs, 1620 complete and 0 interrupted iterations
+main   [  25% ] 20 VUs  0m44.2s/3m0s
+
+running (0m47.0s), 20/20 VUs, 1660 complete and 0 interrupted iterations
+main   [  25% ] 20 VUs  0m45.2s/3m0s
+
+running (0m48.0s), 20/20 VUs, 1700 complete and 0 interrupted iterations
+main   [  26% ] 20 VUs  0m46.2s/3m0s
+
+running (0m49.0s), 20/20 VUs, 1700 complete and 0 interrupted iterations
+main   [  26% ] 20 VUs  0m47.2s/3m0s
+
+running (0m50.0s), 20/20 VUs, 1740 complete and 0 interrupted iterations
+main   [  27% ] 20 VUs  0m48.2s/3m0s
+
+running (0m51.0s), 20/20 VUs, 1780 complete and 0 interrupted iterations
+main   [  27% ] 20 VUs  0m49.2s/3m0s
+
+running (0m52.0s), 20/20 VUs, 1820 complete and 0 interrupted iterations
+main   [  28% ] 20 VUs  0m50.2s/3m0s
+
+running (0m53.0s), 20/20 VUs, 1860 complete and 0 interrupted iterations
+main   [  28% ] 20 VUs  0m51.2s/3m0s
+
+running (0m54.0s), 20/20 VUs, 1898 complete and 0 interrupted iterations
+main   [  29% ] 20 VUs  0m52.2s/3m0s
+
+running (0m55.0s), 20/20 VUs, 1920 complete and 0 interrupted iterations
+main   [  30% ] 20 VUs  0m53.2s/3m0s
+
+running (0m56.0s), 20/20 VUs, 1960 complete and 0 interrupted iterations
+main   [  30% ] 20 VUs  0m54.2s/3m0s
+
+running (0m57.0s), 20/20 VUs, 2000 complete and 0 interrupted iterations
+main   [  31% ] 20 VUs  0m55.2s/3m0s
+
+running (0m58.0s), 20/20 VUs, 2040 complete and 0 interrupted iterations
+main   [  31% ] 20 VUs  0m56.2s/3m0s
+
+running (0m59.0s), 20/20 VUs, 2080 complete and 0 interrupted iterations
+main   [  32% ] 20 VUs  0m57.2s/3m0s
+
+running (1m00.0s), 20/20 VUs, 2120 complete and 0 interrupted iterations
+main   [  32% ] 20 VUs  0m58.2s/3m0s
+
+running (1m01.0s), 20/20 VUs, 2144 complete and 0 interrupted iterations
+main   [  33% ] 20 VUs  0m59.2s/3m0s
+
+running (1m02.0s), 20/20 VUs, 2180 complete and 0 interrupted iterations
+main   [  33% ] 20 VUs  1m00.2s/3m0s
+
+running (1m03.0s), 20/20 VUs, 2220 complete and 0 interrupted iterations
+main   [  34% ] 20 VUs  1m01.2s/3m0s
+
+running (1m04.0s), 20/20 VUs, 2260 complete and 0 interrupted iterations
+main   [  35% ] 20 VUs  1m02.2s/3m0s
+
+running (1m05.0s), 20/20 VUs, 2300 complete and 0 interrupted iterations
+main   [  35% ] 20 VUs  1m03.2s/3m0s
+
+running (1m06.0s), 20/20 VUs, 2340 complete and 0 interrupted iterations
+main   [  36% ] 20 VUs  1m04.2s/3m0s
+
+running (1m07.0s), 20/20 VUs, 2380 complete and 0 interrupted iterations
+main   [  36% ] 20 VUs  1m05.2s/3m0s
+
+running (1m08.0s), 20/20 VUs, 2420 complete and 0 interrupted iterations
+main   [  37% ] 20 VUs  1m06.2s/3m0s
+
+running (1m09.0s), 20/20 VUs, 2440 complete and 0 interrupted iterations
+main   [  37% ] 20 VUs  1m07.2s/3m0s
+
+running (1m10.0s), 20/20 VUs, 2480 complete and 0 interrupted iterations
+main   [  38% ] 20 VUs  1m08.2s/3m0s
+
+running (1m11.0s), 20/20 VUs, 2520 complete and 0 interrupted iterations
+main   [  38% ] 20 VUs  1m09.2s/3m0s
+
+running (1m12.0s), 20/20 VUs, 2560 complete and 0 interrupted iterations
+main   [  39% ] 20 VUs  1m10.2s/3m0s
+
+running (1m13.0s), 20/20 VUs, 2600 complete and 0 interrupted iterations
+main   [  40% ] 20 VUs  1m11.2s/3m0s
+
+running (1m14.0s), 20/20 VUs, 2640 complete and 0 interrupted iterations
+main   [  40% ] 20 VUs  1m12.2s/3m0s
+
+running (1m15.0s), 20/20 VUs, 2680 complete and 0 interrupted iterations
+main   [  41% ] 20 VUs  1m13.2s/3m0s
+
+running (1m16.0s), 20/20 VUs, 2720 complete and 0 interrupted iterations
+main   [  41% ] 20 VUs  1m14.2s/3m0s
+
+running (1m17.0s), 20/20 VUs, 2740 complete and 0 interrupted iterations
+main   [  42% ] 20 VUs  1m15.2s/3m0s
+
+running (1m18.0s), 20/20 VUs, 2780 complete and 0 interrupted iterations
+main   [  42% ] 20 VUs  1m16.2s/3m0s
+
+running (1m19.0s), 20/20 VUs, 2820 complete and 0 interrupted iterations
+main   [  43% ] 20 VUs  1m17.2s/3m0s
+
+running (1m20.0s), 20/20 VUs, 2860 complete and 0 interrupted iterations
+main   [  43% ] 20 VUs  1m18.2s/3m0s
+
+running (1m21.0s), 20/20 VUs, 2900 complete and 0 interrupted iterations
+main   [  44% ] 20 VUs  1m19.2s/3m0s
+
+running (1m22.0s), 20/20 VUs, 2940 complete and 0 interrupted iterations
+main   [  45% ] 20 VUs  1m20.2s/3m0s
+
+running (1m23.0s), 20/20 VUs, 2980 complete and 0 interrupted iterations
+main   [  45% ] 20 VUs  1m21.2s/3m0s
+
+running (1m24.0s), 20/20 VUs, 3020 complete and 0 interrupted iterations
+main   [  46% ] 20 VUs  1m22.2s/3m0s
+
+running (1m25.0s), 20/20 VUs, 3040 complete and 0 interrupted iterations
+main   [  46% ] 20 VUs  1m23.2s/3m0s
+
+running (1m26.0s), 20/20 VUs, 3080 complete and 0 interrupted iterations
+main   [  47% ] 20 VUs  1m24.2s/3m0s
+
+running (1m27.0s), 20/20 VUs, 3120 complete and 0 interrupted iterations
+main   [  47% ] 20 VUs  1m25.2s/3m0s
+
+running (1m28.0s), 20/20 VUs, 3160 complete and 0 interrupted iterations
+main   [  48% ] 20 VUs  1m26.2s/3m0s
+
+running (1m29.0s), 20/20 VUs, 3200 complete and 0 interrupted iterations
+main   [  48% ] 20 VUs  1m27.2s/3m0s
+
+running (1m30.0s), 20/20 VUs, 3240 complete and 0 interrupted iterations
+main   [  49% ] 20 VUs  1m28.2s/3m0s
+
+running (1m31.0s), 20/20 VUs, 3280 complete and 0 interrupted iterations
+main   [  50% ] 20 VUs  1m29.2s/3m0s
+
+running (1m32.0s), 20/20 VUs, 3320 complete and 0 interrupted iterations
+main   [  50% ] 20 VUs  1m30.2s/3m0s
+
+running (1m33.0s), 20/20 VUs, 3340 complete and 0 interrupted iterations
+main   [  51% ] 20 VUs  1m31.2s/3m0s
+
+running (1m34.0s), 20/20 VUs, 3380 complete and 0 interrupted iterations
+main   [  51% ] 20 VUs  1m32.2s/3m0s
+
+running (1m35.0s), 20/20 VUs, 3420 complete and 0 interrupted iterations
+main   [  52% ] 20 VUs  1m33.2s/3m0s
+
+running (1m36.0s), 20/20 VUs, 3460 complete and 0 interrupted iterations
+main   [  52% ] 20 VUs  1m34.2s/3m0s
+
+running (1m37.0s), 20/20 VUs, 3500 complete and 0 interrupted iterations
+main   [  53% ] 20 VUs  1m35.2s/3m0s
+
+running (1m38.0s), 20/20 VUs, 3536 complete and 0 interrupted iterations
+main   [  53% ] 20 VUs  1m36.2s/3m0s
+
+running (1m39.0s), 20/20 VUs, 3560 complete and 0 interrupted iterations
+main   [  54% ] 20 VUs  1m37.2s/3m0s
+
+running (1m40.0s), 20/20 VUs, 3600 complete and 0 interrupted iterations
+main   [  55% ] 20 VUs  1m38.2s/3m0s
+
+running (1m41.0s), 20/20 VUs, 3640 complete and 0 interrupted iterations
+main   [  55% ] 20 VUs  1m39.2s/3m0s
+
+running (1m42.0s), 20/20 VUs, 3680 complete and 0 interrupted iterations
+main   [  56% ] 20 VUs  1m40.2s/3m0s
+
+running (1m43.0s), 20/20 VUs, 3720 complete and 0 interrupted iterations
+main   [  56% ] 20 VUs  1m41.2s/3m0s
+
+running (1m44.0s), 20/20 VUs, 3760 complete and 0 interrupted iterations
+main   [  57% ] 20 VUs  1m42.2s/3m0s
+
+running (1m45.0s), 20/20 VUs, 3800 complete and 0 interrupted iterations
+main   [  57% ] 20 VUs  1m43.2s/3m0s
+
+running (1m46.0s), 20/20 VUs, 3840 complete and 0 interrupted iterations
+main   [  58% ] 20 VUs  1m44.2s/3m0s
+
+running (1m47.0s), 20/20 VUs, 3880 complete and 0 interrupted iterations
+main   [  58% ] 20 VUs  1m45.2s/3m0s
+
+running (1m48.0s), 20/20 VUs, 3900 complete and 0 interrupted iterations
+main   [  59% ] 20 VUs  1m46.2s/3m0s
+
+running (1m49.0s), 20/20 VUs, 3940 complete and 0 interrupted iterations
+main   [  60% ] 20 VUs  1m47.2s/3m0s
+
+running (1m50.0s), 20/20 VUs, 3980 complete and 0 interrupted iterations
+main   [  60% ] 20 VUs  1m48.2s/3m0s
+
+running (1m51.0s), 20/20 VUs, 4020 complete and 0 interrupted iterations
+main   [  61% ] 20 VUs  1m49.2s/3m0s
+
+running (1m52.0s), 20/20 VUs, 4060 complete and 0 interrupted iterations
+main   [  61% ] 20 VUs  1m50.2s/3m0s
+
+running (1m53.0s), 20/20 VUs, 4100 complete and 0 interrupted iterations
+main   [  62% ] 20 VUs  1m51.2s/3m0s
+
+running (1m54.0s), 20/20 VUs, 4140 complete and 0 interrupted iterations
+main   [  62% ] 20 VUs  1m52.2s/3m0s
+
+running (1m55.0s), 20/20 VUs, 4180 complete and 0 interrupted iterations
+main   [  63% ] 20 VUs  1m53.2s/3m0s
+
+running (1m56.0s), 20/20 VUs, 4200 complete and 0 interrupted iterations
+main   [  63% ] 20 VUs  1m54.2s/3m0s
+
+running (1m57.0s), 20/20 VUs, 4240 complete and 0 interrupted iterations
+main   [  64% ] 20 VUs  1m55.2s/3m0s
+
+running (1m58.0s), 20/20 VUs, 4280 complete and 0 interrupted iterations
+main   [  65% ] 20 VUs  1m56.2s/3m0s
+
+running (1m59.0s), 20/20 VUs, 4320 complete and 0 interrupted iterations
+main   [  65% ] 20 VUs  1m57.2s/3m0s
+
+running (2m00.0s), 20/20 VUs, 4360 complete and 0 interrupted iterations
+main   [  66% ] 20 VUs  1m58.2s/3m0s
+
+running (2m01.0s), 20/20 VUs, 4400 complete and 0 interrupted iterations
+main   [  66% ] 20 VUs  1m59.2s/3m0s
+
+running (2m02.1s), 20/20 VUs, 4440 complete and 0 interrupted iterations
+main   [  67% ] 20 VUs  2m00.3s/3m0s
+
+running (2m03.0s), 20/20 VUs, 4460 complete and 0 interrupted iterations
+main   [  67% ] 20 VUs  2m01.2s/3m0s
+
+running (2m04.0s), 20/20 VUs, 4500 complete and 0 interrupted iterations
+main   [  68% ] 20 VUs  2m02.2s/3m0s
+
+running (2m05.0s), 20/20 VUs, 4500 complete and 0 interrupted iterations
+main   [  68% ] 20 VUs  2m03.2s/3m0s
+
+running (2m06.0s), 20/20 VUs, 4540 complete and 0 interrupted iterations
+main   [  69% ] 20 VUs  2m04.2s/3m0s
+
+running (2m07.0s), 20/20 VUs, 4580 complete and 0 interrupted iterations
+main   [  70% ] 20 VUs  2m05.2s/3m0s
+
+running (2m08.0s), 20/20 VUs, 4620 complete and 0 interrupted iterations
+main   [  70% ] 20 VUs  2m06.2s/3m0s
+
+running (2m09.0s), 20/20 VUs, 4660 complete and 0 interrupted iterations
+main   [  71% ] 20 VUs  2m07.2s/3m0s
+
+running (2m10.0s), 20/20 VUs, 4700 complete and 0 interrupted iterations
+main   [  71% ] 20 VUs  2m08.2s/3m0s
+
+running (2m11.0s), 20/20 VUs, 4740 complete and 0 interrupted iterations
+main   [  72% ] 20 VUs  2m09.2s/3m0s
+
+running (2m12.0s), 20/20 VUs, 4760 complete and 0 interrupted iterations
+main   [  72% ] 20 VUs  2m10.2s/3m0s
+
+running (2m13.0s), 20/20 VUs, 4800 complete and 0 interrupted iterations
+main   [  73% ] 20 VUs  2m11.2s/3m0s
+
+running (2m14.0s), 20/20 VUs, 4840 complete and 0 interrupted iterations
+main   [  73% ] 20 VUs  2m12.2s/3m0s
+
+running (2m15.0s), 20/20 VUs, 4880 complete and 0 interrupted iterations
+main   [  74% ] 20 VUs  2m13.2s/3m0s
+
+running (2m16.0s), 20/20 VUs, 4920 complete and 0 interrupted iterations
+main   [  75% ] 20 VUs  2m14.2s/3m0s
+
+running (2m17.0s), 20/20 VUs, 4960 complete and 0 interrupted iterations
+main   [  75% ] 20 VUs  2m15.2s/3m0s
+
+running (2m18.0s), 20/20 VUs, 5000 complete and 0 interrupted iterations
+main   [  76% ] 20 VUs  2m16.2s/3m0s
+
+running (2m19.0s), 20/20 VUs, 5040 complete and 0 interrupted iterations
+main   [  76% ] 20 VUs  2m17.2s/3m0s
+
+running (2m20.0s), 20/20 VUs, 5080 complete and 0 interrupted iterations
+main   [  77% ] 20 VUs  2m18.2s/3m0s
+
+running (2m21.0s), 20/20 VUs, 5120 complete and 0 interrupted iterations
+main   [  77% ] 20 VUs  2m19.2s/3m0s
+
+running (2m22.0s), 20/20 VUs, 5140 complete and 0 interrupted iterations
+main   [  78% ] 20 VUs  2m20.2s/3m0s
+
+running (2m23.0s), 20/20 VUs, 5180 complete and 0 interrupted iterations
+main   [  78% ] 20 VUs  2m21.2s/3m0s
+
+running (2m24.0s), 20/20 VUs, 5220 complete and 0 interrupted iterations
+main   [  79% ] 20 VUs  2m22.2s/3m0s
+
+running (2m25.0s), 20/20 VUs, 5260 complete and 0 interrupted iterations
+main   [  80% ] 20 VUs  2m23.2s/3m0s
+
+running (2m26.0s), 20/20 VUs, 5300 complete and 0 interrupted iterations
+main   [  80% ] 20 VUs  2m24.2s/3m0s
+
+running (2m27.0s), 20/20 VUs, 5340 complete and 0 interrupted iterations
+main   [  81% ] 20 VUs  2m25.2s/3m0s
+
+running (2m28.0s), 20/20 VUs, 5380 complete and 0 interrupted iterations
+main   [  81% ] 20 VUs  2m26.2s/3m0s
+
+running (2m29.0s), 20/20 VUs, 5420 complete and 0 interrupted iterations
+main   [  82% ] 20 VUs  2m27.2s/3m0s
+
+running (2m30.0s), 20/20 VUs, 5460 complete and 0 interrupted iterations
+main   [  82% ] 20 VUs  2m28.2s/3m0s
+
+running (2m31.0s), 20/20 VUs, 5480 complete and 0 interrupted iterations
+main   [  83% ] 20 VUs  2m29.2s/3m0s
+
+running (2m32.0s), 20/20 VUs, 5520 complete and 0 interrupted iterations
+main   [  83% ] 20 VUs  2m30.2s/3m0s
+
+running (2m33.0s), 20/20 VUs, 5560 complete and 0 interrupted iterations
+main   [  84% ] 20 VUs  2m31.2s/3m0s
+
+running (2m34.0s), 20/20 VUs, 5600 complete and 0 interrupted iterations
+main   [  85% ] 20 VUs  2m32.2s/3m0s
+
+running (2m35.0s), 20/20 VUs, 5640 complete and 0 interrupted iterations
+main   [  85% ] 20 VUs  2m33.2s/3m0s
+
+running (2m36.0s), 20/20 VUs, 5680 complete and 0 interrupted iterations
+main   [  86% ] 20 VUs  2m34.2s/3m0s
+
+running (2m37.0s), 20/20 VUs, 5720 complete and 0 interrupted iterations
+main   [  86% ] 20 VUs  2m35.2s/3m0s
+
+running (2m38.0s), 20/20 VUs, 5760 complete and 0 interrupted iterations
+main   [  87% ] 20 VUs  2m36.2s/3m0s
+
+running (2m39.0s), 20/20 VUs, 5800 complete and 0 interrupted iterations
+main   [  87% ] 20 VUs  2m37.2s/3m0s
+
+running (2m40.0s), 20/20 VUs, 5840 complete and 0 interrupted iterations
+main   [  88% ] 20 VUs  2m38.2s/3m0s
+
+running (2m41.0s), 20/20 VUs, 5880 complete and 0 interrupted iterations
+main   [  88% ] 20 VUs  2m39.2s/3m0s
+
+running (2m42.0s), 20/20 VUs, 5900 complete and 0 interrupted iterations
+main   [  89% ] 20 VUs  2m40.2s/3m0s
+
+running (2m43.0s), 20/20 VUs, 5940 complete and 0 interrupted iterations
+main   [  90% ] 20 VUs  2m41.2s/3m0s
+
+running (2m44.0s), 20/20 VUs, 5980 complete and 0 interrupted iterations
+main   [  90% ] 20 VUs  2m42.2s/3m0s
+
+running (2m45.0s), 20/20 VUs, 6020 complete and 0 interrupted iterations
+main   [  91% ] 20 VUs  2m43.2s/3m0s
+
+running (2m46.0s), 20/20 VUs, 6060 complete and 0 interrupted iterations
+main   [  91% ] 20 VUs  2m44.2s/3m0s
+
+running (2m47.0s), 20/20 VUs, 6100 complete and 0 interrupted iterations
+main   [  92% ] 20 VUs  2m45.2s/3m0s
+
+running (2m48.0s), 20/20 VUs, 6140 complete and 0 interrupted iterations
+main   [  92% ] 20 VUs  2m46.2s/3m0s
+
+running (2m49.0s), 20/20 VUs, 6180 complete and 0 interrupted iterations
+main   [  93% ] 20 VUs  2m47.2s/3m0s
+
+running (2m50.0s), 20/20 VUs, 6220 complete and 0 interrupted iterations
+main   [  93% ] 20 VUs  2m48.2s/3m0s
+
+running (2m51.0s), 20/20 VUs, 6260 complete and 0 interrupted iterations
+main   [  94% ] 20 VUs  2m49.2s/3m0s
+
+running (2m52.0s), 20/20 VUs, 6294 complete and 0 interrupted iterations
+main   [  95% ] 20 VUs  2m50.2s/3m0s
+
+running (2m53.0s), 20/20 VUs, 6320 complete and 0 interrupted iterations
+main   [  95% ] 20 VUs  2m51.2s/3m0s
+
+running (2m54.0s), 20/20 VUs, 6360 complete and 0 interrupted iterations
+main   [  96% ] 20 VUs  2m52.2s/3m0s
+
+running (2m55.0s), 20/20 VUs, 6400 complete and 0 interrupted iterations
+main   [  96% ] 20 VUs  2m53.2s/3m0s
+
+running (2m56.0s), 20/20 VUs, 6440 complete and 0 interrupted iterations
+main   [  97% ] 20 VUs  2m54.2s/3m0s
+
+running (2m57.0s), 20/20 VUs, 6480 complete and 0 interrupted iterations
+main   [  97% ] 20 VUs  2m55.2s/3m0s
+
+running (2m58.0s), 20/20 VUs, 6520 complete and 0 interrupted iterations
+main   [  98% ] 20 VUs  2m56.2s/3m0s
+
+running (2m59.0s), 20/20 VUs, 6560 complete and 0 interrupted iterations
+main   [  98% ] 20 VUs  2m57.2s/3m0s
+
+running (3m00.0s), 20/20 VUs, 6600 complete and 0 interrupted iterations
+main   [  99% ] 20 VUs  2m58.2s/3m0s
+
+running (3m01.0s), 20/20 VUs, 6640 complete and 0 interrupted iterations
+main   [ 100% ] 20 VUs  2m59.2s/3m0s
+{
+  "metrics": [
+    "vus_max",
+    "http_req_duration",
+    "http_req_sending",
+    "http_req_waiting",
+    "http_reqs",
+    "data_sent",
+    "iterations",
+    "http_req_tls_handshaking",
+    "http_req_connecting",
+    "checks",
+    "iteration_duration",
+    "vus",
+    "data_received",
+    "detail_duration",
+    "http_req_failed",
+    "http_req_blocked",
+    "http_req_duration{expected_response:true}",
+    "http_req_receiving"
+  ],
+  "stats": {
+    "detail_p95": 65.180225,
+    "failed_rate": 0.00297574765659872
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (3m01.9s), 00/20 VUs, 6680 complete and 0 interrupted iterations
+main ✓ [ 100% ] 20 VUs  3m0s
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 3m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 3m0s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m02.0s), 20/20 VUs, 0 complete and 0 interrupted iterations
+main   [   0% ] 20 VUs  0m00.4s/3m0s
+
+running (0m03.0s), 20/20 VUs, 40 complete and 0 interrupted iterations
+main   [   1% ] 20 VUs  0m01.4s/3m0s
+
+running (0m04.0s), 20/20 VUs, 80 complete and 0 interrupted iterations
+main   [   1% ] 20 VUs  0m02.4s/3m0s
+
+running (0m05.0s), 20/20 VUs, 120 complete and 0 interrupted iterations
+main   [   2% ] 20 VUs  0m03.4s/3m0s
+
+running (0m06.0s), 20/20 VUs, 160 complete and 0 interrupted iterations
+main   [   2% ] 20 VUs  0m04.4s/3m0s
+
+running (0m07.0s), 20/20 VUs, 200 complete and 0 interrupted iterations
+main   [   3% ] 20 VUs  0m05.4s/3m0s
+
+running (0m08.0s), 20/20 VUs, 240 complete and 0 interrupted iterations
+main   [   4% ] 20 VUs  0m06.4s/3m0s
+
+running (0m09.0s), 20/20 VUs, 280 complete and 0 interrupted iterations
+main   [   4% ] 20 VUs  0m07.4s/3m0s
+
+running (0m10.0s), 20/20 VUs, 320 complete and 0 interrupted iterations
+main   [   5% ] 20 VUs  0m08.4s/3m0s
+
+running (0m11.0s), 20/20 VUs, 360 complete and 0 interrupted iterations
+main   [   5% ] 20 VUs  0m09.4s/3m0s
+
+running (0m12.0s), 20/20 VUs, 383 complete and 0 interrupted iterations
+main   [   6% ] 20 VUs  0m10.4s/3m0s
+
+running (0m13.0s), 20/20 VUs, 423 complete and 0 interrupted iterations
+main   [   6% ] 20 VUs  0m11.4s/3m0s
+
+running (0m14.0s), 20/20 VUs, 463 complete and 0 interrupted iterations
+main   [   7% ] 20 VUs  0m12.4s/3m0s
+
+running (0m15.0s), 20/20 VUs, 503 complete and 0 interrupted iterations
+main   [   7% ] 20 VUs  0m13.4s/3m0s
+
+running (0m16.0s), 20/20 VUs, 542 complete and 0 interrupted iterations
+main   [   8% ] 20 VUs  0m14.5s/3m0s
+
+running (0m17.0s), 20/20 VUs, 580 complete and 0 interrupted iterations
+main   [   9% ] 20 VUs  0m15.4s/3m0s
+
+running (0m18.0s), 20/20 VUs, 620 complete and 0 interrupted iterations
+main   [   9% ] 20 VUs  0m16.4s/3m0s
+
+running (0m19.0s), 20/20 VUs, 660 complete and 0 interrupted iterations
+main   [  10% ] 20 VUs  0m17.4s/3m0s
+
+running (0m20.0s), 20/20 VUs, 700 complete and 0 interrupted iterations
+main   [  10% ] 20 VUs  0m18.4s/3m0s
+
+running (0m21.0s), 20/20 VUs, 740 complete and 0 interrupted iterations
+main   [  11% ] 20 VUs  0m19.4s/3m0s
+
+running (0m22.0s), 20/20 VUs, 780 complete and 0 interrupted iterations
+main   [  11% ] 20 VUs  0m20.4s/3m0s
+
+running (0m23.0s), 20/20 VUs, 811 complete and 0 interrupted iterations
+main   [  12% ] 20 VUs  0m21.4s/3m0s
+
+running (0m24.0s), 20/20 VUs, 847 complete and 0 interrupted iterations
+main   [  12% ] 20 VUs  0m22.4s/3m0s
+
+running (0m25.0s), 20/20 VUs, 884 complete and 0 interrupted iterations
+main   [  13% ] 20 VUs  0m23.4s/3m0s
+
+running (0m26.0s), 20/20 VUs, 924 complete and 0 interrupted iterations
+main   [  14% ] 20 VUs  0m24.4s/3m0s
+
+running (0m27.0s), 20/20 VUs, 962 complete and 0 interrupted iterations
+main   [  14% ] 20 VUs  0m25.4s/3m0s
+
+running (0m28.0s), 20/20 VUs, 1000 complete and 0 interrupted iterations
+main   [  15% ] 20 VUs  0m26.4s/3m0s
+
+running (0m29.0s), 20/20 VUs, 1040 complete and 0 interrupted iterations
+main   [  15% ] 20 VUs  0m27.4s/3m0s
+
+running (0m30.0s), 20/20 VUs, 1080 complete and 0 interrupted iterations
+main   [  16% ] 20 VUs  0m28.4s/3m0s
+
+running (0m31.0s), 20/20 VUs, 1120 complete and 0 interrupted iterations
+main   [  16% ] 20 VUs  0m29.4s/3m0s
+
+running (0m32.0s), 20/20 VUs, 1160 complete and 0 interrupted iterations
+main   [  17% ] 20 VUs  0m30.4s/3m0s
+
+running (0m33.0s), 20/20 VUs, 1200 complete and 0 interrupted iterations
+main   [  17% ] 20 VUs  0m31.4s/3m0s
+
+running (0m34.0s), 20/20 VUs, 1240 complete and 0 interrupted iterations
+main   [  18% ] 20 VUs  0m32.4s/3m0s
+
+running (0m35.0s), 20/20 VUs, 1280 complete and 0 interrupted iterations
+main   [  19% ] 20 VUs  0m33.4s/3m0s
+
+running (0m36.0s), 20/20 VUs, 1300 complete and 0 interrupted iterations
+main   [  19% ] 20 VUs  0m34.4s/3m0s
+
+running (0m37.0s), 20/20 VUs, 1340 complete and 0 interrupted iterations
+main   [  20% ] 20 VUs  0m35.4s/3m0s
+
+running (0m38.0s), 20/20 VUs, 1380 complete and 0 interrupted iterations
+main   [  20% ] 20 VUs  0m36.4s/3m0s
+
+running (0m39.0s), 20/20 VUs, 1420 complete and 0 interrupted iterations
+main   [  21% ] 20 VUs  0m37.4s/3m0s
+
+running (0m40.0s), 20/20 VUs, 1460 complete and 0 interrupted iterations
+main   [  21% ] 20 VUs  0m38.4s/3m0s
+
+running (0m41.0s), 20/20 VUs, 1500 complete and 0 interrupted iterations
+main   [  22% ] 20 VUs  0m39.4s/3m0s
+
+running (0m42.0s), 20/20 VUs, 1540 complete and 0 interrupted iterations
+main   [  22% ] 20 VUs  0m40.4s/3m0s
+
+running (0m43.0s), 20/20 VUs, 1580 complete and 0 interrupted iterations
+main   [  23% ] 20 VUs  0m41.4s/3m0s
+
+running (0m44.0s), 20/20 VUs, 1620 complete and 0 interrupted iterations
+main   [  24% ] 20 VUs  0m42.4s/3m0s
+
+running (0m45.0s), 20/20 VUs, 1660 complete and 0 interrupted iterations
+main   [  24% ] 20 VUs  0m43.4s/3m0s
+
+running (0m46.0s), 20/20 VUs, 1700 complete and 0 interrupted iterations
+main   [  25% ] 20 VUs  0m44.4s/3m0s
+
+running (0m47.0s), 20/20 VUs, 1720 complete and 0 interrupted iterations
+main   [  25% ] 20 VUs  0m45.4s/3m0s
+
+running (0m48.0s), 20/20 VUs, 1760 complete and 0 interrupted iterations
+main   [  26% ] 20 VUs  0m46.4s/3m0s
+
+running (0m49.0s), 20/20 VUs, 1800 complete and 0 interrupted iterations
+main   [  26% ] 20 VUs  0m47.4s/3m0s
+
+running (0m50.0s), 20/20 VUs, 1840 complete and 0 interrupted iterations
+main   [  27% ] 20 VUs  0m48.4s/3m0s
+
+running (0m51.0s), 20/20 VUs, 1880 complete and 0 interrupted iterations
+main   [  27% ] 20 VUs  0m49.4s/3m0s
+
+running (0m52.0s), 20/20 VUs, 1920 complete and 0 interrupted iterations
+main   [  28% ] 20 VUs  0m50.4s/3m0s
+
+running (0m53.0s), 20/20 VUs, 1960 complete and 0 interrupted iterations
+main   [  29% ] 20 VUs  0m51.4s/3m0s
+
+running (0m54.0s), 20/20 VUs, 2000 complete and 0 interrupted iterations
+main   [  29% ] 20 VUs  0m52.4s/3m0s
+
+running (0m55.0s), 20/20 VUs, 2032 complete and 0 interrupted iterations
+main   [  30% ] 20 VUs  0m53.4s/3m0s
+
+running (0m56.0s), 20/20 VUs, 2072 complete and 0 interrupted iterations
+main   [  30% ] 20 VUs  0m54.4s/3m0s
+
+running (0m57.0s), 20/20 VUs, 2111 complete and 0 interrupted iterations
+main   [  31% ] 20 VUs  0m55.4s/3m0s
+
+running (0m58.0s), 20/20 VUs, 2140 complete and 0 interrupted iterations
+main   [  31% ] 20 VUs  0m56.4s/3m0s
+
+running (0m59.0s), 20/20 VUs, 2180 complete and 0 interrupted iterations
+main   [  32% ] 20 VUs  0m57.4s/3m0s
+
+running (1m00.0s), 20/20 VUs, 2220 complete and 0 interrupted iterations
+main   [  32% ] 20 VUs  0m58.4s/3m0s
+
+running (1m01.0s), 20/20 VUs, 2260 complete and 0 interrupted iterations
+main   [  33% ] 20 VUs  0m59.4s/3m0s
+
+running (1m02.0s), 20/20 VUs, 2300 complete and 0 interrupted iterations
+main   [  34% ] 20 VUs  1m00.4s/3m0s
+
+running (1m03.0s), 20/20 VUs, 2340 complete and 0 interrupted iterations
+main   [  34% ] 20 VUs  1m01.4s/3m0s
+
+running (1m04.0s), 20/20 VUs, 2380 complete and 0 interrupted iterations
+main   [  35% ] 20 VUs  1m02.4s/3m0s
+
+running (1m05.0s), 20/20 VUs, 2420 complete and 0 interrupted iterations
+main   [  35% ] 20 VUs  1m03.4s/3m0s
+
+running (1m06.0s), 20/20 VUs, 2460 complete and 0 interrupted iterations
+main   [  36% ] 20 VUs  1m04.4s/3m0s
+
+running (1m07.0s), 20/20 VUs, 2500 complete and 0 interrupted iterations
+main   [  36% ] 20 VUs  1m05.4s/3m0s
+
+running (1m08.0s), 20/20 VUs, 2540 complete and 0 interrupted iterations
+main   [  37% ] 20 VUs  1m06.4s/3m0s
+
+running (1m09.0s), 20/20 VUs, 2580 complete and 0 interrupted iterations
+main   [  37% ] 20 VUs  1m07.4s/3m0s
+
+running (1m10.0s), 20/20 VUs, 2600 complete and 0 interrupted iterations
+main   [  38% ] 20 VUs  1m08.4s/3m0s
+
+running (1m11.0s), 20/20 VUs, 2640 complete and 0 interrupted iterations
+main   [  39% ] 20 VUs  1m09.4s/3m0s
+
+running (1m12.0s), 20/20 VUs, 2680 complete and 0 interrupted iterations
+main   [  39% ] 20 VUs  1m10.4s/3m0s
+
+running (1m13.0s), 20/20 VUs, 2720 complete and 0 interrupted iterations
+main   [  40% ] 20 VUs  1m11.4s/3m0s
+
+running (1m14.0s), 20/20 VUs, 2760 complete and 0 interrupted iterations
+main   [  40% ] 20 VUs  1m12.4s/3m0s
+
+running (1m15.0s), 20/20 VUs, 2800 complete and 0 interrupted iterations
+main   [  41% ] 20 VUs  1m13.4s/3m0s
+
+running (1m16.0s), 20/20 VUs, 2840 complete and 0 interrupted iterations
+main   [  41% ] 20 VUs  1m14.4s/3m0s
+
+running (1m17.0s), 20/20 VUs, 2880 complete and 0 interrupted iterations
+main   [  42% ] 20 VUs  1m15.4s/3m0s
+
+running (1m18.0s), 20/20 VUs, 2920 complete and 0 interrupted iterations
+main   [  42% ] 20 VUs  1m16.4s/3m0s
+
+running (1m19.0s), 20/20 VUs, 2940 complete and 0 interrupted iterations
+main   [  43% ] 20 VUs  1m17.4s/3m0s
+
+running (1m20.0s), 20/20 VUs, 2980 complete and 0 interrupted iterations
+main   [  44% ] 20 VUs  1m18.4s/3m0s
+
+running (1m21.0s), 20/20 VUs, 3020 complete and 0 interrupted iterations
+main   [  44% ] 20 VUs  1m19.4s/3m0s
+
+running (1m22.0s), 20/20 VUs, 3060 complete and 0 interrupted iterations
+main   [  45% ] 20 VUs  1m20.4s/3m0s
+
+running (1m23.0s), 20/20 VUs, 3100 complete and 0 interrupted iterations
+main   [  45% ] 20 VUs  1m21.4s/3m0s
+
+running (1m24.0s), 20/20 VUs, 3140 complete and 0 interrupted iterations
+main   [  46% ] 20 VUs  1m22.4s/3m0s
+
+running (1m25.0s), 20/20 VUs, 3180 complete and 0 interrupted iterations
+main   [  46% ] 20 VUs  1m23.4s/3m0s
+
+running (1m26.0s), 20/20 VUs, 3200 complete and 0 interrupted iterations
+main   [  47% ] 20 VUs  1m24.4s/3m0s
+
+running (1m27.0s), 20/20 VUs, 3240 complete and 0 interrupted iterations
+main   [  47% ] 20 VUs  1m25.4s/3m0s
+
+running (1m28.0s), 20/20 VUs, 3280 complete and 0 interrupted iterations
+main   [  48% ] 20 VUs  1m26.4s/3m0s
+
+running (1m29.0s), 20/20 VUs, 3320 complete and 0 interrupted iterations
+main   [  49% ] 20 VUs  1m27.4s/3m0s
+
+running (1m30.0s), 20/20 VUs, 3360 complete and 0 interrupted iterations
+main   [  49% ] 20 VUs  1m28.4s/3m0s
+
+running (1m31.0s), 20/20 VUs, 3390 complete and 0 interrupted iterations
+main   [  50% ] 20 VUs  1m29.4s/3m0s
+
+running (1m32.0s), 20/20 VUs, 3429 complete and 0 interrupted iterations
+main   [  50% ] 20 VUs  1m30.4s/3m0s
+
+running (1m33.0s), 20/20 VUs, 3460 complete and 0 interrupted iterations
+main   [  51% ] 20 VUs  1m31.4s/3m0s
+
+running (1m34.0s), 20/20 VUs, 3500 complete and 0 interrupted iterations
+main   [  51% ] 20 VUs  1m32.4s/3m0s
+
+running (1m35.0s), 20/20 VUs, 3540 complete and 0 interrupted iterations
+main   [  52% ] 20 VUs  1m33.4s/3m0s
+
+running (1m36.0s), 20/20 VUs, 3580 complete and 0 interrupted iterations
+main   [  52% ] 20 VUs  1m34.4s/3m0s
+
+running (1m37.0s), 20/20 VUs, 3620 complete and 0 interrupted iterations
+main   [  53% ] 20 VUs  1m35.4s/3m0s
+
+running (1m38.0s), 20/20 VUs, 3660 complete and 0 interrupted iterations
+main   [  54% ] 20 VUs  1m36.4s/3m0s
+
+running (1m39.0s), 20/20 VUs, 3700 complete and 0 interrupted iterations
+main   [  54% ] 20 VUs  1m37.4s/3m0s
+
+running (1m40.0s), 20/20 VUs, 3740 complete and 0 interrupted iterations
+main   [  55% ] 20 VUs  1m38.4s/3m0s
+
+running (1m41.0s), 20/20 VUs, 3762 complete and 0 interrupted iterations
+main   [  55% ] 20 VUs  1m39.4s/3m0s
+
+running (1m42.0s), 20/20 VUs, 3801 complete and 0 interrupted iterations
+main   [  56% ] 20 VUs  1m40.4s/3m0s
+
+running (1m43.0s), 20/20 VUs, 3841 complete and 0 interrupted iterations
+main   [  56% ] 20 VUs  1m41.4s/3m0s
+
+running (1m44.0s), 20/20 VUs, 3880 complete and 0 interrupted iterations
+main   [  57% ] 20 VUs  1m42.4s/3m0s
+
+running (1m45.0s), 20/20 VUs, 3920 complete and 0 interrupted iterations
+main   [  57% ] 20 VUs  1m43.4s/3m0s
+
+running (1m46.0s), 20/20 VUs, 3960 complete and 0 interrupted iterations
+main   [  58% ] 20 VUs  1m44.4s/3m0s
+
+running (1m47.0s), 20/20 VUs, 4000 complete and 0 interrupted iterations
+main   [  59% ] 20 VUs  1m45.4s/3m0s
+
+running (1m48.0s), 20/20 VUs, 4040 complete and 0 interrupted iterations
+main   [  59% ] 20 VUs  1m46.4s/3m0s
+
+running (1m49.0s), 20/20 VUs, 4080 complete and 0 interrupted iterations
+main   [  60% ] 20 VUs  1m47.4s/3m0s
+
+running (1m50.0s), 20/20 VUs, 4120 complete and 0 interrupted iterations
+main   [  60% ] 20 VUs  1m48.4s/3m0s
+
+running (1m51.0s), 20/20 VUs, 4160 complete and 0 interrupted iterations
+main   [  61% ] 20 VUs  1m49.4s/3m0s
+
+running (1m52.0s), 20/20 VUs, 4200 complete and 0 interrupted iterations
+main   [  61% ] 20 VUs  1m50.4s/3m0s
+
+running (1m53.0s), 20/20 VUs, 4222 complete and 0 interrupted iterations
+main   [  62% ] 20 VUs  1m51.4s/3m0s
+
+running (1m54.0s), 20/20 VUs, 4262 complete and 0 interrupted iterations
+main   [  62% ] 20 VUs  1m52.4s/3m0s
+
+running (1m55.0s), 20/20 VUs, 4302 complete and 0 interrupted iterations
+main   [  63% ] 20 VUs  1m53.4s/3m0s
+
+running (1m56.0s), 20/20 VUs, 4342 complete and 0 interrupted iterations
+main   [  64% ] 20 VUs  1m54.4s/3m0s
+
+running (1m57.0s), 20/20 VUs, 4382 complete and 0 interrupted iterations
+main   [  64% ] 20 VUs  1m55.4s/3m0s
+
+running (1m58.0s), 20/20 VUs, 4422 complete and 0 interrupted iterations
+main   [  65% ] 20 VUs  1m56.4s/3m0s
+
+running (1m59.0s), 20/20 VUs, 4462 complete and 0 interrupted iterations
+main   [  65% ] 20 VUs  1m57.4s/3m0s
+
+running (2m00.0s), 20/20 VUs, 4500 complete and 0 interrupted iterations
+main   [  66% ] 20 VUs  1m58.4s/3m0s
+
+running (2m01.0s), 20/20 VUs, 4540 complete and 0 interrupted iterations
+main   [  66% ] 20 VUs  1m59.4s/3m0s
+
+running (2m02.0s), 20/20 VUs, 4580 complete and 0 interrupted iterations
+main   [  67% ] 20 VUs  2m00.4s/3m0s
+
+running (2m03.0s), 20/20 VUs, 4620 complete and 0 interrupted iterations
+main   [  67% ] 20 VUs  2m01.4s/3m0s
+
+running (2m04.0s), 20/20 VUs, 4660 complete and 0 interrupted iterations
+main   [  68% ] 20 VUs  2m02.4s/3m0s
+
+running (2m05.0s), 20/20 VUs, 4684 complete and 0 interrupted iterations
+main   [  69% ] 20 VUs  2m03.4s/3m0s
+
+running (2m06.0s), 20/20 VUs, 4724 complete and 0 interrupted iterations
+main   [  69% ] 20 VUs  2m04.4s/3m0s
+
+running (2m07.0s), 20/20 VUs, 4764 complete and 0 interrupted iterations
+main   [  70% ] 20 VUs  2m05.4s/3m0s
+
+running (2m08.0s), 20/20 VUs, 4804 complete and 0 interrupted iterations
+main   [  70% ] 20 VUs  2m06.4s/3m0s
+
+running (2m09.0s), 20/20 VUs, 4844 complete and 0 interrupted iterations
+main   [  71% ] 20 VUs  2m07.4s/3m0s
+
+running (2m10.0s), 20/20 VUs, 4884 complete and 0 interrupted iterations
+main   [  71% ] 20 VUs  2m08.4s/3m0s
+
+running (2m11.0s), 20/20 VUs, 4922 complete and 0 interrupted iterations
+main   [  72% ] 20 VUs  2m09.4s/3m0s
+
+running (2m12.0s), 20/20 VUs, 4962 complete and 0 interrupted iterations
+main   [  72% ] 20 VUs  2m10.4s/3m0s
+
+running (2m13.0s), 20/20 VUs, 5002 complete and 0 interrupted iterations
+main   [  73% ] 20 VUs  2m11.4s/3m0s
+
+running (2m14.0s), 20/20 VUs, 5042 complete and 0 interrupted iterations
+main   [  74% ] 20 VUs  2m12.4s/3m0s
+
+running (2m15.0s), 20/20 VUs, 5082 complete and 0 interrupted iterations
+main   [  74% ] 20 VUs  2m13.4s/3m0s
+
+running (2m16.0s), 20/20 VUs, 5122 complete and 0 interrupted iterations
+main   [  75% ] 20 VUs  2m14.4s/3m0s
+
+running (2m17.0s), 20/20 VUs, 5162 complete and 0 interrupted iterations
+main   [  75% ] 20 VUs  2m15.4s/3m0s
+
+running (2m18.0s), 20/20 VUs, 5184 complete and 0 interrupted iterations
+main   [  76% ] 20 VUs  2m16.4s/3m0s
+
+running (2m19.0s), 20/20 VUs, 5224 complete and 0 interrupted iterations
+main   [  76% ] 20 VUs  2m17.4s/3m0s
+
+running (2m20.0s), 20/20 VUs, 5264 complete and 0 interrupted iterations
+main   [  77% ] 20 VUs  2m18.4s/3m0s
+
+running (2m21.0s), 20/20 VUs, 5304 complete and 0 interrupted iterations
+main   [  77% ] 20 VUs  2m19.4s/3m0s
+
+running (2m22.0s), 20/20 VUs, 5344 complete and 0 interrupted iterations
+main   [  78% ] 20 VUs  2m20.4s/3m0s
+
+running (2m23.0s), 20/20 VUs, 5384 complete and 0 interrupted iterations
+main   [  79% ] 20 VUs  2m21.4s/3m0s
+
+running (2m24.0s), 20/20 VUs, 5424 complete and 0 interrupted iterations
+main   [  79% ] 20 VUs  2m22.4s/3m0s
+
+running (2m25.0s), 20/20 VUs, 5464 complete and 0 interrupted iterations
+main   [  80% ] 20 VUs  2m23.4s/3m0s
+
+running (2m26.0s), 20/20 VUs, 5504 complete and 0 interrupted iterations
+main   [  80% ] 20 VUs  2m24.4s/3m0s
+
+running (2m27.0s), 20/20 VUs, 5544 complete and 0 interrupted iterations
+main   [  81% ] 20 VUs  2m25.4s/3m0s
+
+running (2m28.0s), 20/20 VUs, 5584 complete and 0 interrupted iterations
+main   [  81% ] 20 VUs  2m26.4s/3m0s
+
+running (2m29.0s), 20/20 VUs, 5624 complete and 0 interrupted iterations
+main   [  82% ] 20 VUs  2m27.4s/3m0s
+
+running (2m30.0s), 20/20 VUs, 5644 complete and 0 interrupted iterations
+main   [  82% ] 20 VUs  2m28.4s/3m0s
+
+running (2m31.0s), 20/20 VUs, 5684 complete and 0 interrupted iterations
+main   [  83% ] 20 VUs  2m29.4s/3m0s
+
+running (2m32.0s), 20/20 VUs, 5724 complete and 0 interrupted iterations
+main   [  84% ] 20 VUs  2m30.4s/3m0s
+
+running (2m33.0s), 20/20 VUs, 5764 complete and 0 interrupted iterations
+main   [  84% ] 20 VUs  2m31.4s/3m0s
+
+running (2m34.0s), 20/20 VUs, 5804 complete and 0 interrupted iterations
+main   [  85% ] 20 VUs  2m32.4s/3m0s
+
+running (2m35.0s), 20/20 VUs, 5844 complete and 0 interrupted iterations
+main   [  85% ] 20 VUs  2m33.4s/3m0s
+
+running (2m36.0s), 20/20 VUs, 5884 complete and 0 interrupted iterations
+main   [  86% ] 20 VUs  2m34.4s/3m0s
+
+running (2m37.0s), 20/20 VUs, 5924 complete and 0 interrupted iterations
+main   [  86% ] 20 VUs  2m35.4s/3m0s
+
+running (2m38.0s), 20/20 VUs, 5964 complete and 0 interrupted iterations
+main   [  87% ] 20 VUs  2m36.4s/3m0s
+
+running (2m39.0s), 20/20 VUs, 6004 complete and 0 interrupted iterations
+main   [  87% ] 20 VUs  2m37.4s/3m0s
+
+running (2m40.0s), 20/20 VUs, 6024 complete and 0 interrupted iterations
+main   [  88% ] 20 VUs  2m38.4s/3m0s
+
+running (2m41.0s), 20/20 VUs, 6064 complete and 0 interrupted iterations
+main   [  89% ] 20 VUs  2m39.4s/3m0s
+
+running (2m42.0s), 20/20 VUs, 6104 complete and 0 interrupted iterations
+main   [  89% ] 20 VUs  2m40.4s/3m0s
+
+running (2m43.0s), 20/20 VUs, 6144 complete and 0 interrupted iterations
+main   [  90% ] 20 VUs  2m41.4s/3m0s
+
+running (2m44.0s), 20/20 VUs, 6184 complete and 0 interrupted iterations
+main   [  90% ] 20 VUs  2m42.4s/3m0s
+
+running (2m45.0s), 20/20 VUs, 6224 complete and 0 interrupted iterations
+main   [  91% ] 20 VUs  2m43.4s/3m0s
+
+running (2m46.0s), 20/20 VUs, 6264 complete and 0 interrupted iterations
+main   [  91% ] 20 VUs  2m44.4s/3m0s
+
+running (2m47.0s), 20/20 VUs, 6304 complete and 0 interrupted iterations
+main   [  92% ] 20 VUs  2m45.4s/3m0s
+
+running (2m48.0s), 20/20 VUs, 6344 complete and 0 interrupted iterations
+main   [  92% ] 20 VUs  2m46.4s/3m0s
+
+running (2m49.0s), 20/20 VUs, 6384 complete and 0 interrupted iterations
+main   [  93% ] 20 VUs  2m47.4s/3m0s
+
+running (2m50.0s), 20/20 VUs, 6424 complete and 0 interrupted iterations
+main   [  94% ] 20 VUs  2m48.4s/3m0s
+
+running (2m51.0s), 20/20 VUs, 6464 complete and 0 interrupted iterations
+main   [  94% ] 20 VUs  2m49.4s/3m0s
+
+running (2m52.0s), 20/20 VUs, 6504 complete and 0 interrupted iterations
+main   [  95% ] 20 VUs  2m50.4s/3m0s
+
+running (2m53.0s), 20/20 VUs, 6544 complete and 0 interrupted iterations
+main   [  95% ] 20 VUs  2m51.4s/3m0s
+
+running (2m54.0s), 20/20 VUs, 6584 complete and 0 interrupted iterations
+main   [  96% ] 20 VUs  2m52.4s/3m0s
+
+running (2m55.0s), 20/20 VUs, 6604 complete and 0 interrupted iterations
+main   [  96% ] 20 VUs  2m53.4s/3m0s
+
+running (2m56.0s), 20/20 VUs, 6644 complete and 0 interrupted iterations
+main   [  97% ] 20 VUs  2m54.4s/3m0s
+
+running (2m57.0s), 20/20 VUs, 6684 complete and 0 interrupted iterations
+main   [  97% ] 20 VUs  2m55.4s/3m0s
+
+running (2m58.0s), 20/20 VUs, 6724 complete and 0 interrupted iterations
+main   [  98% ] 20 VUs  2m56.4s/3m0s
+
+running (2m59.0s), 20/20 VUs, 6764 complete and 0 interrupted iterations
+main   [  99% ] 20 VUs  2m57.4s/3m0s
+
+running (3m00.0s), 20/20 VUs, 6804 complete and 0 interrupted iterations
+main   [  99% ] 20 VUs  2m58.4s/3m0s
+
+running (3m01.0s), 20/20 VUs, 6844 complete and 0 interrupted iterations
+main   [ 100% ] 20 VUs  2m59.4s/3m0s
+{
+  "metrics": [
+    "detail_duration",
+    "http_reqs",
+    "http_req_blocked",
+    "http_req_sending",
+    "data_received",
+    "http_req_duration{expected_response:true}",
+    "http_req_tls_handshaking",
+    "data_sent",
+    "http_req_waiting",
+    "http_req_receiving",
+    "checks",
+    "iterations",
+    "http_req_connecting",
+    "iteration_duration",
+    "http_req_failed",
+    "vus",
+    "vus_max",
+    "http_req_duration"
+  ],
+  "stats": {
+    "detail_p95": 38.819627749999974,
+    "failed_rate": 0.002888086642599278
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (3m01.8s), 00/20 VUs, 6884 complete and 0 interrupted iterations
+main ✓ [ 100% ] 20 VUs  3m0s
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 50s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 20s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (02.0s), 20/20 VUs, 20 complete and 0 interrupted iterations
+main   [   3% ] 20 VUs  00.5s/20s
+
+running (03.0s), 20/20 VUs, 40 complete and 0 interrupted iterations
+main   [   8% ] 20 VUs  01.5s/20s
+
+running (04.0s), 20/20 VUs, 80 complete and 0 interrupted iterations
+main   [  13% ] 20 VUs  02.5s/20s
+
+running (05.0s), 20/20 VUs, 120 complete and 0 interrupted iterations
+main   [  18% ] 20 VUs  03.5s/20s
+
+running (06.0s), 20/20 VUs, 160 complete and 0 interrupted iterations
+main   [  23% ] 20 VUs  04.5s/20s
+
+running (07.0s), 20/20 VUs, 200 complete and 0 interrupted iterations
+main   [  28% ] 20 VUs  05.5s/20s
+
+running (08.0s), 20/20 VUs, 240 complete and 0 interrupted iterations
+main   [  33% ] 20 VUs  06.5s/20s
+
+running (09.0s), 20/20 VUs, 280 complete and 0 interrupted iterations
+main   [  38% ] 20 VUs  07.5s/20s
+
+running (10.0s), 20/20 VUs, 320 complete and 0 interrupted iterations
+main   [  43% ] 20 VUs  08.5s/20s
+
+running (11.0s), 20/20 VUs, 360 complete and 0 interrupted iterations
+main   [  48% ] 20 VUs  09.5s/20s
+
+running (12.0s), 20/20 VUs, 400 complete and 0 interrupted iterations
+main   [  53% ] 20 VUs  10.5s/20s
+
+running (13.0s), 20/20 VUs, 420 complete and 0 interrupted iterations
+main   [  58% ] 20 VUs  11.5s/20s
+
+running (14.0s), 20/20 VUs, 460 complete and 0 interrupted iterations
+main   [  63% ] 20 VUs  12.5s/20s
+
+running (15.0s), 20/20 VUs, 500 complete and 0 interrupted iterations
+main   [  68% ] 20 VUs  13.5s/20s
+
+running (16.0s), 20/20 VUs, 540 complete and 0 interrupted iterations
+main   [  73% ] 20 VUs  14.5s/20s
+
+running (17.0s), 20/20 VUs, 580 complete and 0 interrupted iterations
+main   [  78% ] 20 VUs  15.5s/20s
+
+running (18.0s), 20/20 VUs, 620 complete and 0 interrupted iterations
+main   [  83% ] 20 VUs  16.5s/20s
+
+running (19.0s), 20/20 VUs, 660 complete and 0 interrupted iterations
+main   [  88% ] 20 VUs  17.5s/20s
+
+running (20.0s), 20/20 VUs, 700 complete and 0 interrupted iterations
+main   [  93% ] 20 VUs  18.5s/20s
+
+running (21.0s), 20/20 VUs, 740 complete and 0 interrupted iterations
+main   [  98% ] 20 VUs  19.5s/20s
+{
+  "metrics": [
+    "http_req_connecting",
+    "http_req_failed",
+    "checks",
+    "iterations",
+    "iteration_duration",
+    "http_reqs",
+    "http_req_blocked",
+    "http_req_waiting",
+    "http_req_receiving",
+    "vus",
+    "http_req_sending",
+    "data_received",
+    "http_req_tls_handshaking",
+    "http_req_duration{expected_response:true}",
+    "vus_max",
+    "detail_duration",
+    "http_req_duration",
+    "data_sent"
+  ],
+  "stats": {
+    "detail_p95": 35.218274999999984,
+    "failed_rate": 0.024360535931790498
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (21.9s), 00/20 VUs, 780 complete and 0 interrupted iterations
+main ✓ [ 100% ] 20 VUs  20s
+time="2026-03-02T16:28:12Z" level=error msg="thresholds on metrics 'http_req_failed' have been crossed"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 2m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 2m0s (gracefulStop: 30s)
+
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:02:50Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+{
+  "metrics": [
+    "http_req_waiting",
+    "http_req_receiving",
+    "data_received",
+    "http_req_blocked",
+    "http_req_tls_handshaking",
+    "data_sent",
+    "http_req_failed",
+    "http_reqs",
+    "http_req_sending",
+    "http_req_connecting",
+    "http_req_duration"
+  ],
+  "stats": {
+    "failed_rate": 1
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://127.0.0.1:8080"
+  }
+}
+Run    [ 100% ] setup()
+main   [   0% ]
+time="2026-03-03T06:02:51Z" level=error msg="Error: 유효한 테스트 사용자 토큰이 없습니다.\n\tat setup (file:///Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js:45:11(42))\n" hint="script exception"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 2m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 2m0s (gracefulStop: 30s)
+
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:48Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+{
+  "metrics": [
+    "data_received",
+    "http_req_duration",
+    "http_req_failed",
+    "http_req_connecting",
+    "http_reqs",
+    "http_req_tls_handshaking",
+    "http_req_waiting",
+    "http_req_receiving",
+    "http_req_blocked",
+    "http_req_sending",
+    "data_sent"
+  ],
+  "stats": {
+    "failed_rate": 1
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://127.0.0.1:8080"
+  }
+}
+Run    [ 100% ] setup()
+main   [   0% ]
+time="2026-03-03T06:03:48Z" level=error msg="Error: 유효한 테스트 사용자 토큰이 없습니다.\n\tat setup (file:///Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js:45:11(42))\n" hint="script exception"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 1m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 1m0s (gracefulStop: 30s)
+
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-03T06:03:56Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+{
+  "metrics": [
+    "http_req_waiting",
+    "http_req_blocked",
+    "http_req_receiving",
+    "data_sent",
+    "data_received",
+    "http_req_connecting",
+    "http_req_duration",
+    "http_req_failed",
+    "http_reqs",
+    "http_req_tls_handshaking",
+    "http_req_sending"
+  ],
+  "stats": {
+    "failed_rate": 1
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://127.0.0.1:8080"
+  }
+}
+Run    [ 100% ] setup()
+main   [   0% ]
+time="2026-03-03T06:03:57Z" level=error msg="Error: 유효한 테스트 사용자 토큰이 없습니다.\n\tat setup (file:///Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js:45:11(42))\n" hint="script exception"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 1m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 1m0s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m03.0s), 20/20 VUs, 20 complete and 0 interrupted iterations
+main   [   1% ] 20 VUs  0m00.9s/1m0s
+
+running (0m04.0s), 20/20 VUs, 40 complete and 0 interrupted iterations
+main   [   3% ] 20 VUs  0m01.9s/1m0s
+
+running (0m05.0s), 20/20 VUs, 80 complete and 0 interrupted iterations
+main   [   5% ] 20 VUs  0m02.9s/1m0s
+
+running (0m06.0s), 20/20 VUs, 120 complete and 0 interrupted iterations
+main   [   6% ] 20 VUs  0m03.9s/1m0s
+
+running (0m07.0s), 20/20 VUs, 160 complete and 0 interrupted iterations
+main   [   8% ] 20 VUs  0m04.9s/1m0s
+
+running (0m08.0s), 20/20 VUs, 200 complete and 0 interrupted iterations
+main   [  10% ] 20 VUs  0m05.9s/1m0s
+
+running (0m09.0s), 20/20 VUs, 240 complete and 0 interrupted iterations
+main   [  11% ] 20 VUs  0m06.9s/1m0s
+
+running (0m10.0s), 20/20 VUs, 280 complete and 0 interrupted iterations
+main   [  13% ] 20 VUs  0m07.9s/1m0s
+
+running (0m11.0s), 20/20 VUs, 320 complete and 0 interrupted iterations
+main   [  15% ] 20 VUs  0m08.9s/1m0s
+
+running (0m12.0s), 20/20 VUs, 360 complete and 0 interrupted iterations
+main   [  16% ] 20 VUs  0m09.9s/1m0s
+
+running (0m13.0s), 20/20 VUs, 400 complete and 0 interrupted iterations
+main   [  18% ] 20 VUs  0m10.9s/1m0s
+
+running (0m14.0s), 20/20 VUs, 440 complete and 0 interrupted iterations
+main   [  20% ] 20 VUs  0m11.9s/1m0s
+
+running (0m15.0s), 20/20 VUs, 460 complete and 0 interrupted iterations
+main   [  21% ] 20 VUs  0m12.9s/1m0s
+
+running (0m16.0s), 20/20 VUs, 500 complete and 0 interrupted iterations
+main   [  23% ] 20 VUs  0m13.9s/1m0s
+
+running (0m17.0s), 20/20 VUs, 540 complete and 0 interrupted iterations
+main   [  25% ] 20 VUs  0m14.9s/1m0s
+
+running (0m18.0s), 20/20 VUs, 580 complete and 0 interrupted iterations
+main   [  26% ] 20 VUs  0m15.9s/1m0s
+
+running (0m19.0s), 20/20 VUs, 620 complete and 0 interrupted iterations
+main   [  28% ] 20 VUs  0m16.9s/1m0s
+
+running (0m20.0s), 20/20 VUs, 660 complete and 0 interrupted iterations
+main   [  30% ] 20 VUs  0m17.9s/1m0s
+
+running (0m21.0s), 20/20 VUs, 700 complete and 0 interrupted iterations
+main   [  32% ] 20 VUs  0m18.9s/1m0s
+
+running (0m22.0s), 20/20 VUs, 740 complete and 0 interrupted iterations
+main   [  33% ] 20 VUs  0m19.9s/1m0s
+
+running (0m23.0s), 20/20 VUs, 760 complete and 0 interrupted iterations
+main   [  35% ] 20 VUs  0m20.9s/1m0s
+
+running (0m24.0s), 20/20 VUs, 800 complete and 0 interrupted iterations
+main   [  36% ] 20 VUs  0m21.9s/1m0s
+
+running (0m25.0s), 20/20 VUs, 840 complete and 0 interrupted iterations
+main   [  38% ] 20 VUs  0m22.9s/1m0s
+
+running (0m26.0s), 20/20 VUs, 880 complete and 0 interrupted iterations
+main   [  40% ] 20 VUs  0m23.9s/1m0s
+
+running (0m27.0s), 20/20 VUs, 920 complete and 0 interrupted iterations
+main   [  41% ] 20 VUs  0m24.9s/1m0s
+
+running (0m28.0s), 20/20 VUs, 960 complete and 0 interrupted iterations
+main   [  43% ] 20 VUs  0m25.9s/1m0s
+
+running (0m29.0s), 20/20 VUs, 1000 complete and 0 interrupted iterations
+main   [  45% ] 20 VUs  0m26.9s/1m0s
+
+running (0m30.0s), 20/20 VUs, 1040 complete and 0 interrupted iterations
+main   [  46% ] 20 VUs  0m27.9s/1m0s
+
+running (0m31.0s), 20/20 VUs, 1080 complete and 0 interrupted iterations
+main   [  48% ] 20 VUs  0m28.9s/1m0s
+
+running (0m32.0s), 20/20 VUs, 1101 complete and 0 interrupted iterations
+main   [  50% ] 20 VUs  0m29.9s/1m0s
+
+running (0m33.0s), 20/20 VUs, 1141 complete and 0 interrupted iterations
+main   [  51% ] 20 VUs  0m30.9s/1m0s
+
+running (0m34.0s), 20/20 VUs, 1181 complete and 0 interrupted iterations
+main   [  53% ] 20 VUs  0m31.9s/1m0s
+
+running (0m35.0s), 20/20 VUs, 1221 complete and 0 interrupted iterations
+main   [  55% ] 20 VUs  0m32.9s/1m0s
+
+running (0m36.0s), 20/20 VUs, 1261 complete and 0 interrupted iterations
+main   [  56% ] 20 VUs  0m33.9s/1m0s
+
+running (0m37.0s), 20/20 VUs, 1300 complete and 0 interrupted iterations
+main   [  58% ] 20 VUs  0m34.9s/1m0s
+
+running (0m38.0s), 20/20 VUs, 1340 complete and 0 interrupted iterations
+main   [  60% ] 20 VUs  0m35.9s/1m0s
+
+running (0m39.0s), 20/20 VUs, 1380 complete and 0 interrupted iterations
+main   [  61% ] 20 VUs  0m36.9s/1m0s
+
+running (0m40.0s), 20/20 VUs, 1420 complete and 0 interrupted iterations
+main   [  63% ] 20 VUs  0m37.9s/1m0s
+
+running (0m41.0s), 20/20 VUs, 1453 complete and 0 interrupted iterations
+main   [  65% ] 20 VUs  0m38.9s/1m0s
+
+running (0m42.0s), 20/20 VUs, 1483 complete and 0 interrupted iterations
+main   [  66% ] 20 VUs  0m39.9s/1m0s
+
+running (0m43.0s), 20/20 VUs, 1523 complete and 0 interrupted iterations
+main   [  68% ] 20 VUs  0m40.9s/1m0s
+
+running (0m44.0s), 20/20 VUs, 1561 complete and 0 interrupted iterations
+main   [  70% ] 20 VUs  0m41.9s/1m0s
+
+running (0m45.0s), 20/20 VUs, 1601 complete and 0 interrupted iterations
+main   [  72% ] 20 VUs  0m42.9s/1m0s
+
+running (0m46.0s), 20/20 VUs, 1641 complete and 0 interrupted iterations
+main   [  73% ] 20 VUs  0m43.9s/1m0s
+
+running (0m47.0s), 20/20 VUs, 1681 complete and 0 interrupted iterations
+main   [  75% ] 20 VUs  0m44.9s/1m0s
+
+running (0m48.0s), 20/20 VUs, 1721 complete and 0 interrupted iterations
+main   [  76% ] 20 VUs  0m45.9s/1m0s
+
+running (0m49.0s), 20/20 VUs, 1761 complete and 0 interrupted iterations
+main   [  78% ] 20 VUs  0m46.9s/1m0s
+
+running (0m50.0s), 20/20 VUs, 1801 complete and 0 interrupted iterations
+main   [  80% ] 20 VUs  0m47.9s/1m0s
+
+running (0m51.0s), 20/20 VUs, 1841 complete and 0 interrupted iterations
+main   [  81% ] 20 VUs  0m48.9s/1m0s
+
+running (0m52.0s), 20/20 VUs, 1881 complete and 0 interrupted iterations
+main   [  83% ] 20 VUs  0m49.9s/1m0s
+
+running (0m53.0s), 20/20 VUs, 1921 complete and 0 interrupted iterations
+main   [  85% ] 20 VUs  0m50.9s/1m0s
+
+running (0m54.0s), 20/20 VUs, 1948 complete and 0 interrupted iterations
+main   [  86% ] 20 VUs  0m51.9s/1m0s
+
+running (0m55.0s), 20/20 VUs, 1985 complete and 0 interrupted iterations
+main   [  88% ] 20 VUs  0m52.9s/1m0s
+
+running (0m56.0s), 20/20 VUs, 2022 complete and 0 interrupted iterations
+main   [  90% ] 20 VUs  0m53.9s/1m0s
+
+running (0m57.0s), 20/20 VUs, 2056 complete and 0 interrupted iterations
+main   [  91% ] 20 VUs  0m54.9s/1m0s
+
+running (0m58.0s), 20/20 VUs, 2088 complete and 0 interrupted iterations
+main   [  93% ] 20 VUs  0m55.9s/1m0s
+
+running (0m59.0s), 20/20 VUs, 2122 complete and 0 interrupted iterations
+main   [  95% ] 20 VUs  0m56.9s/1m0s
+
+running (1m00.0s), 20/20 VUs, 2156 complete and 0 interrupted iterations
+main   [  96% ] 20 VUs  0m57.9s/1m0s
+
+running (1m01.0s), 20/20 VUs, 2188 complete and 0 interrupted iterations
+main   [  98% ] 20 VUs  0m58.9s/1m0s
+
+running (1m02.0s), 20/20 VUs, 2222 complete and 0 interrupted iterations
+main   [ 100% ] 20 VUs  0m59.9s/1m0s
+
+running (1m03.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m04.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m05.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m06.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m07.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m08.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m09.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m10.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m11.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m12.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m13.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m14.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m15.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m16.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m17.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m18.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m19.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m20.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m21.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m22.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m23.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m24.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+
+running (1m25.0s), 03/20 VUs, 2243 complete and 0 interrupted iterations
+main ↓ [ 100% ] 20 VUs  1m0s
+time="2026-03-03T06:05:35Z" level=warning msg="Request Failed" error="Get \"http://host.docker.internal:8080/api/posts/69a679baa8727babecb3def4\": dial: i/o timeout"
+time="2026-03-03T06:05:35Z" level=warning msg="Request Failed" error="Get \"http://host.docker.internal:8080/api/posts/69a679baa8727babecb3def4\": dial: i/o timeout"
+time="2026-03-03T06:05:35Z" level=warning msg="Request Failed" error="Get \"http://host.docker.internal:8080/api/posts/69a679baa8727babecb3def4\": dial: i/o timeout"
+{
+  "metrics": [
+    "data_received",
+    "http_req_failed",
+    "http_req_duration{expected_response:true}",
+    "iterations",
+    "http_req_duration",
+    "http_req_blocked",
+    "http_req_sending",
+    "http_req_waiting",
+    "http_reqs",
+    "http_req_tls_handshaking",
+    "checks",
+    "detail_duration",
+    "http_req_receiving",
+    "http_req_connecting",
+    "data_sent",
+    "iteration_duration",
+    "vus",
+    "vus_max"
+  ],
+  "stats": {
+    "detail_p95": 46.698291749999996,
+    "failed_rate": 0.010056843025797988
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (1m25.5s), 00/20 VUs, 2246 complete and 0 interrupted iterations
+main ✓ [ 100% ] 20 VUs  1m0s
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 1m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 1m0s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m02.0s), 20/20 VUs, 0 complete and 0 interrupted iterations
+main   [   1% ] 20 VUs  0m00.3s/1m0s
+
+running (0m03.0s), 20/20 VUs, 40 complete and 0 interrupted iterations
+main   [   2% ] 20 VUs  0m01.3s/1m0s
+
+running (0m04.0s), 20/20 VUs, 80 complete and 0 interrupted iterations
+main   [   4% ] 20 VUs  0m02.3s/1m0s
+
+running (0m05.0s), 20/20 VUs, 120 complete and 0 interrupted iterations
+main   [   6% ] 20 VUs  0m03.3s/1m0s
+
+running (0m06.0s), 20/20 VUs, 160 complete and 0 interrupted iterations
+main   [   7% ] 20 VUs  0m04.3s/1m0s
+
+running (0m07.0s), 20/20 VUs, 200 complete and 0 interrupted iterations
+main   [   9% ] 20 VUs  0m05.3s/1m0s
+
+running (0m08.0s), 20/20 VUs, 233 complete and 0 interrupted iterations
+main   [  11% ] 20 VUs  0m06.3s/1m0s
+
+running (0m09.0s), 20/20 VUs, 260 complete and 0 interrupted iterations
+main   [  12% ] 20 VUs  0m07.3s/1m0s
+
+running (0m10.0s), 20/20 VUs, 300 complete and 0 interrupted iterations
+main   [  14% ] 20 VUs  0m08.3s/1m0s
+
+running (0m11.0s), 20/20 VUs, 340 complete and 0 interrupted iterations
+main   [  16% ] 20 VUs  0m09.3s/1m0s
+
+running (0m12.0s), 20/20 VUs, 380 complete and 0 interrupted iterations
+main   [  17% ] 20 VUs  0m10.3s/1m0s
+
+running (0m13.0s), 20/20 VUs, 420 complete and 0 interrupted iterations
+main   [  19% ] 20 VUs  0m11.3s/1m0s
+
+running (0m14.0s), 20/20 VUs, 460 complete and 0 interrupted iterations
+main   [  21% ] 20 VUs  0m12.3s/1m0s
+
+running (0m15.0s), 20/20 VUs, 500 complete and 0 interrupted iterations
+main   [  22% ] 20 VUs  0m13.3s/1m0s
+
+running (0m16.0s), 20/20 VUs, 540 complete and 0 interrupted iterations
+main   [  24% ] 20 VUs  0m14.3s/1m0s
+
+running (0m17.0s), 20/20 VUs, 580 complete and 0 interrupted iterations
+main   [  26% ] 20 VUs  0m15.3s/1m0s
+
+running (0m18.0s), 20/20 VUs, 600 complete and 0 interrupted iterations
+main   [  27% ] 20 VUs  0m16.3s/1m0s
+
+running (0m19.0s), 20/20 VUs, 640 complete and 0 interrupted iterations
+main   [  29% ] 20 VUs  0m17.3s/1m0s
+
+running (0m20.0s), 20/20 VUs, 680 complete and 0 interrupted iterations
+main   [  31% ] 20 VUs  0m18.3s/1m0s
+
+running (0m21.0s), 20/20 VUs, 720 complete and 0 interrupted iterations
+main   [  32% ] 20 VUs  0m19.3s/1m0s
+
+running (0m22.0s), 20/20 VUs, 760 complete and 0 interrupted iterations
+main   [  34% ] 20 VUs  0m20.3s/1m0s
+
+running (0m23.0s), 20/20 VUs, 800 complete and 0 interrupted iterations
+main   [  36% ] 20 VUs  0m21.3s/1m0s
+
+running (0m24.0s), 20/20 VUs, 840 complete and 0 interrupted iterations
+main   [  37% ] 20 VUs  0m22.3s/1m0s
+
+running (0m25.0s), 20/20 VUs, 880 complete and 0 interrupted iterations
+main   [  39% ] 20 VUs  0m23.3s/1m0s
+
+running (0m26.0s), 20/20 VUs, 920 complete and 0 interrupted iterations
+main   [  41% ] 20 VUs  0m24.3s/1m0s
+
+running (0m27.0s), 20/20 VUs, 944 complete and 0 interrupted iterations
+main   [  42% ] 20 VUs  0m25.3s/1m0s
+
+running (0m28.0s), 20/20 VUs, 980 complete and 0 interrupted iterations
+main   [  44% ] 20 VUs  0m26.3s/1m0s
+
+running (0m29.0s), 20/20 VUs, 1020 complete and 0 interrupted iterations
+main   [  46% ] 20 VUs  0m27.3s/1m0s
+
+running (0m30.0s), 20/20 VUs, 1060 complete and 0 interrupted iterations
+main   [  47% ] 20 VUs  0m28.3s/1m0s
+
+running (0m31.0s), 20/20 VUs, 1100 complete and 0 interrupted iterations
+main   [  49% ] 20 VUs  0m29.3s/1m0s
+
+running (0m32.0s), 20/20 VUs, 1140 complete and 0 interrupted iterations
+main   [  51% ] 20 VUs  0m30.3s/1m0s
+
+running (0m33.0s), 20/20 VUs, 1180 complete and 0 interrupted iterations
+main   [  52% ] 20 VUs  0m31.3s/1m0s
+
+running (0m34.0s), 20/20 VUs, 1220 complete and 0 interrupted iterations
+main   [  54% ] 20 VUs  0m32.3s/1m0s
+
+running (0m35.0s), 20/20 VUs, 1260 complete and 0 interrupted iterations
+main   [  56% ] 20 VUs  0m33.3s/1m0s
+
+running (0m36.0s), 20/20 VUs, 1300 complete and 0 interrupted iterations
+main   [  57% ] 20 VUs  0m34.3s/1m0s
+
+running (0m37.0s), 20/20 VUs, 1340 complete and 0 interrupted iterations
+main   [  59% ] 20 VUs  0m35.3s/1m0s
+
+running (0m38.0s), 20/20 VUs, 1380 complete and 0 interrupted iterations
+main   [  61% ] 20 VUs  0m36.4s/1m0s
+
+running (0m39.0s), 20/20 VUs, 1400 complete and 0 interrupted iterations
+main   [  62% ] 20 VUs  0m37.3s/1m0s
+
+running (0m40.0s), 20/20 VUs, 1440 complete and 0 interrupted iterations
+main   [  64% ] 20 VUs  0m38.3s/1m0s
+
+running (0m41.0s), 20/20 VUs, 1480 complete and 0 interrupted iterations
+main   [  66% ] 20 VUs  0m39.3s/1m0s
+
+running (0m42.0s), 20/20 VUs, 1520 complete and 0 interrupted iterations
+main   [  67% ] 20 VUs  0m40.3s/1m0s
+
+running (0m43.0s), 20/20 VUs, 1560 complete and 0 interrupted iterations
+main   [  69% ] 20 VUs  0m41.3s/1m0s
+
+running (0m44.0s), 20/20 VUs, 1600 complete and 0 interrupted iterations
+main   [  71% ] 20 VUs  0m42.3s/1m0s
+
+running (0m45.0s), 20/20 VUs, 1640 complete and 0 interrupted iterations
+main   [  72% ] 20 VUs  0m43.3s/1m0s
+
+running (0m46.0s), 20/20 VUs, 1680 complete and 0 interrupted iterations
+main   [  74% ] 20 VUs  0m44.3s/1m0s
+
+running (0m47.0s), 20/20 VUs, 1720 complete and 0 interrupted iterations
+main   [  76% ] 20 VUs  0m45.3s/1m0s
+
+running (0m48.0s), 20/20 VUs, 1744 complete and 0 interrupted iterations
+main   [  77% ] 20 VUs  0m46.3s/1m0s
+
+running (0m49.0s), 20/20 VUs, 1780 complete and 0 interrupted iterations
+main   [  79% ] 20 VUs  0m47.3s/1m0s
+
+running (0m50.0s), 20/20 VUs, 1820 complete and 0 interrupted iterations
+main   [  81% ] 20 VUs  0m48.3s/1m0s
+
+running (0m51.0s), 20/20 VUs, 1860 complete and 0 interrupted iterations
+main   [  82% ] 20 VUs  0m49.3s/1m0s
+
+running (0m52.0s), 20/20 VUs, 1900 complete and 0 interrupted iterations
+main   [  84% ] 20 VUs  0m50.3s/1m0s
+
+running (0m53.0s), 20/20 VUs, 1940 complete and 0 interrupted iterations
+main   [  86% ] 20 VUs  0m51.3s/1m0s
+
+running (0m54.0s), 20/20 VUs, 1980 complete and 0 interrupted iterations
+main   [  87% ] 20 VUs  0m52.3s/1m0s
+
+running (0m55.0s), 20/20 VUs, 2020 complete and 0 interrupted iterations
+main   [  89% ] 20 VUs  0m53.3s/1m0s
+
+running (0m56.0s), 20/20 VUs, 2060 complete and 0 interrupted iterations
+main   [  91% ] 20 VUs  0m54.3s/1m0s
+
+running (0m57.0s), 20/20 VUs, 2100 complete and 0 interrupted iterations
+main   [  92% ] 20 VUs  0m55.3s/1m0s
+
+running (0m58.0s), 20/20 VUs, 2140 complete and 0 interrupted iterations
+main   [  94% ] 20 VUs  0m56.3s/1m0s
+
+running (0m59.0s), 20/20 VUs, 2180 complete and 0 interrupted iterations
+main   [  96% ] 20 VUs  0m57.3s/1m0s
+
+running (1m00.0s), 20/20 VUs, 2220 complete and 0 interrupted iterations
+main   [  97% ] 20 VUs  0m58.3s/1m0s
+
+running (1m01.0s), 20/20 VUs, 2260 complete and 0 interrupted iterations
+main   [  99% ] 20 VUs  0m59.3s/1m0s
+
+running (1m02.0s), 00/20 VUs, 2300 complete and 0 interrupted iterations
+main ✓ [ 100% ] 20 VUs  1m0s
+{
+  "metrics": [
+    "http_req_waiting",
+    "vus_max",
+    "checks",
+    "data_received",
+    "iterations",
+    "data_sent",
+    "http_req_tls_handshaking",
+    "http_req_sending",
+    "iteration_duration",
+    "http_req_duration",
+    "http_req_failed",
+    "http_req_receiving",
+    "http_req_duration{expected_response:true}",
+    "vus",
+    "http_reqs",
+    "detail_duration",
+    "http_req_connecting",
+    "http_req_blocked"
+  ],
+  "stats": {
+    "detail_p95": 48.70754264999999,
+    "failed_rate": 0.00854335753951303
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (1m02.0s), 00/20 VUs, 2300 complete and 0 interrupted iterations
+main ✓ [ 100% ] 20 VUs  1m0s
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocampostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 1m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 1m0s (gracefulStop: 30s)
+
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/members\": dial tcp 127.0.0.1:8080: connect: connection refused"
+time="2026-03-04T06:46:13Z" level=warning msg="Request Failed" error="Post \"http://127.0.0.1:8080/api/auth\": dial tcp 127.0.0.1:8080: connect: connection refused"
+{
+  "metrics": [
+    "http_req_duration",
+    "http_req_blocked",
+    "data_sent",
+    "data_received",
+    "http_reqs",
+    "http_req_sending",
+    "http_req_receiving",
+    "http_req_failed",
+    "http_req_waiting",
+    "http_req_connecting",
+    "http_req_tls_handshaking"
+  ],
+  "stats": {
+    "failed_rate": 1
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://127.0.0.1:8080"
+  }
+}
+Run    [ 100% ] setup()
+main   [   0% ]
+time="2026-03-04T06:46:13Z" level=error msg="Error: 유효한 테스트 사용자 토큰이 없습니다.\n\tat setup (file:///Users/cho/IdeaProjects/kaboocampostProject/test/perf-quantification/k6/post-workload.js:47:11(42))\n" hint="script exception"
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocampostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 1m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 1m0s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m05.0s), 20/20 VUs, 0 complete and 0 interrupted iterations
+main   [   0% ] 20 VUs  0m00.2s/1m0s
+
+running (0m06.0s), 20/20 VUs, 40 complete and 0 interrupted iterations
+main   [   2% ] 20 VUs  0m01.2s/1m0s
+
+running (0m07.0s), 20/20 VUs, 60 complete and 0 interrupted iterations
+main   [   4% ] 20 VUs  0m02.2s/1m0s
+
+running (0m08.0s), 20/20 VUs, 100 complete and 0 interrupted iterations
+main   [   5% ] 20 VUs  0m03.2s/1m0s
+
+running (0m09.0s), 20/20 VUs, 140 complete and 0 interrupted iterations
+main   [   7% ] 20 VUs  0m04.2s/1m0s
+
+running (0m10.0s), 20/20 VUs, 180 complete and 0 interrupted iterations
+main   [   9% ] 20 VUs  0m05.2s/1m0s
+
+running (0m11.0s), 20/20 VUs, 200 complete and 0 interrupted iterations
+main   [  10% ] 20 VUs  0m06.2s/1m0s
+
+running (0m12.0s), 20/20 VUs, 240 complete and 0 interrupted iterations
+main   [  12% ] 20 VUs  0m07.2s/1m0s
+
+running (0m13.0s), 20/20 VUs, 280 complete and 0 interrupted iterations
+main   [  14% ] 20 VUs  0m08.2s/1m0s
+
+running (0m14.0s), 20/20 VUs, 320 complete and 0 interrupted iterations
+main   [  15% ] 20 VUs  0m09.2s/1m0s
+
+running (0m15.0s), 20/20 VUs, 345 complete and 0 interrupted iterations
+main   [  17% ] 20 VUs  0m10.2s/1m0s
+
+running (0m16.0s), 20/20 VUs, 380 complete and 0 interrupted iterations
+main   [  19% ] 20 VUs  0m11.2s/1m0s
+
+running (0m17.0s), 20/20 VUs, 420 complete and 0 interrupted iterations
+main   [  20% ] 20 VUs  0m12.2s/1m0s
+
+running (0m18.0s), 20/20 VUs, 460 complete and 0 interrupted iterations
+main   [  22% ] 20 VUs  0m13.2s/1m0s
+
+running (0m19.0s), 20/20 VUs, 500 complete and 0 interrupted iterations
+main   [  24% ] 20 VUs  0m14.2s/1m0s
+
+running (0m20.0s), 20/20 VUs, 540 complete and 0 interrupted iterations
+main   [  25% ] 20 VUs  0m15.2s/1m0s
+
+running (0m21.0s), 20/20 VUs, 580 complete and 0 interrupted iterations
+main   [  27% ] 20 VUs  0m16.2s/1m0s
+
+running (0m22.0s), 20/20 VUs, 600 complete and 0 interrupted iterations
+main   [  29% ] 20 VUs  0m17.2s/1m0s
+
+running (0m23.0s), 20/20 VUs, 640 complete and 0 interrupted iterations
+main   [  30% ] 20 VUs  0m18.2s/1m0s
+
+running (0m24.0s), 20/20 VUs, 660 complete and 0 interrupted iterations
+main   [  32% ] 20 VUs  0m19.2s/1m0s
+
+running (0m25.0s), 20/20 VUs, 680 complete and 0 interrupted iterations
+main   [  34% ] 20 VUs  0m20.2s/1m0s
+
+running (0m26.0s), 20/20 VUs, 720 complete and 0 interrupted iterations
+main   [  35% ] 20 VUs  0m21.2s/1m0s
+
+running (0m27.0s), 20/20 VUs, 760 complete and 0 interrupted iterations
+main   [  37% ] 20 VUs  0m22.2s/1m0s
+
+running (0m28.0s), 20/20 VUs, 800 complete and 0 interrupted iterations
+main   [  39% ] 20 VUs  0m23.2s/1m0s
+
+running (0m29.0s), 20/20 VUs, 820 complete and 0 interrupted iterations
+main   [  40% ] 20 VUs  0m24.2s/1m0s
+
+running (0m30.0s), 20/20 VUs, 860 complete and 0 interrupted iterations
+main   [  42% ] 20 VUs  0m25.2s/1m0s
+
+running (0m31.0s), 20/20 VUs, 900 complete and 0 interrupted iterations
+main   [  44% ] 20 VUs  0m26.2s/1m0s
+
+running (0m32.0s), 20/20 VUs, 940 complete and 0 interrupted iterations
+main   [  45% ] 20 VUs  0m27.2s/1m0s
+
+running (0m33.0s), 20/20 VUs, 980 complete and 0 interrupted iterations
+main   [  47% ] 20 VUs  0m28.2s/1m0s
+
+running (0m34.0s), 20/20 VUs, 1020 complete and 0 interrupted iterations
+main   [  49% ] 20 VUs  0m29.2s/1m0s
+
+running (0m35.0s), 20/20 VUs, 1040 complete and 0 interrupted iterations
+main   [  50% ] 20 VUs  0m30.2s/1m0s
+
+running (0m36.0s), 20/20 VUs, 1080 complete and 0 interrupted iterations
+main   [  52% ] 20 VUs  0m31.2s/1m0s
+
+running (0m37.0s), 20/20 VUs, 1120 complete and 0 interrupted iterations
+main   [  54% ] 20 VUs  0m32.2s/1m0s
+
+running (0m38.0s), 20/20 VUs, 1160 complete and 0 interrupted iterations
+main   [  55% ] 20 VUs  0m33.2s/1m0s
+
+running (0m39.0s), 20/20 VUs, 1200 complete and 0 interrupted iterations
+main   [  57% ] 20 VUs  0m34.2s/1m0s
+
+running (0m40.0s), 20/20 VUs, 1220 complete and 0 interrupted iterations
+main   [  59% ] 20 VUs  0m35.2s/1m0s
+
+running (0m41.0s), 20/20 VUs, 1260 complete and 0 interrupted iterations
+main   [  60% ] 20 VUs  0m36.2s/1m0s
+
+running (0m42.0s), 20/20 VUs, 1300 complete and 0 interrupted iterations
+main   [  62% ] 20 VUs  0m37.2s/1m0s
+
+running (0m43.0s), 20/20 VUs, 1340 complete and 0 interrupted iterations
+main   [  64% ] 20 VUs  0m38.2s/1m0s
+
+running (0m44.0s), 20/20 VUs, 1380 complete and 0 interrupted iterations
+main   [  65% ] 20 VUs  0m39.2s/1m0s
+
+running (0m45.0s), 20/20 VUs, 1420 complete and 0 interrupted iterations
+main   [  67% ] 20 VUs  0m40.2s/1m0s
+
+running (0m46.0s), 20/20 VUs, 1460 complete and 0 interrupted iterations
+main   [  69% ] 20 VUs  0m41.2s/1m0s
+
+running (0m47.0s), 20/20 VUs, 1480 complete and 0 interrupted iterations
+main   [  70% ] 20 VUs  0m42.2s/1m0s
+
+running (0m48.0s), 20/20 VUs, 1520 complete and 0 interrupted iterations
+main   [  72% ] 20 VUs  0m43.2s/1m0s
+
+running (0m49.0s), 20/20 VUs, 1560 complete and 0 interrupted iterations
+main   [  74% ] 20 VUs  0m44.2s/1m0s
+
+running (0m50.0s), 20/20 VUs, 1600 complete and 0 interrupted iterations
+main   [  75% ] 20 VUs  0m45.2s/1m0s
+
+running (0m51.0s), 20/20 VUs, 1640 complete and 0 interrupted iterations
+main   [  77% ] 20 VUs  0m46.2s/1m0s
+
+running (0m52.0s), 20/20 VUs, 1680 complete and 0 interrupted iterations
+main   [  79% ] 20 VUs  0m47.2s/1m0s
+
+running (0m53.0s), 20/20 VUs, 1700 complete and 0 interrupted iterations
+main   [  80% ] 20 VUs  0m48.2s/1m0s
+
+running (0m54.0s), 20/20 VUs, 1740 complete and 0 interrupted iterations
+main   [  82% ] 20 VUs  0m49.2s/1m0s
+
+running (0m55.0s), 20/20 VUs, 1780 complete and 0 interrupted iterations
+main   [  84% ] 20 VUs  0m50.2s/1m0s
+
+running (0m56.0s), 20/20 VUs, 1820 complete and 0 interrupted iterations
+main   [  85% ] 20 VUs  0m51.2s/1m0s
+
+running (0m57.0s), 20/20 VUs, 1854 complete and 0 interrupted iterations
+main   [  87% ] 20 VUs  0m52.2s/1m0s
+
+running (0m58.0s), 20/20 VUs, 1894 complete and 0 interrupted iterations
+main   [  89% ] 20 VUs  0m53.2s/1m0s
+
+running (0m59.0s), 20/20 VUs, 1920 complete and 0 interrupted iterations
+main   [  90% ] 20 VUs  0m54.2s/1m0s
+
+running (1m00.0s), 20/20 VUs, 1960 complete and 0 interrupted iterations
+main   [  92% ] 20 VUs  0m55.2s/1m0s
+
+running (1m01.0s), 20/20 VUs, 2000 complete and 0 interrupted iterations
+main   [  94% ] 20 VUs  0m56.2s/1m0s
+
+running (1m02.0s), 20/20 VUs, 2040 complete and 0 interrupted iterations
+main   [  95% ] 20 VUs  0m57.2s/1m0s
+
+running (1m03.0s), 20/20 VUs, 2080 complete and 0 interrupted iterations
+main   [  97% ] 20 VUs  0m58.2s/1m0s
+
+running (1m04.0s), 20/20 VUs, 2120 complete and 0 interrupted iterations
+main   [  99% ] 20 VUs  0m59.2s/1m0s
+{
+  "metrics": [
+    "vus",
+    "data_sent",
+    "http_req_duration{expected_response:true}",
+    "http_req_blocked",
+    "iteration_duration",
+    "http_req_connecting",
+    "http_req_receiving",
+    "checks",
+    "detail_duration",
+    "http_req_duration",
+    "http_req_waiting",
+    "vus_max",
+    "data_received",
+    "http_req_tls_handshaking",
+    "http_req_sending",
+    "iterations",
+    "http_req_failed",
+    "http_reqs"
+  ],
+  "stats": {
+    "detail_p95": 93.90859164999998,
+    "failed_rate": 0
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (1m04.9s), 00/20 VUs, 2160 complete and 0 interrupted iterations
+main ✓ [ 100% ] 20 VUs  1m0s
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/cho/IdeaProjects/kaboocamPostProject/test/perf-quantification/k6/post-workload.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 1m30s max duration (incl. graceful stop):
+              * main: 20 looping VUs for 1m0s (gracefulStop: 30s)
+
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+Run    [ 100% ] setup()
+main   [   0% ]
+
+running (0m03.0s), 20/20 VUs, 20 complete and 0 interrupted iterations
+main   [   1% ] 20 VUs  0m00.7s/1m0s
+
+running (0m04.0s), 20/20 VUs, 59 complete and 0 interrupted iterations
+main   [   3% ] 20 VUs  0m01.7s/1m0s
+
+running (0m05.0s), 20/20 VUs, 80 complete and 0 interrupted iterations
+main   [   4% ] 20 VUs  0m02.7s/1m0s
+
+running (0m06.0s), 20/20 VUs, 120 complete and 0 interrupted iterations
+main   [   6% ] 20 VUs  0m03.7s/1m0s
+
+running (0m07.0s), 20/20 VUs, 160 complete and 0 interrupted iterations
+main   [   8% ] 20 VUs  0m04.7s/1m0s
+
+running (0m08.0s), 20/20 VUs, 200 complete and 0 interrupted iterations
+main   [   9% ] 20 VUs  0m05.7s/1m0s
+
+running (0m09.0s), 20/20 VUs, 240 complete and 0 interrupted iterations
+main   [  11% ] 20 VUs  0m06.7s/1m0s
+
+running (0m10.0s), 20/20 VUs, 280 complete and 0 interrupted iterations
+main   [  13% ] 20 VUs  0m07.7s/1m0s
+
+running (0m11.0s), 20/20 VUs, 300 complete and 0 interrupted iterations
+main   [  14% ] 20 VUs  0m08.7s/1m0s
+
+running (0m12.0s), 20/20 VUs, 340 complete and 0 interrupted iterations
+main   [  16% ] 20 VUs  0m09.7s/1m0s
+
+running (0m13.0s), 20/20 VUs, 380 complete and 0 interrupted iterations
+main   [  18% ] 20 VUs  0m10.7s/1m0s
+
+running (0m14.0s), 20/20 VUs, 420 complete and 0 interrupted iterations
+main   [  19% ] 20 VUs  0m11.7s/1m0s
+
+running (0m15.0s), 20/20 VUs, 460 complete and 0 interrupted iterations
+main   [  21% ] 20 VUs  0m12.7s/1m0s
+
+running (0m16.0s), 20/20 VUs, 500 complete and 0 interrupted iterations
+main   [  23% ] 20 VUs  0m13.7s/1m0s
+
+running (0m17.0s), 20/20 VUs, 540 complete and 0 interrupted iterations
+main   [  24% ] 20 VUs  0m14.7s/1m0s
+
+running (0m18.0s), 20/20 VUs, 580 complete and 0 interrupted iterations
+main   [  26% ] 20 VUs  0m15.7s/1m0s
+
+running (0m19.0s), 20/20 VUs, 600 complete and 0 interrupted iterations
+main   [  28% ] 20 VUs  0m16.7s/1m0s
+
+running (0m20.0s), 20/20 VUs, 640 complete and 0 interrupted iterations
+main   [  29% ] 20 VUs  0m17.7s/1m0s
+
+running (0m21.0s), 20/20 VUs, 680 complete and 0 interrupted iterations
+main   [  31% ] 20 VUs  0m18.7s/1m0s
+
+running (0m22.0s), 20/20 VUs, 720 complete and 0 interrupted iterations
+main   [  33% ] 20 VUs  0m19.7s/1m0s
+
+running (0m23.0s), 20/20 VUs, 760 complete and 0 interrupted iterations
+main   [  34% ] 20 VUs  0m20.7s/1m0s
+
+running (0m24.0s), 20/20 VUs, 800 complete and 0 interrupted iterations
+main   [  36% ] 20 VUs  0m21.7s/1m0s
+
+running (0m25.0s), 20/20 VUs, 840 complete and 0 interrupted iterations
+main   [  38% ] 20 VUs  0m22.7s/1m0s
+
+running (0m26.0s), 20/20 VUs, 860 complete and 0 interrupted iterations
+main   [  39% ] 20 VUs  0m23.7s/1m0s
+
+running (0m27.0s), 20/20 VUs, 900 complete and 0 interrupted iterations
+main   [  41% ] 20 VUs  0m24.7s/1m0s
+
+running (0m28.0s), 20/20 VUs, 940 complete and 0 interrupted iterations
+main   [  43% ] 20 VUs  0m25.7s/1m0s
+
+running (0m29.0s), 20/20 VUs, 980 complete and 0 interrupted iterations
+main   [  44% ] 20 VUs  0m26.7s/1m0s
+
+running (0m30.0s), 20/20 VUs, 1020 complete and 0 interrupted iterations
+main   [  46% ] 20 VUs  0m27.7s/1m0s
+
+running (0m31.0s), 20/20 VUs, 1060 complete and 0 interrupted iterations
+main   [  48% ] 20 VUs  0m28.7s/1m0s
+
+running (0m32.0s), 20/20 VUs, 1098 complete and 0 interrupted iterations
+main   [  50% ] 20 VUs  0m29.7s/1m0s
+
+running (0m33.0s), 20/20 VUs, 1120 complete and 0 interrupted iterations
+main   [  51% ] 20 VUs  0m30.7s/1m0s
+
+running (0m34.0s), 20/20 VUs, 1160 complete and 0 interrupted iterations
+main   [  53% ] 20 VUs  0m31.7s/1m0s
+
+running (0m35.0s), 20/20 VUs, 1200 complete and 0 interrupted iterations
+main   [  54% ] 20 VUs  0m32.7s/1m0s
+
+running (0m36.0s), 20/20 VUs, 1240 complete and 0 interrupted iterations
+main   [  56% ] 20 VUs  0m33.7s/1m0s
+
+running (0m37.0s), 20/20 VUs, 1280 complete and 0 interrupted iterations
+main   [  58% ] 20 VUs  0m34.7s/1m0s
+
+running (0m38.0s), 20/20 VUs, 1303 complete and 0 interrupted iterations
+main   [  59% ] 20 VUs  0m35.7s/1m0s
+
+running (0m39.1s), 20/20 VUs, 1347 complete and 0 interrupted iterations
+main   [  61% ] 20 VUs  0m36.8s/1m0s
+
+running (0m40.0s), 20/20 VUs, 1383 complete and 0 interrupted iterations
+main   [  63% ] 20 VUs  0m37.7s/1m0s
+
+running (0m41.0s), 20/20 VUs, 1423 complete and 0 interrupted iterations
+main   [  64% ] 20 VUs  0m38.7s/1m0s
+
+running (0m42.0s), 20/20 VUs, 1463 complete and 0 interrupted iterations
+main   [  66% ] 20 VUs  0m39.7s/1m0s
+
+running (0m43.0s), 20/20 VUs, 1503 complete and 0 interrupted iterations
+main   [  68% ] 20 VUs  0m40.7s/1m0s
+
+running (0m44.0s), 20/20 VUs, 1543 complete and 0 interrupted iterations
+main   [  69% ] 20 VUs  0m41.7s/1m0s
+
+running (0m45.0s), 20/20 VUs, 1583 complete and 0 interrupted iterations
+main   [  71% ] 20 VUs  0m42.7s/1m0s
+
+running (0m46.0s), 20/20 VUs, 1623 complete and 0 interrupted iterations
+main   [  73% ] 20 VUs  0m43.7s/1m0s
+
+running (0m47.0s), 20/20 VUs, 1643 complete and 0 interrupted iterations
+main   [  74% ] 20 VUs  0m44.7s/1m0s
+
+running (0m48.0s), 20/20 VUs, 1683 complete and 0 interrupted iterations
+main   [  76% ] 20 VUs  0m45.7s/1m0s
+
+running (0m49.0s), 20/20 VUs, 1723 complete and 0 interrupted iterations
+main   [  78% ] 20 VUs  0m46.7s/1m0s
+
+running (0m50.0s), 20/20 VUs, 1763 complete and 0 interrupted iterations
+main   [  79% ] 20 VUs  0m47.7s/1m0s
+
+running (0m51.0s), 20/20 VUs, 1803 complete and 0 interrupted iterations
+main   [  81% ] 20 VUs  0m48.7s/1m0s
+
+running (0m52.0s), 20/20 VUs, 1843 complete and 0 interrupted iterations
+main   [  83% ] 20 VUs  0m49.7s/1m0s
+
+running (0m53.0s), 20/20 VUs, 1883 complete and 0 interrupted iterations
+main   [  84% ] 20 VUs  0m50.7s/1m0s
+
+running (0m54.0s), 20/20 VUs, 1915 complete and 0 interrupted iterations
+main   [  86% ] 20 VUs  0m51.7s/1m0s
+
+running (0m55.0s), 20/20 VUs, 1943 complete and 0 interrupted iterations
+main   [  88% ] 20 VUs  0m52.7s/1m0s
+
+running (0m56.0s), 20/20 VUs, 1983 complete and 0 interrupted iterations
+main   [  89% ] 20 VUs  0m53.7s/1m0s
+
+running (0m57.0s), 20/20 VUs, 2023 complete and 0 interrupted iterations
+main   [  91% ] 20 VUs  0m54.7s/1m0s
+
+running (0m58.0s), 20/20 VUs, 2063 complete and 0 interrupted iterations
+main   [  93% ] 20 VUs  0m55.7s/1m0s
+
+running (0m59.0s), 20/20 VUs, 2103 complete and 0 interrupted iterations
+main   [  94% ] 20 VUs  0m56.7s/1m0s
+
+running (1m00.0s), 20/20 VUs, 2143 complete and 0 interrupted iterations
+main   [  96% ] 20 VUs  0m57.7s/1m0s
+
+running (1m01.0s), 20/20 VUs, 2183 complete and 0 interrupted iterations
+main   [  98% ] 20 VUs  0m58.7s/1m0s
+
+running (1m02.0s), 20/20 VUs, 2223 complete and 0 interrupted iterations
+main   [  99% ] 20 VUs  0m59.7s/1m0s
+{
+  "metrics": [
+    "http_req_receiving",
+    "http_req_waiting",
+    "http_req_tls_handshaking",
+    "detail_duration",
+    "http_req_duration",
+    "vus",
+    "iterations",
+    "http_req_failed",
+    "http_req_duration{expected_response:true}",
+    "http_req_blocked",
+    "checks",
+    "iteration_duration",
+    "http_reqs",
+    "data_sent",
+    "data_received",
+    "http_req_connecting",
+    "http_req_sending",
+    "vus_max"
+  ],
+  "stats": {
+    "detail_p95": 70.71014579999999,
+    "failed_rate": 0.008756567425569177
+  },
+  "options": {
+    "workload": "view_burst",
+    "base": "http://host.docker.internal:8080"
+  }
+}
+running (1m02.5s), 00/20 VUs, 2243 complete and 0 interrupted iterations
+main ✓ [ 100% ] 20 VUs  1m0s

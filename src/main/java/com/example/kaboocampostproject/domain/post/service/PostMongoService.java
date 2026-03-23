@@ -184,16 +184,24 @@ public class PostMongoService {
 
     // 첫 페이지 조회
     public PostSliceResDTO findFirst(Long memberId, Cursor.CursorStrategy strategy) {
+        return findFirst(memberId, strategy, true);
+    }
+
+    public PostSliceResDTO findFirst(Long memberId, Cursor.CursorStrategy strategy, boolean usePipeline) {
         List<PostSimple> posts = switch (strategy) {
             case RECENT -> postRepository.findFirstByCreatedAt(PAGE_SIZE + 1);
             case POPULAR -> postRepository.findFirstByView(PAGE_SIZE + 1);
         };
 
-        return buildPageSlice(memberId, posts, strategy);
+        return buildPageSlice(memberId, posts, strategy, usePipeline);
     }
 
     // 다음 페이지 조회
     public PostSliceResDTO findNext(Long memberId, String cursorToken) {
+        return findNext(memberId, cursorToken, true);
+    }
+
+    public PostSliceResDTO findNext(Long memberId, String cursorToken, boolean usePipeline) {
         Cursor cursor = codec.decode(cursorToken);
 
         List<PostSimple> posts = switch (cursor.strategy()) {
@@ -207,11 +215,16 @@ public class PostMongoService {
             }
         };
 
-        return buildPageSlice(memberId, posts, cursor.strategy());
+        return buildPageSlice(memberId, posts, cursor.strategy(), usePipeline);
     }
 
     // 멤버프로필, like 개수 등 부가정보 가져와서 PageSlice 생성하기
-    private PostSliceResDTO buildPageSlice(Long memberId, List<PostSimple> posts, Cursor.CursorStrategy strategy) {
+    private PostSliceResDTO buildPageSlice(
+            Long memberId,
+            List<PostSimple> posts,
+            Cursor.CursorStrategy strategy,
+            boolean usePipeline
+    ) {
         boolean hasNext = posts.size() > PAGE_SIZE;
 
         // 마지막 여부 확인위해, 하나 더 가져왔으니 자르기.
@@ -240,7 +253,7 @@ public class PostMongoService {
         List<Long> authorIds = content.stream().map(PostSimple::authorId).distinct().toList();
 
         // Redis-> MySql 순서로 작성자 프로필 조회
-        Map<Long, MemberProfileCacheDTO> authorProfiles = memberProfileCacheService.getProfiles(authorIds);
+        Map<Long, MemberProfileCacheDTO> authorProfiles = memberProfileCacheService.getProfiles(authorIds, usePipeline);
 
         // MySql에서 좋아요 개수, 내가 좋아요했는지 조회
         List<PostLikeStatsDto> likeStats = postLikeRepository.findPostLikeStats(postIds, memberId);

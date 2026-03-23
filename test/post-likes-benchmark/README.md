@@ -36,3 +36,39 @@ cat results/medium_warm/summary.csv
 - `Innodb_rows_inserted` delta
 - `EXPLAIN ANALYZE` (사용 인덱스, actual rows/time)
 - `information_schema.tables` (`data_length`, `index_length`)
+
+## PK 순수 비교
+
+`#67` 실험은 soft delete/feed covering을 제외하고 `12B post_id` 기준으로 아래 두 케이스만 비교한다.
+- `C`: `PRIMARY KEY (post_id, member_id)`
+- `S`: `PRIMARY KEY (post_like_id)`, `UNIQUE KEY uk_post_member (post_id, member_id)`
+
+실행:
+
+```bash
+cd test/post-likes-benchmark
+ROW_COUNT=1000000 DIST_LIST="uniform skew" ./run-pk-pure-baseline.sh
+```
+
+결과 디렉터리:
+- `results/pk_pure_baseline_12b/summary.tsv`
+- `results/pk_pure_baseline_12b/lookup_probe.tsv`
+- `results/pk_pure_baseline_12b/*_table_stats.tsv`
+
+## Break-even 재측정
+
+`#68` 실험은 `12B post_id` 고정 기준에서 공통 secondary 개수와 데이터 양을 늘리며 손익분기점을 계산한다.
+
+실행:
+
+```bash
+cd test/post-likes-benchmark
+ROW_COUNTS="100000 300000 1000000" LEVELS="L0 L1 L2 L3 L4 L5" DIST_LIST="uniform skew" ./run-pk-break-even.sh
+```
+
+결과 디렉터리:
+- `results/pk_break_even_12b/size_matrix.tsv`
+- `results/pk_break_even_12b/density_matrix.tsv`
+- `results/pk_break_even_12b/io_matrix.tsv`
+- `results/pk_break_even_12b/break_even_by_secondary.tsv`
+- `results/pk_break_even_12b/break_even_by_row_count.tsv`
