@@ -36,3 +36,40 @@ cat results/medium_warm/summary.csv
 - `Innodb_rows_inserted` delta
 - `EXPLAIN ANALYZE` (사용 인덱스, actual rows/time)
 - `information_schema.tables` (`data_length`, `index_length`)
+
+## ObjectId write locality benchmark
+
+`#70` 실험은 MongoDB `ObjectId`를 RDB에 저장할 때 `VARCHAR(24)` vs `BINARY(12)` 자체보다, `timestamp` 기반 정렬 특성이 write path random I/O를 얼마나 줄이는지를 우선 검증한다.
+
+핵심 질문:
+- `ObjectId`의 시간 순서가 유지된 insert가 실제로 더 순차적인 적재를 만들었는가
+- 그 효과가 `VARCHAR(24)`와 `BINARY(12)`에서 어떻게 달라지는가
+- 차이의 원인이 `timestamp ordering`인지, 단순 `key width` 차이인지 구분 가능한가
+
+비교 축:
+- 표현 형식: `VARCHAR(24)` vs `BINARY(12)`
+- 적재 순서: timestamp order 유지 vs shuffled order
+
+실행:
+
+```bash
+cd test/post-likes-benchmark
+ROW_COUNT=1000000 DIST_LIST="uniform" ./run-objectid-write-locality-benchmark.sh
+```
+
+주요 측정 항목:
+- insert latency
+- `Innodb_buffer_pool_reads`
+- `Innodb_buffer_pool_read_requests`
+- `Innodb_data_reads`
+- `data_length`, `index_length`
+- page density
+
+결과 디렉터리:
+- `results/objectid_write_locality/summary.tsv`
+- `results/objectid_write_locality/insert_runs.tsv`
+- `results/objectid_write_locality/*_table_stats.tsv`
+- `results/objectid_write_locality/metadata.txt`
+
+주의:
+- 기존 exact lookup 중심 비교는 이번 이슈의 주 가설을 직접 검증하지 못하므로 보조 실험으로만 취급한다.
