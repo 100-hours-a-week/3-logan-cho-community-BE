@@ -13,6 +13,7 @@ MYSQL_MEMORY_LIMIT="${MYSQL_MEMORY_LIMIT:-768m}"
 MYSQL_CPU_LIMIT="${MYSQL_CPU_LIMIT:-2.0}"
 ROW_COUNT="${ROW_COUNT:-1000000}"
 DIST_LIST="${DIST_LIST:-uniform}"
+INDEX_MODES="${INDEX_MODES:-base}"
 RUNS="${RUNS:-3}"
 NUM_POSTS="${NUM_POSTS:-0}"
 POST_ID_START="${POST_ID_START:-10000000}"
@@ -246,9 +247,34 @@ FROM (
 ORDER BY src.seq;"
 }
 
+case_suffix() {
+  local case_id="$1"
+  local index_mode="$2"
+  if [[ "${index_mode}" == "base" ]]; then
+    printf '%s' "${case_id}"
+  else
+    printf '%s_%s' "${case_id}" "${index_mode}"
+  fi
+}
+
 create_case_table() {
   local case_id="$1"
-  log "creating case table: ${case_id}"
+  local index_mode="$2"
+  local extra_index=""
+  log "creating case table: ${case_id}/${index_mode}"
+
+  case "${index_mode}" in
+    base)
+      extra_index=""
+      ;;
+    post_created)
+      extra_index=",\n  KEY idx_post_created (post_id, created_at)"
+      ;;
+    *)
+      echo "invalid index mode: ${index_mode}" >&2
+      exit 1
+      ;;
+  esac
 
   case "${case_id}" in
     S_T|S_R)
@@ -257,7 +283,7 @@ CREATE TABLE post_likes_case (
   post_id VARCHAR(24) NOT NULL,
   member_id BIGINT NOT NULL,
   created_at DATETIME(6) NOT NULL,
-  PRIMARY KEY (post_id, member_id)
+  PRIMARY KEY (post_id, member_id)$(printf '%b' "${extra_index}")
 ) ENGINE=InnoDB;"
       ;;
     B_T|B_R)
@@ -266,7 +292,7 @@ CREATE TABLE post_likes_case (
   post_id BINARY(12) NOT NULL,
   member_id BIGINT NOT NULL,
   created_at DATETIME(6) NOT NULL,
-  PRIMARY KEY (post_id, member_id)
+  PRIMARY KEY (post_id, member_id)$(printf '%b' "${extra_index}")
 ) ENGINE=InnoDB;"
       ;;
     *)
@@ -382,20 +408,23 @@ append_summary_row() {
 run_case() {
   local dist="$1"
   local case_id="$2"
-  local table_stats_file size_row
+  local index_mode="$3"
+  local case_key table_stats_file size_row
   local r1 r2 r3
   local avg_ms avg_bp_reads avg_bp_req avg_data_reads avg_pages_written avg_data_writes avg_rows_inserted
 
-  create_case_table "${case_id}"
+  case_key="$(case_suffix "${case_id}" "${index_mode}")"
+
+  create_case_table "${case_id}" "${index_mode}"
   r1="$(run_insert_once "${case_id}")"
-  create_case_table "${case_id}"
+  create_case_table "${case_id}" "${index_mode}"
   r2="$(run_insert_once "${case_id}")"
-  create_case_table "${case_id}"
+  create_case_table "${case_id}" "${index_mode}"
   r3="$(run_insert_once "${case_id}")"
 
-  printf '%s\t%s\t1\t%s\n' "${dist}" "${case_id}" "${r1}" >> "${RAW_TSV}"
-  printf '%s\t%s\t2\t%s\n' "${dist}" "${case_id}" "${r2}" >> "${RAW_TSV}"
-  printf '%s\t%s\t3\t%s\n' "${dist}" "${case_id}" "${r3}" >> "${RAW_TSV}"
+  printf '%s\t%s\t%s\t1\t%s\n' "${dist}" "${index_mode}" "${case_id}" "${r1}" >> "${RAW_TSV}"
+  printf '%s\t%s\t%s\t2\t%s\n' "${dist}" "${index_mode}" "${case_id}" "${r2}" >> "${RAW_TSV}"
+  printf '%s\t%s\t%s\t3\t%s\n' "${dist}" "${index_mode}" "${case_id}" "${r3}" >> "${RAW_TSV}"
 
   avg_ms="$(printf '%s\n%s\n%s\n' "${r1}" "${r2}" "${r3}" | awk -F'\t' '{s += $1 / 1000.0} END {printf "%.3f", s / NR}')"
   avg_bp_reads="$(printf '%s\n%s\n%s\n' "${r1}" "${r2}" "${r3}" | awk -F'\t' '{s += $2} END {printf "%.3f", s / NR}')"
@@ -405,12 +434,12 @@ run_case() {
   avg_data_writes="$(printf '%s\n%s\n%s\n' "${r1}" "${r2}" "${r3}" | awk -F'\t' '{s += $6} END {printf "%.3f", s / NR}')"
   avg_rows_inserted="$(printf '%s\n%s\n%s\n' "${r1}" "${r2}" "${r3}" | awk -F'\t' '{s += $7} END {printf "%.3f", s / NR}')"
 
-  table_stats_file="${RESULT_DIR}/${dist}_${case_id}_table_stats.tsv"
+  table_stats_file="${RESULT_DIR}/${dist}_${case_key}_table_stats.tsv"
   collect_table_stats "${table_stats_file}"
   size_row="$(table_size_row)"
 
   append_summary_row \
-    "${dist}" \
+    "${dist}/${index_mode}" \
     "${case_id}" \
     "$(echo "${size_row}" | awk -F'\t' '{print $1}')" \
     "$(echo "${size_row}" | awk -F'\t' '{print $2}')" \
@@ -436,6 +465,7 @@ main() {
 run_at_utc=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 row_count=${ROW_COUNT}
 dist_list=${DIST_LIST}
+index_modes=${INDEX_MODES}
 runs=${RUNS}
 num_posts=${NUM_POSTS}
 post_id_start=${POST_ID_START}
@@ -447,17 +477,20 @@ cases=S_T,S_R,B_T,B_R
 EOF
 
   printf 'dist\tcase\trow_count\truns\tdata_mb\tindex_mb\tclustered_pages\tother_pages\tclustered_mb\tother_mb\tprimary_rows_per_page\tinsert_avg_ms\tinsert_bp_reads_avg\tinsert_bp_read_requests_avg\tinsert_data_reads_avg\tinsert_pages_written_avg\tinsert_data_writes_avg\tinsert_rows_inserted_avg\n' > "${SUMMARY_TSV}"
-  printf 'dist\tcase\trun\telapsed_us\tbp_reads_delta\tbp_read_requests_delta\tdata_reads_delta\tpages_written_delta\tdata_writes_delta\trows_inserted_delta\n' > "${RAW_TSV}"
+  printf 'dist\tindex_mode\tcase\trun\telapsed_us\tbp_reads_delta\tbp_read_requests_delta\tdata_reads_delta\tpages_written_delta\tdata_writes_delta\trows_inserted_delta\n' > "${RAW_TSV}"
 
   compose_up_mysql
 
   local dist
+  local index_mode
   for dist in ${DIST_LIST}; do
     init_dataset "${dist}"
-    run_case "${dist}" "S_T"
-    run_case "${dist}" "S_R"
-    run_case "${dist}" "B_T"
-    run_case "${dist}" "B_R"
+    for index_mode in ${INDEX_MODES}; do
+      run_case "${dist}" "S_T" "${index_mode}"
+      run_case "${dist}" "S_R" "${index_mode}"
+      run_case "${dist}" "B_T" "${index_mode}"
+      run_case "${dist}" "B_R" "${index_mode}"
+    done
   done
 
   log "objectid write locality benchmark completed"

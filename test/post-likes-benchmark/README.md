@@ -57,6 +57,13 @@ cd test/post-likes-benchmark
 ROW_COUNT=1000000 DIST_LIST="uniform" ./run-objectid-write-locality-benchmark.sh
 ```
 
+secondary index 확장 비교:
+
+```bash
+cd test/post-likes-benchmark
+ROW_COUNT=1000000 DIST_LIST="uniform" INDEX_MODES="base post_created" ./run-objectid-write-locality-benchmark.sh
+```
+
 주요 측정 항목:
 - insert latency
 - `Innodb_buffer_pool_reads`
