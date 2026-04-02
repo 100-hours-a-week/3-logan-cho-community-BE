@@ -1,0 +1,16 @@
+configs/benchmark.config.json
+secrets/
+results/raw/*.csv
+results/summary/*.csv
+results/summary/*.json
+results/remote/*
+!results/raw/.gitkeep
+!results/summary/.gitkeep
+!results/remote/.gitkeep
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/terraform.tfvars
+terraform/generated/*
+!terraform/generated/.gitkeep
+!terraform/generated/objects/.gitkeep

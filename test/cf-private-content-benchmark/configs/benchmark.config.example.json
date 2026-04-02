@@ -1,0 +1,282 @@
+{
+  "locations": ["local_gyeonggi", "azure_busan"],
+  "iterations": {
+    "miss": 20,
+    "hit": 30
+  },
+  "roundRobinWithinPhase": true,
+  "cookieBootstrap": {
+    "localExample": {
+      "url": "http://127.0.0.1:3100/issue-cookie",
+      "distributionDomain": "d111111abcdef8.cloudfront.net",
+      "keyPairId": "K2JCJMDEHXQW5F",
+      "privateKeyPemFile": "./secrets/cloudfront-private-key.pem",
+      "cookieDomain": "d111111abcdef8.cloudfront.net",
+      "defaultTtlSeconds": 300
+    }
+  },
+  "notes": {
+    "small": "15KB~30KB profile/thumbnail like object",
+    "medium": "100KB~300KB object",
+    "large": "Around 800KB detail image like object"
+  },
+  "objectCases": {
+    "small": {
+      "description": "profile/thumbnail like",
+      "miss": {
+        "s3_presigned": [
+          {
+            "url": "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/small-001.jpg?...",
+            "label": "s3-small-miss-001",
+            "objectId": "small-001"
+          },
+          {
+            "url": "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/small-002.jpg?...",
+            "label": "s3-small-miss-002",
+            "objectId": "small-002"
+          },
+          {
+            "url": "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/small-003.jpg?...",
+            "label": "s3-small-miss-003",
+            "objectId": "small-003"
+          }
+        ],
+        "cf_signed_url": [
+          {
+            "url": "https://d111111abcdef8.cloudfront.net/private/small-001.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+            "label": "cf-url-small-miss-001",
+            "objectId": "small-001"
+          },
+          {
+            "url": "https://d111111abcdef8.cloudfront.net/private/small-002.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+            "label": "cf-url-small-miss-002",
+            "objectId": "small-002"
+          },
+          {
+            "url": "https://d111111abcdef8.cloudfront.net/private/small-003.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+            "label": "cf-url-small-miss-003",
+            "objectId": "small-003"
+          }
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-001.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/small-001.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-small-miss-001",
+            "objectId": "small-001"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-002.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/small-002.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-small-miss-002",
+            "objectId": "small-002"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-003.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/small-003.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-small-miss-003",
+            "objectId": "small-003"
+          }
+        ]
+      },
+      "hit": {
+        "s3_presigned": [
+          {
+            "url": "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/small-hit.jpg?...",
+            "label": "s3-small-hit",
+            "objectId": "small-hit"
+          }
+        ],
+        "cf_signed_url": [
+          {
+            "url": "https://d111111abcdef8.cloudfront.net/private/small-hit.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+            "label": "cf-url-small-hit",
+            "objectId": "small-hit"
+          }
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-hit.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/small-hit.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 600,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-small-hit",
+            "objectId": "small-hit"
+          }
+        ]
+      }
+    },
+    "medium": {
+      "description": "100KB~300KB object",
+      "miss": {
+        "s3_presigned": [
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/medium-001.jpg?...",
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/medium-002.jpg?...",
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/medium-003.jpg?..."
+        ],
+        "cf_signed_url": [
+          "https://d111111abcdef8.cloudfront.net/private/medium-001.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+          "https://d111111abcdef8.cloudfront.net/private/medium-002.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+          "https://d111111abcdef8.cloudfront.net/private/medium-003.jpg?Policy=...&Signature=...&Key-Pair-Id=..."
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-001.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/medium-001.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-medium-miss-001",
+            "objectId": "medium-001"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-002.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/medium-002.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-medium-miss-002",
+            "objectId": "medium-002"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-003.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/medium-003.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-medium-miss-003",
+            "objectId": "medium-003"
+          }
+        ]
+      },
+      "hit": {
+        "s3_presigned": [
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/medium-hit.jpg?..."
+        ],
+        "cf_signed_url": [
+          "https://d111111abcdef8.cloudfront.net/private/medium-hit.jpg?Policy=...&Signature=...&Key-Pair-Id=..."
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-hit.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/medium-hit.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 600,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-medium-hit",
+            "objectId": "medium-hit"
+          }
+        ]
+      }
+    },
+    "large": {
+      "description": "around 800KB detail image like object",
+      "miss": {
+        "s3_presigned": [
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/large-001.jpg?...",
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/large-002.jpg?...",
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/large-003.jpg?..."
+        ],
+        "cf_signed_url": [
+          "https://d111111abcdef8.cloudfront.net/private/large-001.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+          "https://d111111abcdef8.cloudfront.net/private/large-002.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+          "https://d111111abcdef8.cloudfront.net/private/large-003.jpg?Policy=...&Signature=...&Key-Pair-Id=..."
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-001.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/large-001.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-large-miss-001",
+            "objectId": "large-001"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-002.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/large-002.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-large-miss-002",
+            "objectId": "large-002"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-003.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/large-003.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-large-miss-003",
+            "objectId": "large-003"
+          }
+        ]
+      },
+      "hit": {
+        "s3_presigned": [
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/large-hit.jpg?..."
+        ],
+        "cf_signed_url": [
+          "https://d111111abcdef8.cloudfront.net/private/large-hit.jpg?Policy=...&Signature=...&Key-Pair-Id=..."
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-hit.jpg",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/large-hit.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 600,
+              "label": "local-cookie-bootstrap"
+            },
+            "label": "cf-cookie-large-hit",
+            "objectId": "large-hit"
+          }
+        ]
+      }
+    }
+  }
+}
