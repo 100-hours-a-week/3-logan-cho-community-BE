@@ -5,6 +5,7 @@
   "description": "Benchmark harness for CloudFront signed cookies, signed URLs, and S3 pre-signed URLs.",
   "scripts": {
     "cookie-bootstrap:server": "node scripts/bootstrap-cookie-server.js",
+    "benchmark:generate-config": "node scripts/generate-benchmark-config.js",
     "benchmark:local": "node scripts/run-local-benchmark.js",
     "benchmark:remote": "node scripts/run-remote-benchmark.js",
     "summarize": "node scripts/summarize-results.js"

@@ -11,3 +11,6 @@ terraform/.terraform/
 terraform/*.tfstate
 terraform/*.tfstate.*
 terraform/terraform.tfvars
+terraform/generated/*
+!terraform/generated/.gitkeep
+!terraform/generated/objects/.gitkeep

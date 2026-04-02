@@ -91,6 +91,42 @@ terraform apply -var-file=terraform.tfvars
 terraform destroy -var-file=terraform.tfvars
 ```
 
+### 실험용 AWS 스택 생성
+
+현재 Terraform 루트는 로컬 benchmark용 실험 스택 생성 흐름을 포함한다.
+
+- S3 private bucket
+- CloudFront distribution
+- CloudFront public key / key group
+- CloudFront OAC
+- 실험용 small / medium / large object 업로드
+- 로컬 bootstrap 서버가 사용할 private key PEM 파일 생성
+
+실행:
+
+```bash
+cd terraform
+cp terraform.tfvars.example terraform.tfvars
+terraform init
+terraform plan -var-file=terraform.tfvars
+terraform apply -var-file=terraform.tfvars
+```
+
+필요 권한 예시:
+
+- `s3:CreateBucket`
+- `s3:PutBucketPolicy`
+- `s3:PutBucketPublicAccessBlock`
+- `s3:PutBucketVersioning`
+- `s3:PutObject`
+- `cloudfront:CreatePublicKey`
+- `cloudfront:CreateKeyGroup`
+- `cloudfront:CreateOriginAccessControl`
+- `cloudfront:CreateCachePolicy`
+- `cloudfront:CreateDistribution`
+
+권한이 없으면 실험용 스택 생성이 실패하고 benchmark config 자동 생성도 진행되지 않는다.
+
 ## 5. VM 접속 방법
 
 ```bash
@@ -143,6 +179,30 @@ curl http://127.0.0.1:3100/health
 ```
 
 runner는 config의 `cf_signed_cookie[].bootstrap.url`을 보고 bootstrap 서버를 호출한다.
+
+### Terraform output 기반 benchmark config 생성
+
+실험용 AWS 스택 apply 후:
+
+```bash
+make generate-config
+```
+
+또는:
+
+```bash
+node scripts/generate-benchmark-config.js \
+  --terraform-dir terraform \
+  --output configs/benchmark.config.json
+```
+
+이 스크립트는 Terraform output에서 다음을 읽어 실사용 config를 만든다.
+
+- S3 bucket name
+- CloudFront domain
+- generated private key PEM path
+- CloudFront public key id
+- object manifest
 
 ## 7. npm 설치
 

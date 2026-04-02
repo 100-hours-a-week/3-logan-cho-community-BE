@@ -5,7 +5,7 @@ CONFIG ?= ./configs/benchmark.config.json
 REMOTE_DIR ?= ~/cf-private-content-benchmark
 REMOTE_HOST ?=
 
-.PHONY: init plan apply destroy ssh run-cookie-server run-local run-remote fetch-results summarize
+.PHONY: init plan apply destroy ssh run-cookie-server generate-config run-local run-remote fetch-results summarize
 
 init:
 	cd $(TF_DIR) && terraform init
@@ -24,6 +24,9 @@ ssh:
 
 run-cookie-server:
 	node scripts/bootstrap-cookie-server.js
+
+generate-config:
+	node scripts/generate-benchmark-config.js --terraform-dir "$(TF_DIR)" --output "$(ROOT)/configs/benchmark.config.json"
 
 run-local:
 	npm install
