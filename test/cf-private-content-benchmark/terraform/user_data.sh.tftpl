@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get update
+apt-get install -y \
+  ca-certificates \
+  curl \
+  jq \
+  nodejs \
+  npm \
+  unzip
+
+mkdir -p "${benchmark_dir}/results/raw" "${benchmark_dir}/results/summary"
+chown -R "${admin_username}:${admin_username}" "/home/${admin_username}/cf-private-content-benchmark"

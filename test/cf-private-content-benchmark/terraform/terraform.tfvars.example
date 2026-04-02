@@ -1,0 +1,12 @@
+resource_group_name = "rg-cf-private-content-benchmark"
+location            = "koreasouth"
+vm_name             = "cf-benchmark-vm"
+vm_size             = "Standard_B1s"
+admin_username      = "azureuser"
+admin_ssh_key_path  = "~/.ssh/id_rsa.pub"
+allowed_ssh_cidrs   = ["203.0.113.10/32"]
+
+tags = {
+  project     = "cf-private-content-benchmark"
+  environment = "test"
+}

@@ -1,0 +1,12 @@
+configs/benchmark.config.json
+results/raw/*.csv
+results/summary/*.csv
+results/summary/*.json
+results/remote/*
+!results/raw/.gitkeep
+!results/summary/.gitkeep
+!results/remote/.gitkeep
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/terraform.tfvars

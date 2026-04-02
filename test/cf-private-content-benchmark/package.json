@@ -1,0 +1,14 @@
+{
+  "name": "cf-private-content-benchmark",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Benchmark harness for CloudFront signed cookies, signed URLs, and S3 pre-signed URLs.",
+  "scripts": {
+    "benchmark:local": "node scripts/run-local-benchmark.js",
+    "benchmark:remote": "node scripts/run-remote-benchmark.js",
+    "summarize": "node scripts/summarize-results.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

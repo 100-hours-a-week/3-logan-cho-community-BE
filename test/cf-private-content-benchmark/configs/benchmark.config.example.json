@@ -1,0 +1,200 @@
+{
+  "locations": ["local_gyeonggi", "azure_busan"],
+  "iterations": {
+    "miss": 20,
+    "hit": 30
+  },
+  "roundRobinWithinPhase": true,
+  "notes": {
+    "small": "15KB~30KB profile/thumbnail like object",
+    "medium": "100KB~300KB object",
+    "large": "Around 800KB detail image like object"
+  },
+  "objectCases": {
+    "small": {
+      "description": "profile/thumbnail like",
+      "miss": {
+        "s3_presigned": [
+          {
+            "url": "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/small-001.jpg?...",
+            "label": "s3-small-miss-001",
+            "objectId": "small-001"
+          },
+          {
+            "url": "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/small-002.jpg?...",
+            "label": "s3-small-miss-002",
+            "objectId": "small-002"
+          },
+          {
+            "url": "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/small-003.jpg?...",
+            "label": "s3-small-miss-003",
+            "objectId": "small-003"
+          }
+        ],
+        "cf_signed_url": [
+          {
+            "url": "https://d111111abcdef8.cloudfront.net/private/small-001.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+            "label": "cf-url-small-miss-001",
+            "objectId": "small-001"
+          },
+          {
+            "url": "https://d111111abcdef8.cloudfront.net/private/small-002.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+            "label": "cf-url-small-miss-002",
+            "objectId": "small-002"
+          },
+          {
+            "url": "https://d111111abcdef8.cloudfront.net/private/small-003.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+            "label": "cf-url-small-miss-003",
+            "objectId": "small-003"
+          }
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-001.jpg",
+            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "label": "cf-cookie-small-miss-001",
+            "objectId": "small-001"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-002.jpg",
+            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "label": "cf-cookie-small-miss-002",
+            "objectId": "small-002"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-003.jpg",
+            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "label": "cf-cookie-small-miss-003",
+            "objectId": "small-003"
+          }
+        ]
+      },
+      "hit": {
+        "s3_presigned": [
+          {
+            "url": "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/small-hit.jpg?...",
+            "label": "s3-small-hit",
+            "objectId": "small-hit"
+          }
+        ],
+        "cf_signed_url": [
+          {
+            "url": "https://d111111abcdef8.cloudfront.net/private/small-hit.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+            "label": "cf-url-small-hit",
+            "objectId": "small-hit"
+          }
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-hit.jpg",
+            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "label": "cf-cookie-small-hit",
+            "objectId": "small-hit"
+          }
+        ]
+      }
+    },
+    "medium": {
+      "description": "100KB~300KB object",
+      "miss": {
+        "s3_presigned": [
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/medium-001.jpg?...",
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/medium-002.jpg?...",
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/medium-003.jpg?..."
+        ],
+        "cf_signed_url": [
+          "https://d111111abcdef8.cloudfront.net/private/medium-001.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+          "https://d111111abcdef8.cloudfront.net/private/medium-002.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+          "https://d111111abcdef8.cloudfront.net/private/medium-003.jpg?Policy=...&Signature=...&Key-Pair-Id=..."
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-001.jpg",
+            "cookieFile": "/home/azureuser/cookies/medium.cookie.txt",
+            "label": "cf-cookie-medium-miss-001",
+            "objectId": "medium-001"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-002.jpg",
+            "cookieFile": "/home/azureuser/cookies/medium.cookie.txt",
+            "label": "cf-cookie-medium-miss-002",
+            "objectId": "medium-002"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-003.jpg",
+            "cookieFile": "/home/azureuser/cookies/medium.cookie.txt",
+            "label": "cf-cookie-medium-miss-003",
+            "objectId": "medium-003"
+          }
+        ]
+      },
+      "hit": {
+        "s3_presigned": [
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/medium-hit.jpg?..."
+        ],
+        "cf_signed_url": [
+          "https://d111111abcdef8.cloudfront.net/private/medium-hit.jpg?Policy=...&Signature=...&Key-Pair-Id=..."
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-hit.jpg",
+            "cookieFile": "/home/azureuser/cookies/medium.cookie.txt",
+            "label": "cf-cookie-medium-hit",
+            "objectId": "medium-hit"
+          }
+        ]
+      }
+    },
+    "large": {
+      "description": "around 800KB detail image like object",
+      "miss": {
+        "s3_presigned": [
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/large-001.jpg?...",
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/large-002.jpg?...",
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/large-003.jpg?..."
+        ],
+        "cf_signed_url": [
+          "https://d111111abcdef8.cloudfront.net/private/large-001.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+          "https://d111111abcdef8.cloudfront.net/private/large-002.jpg?Policy=...&Signature=...&Key-Pair-Id=...",
+          "https://d111111abcdef8.cloudfront.net/private/large-003.jpg?Policy=...&Signature=...&Key-Pair-Id=..."
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-001.jpg",
+            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "label": "cf-cookie-large-miss-001",
+            "objectId": "large-001"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-002.jpg",
+            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "label": "cf-cookie-large-miss-002",
+            "objectId": "large-002"
+          },
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-003.jpg",
+            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "label": "cf-cookie-large-miss-003",
+            "objectId": "large-003"
+          }
+        ]
+      },
+      "hit": {
+        "s3_presigned": [
+          "https://example-bucket.s3.ap-northeast-2.amazonaws.com/private/large-hit.jpg?..."
+        ],
+        "cf_signed_url": [
+          "https://d111111abcdef8.cloudfront.net/private/large-hit.jpg?Policy=...&Signature=...&Key-Pair-Id=..."
+        ],
+        "cf_signed_cookie": [
+          {
+            "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-hit.jpg",
+            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "label": "cf-cookie-large-hit",
+            "objectId": "large-hit"
+          }
+        ]
+      }
+    }
+  }
+}
