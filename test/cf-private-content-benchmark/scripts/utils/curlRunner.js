@@ -1,6 +1,6 @@
 'use strict';
 
-const { spawnFile } = require('node:child_process');
+const { spawn } = require('node:child_process');
 
 const CURL_FORMAT = JSON.stringify({
   http_code: '%{http_code}',
@@ -13,29 +13,47 @@ const CURL_FORMAT = JSON.stringify({
   remote_ip: '%{remote_ip}'
 });
 
-function runCurl(entry) {
+function runCurl(request) {
   return new Promise((resolve, reject) => {
     const args = [
       '--silent',
       '--show-error',
       '--location',
       '--output',
-      '/dev/null',
+      request.outputFile || '/dev/null',
       '--write-out',
       CURL_FORMAT
     ];
 
-    if (entry.cookieHeader) {
-      args.push('--header', `Cookie: ${entry.cookieHeader}`);
+    if (request.method) {
+      args.push('--request', request.method);
     }
 
-    if (entry.cookieFile) {
-      args.push('--cookie', entry.cookieFile);
+    if (request.headers && Array.isArray(request.headers)) {
+      for (const header of request.headers) {
+        args.push('--header', header);
+      }
     }
 
-    args.push(entry.url);
+    if (request.cookieHeader) {
+      args.push('--header', `Cookie: ${request.cookieHeader}`);
+    }
 
-    const child = spawnFile('curl', args, {
+    if (request.cookieFile) {
+      args.push('--cookie', request.cookieFile);
+    }
+
+    if (request.cookieJarFile) {
+      args.push('--cookie-jar', request.cookieJarFile);
+    }
+
+    if (request.body !== undefined) {
+      args.push('--data-raw', request.body);
+    }
+
+    args.push(request.url);
+
+    const child = spawn('curl', args, {
       stdio: ['ignore', 'pipe', 'pipe']
     });
 

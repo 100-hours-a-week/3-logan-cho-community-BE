@@ -14,6 +14,7 @@
 - `location`: `local_gyeonggi` 또는 `azure_busan`
 - `hostname`: 측정을 수행한 호스트 이름
 - `cache_phase`: `miss` 또는 `hit`
+- `measurement_stage`: `bootstrap` 또는 `asset_fetch`
 - `object_size_case`: `small`, `medium`, `large`
 - `delivery_type`: `s3_presigned`, `cf_signed_url`, `cf_signed_cookie`
 - `object_id`: miss 실험에서 fresh object를 식별하는 값
@@ -29,6 +30,12 @@
 - `remote_ip`: 응답한 원격 IP
 - `url_label`: 민감 정보가 없는 URL 식별 라벨
 
+해석 규칙:
+
+- `measurement_stage=bootstrap`는 signed cookie 발급 서버 호출 결과다
+- `measurement_stage=asset_fetch`는 실제 private asset 다운로드 결과다
+- `asset_fetch`에서 `primed=true`인 row는 hit warm-up 요청이므로 summary에서 제외한다
+
 ## Summary CSV / JSON
 
 파일 위치:
@@ -37,10 +44,13 @@
 - `results/summary/summary-all-<timestamp>.json`
 - `results/summary/summary-miss-<timestamp>.csv`
 - `results/summary/summary-hit-<timestamp>.csv`
+- `results/summary/summary-bootstrap-<timestamp>.csv`
+- `results/summary/summary-bootstrap-<timestamp>.json`
 
 컬럼 설명:
 
 - `location`
+- `measurement_stage`
 - `cache_phase`
 - `object_size_case`
 - `delivery_type`
@@ -67,5 +77,5 @@
 주의:
 
 - `hit`와 `miss`는 절대 하나의 평균 집합으로 합치지 않는다.
-- `cf_signed_cookie`의 bootstrap 시간은 이 CSV에 자동 포함되지 않는다.
+- `cf_signed_cookie`의 bootstrap은 `measurement_stage=bootstrap`으로 별도 기록된다.
 - `cf_signed_url`은 query string이 cache key에 반영되는 정책인지 먼저 확인해야 한다.

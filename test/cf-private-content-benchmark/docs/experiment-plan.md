@@ -25,7 +25,7 @@ Signed cookie는 일반적으로 다음 2단계로 나뉜다.
 1. bootstrap: 애플리케이션이 쿠키를 발급하거나 세팅하는 단계
 2. asset fetch: 브라우저나 클라이언트가 실제 private asset을 가져오는 단계
 
-이 둘을 합치면 CloudFront asset fetch 자체의 성능과 인증 부트스트랩 비용이 뒤섞인다. 이번 하네스는 asset fetch만 curl로 측정하고, bootstrap 단계는 config와 문서에서 별도 해석 대상으로 다룬다. raw CSV에는 향후 bootstrap 측정을 붙일 수 있도록 `url_label`, `object_id`, `primed` 컬럼을 유지한다.
+이 둘을 합치면 CloudFront asset fetch 자체의 성능과 인증 부트스트랩 비용이 뒤섞인다. 이번 하네스는 Node.js bootstrap 서버 호출과 asset fetch를 서로 다른 row로 기록한다. raw CSV에서는 `measurement_stage=bootstrap`와 `measurement_stage=asset_fetch`로 분리되고, asset fetch summary에서는 bootstrap row를 합치지 않는다.
 
 ## 왜 signed URL 은 cache key 설계 영향을 강하게 받는가
 

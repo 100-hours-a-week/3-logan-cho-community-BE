@@ -8,6 +8,7 @@ const { readCsv, writeCsv } = require('./utils/csvWriter');
 const { summarizeMetric, formatNumber } = require('./utils/stats');
 
 const SUMMARY_HEADERS = [
+  'measurement_stage',
   'location',
   'cache_phase',
   'object_size_case',
@@ -73,11 +74,12 @@ function buildGroups(rows) {
   const groups = new Map();
 
   for (const row of rows) {
-    if (row.primed === 'true') {
+    if (row.measurement_stage === 'asset_fetch' && row.primed === 'true') {
       continue;
     }
 
     const key = [
+      row.measurement_stage || 'asset_fetch',
       row.location,
       row.cache_phase,
       row.object_size_case,
@@ -98,7 +100,7 @@ function summarizeGroups(groups) {
   const summaries = [];
 
   for (const [key, rows] of groups.entries()) {
-    const [location, cachePhase, objectSizeCase, deliveryType] = key.split('|');
+    const [measurementStage, location, cachePhase, objectSizeCase, deliveryType] = key.split('|');
     const nameLookup = summarizeMetric(rows, 'time_namelookup');
     const connect = summarizeMetric(rows, 'time_connect');
     const appConnect = summarizeMetric(rows, 'time_appconnect');
@@ -106,6 +108,7 @@ function summarizeGroups(groups) {
     const total = summarizeMetric(rows, 'time_total');
 
     summaries.push({
+      measurement_stage: measurementStage,
       location,
       cache_phase: cachePhase,
       object_size_case: objectSizeCase,
@@ -132,6 +135,7 @@ function summarizeGroups(groups) {
   summaries.sort((left, right) => {
     return (
       left.location.localeCompare(right.location) ||
+      left.measurement_stage.localeCompare(right.measurement_stage) ||
       left.cache_phase.localeCompare(right.cache_phase) ||
       left.object_size_case.localeCompare(right.object_size_case) ||
       left.delivery_type.localeCompare(right.delivery_type)
@@ -158,15 +162,24 @@ function main() {
   const groups = buildGroups(allRows);
   const summaries = summarizeGroups(groups);
 
-  const allOutputs = writeOutputs(args.summaryDir, summaries, 'summary-all');
+  const assetFetchSummaries = summaries.filter((row) => row.measurement_stage === 'asset_fetch');
+  const bootstrapSummaries = summaries.filter((row) => row.measurement_stage === 'bootstrap');
+
+  const allOutputs = writeOutputs(args.summaryDir, assetFetchSummaries, 'summary-all');
   console.log(`Wrote summary CSV: ${allOutputs.csvPath}`);
   console.log(`Wrote summary JSON: ${allOutputs.jsonPath}`);
 
   for (const cachePhase of ['miss', 'hit']) {
-    const phaseRows = summaries.filter((row) => row.cache_phase === cachePhase);
+    const phaseRows = assetFetchSummaries.filter((row) => row.cache_phase === cachePhase);
     const outputs = writeOutputs(args.summaryDir, phaseRows, `summary-${cachePhase}`);
     console.log(`Wrote ${cachePhase} summary CSV: ${outputs.csvPath}`);
     console.log(`Wrote ${cachePhase} summary JSON: ${outputs.jsonPath}`);
+  }
+
+  if (bootstrapSummaries.length > 0) {
+    const bootstrapOutputs = writeOutputs(args.summaryDir, bootstrapSummaries, 'summary-bootstrap');
+    console.log(`Wrote bootstrap summary CSV: ${bootstrapOutputs.csvPath}`);
+    console.log(`Wrote bootstrap summary JSON: ${bootstrapOutputs.jsonPath}`);
   }
 }
 

@@ -50,6 +50,7 @@ function normalizeEntry(rawValue, deliveryType, objectSizeCase, cachePhase, inde
     objectId: rawValue.objectId || `${objectSizeCase}-${cachePhase}-${index + 1}`,
     cookieHeader: rawValue.cookieHeader,
     cookieFile: rawValue.cookieFile,
+    bootstrap: rawValue.bootstrap || null,
     bootstrapLabel: rawValue.bootstrapLabel || null
   };
 }

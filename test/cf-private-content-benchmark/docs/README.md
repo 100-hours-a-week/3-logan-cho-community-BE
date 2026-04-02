@@ -10,6 +10,7 @@
 - 로컬 PC는 Terraform 관리 대상이 아니다.
 - 로컬은 이미 존재하는 실행 위치이므로 스크립트만 제공한다.
 - 실제 측정은 `curl -w`로 수행하고, Node.js는 실험 매트릭스 생성, 실행 순서 제어, CSV 저장, 요약 생성에 사용한다.
+- signed cookie는 Node.js bootstrap 서버가 쿠키를 발급하고, runner가 그 응답으로 임시 cookie jar를 만든 뒤 asset fetch를 측정한다.
 
 `curl`을 쓰는 이유는 DNS, connect, TLS, TTFB, total time을 명확하게 분리 수집할 수 있기 때문이다.
 
@@ -116,8 +117,32 @@ cp configs/benchmark.config.example.json configs/benchmark.config.json
 
 - `miss`는 iteration마다 다른 object가 필요하다.
 - `hit`는 priming 후 같은 object를 반복 호출한다.
-- `cf_signed_cookie`는 `cookieHeader` 또는 `cookieFile`을 사용할 수 있다.
+- `cf_signed_cookie`는 `bootstrap`, `cookieHeader`, `cookieFile` 세 가지 방식을 지원한다.
 - URL 전체는 raw CSV에 저장되지 않고 `url_label`만 남는다.
+
+### signed cookie bootstrap 서버 설정
+
+로컬에서 signed cookie를 발급하려면 CloudFront key pair와 private key가 필요하다.
+
+예시:
+
+```bash
+npm run cookie-bootstrap:server -- \
+  --host 127.0.0.1 \
+  --port 3100 \
+  --distribution-domain d111111abcdef8.cloudfront.net \
+  --key-pair-id K2JCJMDEHXQW5F \
+  --private-key-file ./secrets/cloudfront-private-key.pem \
+  --cookie-domain d111111abcdef8.cloudfront.net
+```
+
+헬스체크:
+
+```bash
+curl http://127.0.0.1:3100/health
+```
+
+runner는 config의 `cf_signed_cookie[].bootstrap.url`을 보고 bootstrap 서버를 호출한다.
 
 ## 7. npm 설치
 
@@ -150,6 +175,24 @@ node scripts/run-local-benchmark.js --config configs/benchmark.config.json --pha
 hit만 실행:
 
 ```bash
+node scripts/run-local-benchmark.js --config configs/benchmark.config.json --phase hit
+```
+
+signed cookie bootstrap 서버와 함께 실행 예시:
+
+```bash
+npm run cookie-bootstrap:server -- \
+  --host 127.0.0.1 \
+  --port 3100 \
+  --distribution-domain d111111abcdef8.cloudfront.net \
+  --key-pair-id K2JCJMDEHXQW5F \
+  --private-key-file ./secrets/cloudfront-private-key.pem
+```
+
+다른 터미널에서:
+
+```bash
+node scripts/run-local-benchmark.js --config configs/benchmark.config.json --phase miss
 node scripts/run-local-benchmark.js --config configs/benchmark.config.json --phase hit
 ```
 
@@ -210,6 +253,8 @@ node scripts/summarize-results.js --raw-dir results/raw --summary-dir results/su
 - `hit`는 priming 요청을 본 측정 평균에서 제외할 것
 - signed cookie는 bootstrap 단계와 asset fetch 단계를 분리 해석할 것
 - signed URL은 query string이 cache key에 포함되는지 반드시 확인할 것
+
+`cf_signed_cookie`의 raw CSV에는 `measurement_stage=bootstrap`와 `measurement_stage=asset_fetch`가 별도로 기록된다.
 
 `miss` 실험에 fresh object가 필요한 이유는 같은 URL 반복 호출 시 첫 요청 이후 hit로 바뀌어 miss 평균이 오염되기 때문이다.
 

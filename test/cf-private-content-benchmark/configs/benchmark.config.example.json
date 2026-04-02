@@ -5,6 +5,16 @@
     "hit": 30
   },
   "roundRobinWithinPhase": true,
+  "cookieBootstrap": {
+    "localExample": {
+      "url": "http://127.0.0.1:3100/issue-cookie",
+      "distributionDomain": "d111111abcdef8.cloudfront.net",
+      "keyPairId": "K2JCJMDEHXQW5F",
+      "privateKeyPemFile": "./secrets/cloudfront-private-key.pem",
+      "cookieDomain": "d111111abcdef8.cloudfront.net",
+      "defaultTtlSeconds": 300
+    }
+  },
   "notes": {
     "small": "15KB~30KB profile/thumbnail like object",
     "medium": "100KB~300KB object",
@@ -51,19 +61,37 @@
         "cf_signed_cookie": [
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-001.jpg",
-            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/small-001.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-small-miss-001",
             "objectId": "small-001"
           },
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-002.jpg",
-            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/small-002.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-small-miss-002",
             "objectId": "small-002"
           },
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-003.jpg",
-            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/small-003.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-small-miss-003",
             "objectId": "small-003"
           }
@@ -87,7 +115,13 @@
         "cf_signed_cookie": [
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/small-hit.jpg",
-            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/small-hit.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 600,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-small-hit",
             "objectId": "small-hit"
           }
@@ -110,19 +144,37 @@
         "cf_signed_cookie": [
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-001.jpg",
-            "cookieFile": "/home/azureuser/cookies/medium.cookie.txt",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/medium-001.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-medium-miss-001",
             "objectId": "medium-001"
           },
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-002.jpg",
-            "cookieFile": "/home/azureuser/cookies/medium.cookie.txt",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/medium-002.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-medium-miss-002",
             "objectId": "medium-002"
           },
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-003.jpg",
-            "cookieFile": "/home/azureuser/cookies/medium.cookie.txt",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/medium-003.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-medium-miss-003",
             "objectId": "medium-003"
           }
@@ -138,7 +190,13 @@
         "cf_signed_cookie": [
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/medium-hit.jpg",
-            "cookieFile": "/home/azureuser/cookies/medium.cookie.txt",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/medium-hit.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 600,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-medium-hit",
             "objectId": "medium-hit"
           }
@@ -161,19 +219,37 @@
         "cf_signed_cookie": [
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-001.jpg",
-            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/large-001.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-large-miss-001",
             "objectId": "large-001"
           },
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-002.jpg",
-            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/large-002.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-large-miss-002",
             "objectId": "large-002"
           },
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-003.jpg",
-            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/large-003.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 300,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-large-miss-003",
             "objectId": "large-003"
           }
@@ -189,7 +265,13 @@
         "cf_signed_cookie": [
           {
             "targetUrl": "https://d111111abcdef8.cloudfront.net/private/large-hit.jpg",
-            "cookieHeader": "CloudFront-Key-Pair-Id=...; CloudFront-Policy=...; CloudFront-Signature=...",
+            "bootstrap": {
+              "url": "http://127.0.0.1:3100/issue-cookie",
+              "resourcePath": "/private/large-hit.jpg",
+              "cookieDomain": "d111111abcdef8.cloudfront.net",
+              "ttlSeconds": 600,
+              "label": "local-cookie-bootstrap"
+            },
             "label": "cf-cookie-large-hit",
             "objectId": "large-hit"
           }

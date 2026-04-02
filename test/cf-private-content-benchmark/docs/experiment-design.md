@@ -148,15 +148,15 @@ config 파일의 `objectCases.<size>.hit.<delivery_type>`에는 보통 1개 obje
 
 ## 9. signed cookie 경로 설계
 
-Signed cookie는 애플리케이션 또는 별도 bootstrap API가 cookie를 발급하고, 이후 asset 요청에서 cookie가 함께 전송된다.
+Signed cookie는 애플리케이션 또는 별도 bootstrap API가 cookie를 발급하고, 이후 asset 요청에서 cookie가 함께 전송된다. 이번 하네스에서는 Node.js bootstrap 서버가 이 역할을 담당한다.
 
 이번 실험에서 중요한 점은 다음과 같다.
 
 - bootstrap 시간은 asset fetch 자체와 다른 문제다
 - cookie 발급 API latency, 세션 생성, 인증 미들웨어 비용을 asset CDN latency와 섞으면 안 된다
-- 따라서 이번 측정기는 cookie가 이미 준비된 상태를 전제로 `targetUrl` fetch만 측정한다
+- 따라서 이번 측정기는 bootstrap 서버 호출과 `targetUrl` fetch를 서로 다른 stage로 나눠 측정한다
 
-향후 필요하면 bootstrap 단계용 CSV를 별도로 추가할 수 있도록 config에 `cookieHeader`, `cookieFile`, `bootstrapLabel` 확장 여지를 두었다.
+구현상 `cf_signed_cookie` entry는 `bootstrap.url`을 통해 로컬 또는 원격의 Node.js 발급 서버를 호출할 수 있고, 응답으로 받은 cookie map을 runner가 임시 cookie jar로 변환한 뒤 asset fetch를 수행한다.
 
 ## 10. signed URL 경로 설계
 
