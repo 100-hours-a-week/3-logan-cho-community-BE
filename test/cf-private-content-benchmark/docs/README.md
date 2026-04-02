@@ -3,6 +3,7 @@
 이 디렉토리는 CloudFront signed cookie, CloudFront signed URL, S3 pre-signed URL 경로를 국내 2지점에서 비교하기 위한 독립 실험 환경이다. 모든 산출물은 이 디렉토리 하위에만 생성된다.
 
 상세 설계 문서는 [experiment-design.md](/home/cho/projects/3-logan-cho-community-BE/test/cf-private-content-benchmark/docs/experiment-design.md), 실행 개요는 [experiment-plan.md](/home/cho/projects/3-logan-cho-community-BE/test/cf-private-content-benchmark/docs/experiment-plan.md), 결과 스키마는 [result-schema.md](/home/cho/projects/3-logan-cho-community-BE/test/cf-private-content-benchmark/docs/result-schema.md)에 정리했다.
+로컬 실험 결과 정리 문서는 [local-benchmark-results-2026-04-02.md](/home/cho/projects/3-logan-cho-community-BE/test/cf-private-content-benchmark/docs/local-benchmark-results-2026-04-02.md) 에 있다.
 
 ## 전제
 

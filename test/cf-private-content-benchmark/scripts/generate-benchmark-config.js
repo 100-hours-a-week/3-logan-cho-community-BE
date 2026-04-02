@@ -109,7 +109,7 @@ function buildConfig({ outputs, args }) {
   const bucketName = outputValue(outputs, 'experiment_bucket_name');
   const cloudFrontDomain = outputValue(outputs, 'experiment_cloudfront_domain_name');
   const keyPairId = outputValue(outputs, 'experiment_cloudfront_public_key_id');
-  const privateKeyPemPath = outputValue(outputs, 'experiment_private_key_pem_path');
+  const privateKeyPemPath = path.resolve(args.terraformDir, outputValue(outputs, 'experiment_private_key_pem_path'));
   const objectManifest = outputValue(outputs, 'experiment_object_manifest');
   const missIterations = outputValue(outputs, 'benchmark_miss_iterations');
   const hitIterations = outputValue(outputs, 'benchmark_hit_iterations');
