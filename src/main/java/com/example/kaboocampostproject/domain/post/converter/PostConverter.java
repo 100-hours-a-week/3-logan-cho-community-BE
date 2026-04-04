@@ -16,7 +16,6 @@ public class PostConverter {
                 .authorId(memberId)
                 .title(dto.title())
                 .content(dto.content())
-                .imageObjectKeys(dto.imageObjectKeys())
                 .build();
     }
 
@@ -32,6 +31,8 @@ public class PostConverter {
                 .title(post.getTitle())
                 .content(post.getContent())
                 .imageObjectKeys(post.getImageObjectKeys())
+                .thumbnailKeys(post.getThumbnailKeys())
+                .imageStatus(post.getImageStatus())
                 .authorProfile(authorProfile)
                 .views(post.getViews())
                 .likes(postLike.likeCount())

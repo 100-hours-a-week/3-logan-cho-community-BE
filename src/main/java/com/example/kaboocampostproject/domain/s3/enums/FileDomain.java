@@ -9,7 +9,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public enum FileDomain {
     PROFILE("public/images/profiles", "image/"),
-    POST("public/images/posts","image/"),
+    POST_TEMP("temp/images/posts", "image/"),
+    POST_FINAL("public/images/posts", "image/"),
+    POST_THUMBNAIL("public/images/posts/thumbnails", "image/"),
 
     ;
 

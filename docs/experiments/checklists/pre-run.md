@@ -1,0 +1,21 @@
+# Pre-run Checklist
+
+- Mongo 테스트 데이터 정리
+- outbox 컬렉션 정리
+- processed jobs 컬렉션 정리
+- SQS queue 비우기
+- S3 실험용 prefix 정리
+- App EC2 타입 확인
+- k6 EC2 타입 확인
+- Java 버전 확인
+- JVM 옵션 확인
+- 테스트 이미지 세트 확인
+- 이미지 압축 정책 확인
+- 대표 시나리오 확인
+- Prometheus scrape target 확인
+- Grafana 대시보드 확인
+- App EC2 `node_exporter` 확인
+- App EC2 `/actuator/prometheus` 확인
+- 이번 측정의 1차 보고 지표가 `성공률`, `응답시간`인지 확인
+- 결과 저장 경로 확인
+- 태그 대상 버전 확인
