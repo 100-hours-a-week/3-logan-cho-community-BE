@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2026-04-04T11:00:00.000Z" agent="Codex" version="24.7.17">
+  <diagram id="v1-sync-current-architecture" name="V1 Sync Current Architecture">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="client" value="Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="230" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="app_ec2" value="App EC2&#xa;- Spring Boot&#xa;- MySQL Docker&#xa;- MongoDB Docker&#xa;- Redis Docker&#xa;- node_exporter" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="120" width="280" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="spring" value="POST /posts&#xa;sync image processing&#xa;S3 download -> resize -> upload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="app_ec2">
+          <mxGeometry x="30" y="50" width="220" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="dbs" value="Local data stores on same EC2&#xa;MySQL / MongoDB / Redis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="app_ec2">
+          <mxGeometry x="30" y="180" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="exporter" value="node_exporter :9100&#xa;Actuator /actuator/prometheus" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="app_ec2">
+          <mxGeometry x="30" y="260" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="k6_ec2" value="k6 EC2&#xa;- k6 runner&#xa;- Prometheus Docker&#xa;- Grafana Docker" style="swimlane;whiteSpace=wrap;html=1;rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="120" width="280" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="k6_runner" value="k6 scenarios&#xa;medium / heavy / burst" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;" vertex="1" parent="k6_ec2">
+          <mxGeometry x="30" y="50" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="prom" value="Prometheus&#xa;scrape app private IP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;" vertex="1" parent="k6_ec2">
+          <mxGeometry x="30" y="150" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="grafana" value="Grafana&#xa;supporting dashboard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;" vertex="1" parent="k6_ec2">
+          <mxGeometry x="30" y="240" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3" value="S3&#xa;temp / final / thumbnail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="150" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="artifact" value="Local repo artifacts&#xa;summary.md&#xa;raw k6 JSON/logs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="300" width="190" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="POST /posts" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="client" target="spring">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="write/read" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="spring" target="dbs">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="temp download&#xa;final+thumb upload" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="spring" target="s3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="load" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="k6_runner" target="spring">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" value="scrape :9100 / actuator" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;" edge="1" parent="1" source="prom" target="exporter">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" value="visualize" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;" edge="1" parent="1" source="prom" target="grafana">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" value="copy back results" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;" edge="1" parent="1" source="k6_runner" target="artifact">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
