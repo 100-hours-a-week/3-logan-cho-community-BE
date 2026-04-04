@@ -1,0 +1,65 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /opt/image-pipeline-k6/image-pipeline-v2.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 2m30s max duration (incl. graceful stop):
+              * smoke: 1 iterations shared among 1 VUs (maxDuration: 2m0s, gracefulStop: 30s)
+
+
+running (0m01.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+smoke   [   0% ] 1 VUs  0m01.0s/2m0s  0/1 shared iters
+
+running (0m02.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+smoke   [   0% ] 1 VUs  0m02.0s/2m0s  0/1 shared iters
+
+running (0m03.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+smoke   [   0% ] 1 VUs  0m03.0s/2m0s  0/1 shared iters
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 3       0.873599/s
+    checks_succeeded...: 100.00% 3 out of 3
+    checks_failed......: 0.00%   0 out of 3
+
+    ✓ presign status 200
+    ✓ upload status 200 or 204
+    ✓ create post status 200
+
+    CUSTOM
+    create_post_duration...........: avg=713.625366 min=713.625366 med=713.625366 max=713.625366 p(90)=713.625366 p(95)=713.625366
+    create_post_success............: 100.00% 1 out of 1
+    image_completion_duration......: avg=2954       min=2954       med=2954       max=2954       p(90)=2954       p(95)=2954      
+    image_completion_success.......: 100.00% 1 out of 1
+    image_upload_duration..........: avg=55.556716  min=55.556716  med=55.556716  max=55.556716  p(90)=55.556716  p(95)=55.556716 
+    presign_duration...............: avg=411.601722 min=411.601722 med=411.601722 max=411.601722 p(90)=411.601722 p(95)=411.601722
+
+    HTTP
+    http_req_duration..............: avg=484ms      min=24.49ms    med=411.6ms    max=1.21s      p(90)=1.01s      p(95)=1.11s     
+      { expected_response:true }...: avg=484ms      min=24.49ms    med=411.6ms    max=1.21s      p(90)=1.01s      p(95)=1.11s     
+    http_req_failed................: 0.00%   0 out of 5
+    http_reqs......................: 5       1.455998/s
+
+    EXECUTION
+    iteration_duration.............: avg=3.43s      min=3.43s      med=3.43s      max=3.43s      p(90)=3.43s      p(95)=3.43s     
+    iterations.....................: 1       0.2912/s
+    vus............................: 1       min=1      max=1
+    vus_max........................: 1       min=1      max=1
+
+    NETWORK
+    data_received..................: 9.8 kB  2.8 kB/s
+    data_sent......................: 130 kB  38 kB/s
+
+
+
+
+running (0m03.4s), 0/1 VUs, 1 complete and 0 interrupted iterations
+smoke ✓ [ 100% ] 1 VUs  0m03.4s/2m0s  1/1 shared iters

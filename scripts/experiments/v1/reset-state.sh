@@ -19,6 +19,33 @@ THUMB_PREFIX="${THUMB_PREFIX_OVERRIDE:-public/images/posts/thumbnails/}"
 REMOTE_SCRIPT="~/remote-reset-v1.sh"
 LOCAL_REMOTE_SCRIPT="/tmp/remote-reset-v1.sh"
 
+wait_for_app_recovery() {
+  local instance_id
+  instance_id="$(app_instance_id)"
+
+  aws ec2 wait instance-status-ok --instance-ids "${instance_id}"
+
+  for _ in $(seq 1 30); do
+    if ssh_run "${APP_HOST}" "echo ssh_ready" >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 10
+  done
+
+  printf 'app ssh did not become ready after reboot: %s\n' "${APP_HOST}" >&2
+  exit 1
+}
+
+ensure_app_ssh_available() {
+  if ssh_run "${APP_HOST}" "echo ssh_ready" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  log "app ssh is unavailable; requesting EC2 reboot for recovery"
+  aws ec2 reboot-instances --instance-ids "$(app_instance_id)" >/dev/null
+  wait_for_app_recovery
+}
+
 delete_prefix() {
   local prefix="$1"
   python3 - "${BUCKET}" "${prefix}" <<'PY'
@@ -104,7 +131,7 @@ sudo docker run -d --name mysql \
   mysql:8.4
 sudo docker run -d --name mongo \
   -p 127.0.0.1:27017:27017 \
-  mongo:latest
+  mongo:latest --replSet rs0 --bind_ip_all
 sudo docker run -d --name redis \
   -p 127.0.0.1:6379:6379 \
   redis:latest
@@ -117,12 +144,26 @@ done
 if ! sudo docker exec mysql mysqladmin ping -pyourpw --silent; then
   exit 1
 fi
+for i in $(seq 1 60); do
+  if sudo docker exec mongo mongosh --quiet --eval 'db.adminCommand({ ping: 1 }).ok' | grep -q 1; then
+    break
+  fi
+  sleep 2
+done
+sudo docker exec mongo mongosh --quiet --eval 'try { rs.status().ok } catch (e) { rs.initiate({_id:"rs0", members:[{_id:0, host:"127.0.0.1:27017"}]}) }' >/dev/null 2>&1 || true
+for i in $(seq 1 60); do
+  if sudo docker exec mongo mongosh --quiet --eval 'try { print(rs.status().ok) } catch (e) { print(0) }' | grep -q 1; then
+    break
+  fi
+  sleep 2
+done
 sudo bash -lc 'source /opt/image-pipeline/experiment-app-env.sh && exec java -jar /opt/image-pipeline/app.jar >/opt/image-pipeline/app.log 2>&1 < /dev/null' >/dev/null 2>&1 &
 echo $! | sudo tee /opt/image-pipeline/app.pid >/dev/null
 echo app_restart_started
 EOF
 
 chmod 700 "${LOCAL_REMOTE_SCRIPT}"
+ensure_app_ssh_available
 scp_to "${LOCAL_REMOTE_SCRIPT}" "${APP_HOST}" "${REMOTE_SCRIPT}"
 ssh_run "${APP_HOST}" "chmod +x ${REMOTE_SCRIPT} && bash ${REMOTE_SCRIPT}"
 

@@ -42,12 +42,25 @@ sudo docker run -d --name mysql \
   mysql:8.4
 sudo docker run -d --name mongo \
   -p 127.0.0.1:27017:27017 \
-  mongo:latest
+  mongo:latest --replSet rs0 --bind_ip_all
 sudo docker run -d --name redis \
   -p 127.0.0.1:6379:6379 \
   redis:latest
 for i in $(seq 1 60); do
   if sudo docker exec mysql mysqladmin ping -pyourpw --silent; then
+    break
+  fi
+  sleep 2
+done
+for i in $(seq 1 60); do
+  if sudo docker exec mongo mongosh --quiet --eval 'db.adminCommand({ ping: 1 }).ok' | grep -q 1; then
+    break
+  fi
+  sleep 2
+done
+sudo docker exec mongo mongosh --quiet --eval 'try { rs.status().ok } catch (e) { rs.initiate({_id:"rs0", members:[{_id:0, host:"127.0.0.1:27017"}]}) }' >/dev/null 2>&1 || true
+for i in $(seq 1 60); do
+  if sudo docker exec mongo mongosh --quiet --eval 'try { print(rs.status().ok) } catch (e) { print(0) }' | grep -q 1; then
     break
   fi
   sleep 2

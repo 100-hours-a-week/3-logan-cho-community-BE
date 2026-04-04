@@ -3,6 +3,7 @@
 ## Overview
 
 `V2`의 핵심은 요청 경로와 이미지 처리 경로를 분리한 것이다.
+실제 시작 플로우는 `presigned URL 발급 -> temp 업로드 -> POST /api/posts`이고,
 `POST /api/posts`는 게시글을 `PENDING` 상태로 저장하고 SQS에 작업을 넣은 뒤 바로 응답한다.
 실제 이미지 압축과 썸네일 생성은 Lambda가 뒤에서 처리한다.
 
@@ -38,6 +39,10 @@ sequenceDiagram
 
     Note over Client,DB: V2는 요청 응답과 이미지 완료 처리를 분리한다
 
+    Client->>Spring: POST /api/posts/images/presigned-url
+    Spring-->>Client: presigned URL + objectKey
+    Client->>S3: PUT temp image
+    S3-->>Client: 200 / 204
     Client->>Spring: POST /api/posts\n(title, content, temp image key)
     Spring->>DB: 게시글 PENDING 저장
     Spring->>SQS: image job 발행
@@ -59,17 +64,20 @@ sequenceDiagram
 
 ## Request / Response Flow
 
-1. Client가 temp 이미지를 업로드한 뒤 `POST /api/posts`를 호출한다.
-2. Spring은 temp image key를 검증한다.
-3. Spring은 게시글을 `PENDING` 상태로 저장한다.
-4. Spring은 SQS에 image job 메시지를 발행한다.
-5. Spring은 Client에게 즉시 응답한다.
-6. Lambda가 SQS 메시지를 소비한다.
-7. Lambda가 S3에서 temp 이미지를 다운로드한다.
-8. Lambda가 압축 / 썸네일 생성을 수행한다.
-9. Lambda가 final / thumbnail 이미지를 S3에 업로드한다.
-10. Lambda가 Spring callback endpoint를 호출한다.
-11. Spring이 게시글 상태를 `COMPLETED` 또는 `FAILED`로 갱신한다.
+1. Client가 `POST /api/posts/images/presigned-url`로 temp 업로드용 URL과 object key를 받는다.
+2. Client가 S3에 temp 이미지를 직접 업로드한다.
+3. Client가 `POST /api/posts`를 호출한다.
+4. Spring은 temp image key를 검증한다.
+5. Spring은 게시글을 `PENDING` 상태로 저장한다.
+6. Spring은 SQS에 image job 메시지를 발행한다.
+7. Spring은 Client에게 즉시 응답한다.
+8. Lambda가 SQS 메시지를 소비한다.
+9. Lambda가 S3에서 temp 이미지를 다운로드한다.
+10. Lambda가 압축 / 썸네일 생성을 수행한다.
+11. Lambda가 final / thumbnail 이미지를 S3에 업로드한다.
+12. Lambda가 Spring callback endpoint를 호출한다.
+13. Spring이 게시글 상태를 `COMPLETED` 또는 `FAILED`로 갱신한다.
+14. Client는 `GET /api/posts/{postId}` polling으로 완료 상태를 확인한다.
 
 즉, 요청 응답은 빨라지지만 이미지 완료는 뒤에서 따로 진행된다.
 

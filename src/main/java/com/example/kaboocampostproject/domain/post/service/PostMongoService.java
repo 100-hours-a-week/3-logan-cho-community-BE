@@ -55,6 +55,7 @@ public class PostMongoService {
     private final S3Util s3Util;
     private final ImageProcessingService imageProcessingService;
     private final ImageJobPublisher imageJobPublisher;
+    private final ImageJobOutboxService imageJobOutboxService;
     private final ImagePipelineProperties imagePipelineProperties;
 
     private static final int PAGE_SIZE = 10;
@@ -71,13 +72,18 @@ public class PostMongoService {
         }
 
         PostDocument post = buildPendingPost(authorId, postCreatReqDTO, tempImageKeys);
-        postRepository.save(post);
 
         if (imagePipelineProperties.isAsyncEnabled()) {
-            imageJobPublisher.publish(buildAsyncMessage(post));
+            if (imagePipelineProperties.isOutboxEnabled()) {
+                imageJobOutboxService.savePostWithOutbox(post, this::buildAsyncMessage);
+            } else {
+                postRepository.save(post);
+                imageJobPublisher.publish(buildAsyncMessage(post));
+            }
             return PostConverter.toPostCreate(post);
         }
 
+        postRepository.save(post);
         try {
             ImageProcessingService.ProcessedImages processedImages = imageProcessingService.process(tempImageKeys);
             applyProcessedImages(post, processedImages);

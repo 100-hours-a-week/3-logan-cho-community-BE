@@ -1,120 +1,134 @@
-<mxfile host="app.diagrams.net" modified="2026-04-04T15:05:00.000Z" agent="Codex" version="24.7.17">
+<mxfile host="app.diagrams.net" agent="Codex">
   <diagram id="v2-async-current-architecture" name="V2 Async Current Architecture">
-    <mxGraphModel dx="2400" dy="1500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1500" math="0" shadow="0">
+    <mxGraphModel dx="2200" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2600" pageHeight="1800" math="0" shadow="0">
       <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
-
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
         <mxCell id="title" value="V2 Async Flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=24;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="20" width="280" height="30" as="geometry"/>
+          <mxGeometry x="40" y="20" width="280" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="subtitle" value="응답은 빠르게 반환하고, 이미지 처리는 SQS + Lambda가 뒤에서 완료한다." style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=14;fontColor=#555555;" vertex="1" parent="1">
-          <mxGeometry x="40" y="55" width="650" height="24" as="geometry"/>
+        <mxCell id="subtitle" value="presigned URL 발급과 temp 업로드는 동일하지만, create 응답은 빠르게 반환되고 이미지 처리는 비동기로 완료된다." style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=14;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="40" y="55" width="980" height="24" as="geometry" />
         </mxCell>
 
-        <mxCell id="client" value="Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="60" y="120" width="150" height="60" as="geometry"/>
+        <mxCell id="client" value="Client&#xa;k6 / User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="170" height="70" as="geometry" />
         </mxCell>
         <mxCell id="spring" value="Spring Server&#xa;App EC2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="340" y="120" width="180" height="60" as="geometry"/>
+          <mxGeometry x="360" y="120" width="190" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="sqs" value="SQS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="650" y="120" width="130" height="60" as="geometry"/>
-        </mxCell>
-        <mxCell id="lambda" value="Lambda Worker" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="910" y="120" width="170" height="60" as="geometry"/>
-        </mxCell>
-        <mxCell id="s3" value="S3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1210" y="120" width="130" height="60" as="geometry"/>
+        <mxCell id="s3" value="S3&#xa;temp / final / thumbnail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="680" y="120" width="210" height="70" as="geometry" />
         </mxCell>
         <mxCell id="db" value="MySQL / MongoDB / Redis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1470" y="120" width="240" height="60" as="geometry"/>
+          <mxGeometry x="1020" y="120" width="250" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="obs" value="k6 + Prometheus / Grafana" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#5b9bd5;fontStyle=1;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="1840" y="120" width="280" height="60" as="geometry"/>
+        <mxCell id="sqs" value="SQS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="120" width="140" height="70" as="geometry" />
         </mxCell>
-
-        <mxCell id="line_client" value="" style="strokeColor=#6c8ebf;strokeWidth=2;dashed=1;" edge="1" parent="1" source="client" target="client"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="135" y="1120"/></Array></mxGeometry></mxCell>
-        <mxCell id="line_spring" value="" style="strokeColor=#82b366;strokeWidth=2;dashed=1;" edge="1" parent="1" source="spring" target="spring"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="430" y="1120"/></Array></mxGeometry></mxCell>
-        <mxCell id="line_sqs" value="" style="strokeColor=#b85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="sqs" target="sqs"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="715" y="1120"/></Array></mxGeometry></mxCell>
-        <mxCell id="line_lambda" value="" style="strokeColor=#d6b656;strokeWidth=2;dashed=1;" edge="1" parent="1" source="lambda" target="lambda"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="995" y="1120"/></Array></mxGeometry></mxCell>
-        <mxCell id="line_s3" value="" style="strokeColor=#b85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="s3" target="s3"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1275" y="1120"/></Array></mxGeometry></mxCell>
-        <mxCell id="line_db" value="" style="strokeColor=#9673a6;strokeWidth=2;dashed=1;" edge="1" parent="1" source="db" target="db"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1590" y="1120"/></Array></mxGeometry></mxCell>
-        <mxCell id="line_obs" value="" style="strokeColor=#5b9bd5;strokeWidth=2;dashed=1;" edge="1" parent="1" source="obs" target="obs"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1980" y="1120"/></Array></mxGeometry></mxCell>
-
-        <mxCell id="req_label" value="Request Path" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="230" width="140" height="36" as="geometry"/>
+        <mxCell id="lambda" value="Lambda Worker" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1670" y="120" width="190" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="async_label" value="Async Path" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="560" width="140" height="36" as="geometry"/>
-        </mxCell>
-        <mxCell id="obs_label" value="Observation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="930" width="140" height="36" as="geometry"/>
+        <mxCell id="obs" value="Prometheus / Grafana&#xa;k6 Controller EC2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cce5ff;strokeColor=#5b9bd5;fontStyle=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1990" y="120" width="290" height="70" as="geometry" />
         </mxCell>
 
-        <mxCell id="e1" value="1. POST /api/posts&#xa;title + content + temp image key" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="client" target="spring">
-          <mxGeometry relative="1" as="geometry"/>
+        <mxCell id="line_client" value="" style="strokeColor=#6c8ebf;strokeWidth=2;dashed=1;" edge="1" parent="1" source="client" target="client">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="145" y="1440" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="proc1" value="2. PENDING 저장&#xa;image job 생성" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="320" y="300" width="220" height="70" as="geometry"/>
+        <mxCell id="line_spring" value="" style="strokeColor=#82b366;strokeWidth=2;dashed=1;" edge="1" parent="1" source="spring" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="455" y="1440" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="e2" value="3. image job publish" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="sqs">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="520" y="420"/><mxPoint x="650" y="420"/></Array>
-          </mxGeometry>
+        <mxCell id="line_s3" value="" style="strokeColor=#b85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="s3" target="s3">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="785" y="1440" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="e3" value="4. 200 OK 즉시 반환&#xa;postId + PENDING" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="client">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="340" y="500"/><mxPoint x="210" y="500"/></Array>
-          </mxGeometry>
+        <mxCell id="line_db" value="" style="strokeColor=#9673a6;strokeWidth=2;dashed=1;" edge="1" parent="1" source="db" target="db">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1145" y="1440" /></Array></mxGeometry>
         </mxCell>
-
-        <mxCell id="e4" value="5. 메시지 소비" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="sqs" target="lambda">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="780" y="650"/><mxPoint x="910" y="650"/></Array>
-          </mxGeometry>
+        <mxCell id="line_sqs" value="" style="strokeColor=#d79b00;strokeWidth=2;dashed=1;" edge="1" parent="1" source="sqs" target="sqs">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1470" y="1440" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="e5" value="6. temp 이미지 다운로드" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="lambda" target="s3">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="1080" y="740"/><mxPoint x="1210" y="740"/></Array>
-          </mxGeometry>
+        <mxCell id="line_lambda" value="" style="strokeColor=#d6b656;strokeWidth=2;dashed=1;" edge="1" parent="1" source="lambda" target="lambda">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1765" y="1440" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="proc2" value="7. Lambda 내부 처리&#xa;compress / thumbnail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="885" y="810" width="220" height="70" as="geometry"/>
-        </mxCell>
-        <mxCell id="e6" value="8. final / thumbnail 업로드" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="lambda" target="s3">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="1080" y="900"/><mxPoint x="1210" y="900"/></Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e7" value="9. callback 호출&#xa;/api/posts/internal/image-jobs/{postId}" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="lambda" target="spring">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="910" y="990"/><mxPoint x="520" y="990"/></Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e8" value="10. COMPLETED / FAILED 저장" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="db">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="520" y="1070"/><mxPoint x="1470" y="1070"/></Array>
-          </mxGeometry>
+        <mxCell id="line_obs" value="" style="strokeColor=#5b9bd5;strokeWidth=2;dashed=1;" edge="1" parent="1" source="obs" target="obs">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2135" y="1440" /></Array></mxGeometry>
         </mxCell>
 
-        <mxCell id="poll_box" value="11. Client / k6는 detail API polling으로&#xa;imageStatus = COMPLETED 를 확인" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="60" y="620" width="230" height="80" as="geometry"/>
+        <mxCell id="setup_label" value="Upload Setup" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="250" width="140" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="request_label" value="Create Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="620" width="140" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="async_label" value="Async Completion" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="930" width="160" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="poll_label" value="Status Check" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1240" width="140" height="36" as="geometry" />
         </mxCell>
 
-        <mxCell id="o1" value="k6 create + poll completion" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="obs" target="spring">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="1840" y="990"/><mxPoint x="520" y="990"/></Array>
-          </mxGeometry>
+        <mxCell id="e1" value="1. POST /api/posts/images/presigned-url" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="client" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="230" y="320" /><mxPoint x="360" y="320" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="o2" value="Prometheus scrape" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="obs" target="spring">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points"><mxPoint x="1840" y="1080"/><mxPoint x="520" y="1080"/></Array>
-          </mxGeometry>
+        <mxCell id="e2" value="2. presigned URL + objectKey 반환" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="client">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="360" y="390" /><mxPoint x="230" y="390" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="3. PUT temp image" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="client" target="s3">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="230" y="470" /><mxPoint x="680" y="470" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="4. 200 / 204 upload success" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="s3" target="client">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="680" y="540" /><mxPoint x="230" y="540" /></Array></mxGeometry>
         </mxCell>
 
-        <mxCell id="callout" value="핵심: 요청 응답은 빨라지지만&#xa;이미지 완료 시간은 비동기 tail로 이동한다." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
-          <mxGeometry x="1470" y="320" width="280" height="80" as="geometry"/>
+        <mxCell id="e5" value="5. POST /api/posts&#xa;title + content + temp objectKey" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="client" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="230" y="700" /><mxPoint x="360" y="700" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="6. PENDING 게시글 저장" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="db">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="550" y="780" /><mxPoint x="1020" y="780" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="7. image job publish" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="sqs">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="550" y="850" /><mxPoint x="1400" y="850" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e8" value="8. 200 OK 즉시 반환&#xa;postId + imageStatus=PENDING" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="client">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="360" y="920" /><mxPoint x="230" y="920" /></Array></mxGeometry>
+        </mxCell>
+
+        <mxCell id="e9" value="9. 메시지 소비" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="sqs" target="lambda">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1540" y="1030" /><mxPoint x="1670" y="1030" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e10" value="10. temp 이미지 다운로드" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="lambda" target="s3">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1670" y="1100" /><mxPoint x="890" y="1100" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="proc_box" value="11. Lambda 내부 처리&#xa;resize + compress + thumbnail 생성" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1640" y="1160" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="12. final / thumbnail 업로드" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="lambda" target="s3">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1670" y="1290" /><mxPoint x="890" y="1290" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e12" value="13. callback&#xa;POST /api/posts/internal/image-jobs/{postId}" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="lambda" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1670" y="1360" /><mxPoint x="550" y="1360" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e13" value="14. COMPLETED / FAILED 상태 저장" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="db">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="550" y="1430" /><mxPoint x="1020" y="1430" /></Array></mxGeometry>
+        </mxCell>
+
+        <mxCell id="e14" value="15. GET /api/posts/{postId}" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="client" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="230" y="1510" /><mxPoint x="360" y="1510" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e15" value="16. post detail 응답&#xa;imageStatus=PENDING / COMPLETED / FAILED" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="client">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="360" y="1580" /><mxPoint x="230" y="1580" /></Array></mxGeometry>
+        </mxCell>
+
+        <mxCell id="o1" value="k6: presign -&gt; temp upload -&gt; create -&gt; detail polling" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="obs" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1990" y="960" /><mxPoint x="550" y="960" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="o2" value="Prometheus scrape&#xa;:9100 /actuator/prometheus" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="obs" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1990" y="1040" /><mxPoint x="550" y="1040" /></Array></mxGeometry>
+        </mxCell>
+
+        <mxCell id="callout" value="핵심: create 응답은 빨라지지만, 완료 확인은 별도 polling 흐름과 async completion 흐름으로 분리된다." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="320" width="430" height="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

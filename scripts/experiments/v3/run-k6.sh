@@ -45,19 +45,19 @@ BASE_URL='${APP_URL}' ACCESS_TOKEN='${ACCESS_TOKEN}' IMAGE_PATH='${REMOTE_DIR}/s
   k6 run ${REMOTE_DIR}/image-pipeline-v2.js --summary-export ${REMOTE_DIR}/summary.json > ${REMOTE_DIR}/stdout.log 2>&1
 "
 
-mkdir -p "${PROJECT_ROOT}/docs/experiments/results/exp-v2-async/k6"
+mkdir -p "${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/k6"
 scp -i "$(ssh_key_path)" \
   -o StrictHostKeyChecking=no \
   -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
   -o ConnectTimeout=10 \
   "$(ssh_user)@${K6_HOST}:${REMOTE_DIR}/summary.json" \
-  "${PROJECT_ROOT}/docs/experiments/results/exp-v2-async/k6/${FILE_PREFIX}-summary.json" >/dev/null
+  "${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/k6/${FILE_PREFIX}-summary.json" >/dev/null
 scp -i "$(ssh_key_path)" \
   -o StrictHostKeyChecking=no \
   -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
   -o ConnectTimeout=10 \
   "$(ssh_user)@${K6_HOST}:${REMOTE_DIR}/stdout.log" \
-  "${PROJECT_ROOT}/docs/experiments/results/exp-v2-async/k6/${FILE_PREFIX}-stdout.log" >/dev/null
+  "${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/k6/${FILE_PREFIX}-stdout.log" >/dev/null
 
-tail -n 120 "${PROJECT_ROOT}/docs/experiments/results/exp-v2-async/k6/${FILE_PREFIX}-stdout.log"
-log "k6 result saved under docs/experiments/results/exp-v2-async/k6/"
+tail -n 120 "${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/k6/${FILE_PREFIX}-stdout.log"
+log "k6 result saved under docs/experiments/results/exp-v3-outbox/k6/"

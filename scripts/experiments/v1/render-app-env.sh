@@ -43,7 +43,7 @@ values["PROFILE"] = "prod"
 values["SPRING_CLOUD_AWS_PARAMETERSTORE_ENABLED"] = "false"
 values["SPRING_CONFIG_IMPORT"] = ""
 values["DB_HOST"] = "jdbc:mysql://127.0.0.1:3306/millions?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul"
-values["MONGO_URL"] = "mongodb://127.0.0.1:27017/millions"
+values["MONGO_URL"] = "mongodb://127.0.0.1:27017/millions?replicaSet=rs0&directConnection=true"
 values["REDIS_HOST"] = "127.0.0.1"
 values["REDIS_PORT"] = "6379"
 values["IS_ELASTIC_CACHE"] = "false"
@@ -56,6 +56,10 @@ optional_keys = [
     "IMAGE_PIPELINE_QUEUE_URL",
     "IMAGE_PIPELINE_CALLBACK_BASE_URL",
     "IMAGE_PIPELINE_CALLBACK_SECRET",
+    "IMAGE_PIPELINE_OUTBOX_ENABLED",
+    "IMAGE_PIPELINE_OUTBOX_RELAY_ENABLED",
+    "IMAGE_PIPELINE_OUTBOX_RELAY_FIXED_DELAY_MS",
+    "IMAGE_PIPELINE_OUTBOX_RELAY_BATCH_SIZE",
 ]
 for key in optional_keys:
     value = os.environ.get(key)

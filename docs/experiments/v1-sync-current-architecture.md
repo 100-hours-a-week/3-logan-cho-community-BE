@@ -3,8 +3,11 @@
 ## Overview
 
 `V1`의 핵심은 이미지 처리 비용이 전부 요청 응답 안에 들어 있다는 점이다.
-즉 `POST /api/posts` 한 번 안에서 아래가 모두 끝나야 응답이 나간다.
+실제 시작 플로우는 `presigned URL 발급 -> temp 업로드 -> POST /api/posts`이고,
+마지막 `POST /api/posts` 한 번 안에서 아래가 모두 끝나야 응답이 나간다.
 
+- temp 업로드용 presigned URL 발급
+- temp 이미지 업로드
 - temp 이미지 참조 검증
 - 원본 이미지 다운로드
 - 압축 / 리사이즈
@@ -39,6 +42,10 @@ sequenceDiagram
 
     Note over Client,DB: V1은 요청 응답 안에서 이미지 처리 전체가 끝나야 한다
 
+    Client->>Spring: POST /api/posts/images/presigned-url
+    Spring-->>Client: presigned URL + objectKey
+    Client->>S3: PUT temp image
+    S3-->>Client: 200 / 204
     Client->>Spring: POST /api/posts\n(title, content, temp image key)
     Spring->>S3: temp 이미지 다운로드
     S3-->>Spring: 원본 이미지 bytes
@@ -53,13 +60,15 @@ sequenceDiagram
 
 ## Request / Response Flow
 
-1. Client가 temp 이미지를 이미 올려둔 상태에서 `POST /api/posts`를 호출한다.
-2. Spring은 요청 본문에 들어 있는 temp image key를 검증한다.
-3. Spring이 S3에서 temp 이미지를 다운로드한다.
-4. Spring 프로세스 안에서 압축과 썸네일 생성을 수행한다.
-5. Spring이 S3에 final 이미지와 thumbnail 이미지를 업로드한다.
-6. Spring이 MySQL / MongoDB에 게시글 메타데이터를 저장한다.
-7. 모든 단계가 끝난 뒤에야 Client에게 응답을 돌려준다.
+1. Client가 `POST /api/posts/images/presigned-url`로 temp 업로드용 URL과 object key를 받는다.
+2. Client가 S3에 temp 이미지를 직접 업로드한다.
+3. Client가 `POST /api/posts`를 호출한다.
+4. Spring은 요청 본문에 들어 있는 temp image key를 검증한다.
+5. Spring이 S3에서 temp 이미지를 다운로드한다.
+6. Spring 프로세스 안에서 압축과 썸네일 생성을 수행한다.
+7. Spring이 S3에 final 이미지와 thumbnail 이미지를 업로드한다.
+8. Spring이 MySQL / MongoDB에 게시글 메타데이터를 저장한다.
+9. 모든 단계가 끝난 뒤에야 Client에게 응답을 돌려준다.
 
 즉, 요청 1건의 latency 안에 이미지 처리 전체가 묶인다.
 

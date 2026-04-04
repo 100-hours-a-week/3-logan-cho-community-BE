@@ -19,4 +19,16 @@ public class ImagePipelineProperties {
 
     @Value("${image.pipeline.callback-secret:}")
     private String callbackSecret;
+
+    @Value("${image.pipeline.outbox-enabled:false}")
+    private boolean outboxEnabled;
+
+    @Value("${image.pipeline.outbox.relay-enabled:false}")
+    private boolean outboxRelayEnabled;
+
+    @Value("${image.pipeline.outbox.relay-fixed-delay-ms:1000}")
+    private long outboxRelayFixedDelayMs;
+
+    @Value("${image.pipeline.outbox.relay-batch-size:20}")
+    private int outboxRelayBatchSize;
 }
