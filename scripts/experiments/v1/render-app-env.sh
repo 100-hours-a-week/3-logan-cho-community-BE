@@ -51,6 +51,17 @@ values["JAVA_TOOL_OPTIONS"] = "-Duser.timezone=Asia/Seoul"
 if bucket_override:
     values["AWS_S3_BUCKET_NAME"] = bucket_override
 
+optional_keys = [
+    "IMAGE_PIPELINE_ASYNC_ENABLED",
+    "IMAGE_PIPELINE_QUEUE_URL",
+    "IMAGE_PIPELINE_CALLBACK_BASE_URL",
+    "IMAGE_PIPELINE_CALLBACK_SECRET",
+]
+for key in optional_keys:
+    value = os.environ.get(key)
+    if value:
+        values[key] = value
+
 with open(out_path, "w", encoding="utf-8") as f:
     f.write("#!/bin/bash\n")
     f.write("set -a\n")
@@ -68,4 +79,3 @@ os.chmod(out_path, 0o700)
 PY
 
 log "rendered app env: ${OUT_PATH}"
-

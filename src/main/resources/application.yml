@@ -100,3 +100,4 @@ app:
       - "/api/members/recover"
       - "/api/health"
       - "/api/test-redis"
+      - "/api/posts/internal/image-jobs/**"

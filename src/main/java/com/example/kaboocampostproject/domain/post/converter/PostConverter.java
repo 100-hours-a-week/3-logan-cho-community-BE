@@ -4,6 +4,7 @@ import com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import com.example.kaboocampostproject.domain.post.document.PostDocument;
 import com.example.kaboocampostproject.domain.post.dto.req.PostCreatReqDTO;
+import com.example.kaboocampostproject.domain.post.dto.res.PostCreateResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostDetailResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSimple;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSliceItem;
@@ -16,6 +17,14 @@ public class PostConverter {
                 .authorId(memberId)
                 .title(dto.title())
                 .content(dto.content())
+                .build();
+    }
+
+    public static PostCreateResDTO toPostCreate(PostDocument post) {
+        return PostCreateResDTO.builder()
+                .postId(post.getId())
+                .imageJobId(post.getImageJobId())
+                .imageStatus(post.getImageStatus())
                 .build();
     }
 

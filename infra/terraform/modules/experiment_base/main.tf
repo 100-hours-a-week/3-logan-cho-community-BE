@@ -4,7 +4,7 @@ locals {
 }
 
 resource "aws_security_group" "app" {
-  name        = "${var.name_prefix}-app-sg"
+  name_prefix = "${var.name_prefix}-app-sg-"
   description = "Security group for experiment app instance"
   vpc_id      = var.vpc_id
 
@@ -30,10 +30,14 @@ resource "aws_security_group" "app" {
   }
 
   tags = merge(var.tags, { Name = "${var.name_prefix}-app-sg" })
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group" "k6" {
-  name        = "${var.name_prefix}-k6-sg"
+  name_prefix = "${var.name_prefix}-k6-sg-"
   description = "Security group for experiment k6 instance"
   vpc_id      = var.vpc_id
 
@@ -66,6 +70,10 @@ resource "aws_security_group" "k6" {
   }
 
   tags = merge(var.tags, { Name = "${var.name_prefix}-k6-sg" })
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "app_node_exporter_from_k6" {

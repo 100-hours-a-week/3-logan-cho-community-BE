@@ -1,16 +1,20 @@
 package com.example.kaboocampostproject.domain.post.service;
 
 
+import com.example.kaboocampostproject.domain.post.config.ImagePipelineProperties;
 import com.example.kaboocampostproject.domain.comment.repository.CommentMongoRepository;
 import com.example.kaboocampostproject.domain.like.dto.PostLikeStatsDto;
+import com.example.kaboocampostproject.domain.post.dto.message.AsyncImageJobMessage;
 import com.example.kaboocampostproject.domain.like.entity.PostLike;
 import com.example.kaboocampostproject.domain.like.repository.PostLikeRepository;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheService;
 import com.example.kaboocampostproject.domain.post.converter.PostConverter;
 import com.example.kaboocampostproject.domain.post.document.PostDocument;
+import com.example.kaboocampostproject.domain.post.dto.req.AsyncImageJobCallbackReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.req.PostCreatReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.req.PostUpdateReqDTO;
+import com.example.kaboocampostproject.domain.post.dto.res.PostCreateResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostDetailResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSimple;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSliceItem;
@@ -50,33 +54,66 @@ public class PostMongoService {
     private final S3Service s3Service;
     private final S3Util s3Util;
     private final ImageProcessingService imageProcessingService;
+    private final ImageJobPublisher imageJobPublisher;
+    private final ImagePipelineProperties imagePipelineProperties;
 
     private static final int PAGE_SIZE = 10;
     private final CloudFrontUtil cloudFrontUtil;
 
-    public void create(Long authorId, PostCreatReqDTO postCreatReqDTO) {
+    public PostCreateResDTO create(Long authorId, PostCreatReqDTO postCreatReqDTO) {
         List<String> tempImageKeys = safeList(postCreatReqDTO.imageObjectKeys());
         tempImageKeys.forEach(s3Service::verifyS3Upload);
 
         if (tempImageKeys.isEmpty()) {
             PostDocument post = buildCompletedPost(authorId, postCreatReqDTO, List.of(), List.of(), List.of());
             postRepository.save(post);
-            return;
+            return PostConverter.toPostCreate(post);
         }
 
         PostDocument post = buildPendingPost(authorId, postCreatReqDTO, tempImageKeys);
         postRepository.save(post);
 
+        if (imagePipelineProperties.isAsyncEnabled()) {
+            imageJobPublisher.publish(buildAsyncMessage(post));
+            return PostConverter.toPostCreate(post);
+        }
+
         try {
             ImageProcessingService.ProcessedImages processedImages = imageProcessingService.process(tempImageKeys);
             applyProcessedImages(post, processedImages);
             postRepository.save(post);
+            return PostConverter.toPostCreate(post);
         } catch (RuntimeException e) {
             post.setImageStatus(PostImageStatus.FAILED);
             post.setFailureReason(resolveFailureReason(e));
             postRepository.save(post);
             throw e;
         }
+    }
+
+    public void completeAsyncImageJob(String postId, AsyncImageJobCallbackReqDTO request) {
+        PostDocument post = postRepository.findByIdAndDeletedAtIsNull(postId)
+                .orElseThrow(() -> new PostException(PostErrorCode.POST_NOT_FOUND));
+
+        if (post.getImageJobId() == null || !post.getImageJobId().equals(request.imageJobId())) {
+            throw new PostException(PostErrorCode.POST_IMAGE_JOB_MISMATCH);
+        }
+
+        if (request.imageStatus() == PostImageStatus.COMPLETED) {
+            post.setFinalImageKeys(safeList(request.finalImageKeys()));
+            post.setThumbnailKeys(safeList(request.thumbnailKeys()));
+            post.setImageObjectKeys(safeList(request.finalImageKeys()));
+            post.setImageStatus(PostImageStatus.COMPLETED);
+            post.setFailureReason(null);
+            post.setCompletedAt(Instant.now());
+            postRepository.save(post);
+            return;
+        }
+
+        post.setImageStatus(PostImageStatus.FAILED);
+        post.setFailureReason(request.failureReason());
+        post.setCompletedAt(Instant.now());
+        postRepository.save(post);
     }
 
     private List<String> calculateRemaining(List<String> oldImages, List<String> addedImages, List<String> removedImages) {
@@ -336,6 +373,22 @@ public class PostMongoService {
 
     private List<String> safeList(List<String> values) {
         return values == null ? new ArrayList<>() : new ArrayList<>(values);
+    }
+
+    private AsyncImageJobMessage buildAsyncMessage(PostDocument post) {
+        String callbackBaseUrl = imagePipelineProperties.getCallbackBaseUrl();
+        if (callbackBaseUrl == null || callbackBaseUrl.isBlank()) {
+            throw new IllegalStateException("image pipeline callback base url is missing");
+        }
+
+        return new AsyncImageJobMessage(
+                post.getImageJobId(),
+                post.getId(),
+                s3Util.getBucket(),
+                List.copyOf(safeList(post.getTempImageKeys())),
+                "%s/api/posts/internal/image-jobs/%s".formatted(callbackBaseUrl, post.getId()),
+                Instant.now()
+        );
     }
 
     // 멤버프로필, like 개수 등 부가정보 가져와서 PageSlice 생성하기

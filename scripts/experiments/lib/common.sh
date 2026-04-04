@@ -37,6 +37,11 @@ tf_output() {
   terraform -chdir="${TERRAFORM_EXPERIMENT_DIR}" output -raw "${key}"
 }
 
+optional_tf_output() {
+  local key="$1"
+  terraform -chdir="${TERRAFORM_EXPERIMENT_DIR}" output -raw "${key}" 2>/dev/null || true
+}
+
 app_instance_id() {
   tf_output app_instance_id
 }
@@ -170,4 +175,29 @@ scp_to() {
     -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
     -o ConnectTimeout=10 \
     "${source_path}" "$(ssh_user)@${host}:${dest_path}"
+}
+
+callback_secret_file() {
+  printf '%s' "${HOME}/.cache/image-pipeline-experiments/callback-secret"
+}
+
+ensure_callback_secret() {
+  local path
+  path="$(callback_secret_file)"
+  mkdir -p "$(dirname "${path}")"
+
+  if [[ -n "${EXPERIMENT_IMAGE_CALLBACK_SECRET:-}" ]]; then
+    printf '%s\n' "${EXPERIMENT_IMAGE_CALLBACK_SECRET}" > "${path}"
+    chmod 600 "${path}"
+  fi
+
+  if [[ ! -f "${path}" ]]; then
+    python3 - <<'PY' > "${path}"
+import secrets
+print(secrets.token_hex(24))
+PY
+    chmod 600 "${path}"
+  fi
+
+  cat "${path}"
 }

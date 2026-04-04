@@ -28,34 +28,57 @@ import sys
 
 bucket, prefix = sys.argv[1], sys.argv[2]
 
-proc = subprocess.run(
-    [
+def list_page(key_marker=None, version_marker=None):
+    cmd = [
         "aws", "s3api", "list-object-versions",
         "--bucket", bucket,
         "--prefix", prefix,
         "--output", "json",
-    ],
-    check=True,
-    capture_output=True,
-    text=True,
-)
-payload = json.loads(proc.stdout)
-objects = []
-for key in ("Versions", "DeleteMarkers"):
-    for obj in payload.get(key, []):
-        objects.append({"Key": obj["Key"], "VersionId": obj["VersionId"]})
+    ]
+    if key_marker:
+        cmd.extend(["--key-marker", key_marker])
+    if version_marker:
+        cmd.extend(["--version-id-marker", version_marker])
 
-if not objects:
+    proc = subprocess.run(cmd, check=True, capture_output=True, text=True)
+    return json.loads(proc.stdout)
+
+
+def batched(items, size):
+    for i in range(0, len(items), size):
+        yield items[i:i + size]
+
+
+key_marker = None
+version_marker = None
+deleted_any = False
+
+while True:
+    payload = list_page(key_marker, version_marker)
+    objects = []
+    for key in ("Versions", "DeleteMarkers"):
+        for obj in payload.get(key, []):
+            objects.append({"Key": obj["Key"], "VersionId": obj["VersionId"]})
+
+    for batch in batched(objects, 500):
+        subprocess.run(
+            [
+                "aws", "s3api", "delete-objects",
+                "--bucket", bucket,
+                "--delete", json.dumps({"Objects": batch, "Quiet": True}),
+            ],
+            check=True,
+        )
+        deleted_any = True
+
+    if not payload.get("IsTruncated"):
+        break
+
+    key_marker = payload.get("NextKeyMarker")
+    version_marker = payload.get("NextVersionIdMarker")
+
+if not deleted_any:
     sys.exit(0)
-
-subprocess.run(
-    [
-        "aws", "s3api", "delete-objects",
-        "--bucket", bucket,
-        "--delete", json.dumps({"Objects": objects, "Quiet": True}),
-    ],
-    check=True,
-)
 PY
 }
 

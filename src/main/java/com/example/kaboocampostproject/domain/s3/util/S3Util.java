@@ -30,6 +30,10 @@ public class S3Util {
     private final S3Presigner s3Presigner;
     private final S3Client s3Client;
 
+    public String getBucket() {
+        return bucket;
+    }
+
     public String createPresignedUrl(String objectKey, String mimeType) {
         try {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
