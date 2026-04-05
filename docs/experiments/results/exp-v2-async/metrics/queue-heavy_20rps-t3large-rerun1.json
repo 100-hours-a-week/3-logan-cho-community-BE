@@ -1,0 +1,6 @@
+{
+  "queueName": "image-pipeline-evolution-v2-image-main",
+  "sampleCount": 3,
+  "oldestAgeMaxSeconds": 48.0,
+  "oldestAgeAvgSeconds": 16.0
+}

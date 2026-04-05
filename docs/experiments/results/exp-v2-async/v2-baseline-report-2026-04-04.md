@@ -17,3 +17,15 @@
 - summary: `docs/experiments/results/exp-v2-async/summary.md`
 - k6 summaries: `docs/experiments/results/exp-v2-async/k6/*-summary.json`
 - queue metrics (auxiliary raw): `docs/experiments/results/exp-v2-async/metrics/queue-*.json`
+
+## t3.large High-Load Rerun
+
+| scenario | repeats | POST /posts p95 (ms) | error rate | image completion latency p95 (ms) | dropped iterations | queue oldest age max (s) |
+|---|---:|---:|---:|---:|---:|---:|
+| heavy_20rps | 1 | 612.42 | 0.000000 | 42421.00 | 438 | 48.00 |
+| burst_5_to_30 | 1 | 237.40 | 0.000000 | 36787.40 | 614 | 75.00 |
+
+메모:
+
+- `t3.large` 재실행은 `V3`, `V4`와 동일한 App 스펙에서 고부하 비교선을 맞추기 위한 보강 수집이다.
+- `V2`는 이미 구조적으로 요청 경로가 짧아서, 스케일업보다 queue backlog 쪽 지연이 더 지배적이었다.

@@ -1,40 +1,107 @@
 <mxfile host="app.diagrams.net" agent="Codex">
   <diagram id="v4-idempotent-current-architecture" name="V4 Idempotent Current Architecture">
-    <mxGraphModel dx="2400" dy="1500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3000" pageHeight="2000" math="0" shadow="0">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2600" pageHeight="1600" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="V4 Idempotent + DLQ Flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=24;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="420" height="30" as="geometry" /></mxCell>
-        <mxCell id="subtitle" value="outbox 구조 위에 processed jobs와 DLQ를 추가해 duplicate callback은 무시하고 poison message는 격리한다." style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=14;fontColor=#555555;" vertex="1" parent="1"><mxGeometry x="40" y="55" width="1180" height="24" as="geometry" /></mxCell>
+        <mxCell id="title" value="V4 Idempotent Consumer + DLQ" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=28;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="24" width="560" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="outbox 뒤에 processed jobs와 DLQ를 추가해 중복 callback은 무시하고 poison message는 main queue 밖으로 격리한다." style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=14;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="40" y="62" width="1180" height="24" as="geometry" />
+        </mxCell>
 
-        <mxCell id="client" value="Client&#xa;k6 / User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="60" y="120" width="170" height="70" as="geometry" /></mxCell>
-        <mxCell id="spring" value="Spring Server&#xa;App EC2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="330" y="120" width="190" height="70" as="geometry" /></mxCell>
-        <mxCell id="s3" value="S3&#xa;temp / final / thumbnail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="620" y="120" width="210" height="70" as="geometry" /></mxCell>
-        <mxCell id="db" value="Post Store&#xa;Mongo / MySQL / Redis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="930" y="120" width="220" height="70" as="geometry" /></mxCell>
-        <mxCell id="outbox" value="Mongo Outbox" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="1250" y="120" width="180" height="70" as="geometry" /></mxCell>
-        <mxCell id="processed" value="Processed Jobs&#xa;Mongo Collection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="1250" y="250" width="180" height="70" as="geometry" /></mxCell>
-        <mxCell id="relay" value="Outbox Relay&#xa;Scheduler in Spring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d4edda;strokeColor=#5a8f63;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="1540" y="120" width="220" height="70" as="geometry" /></mxCell>
-        <mxCell id="sqs" value="SQS Main Queue" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="1860" y="120" width="170" height="70" as="geometry" /></mxCell>
-        <mxCell id="dlq" value="SQS DLQ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f4cccc;strokeColor=#b85450;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="1860" y="250" width="170" height="70" as="geometry" /></mxCell>
-        <mxCell id="lambda" value="Lambda Worker" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=16;" vertex="1" parent="1"><mxGeometry x="2140" y="120" width="190" height="70" as="geometry" /></mxCell>
+        <mxCell id="client" value="Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2f4858;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="80" y="560" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="S3&#xa;&#xa;temp/{timestamp}/xxx.png&#xa;public/post/{postId}/xxx.png&#xa;public/post/{postId}/thumbnail/xxx.png" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7fff0;strokeColor=#7aa61c;strokeWidth=2;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="620" y="110" width="300" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="appZone" value="App EC2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ffb366;strokeWidth=2;dashed=1;fontStyle=1;fontSize=16;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="660" y="470" width="430" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="spring" value="Spring Server&#xa;&#xa;post + outbox 저장&#xa;callback 소비" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4e6;strokeColor=#f08c00;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="720" y="540" width="240" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="relay" value="Outbox Relay" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9db;strokeColor=#fcc419;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="720" y="690" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="outbox" value="Mongo Outbox" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#868e96;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="620" width="190" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="processed" value="Processed Jobs&#xa;&#xa;imageJobId 기준 선점" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3fafc;strokeColor=#15aabf;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="760" width="220" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="sqs" value="SQS Main Queue" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff0f6;strokeColor=#d63384;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="380" width="190" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="dlq" value="SQS DLQ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff5f5;strokeColor=#fa5252;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="540" width="190" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda" value="Lambda" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4e6;strokeColor=#f08c00;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="110" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="db" value="MongoDB&#xa;&#xa;post 상태 저장" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eefaf6;strokeColor=#20c997;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="640" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="핵심: `imageJobId`가 이미 처리됐으면 상태를 다시 쓰지 않고 무시한다. 반복 실패 메시지는 DLQ로 보낸다." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9db;strokeColor=#fcc419;strokeWidth=2;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="250" width="520" height="100" as="geometry" />
+        </mxCell>
 
-        <mxCell id="e1" value="1. presigned URL 요청 / 응답" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="client" target="spring"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="230" y="320" /><mxPoint x="330" y="320" /></Array></mxGeometry></mxCell>
-        <mxCell id="e2" value="2. temp 업로드" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="client" target="s3"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="230" y="390" /><mxPoint x="620" y="390" /></Array></mxGeometry></mxCell>
-        <mxCell id="e3" value="3. POST /api/posts" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="client" target="spring"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="230" y="470" /><mxPoint x="330" y="470" /></Array></mxGeometry></mxCell>
-        <mxCell id="e4" value="4. post PENDING 저장" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="db"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="520" y="560" /><mxPoint x="930" y="560" /></Array></mxGeometry></mxCell>
-        <mxCell id="e5" value="5. outbox 저장" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="outbox"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="520" y="620" /><mxPoint x="1250" y="620" /></Array></mxGeometry></mxCell>
-        <mxCell id="e6" value="6. 즉시 응답" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="client"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="330" y="690" /><mxPoint x="230" y="690" /></Array></mxGeometry></mxCell>
-
-        <mxCell id="e7" value="7. outbox 조회 / publish" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="relay" target="sqs"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1760" y="800" /><mxPoint x="1860" y="800" /></Array></mxGeometry></mxCell>
-        <mxCell id="e8" value="8. 메시지 소비" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="sqs" target="lambda"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2030" y="880" /><mxPoint x="2140" y="880" /></Array></mxGeometry></mxCell>
-        <mxCell id="e9" value="9. 이미지 처리 + callback" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="lambda" target="spring"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2140" y="980" /><mxPoint x="520" y="980" /></Array></mxGeometry></mxCell>
-        <mxCell id="e10" value="10. processed jobs 선점 / 중복 확인" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="processed"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="520" y="1070" /><mxPoint x="1250" y="1070" /></Array></mxGeometry></mxCell>
-        <mxCell id="e11" value="11a. first callback: 상태 반영" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="db"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="520" y="1140" /><mxPoint x="930" y="1140" /></Array></mxGeometry></mxCell>
-        <mxCell id="e12" value="11b. duplicate callback: duplicateIgnoredCount 증가" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="spring" target="processed"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="520" y="1210" /><mxPoint x="1250" y="1210" /></Array></mxGeometry></mxCell>
-        <mxCell id="e13" value="12. poison message retry" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;dashed=1;endArrow=block;fontSize=14;" edge="1" parent="1" source="lambda" target="sqs"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2140" y="1290" /><mxPoint x="2030" y="1290" /></Array></mxGeometry></mxCell>
-        <mxCell id="e14" value="13. maxReceiveCount 초과 후 DLQ 이동" style="edgeStyle=orthogonalEdgeStyle;html=1;strokeWidth=2;endArrow=block;fontSize=14;" edge="1" parent="1" source="sqs" target="dlq"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1945" y="1180" /><mxPoint x="1945" y="320" /></Array></mxGeometry></mxCell>
-
-        <mxCell id="callout" value="핵심: callback을 imageJobId 기준 idempotent consumer로 만들고, poison message는 main queue 밖으로 격리한다." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1"><mxGeometry x="870" y="380" width="520" height="90" as="geometry" /></mxCell>
+        <mxCell id="e1" value="1. presigned-url 발급 요청" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2dbd6e;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="client" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="260" y="500" /><mxPoint x="720" y="500" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="2. image 업로드&#xa;(temp 경로)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#2dbd6e;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="client" target="s3">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="170" y="360" /><mxPoint x="620" y="360" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="3. Post 등록 요청" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#29c7c7;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="client" target="spring">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="4. post 저장&#xa;imageCompletion=false" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff8a00;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="db">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="580" /><mxPoint x="1080" y="580" /><mxPoint x="1080" y="670" /><mxPoint x="1780" y="670" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="5. outbox 저장" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff8a00;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="outbox">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="6. 202/200 응답&#xa;postId + PENDING" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#29c7c7;strokeWidth=3;dashed=1;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="client">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="660" y="700" /><mxPoint x="260" y="700" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="7. outbox 조회 + publish" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#29c7c7;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="relay" target="sqs">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="730" /><mxPoint x="1100" y="730" /><mxPoint x="1100" y="440" /><mxPoint x="1460" y="440" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e8" value="8. PUBLISHED 갱신" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7a4dff;strokeWidth=3;dashed=1;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="relay" target="outbox">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="760" /><mxPoint x="1080" y="760" /><mxPoint x="1080" y="700" /><mxPoint x="1160" y="700" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="9. Lambda triggering" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3399ff;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="sqs" target="lambda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="10. 이미지 다운로드 / 압축 / 업로드" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3399ff;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="lambda" target="s3">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1780" y="250" /><mxPoint x="1100" y="250" /><mxPoint x="1100" y="170" /><mxPoint x="920" y="170" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e11" value="11. callback" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3399ff;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="lambda" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1780" y="320" /><mxPoint x="1100" y="320" /><mxPoint x="1100" y="560" /><mxPoint x="960" y="560" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e12" value="12. processed jobs 선점&#xa;imageJobId 중복 확인" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#15aabf;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="processed">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="640" /><mxPoint x="1080" y="640" /><mxPoint x="1080" y="815" /><mxPoint x="1160" y="815" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e13" value="13a. first callback&#xa;post 상태 반영" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff8a00;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="db">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="670" /><mxPoint x="1080" y="670" /><mxPoint x="1080" y="700" /><mxPoint x="1780" y="700" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e14" value="13b. duplicate callback&#xa;duplicateIgnoredCount만 증가" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#15aabf;strokeWidth=3;dashed=1;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="processed">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="700" /><mxPoint x="1080" y="700" /><mxPoint x="1080" y="850" /><mxPoint x="1160" y="850" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e15" value="14. poison message retry" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#fa5252;strokeWidth=3;dashed=1;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="lambda" target="sqs">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1780" y="360" /><mxPoint x="1700" y="360" /><mxPoint x="1700" y="430" /><mxPoint x="1650" y="430" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e16" value="15. maxReceiveCount 초과 후 DLQ 이동" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#fa5252;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="sqs" target="dlq">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" value="16. 상태조회 요청" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7a4dff;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="client" target="spring">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="260" y="780" /><mxPoint x="720" y="780" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e18" value="17. 상태조회 응답" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7a4dff;strokeWidth=3;dashed=1;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="client">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="660" y="850" /><mxPoint x="260" y="850" /></Array></mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

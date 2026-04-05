@@ -36,3 +36,15 @@
 - k6 summaries: `docs/experiments/results/exp-v4-idempotent/k6/*-summary.json`
 - metrics: `docs/experiments/results/exp-v4-idempotent/metrics/*.json`
 - probes: `docs/experiments/results/exp-v4-idempotent/probes/*.json`
+
+## t3.large High-Load Rerun
+
+| scenario | repeats | POST /posts p95 (ms) | error rate | image completion p95 (ms) | duplicate ignored count | duplicate side effect count | DLQ count | dropped iterations |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| heavy_20rps | 1 | 1052.95 | 0.000847 | 107657.00 | 3 | 0 | 0 | 1506 |
+| burst_5_to_30 | 1 | 231.85 | 0.000114 | 78163.80 | 3 | 0 | 0 | 1469 |
+
+메모:
+
+- `V4`는 `heavy`, `burst`에서도 duplicate side effect를 만들지 않았고 `DLQ count`도 증가하지 않았다.
+- 성능 수치 자체는 `V3`와 유사하므로, `V4`는 성능 버전이 아니라 correctness/stability 버전으로 해석하는 것이 맞다.
