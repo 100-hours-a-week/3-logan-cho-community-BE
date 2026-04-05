@@ -23,7 +23,7 @@ sequenceDiagram
     actor Client
     participant Spring as Spring Server
     participant S3
-    participant DB as MySQL / MongoDB
+    participant DB as MongoDB
     participant Outbox as Mongo Outbox
     participant Processed as Processed Jobs
     participant Relay as Outbox Relay
@@ -35,9 +35,9 @@ sequenceDiagram
     Spring-->>Client: presigned URL + objectKey
     Client->>S3: PUT temp image
     Client->>Spring: POST /api/posts
-    Spring->>DB: post PENDING 저장
+    Spring->>DB: post 저장\nimageStatus=PENDING
     Spring->>Outbox: outbox record 저장
-    Spring-->>Client: 200 OK + postId
+    Spring-->>Client: 즉시 생성 응답\npostId + imageStatus=PENDING
 
     Relay->>Outbox: PENDING outbox 조회
     Relay->>SQS: image job publish
@@ -49,7 +49,7 @@ sequenceDiagram
     Lambda->>Spring: callback(postId, imageJobId)
     Spring->>Processed: imageJobId 선점 / 중복 확인
     alt first callback
-        Spring->>DB: COMPLETED / FAILED 반영
+        Spring->>DB: imageStatus=COMPLETED / FAILED 반영
         Spring->>Processed: side effect 1회 기록
     else duplicate callback
         Spring->>Processed: duplicateIgnoredCount 증가
@@ -65,7 +65,7 @@ sequenceDiagram
 ## Request / Completion Flow
 
 1. Client는 `presigned URL 발급 -> temp 업로드 -> POST /api/posts` 흐름으로 게시글을 생성한다.
-2. Spring은 `post PENDING + outbox`를 함께 저장하고 즉시 응답한다.
+2. Spring은 `post(imageStatus=PENDING) + outbox`를 함께 저장하고 즉시 응답한다.
 3. Outbox relay가 main queue로 publish 한다.
 4. Lambda가 이미지를 처리한 뒤 callback을 보낸다.
 5. Spring은 `processed jobs` 컬렉션에서 `imageJobId`를 기준으로 중복 여부를 먼저 확인한다.

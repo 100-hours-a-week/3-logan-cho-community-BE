@@ -8,7 +8,7 @@ sequenceDiagram
     actor Client
     participant Spring as Spring Server
     participant S3
-    participant DB as MySQL / MongoDB
+    participant DB as MongoDB
     participant Obs as k6 / Prometheus
 
     Note over Client,DB: V1은 요청 응답 안에서 이미지 처리 전체가 끝나야 한다
@@ -23,7 +23,7 @@ sequenceDiagram
     Note over Spring: resize / compress / thumbnail\nSpring 프로세스 내부 처리
     Spring->>S3: final / thumbnail 업로드
     Spring->>DB: 게시글 메타데이터 저장
-    Spring-->>Client: 200 OK\n이미지 처리 완료 후 응답
+    Spring-->>Client: 생성 응답\n이미지 처리 완료 후 반환
 
     Obs->>Spring: k6 부하 인가
     Obs->>Spring: Prometheus scrape\n:9100 /actuator/prometheus
@@ -39,7 +39,7 @@ sequenceDiagram
     participant SQS
     participant Lambda
     participant S3
-    participant DB as MySQL / MongoDB
+    participant DB as MongoDB
     participant Obs as k6 / Prometheus
 
     Note over Client,DB: V2는 요청 응답과 이미지 완료 처리를 분리한다
@@ -49,9 +49,9 @@ sequenceDiagram
     Client->>S3: PUT temp image
     S3-->>Client: 200 / 204
     Client->>Spring: POST /api/posts\n(title, content, temp image key)
-    Spring->>DB: 게시글 PENDING 저장
+    Spring->>DB: 게시글 저장\nimageStatus=PENDING
     Spring->>SQS: image job 발행
-    Spring-->>Client: 200 OK\npostId + PENDING
+    Spring-->>Client: 즉시 생성 응답\npostId + imageStatus=PENDING
 
     SQS->>Lambda: image job 전달
     Lambda->>S3: temp 이미지 다운로드
@@ -59,7 +59,7 @@ sequenceDiagram
     Note over Lambda: compress / thumbnail\n비동기 워커 처리
     Lambda->>S3: final / thumbnail 업로드
     Lambda->>Spring: callback\n/api/posts/internal/image-jobs/{postId}
-    Spring->>DB: COMPLETED / FAILED 저장
+    Spring->>DB: imageStatus=COMPLETED / FAILED 저장
     Client->>Spring: detail polling\nimageStatus 확인
     Spring-->>Client: COMPLETED / FAILED 상태 응답
 

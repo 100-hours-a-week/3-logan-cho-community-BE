@@ -4,7 +4,7 @@
 
 `V3`의 핵심은 `V2`의 direct publish를 `outbox + relay`로 바꾼 것이다.
 사용자 시작 플로우는 여전히 `presigned URL 발급 -> temp 업로드 -> POST /api/posts`다.
-차이는 `POST /api/posts` 내부에서 게시글 `PENDING` 저장과 outbox 기록을 함께 남기고,
+차이는 `POST /api/posts` 내부에서 게시글 `imageStatus=PENDING` 저장과 outbox 기록을 함께 남기고,
 별도 relay가 outbox를 읽어 SQS로 발행한다는 점이다.
 
 즉 `V3`는 다음 세 흐름으로 나뉜다.
@@ -32,7 +32,7 @@ sequenceDiagram
     actor Client
     participant Spring as Spring Server
     participant S3
-    participant DB as MySQL / MongoDB
+    participant DB as MongoDB
     participant Outbox as Mongo Outbox
     participant Relay as Outbox Relay
     participant SQS
@@ -45,9 +45,9 @@ sequenceDiagram
     S3-->>Client: 200 / 204
 
     Client->>Spring: POST /api/posts\n(title, content, temp image key)
-    Spring->>DB: post PENDING 저장
+    Spring->>DB: post 저장\nimageStatus=PENDING
     Spring->>Outbox: image job outbox 저장
-    Spring-->>Client: 200 OK\npostId + PENDING
+    Spring-->>Client: 즉시 생성 응답\npostId + imageStatus=PENDING
 
     Relay->>Outbox: PENDING outbox 조회
     Relay->>SQS: image job publish
@@ -59,7 +59,7 @@ sequenceDiagram
     Note over Lambda: resize / compress / thumbnail
     Lambda->>S3: final / thumbnail 업로드
     Lambda->>Spring: callback\n/api/posts/internal/image-jobs/{postId}
-    Spring->>DB: COMPLETED / FAILED 저장
+    Spring->>DB: imageStatus=COMPLETED / FAILED 저장
 
     Client->>Spring: GET /api/posts/{postId}
     Spring-->>Client: imageStatus 응답
@@ -74,14 +74,14 @@ sequenceDiagram
 2. Client가 S3에 temp 이미지를 직접 업로드한다.
 3. Client가 `POST /api/posts`를 호출한다.
 4. Spring은 temp image key를 검증한다.
-5. Spring은 게시글을 `PENDING` 상태로 저장한다.
+5. Spring은 게시글을 `imageStatus=PENDING`으로 저장한다.
 6. Spring은 같은 저장 단위 안에서 outbox record를 함께 저장한다.
 7. Spring은 Client에게 즉시 응답한다.
 8. Outbox relay가 `PENDING` outbox를 읽어 SQS에 발행한다.
 9. 발행 성공 후 outbox 상태를 `PUBLISHED`로 바꾼다.
 10. Lambda가 SQS 메시지를 소비해 이미지를 처리한다.
 11. Lambda가 callback endpoint를 호출한다.
-12. Spring이 게시글 상태를 `COMPLETED` 또는 `FAILED`로 갱신한다.
+12. Spring이 게시글의 `imageStatus`를 `COMPLETED` 또는 `FAILED`로 갱신한다.
 13. Client는 `GET /api/posts/{postId}` polling으로 완료 상태를 확인한다.
 
 ## Metrics Focus

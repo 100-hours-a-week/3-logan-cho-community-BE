@@ -11,32 +11,32 @@
           <mxGeometry x="40" y="62" width="980" height="24" as="geometry" />
         </mxCell>
 
-        <mxCell id="client" value="Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2f4858;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="80" y="560" width="180" height="90" as="geometry" />
+        <mxCell id="client" value="Client" style="shape=image;image=data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Ccircle cx='48' cy='48' r='42' fill='%23f8f9fa'/%3E%3Crect x='24' y='22' width='48' height='34' rx='4' fill='white' stroke='%232f4858' stroke-width='4'/%3E%3Crect x='32' y='30' width='32' height='18' fill='%23e9ecef'/%3E%3Crect x='42' y='60' width='12' height='6' rx='2' fill='%232f4858'/%3E%3Crect x='34' y='66' width='28' height='4' rx='2' fill='%232f4858'/%3E%3C/svg%3E;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;align=center;html=1;fontSize=18;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="100" y="545" width="140" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="s3" value="S3&#xa;&#xa;temp/{timestamp}/xxx.png&#xa;public/post/{postId}/xxx.png&#xa;public/post/{postId}/thumbnail/xxx.png" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7fff0;strokeColor=#7aa61c;strokeWidth=2;fontSize=16;" vertex="1" parent="1">
-          <mxGeometry x="620" y="110" width="300" height="140" as="geometry" />
+        <mxCell id="s3" value="S3&#xa;temp / public / thumbnail" style="shape=image;image=data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cellipse cx='48' cy='24' rx='22' ry='10' fill='%237aa61c'/%3E%3Cpath d='M26 24v34c0 6 10 14 22 14s22-8 22-14V24' fill='%2394d82d'/%3E%3Cellipse cx='48' cy='58' rx='22' ry='10' fill='%2394d82d'/%3E%3Ctext x='48' y='50' font-size='18' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'%3ES3%3C/text%3E%3C/svg%3E;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;align=center;html=1;fontSize=16;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="690" y="105" width="170" height="140" as="geometry" />
         </mxCell>
         <mxCell id="appZone" value="App EC2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#ffb366;strokeWidth=2;dashed=1;fontStyle=1;fontSize=16;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
           <mxGeometry x="680" y="470" width="420" height="300" as="geometry" />
         </mxCell>
-        <mxCell id="spring" value="Spring Server&#xa;&#xa;post + outbox 저장" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4e6;strokeColor=#f08c00;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="740" y="550" width="230" height="100" as="geometry" />
+        <mxCell id="spring" value="Spring Server&#xa;post + outbox 저장" style="shape=image;image=data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Ccircle cx='48' cy='48' r='42' fill='%232f9e44'/%3E%3Ctext x='48' y='60' font-size='38' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'%3ES%3C/text%3E%3C/svg%3E;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;align=center;html=1;fontSize=17;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="790" y="535" width="150" height="135" as="geometry" />
         </mxCell>
         <mxCell id="relay" value="Outbox Relay&#xa;&#xa;pending outbox poll" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9db;strokeColor=#fcc419;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="740" y="680" width="230" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="outbox" value="Mongo Outbox" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#868e96;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
+        <mxCell id="outbox" value="Outbox" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#868e96;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
           <mxGeometry x="1200" y="640" width="190" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="sqs" value="SQS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff0f6;strokeColor=#d63384;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="1460" y="400" width="180" height="100" as="geometry" />
+        <mxCell id="sqs" value="SQS" style="shape=image;image=data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Crect x='12' y='12' width='72' height='72' rx='16' fill='%23d63384'/%3E%3Crect x='28' y='30' width='40' height='8' rx='4' fill='white'/%3E%3Crect x='28' y='44' width='40' height='8' rx='4' fill='white'/%3E%3Crect x='28' y='58' width='40' height='8' rx='4' fill='white'/%3E%3C/svg%3E;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;align=center;html=1;fontSize=18;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="385" width="140" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="lambda" value="Lambda" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4e6;strokeColor=#f08c00;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="1760" y="110" width="180" height="100" as="geometry" />
+        <mxCell id="lambda" value="Lambda" style="shape=image;image=data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Crect x='12' y='12' width='72' height='72' rx='16' fill='%23f08c00'/%3E%3Ctext x='48' y='61' font-size='38' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'%3E%CE%BB%3C/text%3E%3C/svg%3E;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;align=center;html=1;fontSize=18;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="95" width="140" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="db" value="MongoDB&#xa;&#xa;post 상태 저장" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eefaf6;strokeColor=#20c997;strokeWidth=2;fontStyle=1;fontSize=18;" vertex="1" parent="1">
-          <mxGeometry x="1760" y="620" width="230" height="100" as="geometry" />
+        <mxCell id="db" value="MongoDB&#xa;post 상태 저장" style="shape=image;image=data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cellipse cx='48' cy='24' rx='22' ry='10' fill='%2320c997'/%3E%3Cpath d='M26 24v34c0 6 10 14 22 14s22-8 22-14V24' fill='%2338d9a9'/%3E%3Cellipse cx='48' cy='58' rx='22' ry='10' fill='%2338d9a9'/%3E%3Ctext x='48' y='50' font-size='15' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'%3EMDB%3C/text%3E%3C/svg%3E;verticalLabelPosition=bottom;verticalAlign=top;labelPosition=center;align=center;html=1;fontSize=16;fontStyle=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1800" y="605" width="150" height="140" as="geometry" />
         </mxCell>
         <mxCell id="note" value="핵심: create 요청 시점에는 outbox만 남기고, 실제 SQS publish는 relay가 뒤에서 수행한다." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9db;strokeColor=#fcc419;strokeWidth=2;fontSize=15;" vertex="1" parent="1">
           <mxGeometry x="1180" y="270" width="470" height="90" as="geometry" />
@@ -51,13 +51,13 @@
         <mxCell id="e3" value="3. Post 등록 요청" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#29c7c7;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="client" target="spring">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e4" value="4. post 저장&#xa;imageCompletion=false" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff8a00;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="db">
+        <mxCell id="e4" value="4. post 저장&#xa;imageStatus=PENDING" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff8a00;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="db">
           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="970" y="580" /><mxPoint x="1100" y="580" /><mxPoint x="1100" y="650" /><mxPoint x="1760" y="650" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="e5" value="5. outbox record 저장" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff8a00;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="outbox">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e6" value="6. 202/200 응답&#xa;postId + PENDING" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#29c7c7;strokeWidth=3;dashed=1;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="client">
+        <mxCell id="e6" value="6. 즉시 생성 응답&#xa;postId + imageStatus=PENDING" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#29c7c7;strokeWidth=3;dashed=1;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="client">
           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="680" y="700" /><mxPoint x="260" y="700" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="e7" value="7. pending outbox 조회" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7a4dff;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="relay" target="outbox">
@@ -78,7 +78,7 @@
         <mxCell id="e12" value="12. 작업 완료 callback" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#3399ff;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="lambda" target="spring">
           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1760" y="320" /><mxPoint x="1130" y="320" /><mxPoint x="1130" y="560" /><mxPoint x="970" y="560" /></Array></mxGeometry>
         </mxCell>
-        <mxCell id="e13" value="13. post 상태 저장&#xa;imageCompletion=true" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff8a00;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="db">
+        <mxCell id="e13" value="13. post 상태 저장&#xa;imageStatus=COMPLETED/FAILED" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff8a00;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="spring" target="db">
           <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="970" y="640" /><mxPoint x="1080" y="640" /><mxPoint x="1080" y="680" /><mxPoint x="1760" y="680" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="e14" value="14. 상태조회 요청&#xa;(lazy retry / polling)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#7a4dff;strokeWidth=3;endArrow=block;fontSize=14;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="client" target="spring">

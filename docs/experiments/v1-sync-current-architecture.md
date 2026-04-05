@@ -37,7 +37,7 @@ sequenceDiagram
     actor Client
     participant Spring as Spring Server
     participant S3
-    participant DB as MySQL / MongoDB
+    participant DB as MongoDB
     participant Obs as k6 / Prometheus
 
     Note over Client,DB: V1은 요청 응답 안에서 이미지 처리 전체가 끝나야 한다
@@ -52,7 +52,7 @@ sequenceDiagram
     Note over Spring: resize / compress / thumbnail\nSpring 프로세스 내부 처리
     Spring->>S3: final / thumbnail 업로드
     Spring->>DB: 게시글 메타데이터 저장
-    Spring-->>Client: 200 OK\n이미지 처리 완료 후 응답
+    Spring-->>Client: 생성 응답\n이미지 처리 완료 후 반환
 
     Obs->>Spring: k6 부하 인가
     Obs->>Spring: Prometheus scrape\n:9100 /actuator/prometheus
@@ -67,8 +67,8 @@ sequenceDiagram
 5. Spring이 S3에서 temp 이미지를 다운로드한다.
 6. Spring 프로세스 안에서 압축과 썸네일 생성을 수행한다.
 7. Spring이 S3에 final 이미지와 thumbnail 이미지를 업로드한다.
-8. Spring이 MySQL / MongoDB에 게시글 메타데이터를 저장한다.
-9. 모든 단계가 끝난 뒤에야 Client에게 응답을 돌려준다.
+8. Spring이 MongoDB에 게시글 메타데이터를 저장한다.
+9. 모든 단계가 끝난 뒤에야 Client에게 생성 응답을 돌려준다.
 
 즉, 요청 1건의 latency 안에 이미지 처리 전체가 묶인다.
 
@@ -80,9 +80,10 @@ sequenceDiagram
 - Spring ↔ S3
   - temp 다운로드
   - final / thumbnail 업로드
-- Spring ↔ MySQL / MongoDB / Redis
-  - 게시글 저장
-  - 읽기/캐시 보조
+- Spring ↔ MongoDB
+  - 게시글 메타데이터 저장 / 조회
+- Spring ↔ MySQL / Redis
+  - 게시글 본 요청 플로우의 주 저장소는 아니고, 다른 도메인/보조 조회에 사용
 - k6 ↔ Spring
   - presigned URL 발급
   - temp 업로드
@@ -115,6 +116,10 @@ sequenceDiagram
 ## What The User Feels
 
 사용자 입장에서는 `POST /api/posts`가 이미지 처리 완료를 기다린다.
+
+참고:
+- 코드 모델에는 `imageStatus` enum(`PENDING`, `COMPLETED`, `FAILED`)이 존재한다.
+- 다만 `V1` 아키텍처의 핵심은 상태 전이보다 "요청 응답 안에서 이미지 처리가 끝난다"는 점이다.
 
 - 장점
   - 응답 시점에 이미 게시글 이미지가 최종 상태다
