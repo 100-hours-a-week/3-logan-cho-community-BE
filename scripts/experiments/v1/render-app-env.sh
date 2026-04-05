@@ -60,6 +60,7 @@ optional_keys = [
     "IMAGE_PIPELINE_OUTBOX_RELAY_ENABLED",
     "IMAGE_PIPELINE_OUTBOX_RELAY_FIXED_DELAY_MS",
     "IMAGE_PIPELINE_OUTBOX_RELAY_BATCH_SIZE",
+    "IMAGE_PIPELINE_IDEMPOTENCY_ENABLED",
 ]
 for key in optional_keys:
     value = os.environ.get(key)

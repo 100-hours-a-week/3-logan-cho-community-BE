@@ -17,6 +17,7 @@ K6_HOST="${K6_SSH_HOST_OVERRIDE:-$(k6_ssh_host)}"
 IMAGE_PATH="${IMAGE_PATH:-${PROJECT_ROOT}/docs/images/write-post.png}"
 REMOTE_DIR="/opt/image-pipeline-k6"
 FILE_PREFIX="${SCENARIO}"
+RESULT_ROOT="${RESULT_ROOT:-docs/experiments/results/exp-v3-outbox}"
 
 if [[ -n "${RUN_LABEL}" ]]; then
   FILE_PREFIX="${SCENARIO}-${RUN_LABEL}"
@@ -45,19 +46,19 @@ BASE_URL='${APP_URL}' ACCESS_TOKEN='${ACCESS_TOKEN}' IMAGE_PATH='${REMOTE_DIR}/s
   k6 run ${REMOTE_DIR}/image-pipeline-v2.js --summary-export ${REMOTE_DIR}/summary.json > ${REMOTE_DIR}/stdout.log 2>&1
 "
 
-mkdir -p "${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/k6"
+mkdir -p "${PROJECT_ROOT}/${RESULT_ROOT}/k6"
 scp -i "$(ssh_key_path)" \
   -o StrictHostKeyChecking=no \
   -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
   -o ConnectTimeout=10 \
   "$(ssh_user)@${K6_HOST}:${REMOTE_DIR}/summary.json" \
-  "${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/k6/${FILE_PREFIX}-summary.json" >/dev/null
+  "${PROJECT_ROOT}/${RESULT_ROOT}/k6/${FILE_PREFIX}-summary.json" >/dev/null
 scp -i "$(ssh_key_path)" \
   -o StrictHostKeyChecking=no \
   -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
   -o ConnectTimeout=10 \
   "$(ssh_user)@${K6_HOST}:${REMOTE_DIR}/stdout.log" \
-  "${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/k6/${FILE_PREFIX}-stdout.log" >/dev/null
+  "${PROJECT_ROOT}/${RESULT_ROOT}/k6/${FILE_PREFIX}-stdout.log" >/dev/null
 
-tail -n 120 "${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/k6/${FILE_PREFIX}-stdout.log"
-log "k6 result saved under docs/experiments/results/exp-v3-outbox/k6/"
+tail -n 120 "${PROJECT_ROOT}/${RESULT_ROOT}/k6/${FILE_PREFIX}-stdout.log"
+log "k6 result saved under ${RESULT_ROOT}/k6/"

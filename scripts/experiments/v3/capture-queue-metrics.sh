@@ -19,7 +19,8 @@ if [[ -z "${QUEUE_URL}" ]]; then
 fi
 
 QUEUE_NAME="${QUEUE_URL##*/}"
-OUT_DIR="${PROJECT_ROOT}/docs/experiments/results/exp-v3-outbox/metrics"
+RESULT_ROOT="${RESULT_ROOT:-docs/experiments/results/exp-v3-outbox}"
+OUT_DIR="${PROJECT_ROOT}/${RESULT_ROOT}/metrics"
 OUT_PATH="${OUT_DIR}/queue-${SCENARIO}-${RUN_LABEL}.json"
 mkdir -p "${OUT_DIR}"
 

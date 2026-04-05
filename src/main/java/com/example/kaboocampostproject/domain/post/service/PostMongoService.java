@@ -10,6 +10,7 @@ import com.example.kaboocampostproject.domain.like.repository.PostLikeRepository
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheDTO;
 import com.example.kaboocampostproject.domain.member.cache.MemberProfileCacheService;
 import com.example.kaboocampostproject.domain.post.converter.PostConverter;
+import com.example.kaboocampostproject.domain.post.document.ImageJobProcessedDocument;
 import com.example.kaboocampostproject.domain.post.document.PostDocument;
 import com.example.kaboocampostproject.domain.post.dto.req.AsyncImageJobCallbackReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.req.PostCreatReqDTO;
@@ -23,6 +24,7 @@ import com.example.kaboocampostproject.domain.post.error.PostErrorCode;
 import com.example.kaboocampostproject.domain.post.error.PostException;
 import com.example.kaboocampostproject.domain.post.enums.PostImageStatus;
 import com.example.kaboocampostproject.domain.post.repository.PostMongoRepository;
+import com.example.kaboocampostproject.domain.post.repository.ImageJobProcessedRepository;
 import com.example.kaboocampostproject.domain.s3.service.S3Service;
 import com.example.kaboocampostproject.domain.s3.util.CloudFrontUtil;
 import com.example.kaboocampostproject.domain.s3.util.S3Util;
@@ -31,7 +33,9 @@ import com.example.kaboocampostproject.global.cursor.CursorCodec;
 import com.example.kaboocampostproject.global.cursor.PageSlice;
 import com.example.kaboocampostproject.global.error.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.time.Instant;
@@ -56,6 +60,7 @@ public class PostMongoService {
     private final ImageProcessingService imageProcessingService;
     private final ImageJobPublisher imageJobPublisher;
     private final ImageJobOutboxService imageJobOutboxService;
+    private final ImageJobProcessedRepository imageJobProcessedRepository;
     private final ImagePipelineProperties imagePipelineProperties;
 
     private static final int PAGE_SIZE = 10;
@@ -97,12 +102,19 @@ public class PostMongoService {
         }
     }
 
+    @Transactional("mongoTransactionManager")
     public void completeAsyncImageJob(String postId, AsyncImageJobCallbackReqDTO request) {
         PostDocument post = postRepository.findByIdAndDeletedAtIsNull(postId)
                 .orElseThrow(() -> new PostException(PostErrorCode.POST_NOT_FOUND));
 
         if (post.getImageJobId() == null || !post.getImageJobId().equals(request.imageJobId())) {
             throw new PostException(PostErrorCode.POST_IMAGE_JOB_MISMATCH);
+        }
+
+        if (imagePipelineProperties.isIdempotencyEnabled()) {
+            if (!claimCallbackProcessing(postId, request)) {
+                return;
+            }
         }
 
         if (request.imageStatus() == PostImageStatus.COMPLETED) {
@@ -120,6 +132,42 @@ public class PostMongoService {
         post.setFailureReason(request.failureReason());
         post.setCompletedAt(Instant.now());
         postRepository.save(post);
+    }
+
+    private boolean claimCallbackProcessing(String postId, AsyncImageJobCallbackReqDTO request) {
+        ImageJobProcessedDocument existing = imageJobProcessedRepository
+                .findByImageJobId(request.imageJobId())
+                .orElse(null);
+
+        if (existing != null) {
+            existing.markDuplicateCallback();
+            imageJobProcessedRepository.save(existing);
+            return false;
+        }
+
+        try {
+            imageJobProcessedRepository.save(
+                    ImageJobProcessedDocument.builder()
+                            .imageJobId(request.imageJobId())
+                            .postId(postId)
+                            .imageStatus(request.imageStatus())
+                            .sideEffectApplyCount(1)
+                            .callbackReceiveCount(1)
+                            .duplicateIgnoredCount(0)
+                            .failureReason(request.failureReason())
+                            .build()
+            );
+            return true;
+        } catch (DuplicateKeyException ignored) {
+            ImageJobProcessedDocument duplicate = imageJobProcessedRepository
+                    .findByImageJobId(request.imageJobId())
+                    .orElse(null);
+            if (duplicate != null) {
+                duplicate.markDuplicateCallback();
+                imageJobProcessedRepository.save(duplicate);
+            }
+            return false;
+        }
     }
 
     private List<String> calculateRemaining(List<String> oldImages, List<String> addedImages, List<String> removedImages) {

@@ -31,4 +31,7 @@ public class ImagePipelineProperties {
 
     @Value("${image.pipeline.outbox.relay-batch-size:20}")
     private int outboxRelayBatchSize;
+
+    @Value("${image.pipeline.idempotency-enabled:false}")
+    private boolean idempotencyEnabled;
 }
