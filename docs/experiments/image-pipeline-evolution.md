@@ -88,6 +88,23 @@
 목적:
 - at-least-once 전달 환경에서 중복 소비와 poison message를 안전하게 처리하는지 검증
 
+## 현재 기준선의 범위와 다음 단계
+
+현재 repo에 정리된 `v1 ~ v4` 기준선은 의도적으로 단순한 단일 App 노드 실험 기준이다.
+
+- App EC2는 단일 인스턴스
+- callback URL도 단일 앱 주소 기준
+- `v3`, `v4`의 outbox relay는 같은 앱 내부 스케줄러 컴포넌트로 시작했다
+
+즉 현재 수치는 구조 비교용 baseline으로는 유효하지만, 곧바로 multi-ASG 운영 안전성을 증명하는 수치는 아니다.
+
+multi-ASG 재실험으로 넘어갈 때는 아래를 추가 조건으로 둔다.
+
+- Spring App은 ALB 뒤의 다중 인스턴스
+- callback URL은 인스턴스 public IP가 아니라 ALB 주소
+- MongoDB / Redis / MySQL은 앱 노드 로컬이 아니라 shared data 계층
+- `v3`, `v4` outbox relay는 여러 노드가 동시에 떠도 같은 outbox row를 중복 publish 하지 않도록 원자적 claim을 사용
+
 ## 버전 간 고정 조건
 
 아래 항목은 버전 간 동일하게 유지한다.

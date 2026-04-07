@@ -88,3 +88,11 @@ sequenceDiagram
 - `DLQ count`
 - `docs/experiments/results/exp-v4-idempotent/metrics/*.json`
 - `docs/experiments/results/exp-v4-idempotent/probes/*.json`
+
+## Scope Note
+
+현재 기준선은 single app node에서 수집한 baseline이다.
+
+- `processed jobs` 기준 idempotent callback 처리는 여러 앱 노드에서도 유지될 수 있게 설계했다
+- 다만 multi-ASG에서 전체 구조를 안전하다고 보려면 relay 중복 publish 방지, shared data 계층, ALB callback 경로가 같이 필요하다
+- 따라서 `V4`의 다음 실험은 `single-node correctness baseline` 위에서 `multi-ASG rerun`으로 이어지는 것이 맞다

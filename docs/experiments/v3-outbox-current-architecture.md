@@ -98,3 +98,11 @@ sequenceDiagram
 - `orphan pending post count`
 - `docs/experiments/results/exp-v3-outbox/metrics/queue-*.json`
 - `docs/experiments/results/exp-v3-outbox/metrics/outbox-*.json`
+
+## Scope Note
+
+현재 기준선은 single app node에서 수집한 baseline이다.
+
+- 이번 단계의 핵심은 `direct publish -> outbox + relay` 구조 차이 검증
+- multi-ASG까지 확장하려면 relay가 같은 outbox row를 여러 노드가 동시에 집지 않도록 원자적 claim이 필요하다
+- 현재 코드에는 그 claim 로직을 추가했지만, 실제 multi-ASG 재실험은 shared data 계층과 ALB callback 경로를 분리한 뒤 다시 수행해야 한다

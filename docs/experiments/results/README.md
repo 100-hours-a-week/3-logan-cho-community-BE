@@ -33,6 +33,8 @@
 ## Cross-Version Notes
 
 - `t3.large` high-load rerun 비교: `docs/experiments/results/t3large-high-load-rerun-2026-04-05.md`
+- 현재 `V1 ~ V4` 기준선은 single app node baseline이다.
+- multi-ASG 재실험은 `V3`, `V4`를 대상으로 진행하고, ALB + shared data + multi-node safe outbox relay를 전제로 본다.
 
 ## Reading Order
 

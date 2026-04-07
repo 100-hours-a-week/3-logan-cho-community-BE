@@ -34,6 +34,7 @@ public class ImageJobOutboxDocument {
     private String lastError;
     private Instant nextAttemptAt;
     private Instant publishedAt;
+    private String processingOwner;
 
     @CreatedDate
     private Instant createdAt;
@@ -50,7 +51,8 @@ public class ImageJobOutboxDocument {
             int publishAttempts,
             String lastError,
             Instant nextAttemptAt,
-            Instant publishedAt
+            Instant publishedAt,
+            String processingOwner
     ) {
         this.imageJobId = imageJobId;
         this.postId = postId;
@@ -60,12 +62,14 @@ public class ImageJobOutboxDocument {
         this.lastError = lastError;
         this.nextAttemptAt = nextAttemptAt;
         this.publishedAt = publishedAt;
+        this.processingOwner = processingOwner;
     }
 
     public void markPublished(Instant now) {
         this.status = ImageJobOutboxStatus.PUBLISHED;
         this.publishedAt = now;
         this.lastError = null;
+        this.processingOwner = null;
     }
 
     public void markRetryScheduled(Instant nextAttemptAt, String lastError) {
@@ -73,5 +77,12 @@ public class ImageJobOutboxDocument {
         this.publishAttempts += 1;
         this.lastError = lastError;
         this.nextAttemptAt = nextAttemptAt;
+        this.processingOwner = null;
+    }
+
+    public void markProcessing(String processingOwner, Instant leaseUntil) {
+        this.status = ImageJobOutboxStatus.PROCESSING;
+        this.processingOwner = processingOwner;
+        this.nextAttemptAt = leaseUntil;
     }
 }

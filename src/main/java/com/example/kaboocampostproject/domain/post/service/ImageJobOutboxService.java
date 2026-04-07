@@ -15,18 +15,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
 public class ImageJobOutboxService {
+    private static final long RELAY_LEASE_SECONDS = 30L;
 
     private final PostMongoRepository postRepository;
     private final ImageJobOutboxRepository outboxRepository;
     private final ImageJobPublisher imageJobPublisher;
     private final ObjectMapper objectMapper;
     private final ImagePipelineProperties imagePipelineProperties;
+    private final String relayOwner = "relay-" + UUID.randomUUID();
 
     @Transactional("mongoTransactionManager")
     public void savePostWithOutbox(PostDocument post, Function<PostDocument, AsyncImageJobMessage> messageFactory) {
@@ -42,6 +44,7 @@ public class ImageJobOutboxService {
                         .lastError(null)
                         .nextAttemptAt(Instant.now())
                         .publishedAt(null)
+                        .processingOwner(null)
                         .build()
         );
     }
@@ -54,21 +57,27 @@ public class ImageJobOutboxService {
             return;
         }
 
-        List<ImageJobOutboxDocument> pending = outboxRepository
-                .findTop100ByStatusAndNextAttemptAtLessThanEqualOrderByCreatedAtAsc(
-                        ImageJobOutboxStatus.PENDING,
-                        Instant.now()
-                );
-
         int batchSize = Math.max(1, imagePipelineProperties.getOutboxRelayBatchSize());
-        for (ImageJobOutboxDocument document : pending.stream().limit(batchSize).toList()) {
+        for (int i = 0; i < batchSize; i++) {
+            Instant now = Instant.now();
+            ImageJobOutboxDocument document = outboxRepository
+                    .claimNextRelayCandidate(now, now.plusSeconds(RELAY_LEASE_SECONDS), relayOwner)
+                    .orElse(null);
+            if (document == null) {
+                break;
+            }
             try {
                 imageJobPublisher.publish(readPayload(document.getPayloadJson()));
-                document.markPublished(Instant.now());
+                outboxRepository.completeRelayAttempt(document.getId(), relayOwner, true, null, null);
             } catch (RuntimeException e) {
-                document.markRetryScheduled(nextAttemptAt(document), trimError(e));
+                outboxRepository.completeRelayAttempt(
+                        document.getId(),
+                        relayOwner,
+                        false,
+                        nextAttemptAt(document),
+                        trimError(e)
+                );
             }
-            outboxRepository.save(document);
         }
     }
 
