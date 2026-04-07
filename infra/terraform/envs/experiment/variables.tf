@@ -28,6 +28,21 @@ variable "k6_subnet_id" {
   type = string
 }
 
+variable "db_subnet_id" {
+  type    = string
+  default = null
+}
+
+variable "alb_subnet_ids" {
+  type    = list(string)
+  default = []
+}
+
+variable "app_asg_subnet_ids" {
+  type    = list(string)
+  default = []
+}
+
 variable "ssh_allowed_cidrs" {
   type = list(string)
 }
@@ -53,6 +68,11 @@ variable "k6_ami_id" {
   type = string
 }
 
+variable "db_ami_id" {
+  type    = string
+  default = null
+}
+
 variable "app_instance_type" {
   type = string
 }
@@ -61,9 +81,44 @@ variable "k6_instance_type" {
   type = string
 }
 
+variable "db_instance_type" {
+  type    = string
+  default = "t3.medium"
+}
+
 variable "key_name" {
   type    = string
   default = null
+}
+
+variable "enable_app_asg" {
+  type    = bool
+  default = false
+}
+
+variable "app_asg_min_size" {
+  type    = number
+  default = 2
+}
+
+variable "app_asg_max_size" {
+  type    = number
+  default = 2
+}
+
+variable "app_asg_desired_capacity" {
+  type    = number
+  default = 2
+}
+
+variable "app_health_check_path" {
+  type    = string
+  default = "/api/health"
+}
+
+variable "experiment_ssh_public_key" {
+  type    = string
+  default = ""
 }
 
 variable "s3_bucket_name" {

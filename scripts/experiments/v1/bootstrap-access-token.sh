@@ -8,7 +8,7 @@ source "${SCRIPT_DIR}/../lib/common.sh"
 
 require_cmd python3
 
-APP_URL="${APP_URL:-http://$(app_public_ip):8080}"
+APP_URL="${APP_URL:-$(app_base_url)}"
 DEVICE_ID="${DEVICE_ID:-experiment-device}"
 USER_SUFFIX="${USER_SUFFIX:-$(date +%s)}"
 EMAIL="${EMAIL:-exp-v1-${USER_SUFFIX}@example.com}"
@@ -37,7 +37,8 @@ print(json.dumps({
 PY
 )"
 
-python3 - "${APP_URL}" "${REGISTER_PAYLOAD}" "${LOGIN_PAYLOAD}" <<'PY'
+for _ in $(seq 1 20); do
+  if python3 - "${APP_URL}" "${REGISTER_PAYLOAD}" "${LOGIN_PAYLOAD}" <<'PY'
 import json
 import sys
 import urllib.error
@@ -63,7 +64,13 @@ def request(method, path, payload=None):
         return e.code, e.read().decode("utf-8")
 
 status, body = request("POST", "/api/members", register_payload)
-if status not in (200, 409):
+duplicate_code = None
+try:
+    duplicate_code = json.loads(body).get("code")
+except Exception:
+    duplicate_code = None
+
+if status not in (200, 409) and duplicate_code != "MEMBER_401_01":
     print(body, file=sys.stderr)
     sys.exit(1)
 
@@ -76,3 +83,11 @@ payload = json.loads(body)
 token = payload["data"]["accessJwt"]
 print(token)
 PY
+  then
+    exit 0
+  fi
+  sleep 3
+done
+
+printf 'bootstrap access token failed after retries: %s\n' "${APP_URL}" >&2
+exit 1

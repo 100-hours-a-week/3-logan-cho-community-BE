@@ -9,7 +9,7 @@ source "${SCRIPT_DIR}/../lib/common.sh"
 require_cmd python3
 require_cmd timeout
 
-APP_URL="${APP_URL:-http://$(app_public_ip):8080}"
+APP_URL="${APP_URL:-$(app_base_url)}"
 APP_HOST="${APP_SSH_HOST_OVERRIDE:-$(app_ssh_host)}"
 QUEUE_URL="$(optional_tf_output sqs_queue_url)"
 DLQ_URL="$(optional_tf_output dlq_url)"

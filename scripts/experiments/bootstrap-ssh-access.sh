@@ -20,7 +20,19 @@ fi
 ensure_file "${PUB_KEY_PATH}"
 PUB_KEY_CONTENT="$(cat "${PUB_KEY_PATH}")"
 
-for instance_id in "$(app_instance_id)" "$(k6_instance_id)"; do
+INSTANCE_IDS=()
+while IFS= read -r instance_id; do
+  [[ -n "${instance_id}" ]] && INSTANCE_IDS+=("${instance_id}")
+done < <(app_instance_ids)
+
+db_id="$(db_instance_id)"
+if [[ -n "${db_id}" && "${db_id}" != "null" ]]; then
+  INSTANCE_IDS+=("${db_id}")
+fi
+
+INSTANCE_IDS+=("$(k6_instance_id)")
+
+for instance_id in "${INSTANCE_IDS[@]}"; do
   command_id="$(ssm_send "${instance_id}" "install experiment ssh key" "[\"mkdir -p ~/.ssh\",\"touch ~/.ssh/authorized_keys\",\"grep -qxF '${PUB_KEY_CONTENT}' ~/.ssh/authorized_keys || echo '${PUB_KEY_CONTENT}' >> ~/.ssh/authorized_keys\",\"chmod 700 ~/.ssh\",\"chmod 600 ~/.ssh/authorized_keys\"]")"
   status="$(ssm_wait "${command_id}")"
   ssm_output "${command_id}"
@@ -30,4 +42,4 @@ for instance_id in "$(app_instance_id)" "$(k6_instance_id)"; do
   fi
 done
 
-log "ssh access bootstrapped for app and k6 instances"
+log "ssh access bootstrapped for app, db, and k6 instances"

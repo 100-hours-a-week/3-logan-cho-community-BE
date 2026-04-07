@@ -35,6 +35,8 @@
 - `t3.large` high-load rerun 비교: `docs/experiments/results/t3large-high-load-rerun-2026-04-05.md`
 - 현재 `V1 ~ V4` 기준선은 single app node baseline이다.
 - multi-ASG 재실험은 `V3`, `V4`를 대상으로 진행하고, ALB + shared data + multi-node safe outbox relay를 전제로 본다.
+- 2026-04-07에 `db EC2 + app ASG + ALB` 분리 인프라에서 `V3`, `V4`를 1회씩 다시 실행했다.
+- 이 재실행의 목적은 성능 절대치 개선이 아니라, multi-node relay/callback 정합성을 확인하고 high-load completion 병목을 다시 측정하는 것이다.
 
 ## Reading Order
 
@@ -43,6 +45,8 @@
 3. `exp-v3-outbox/summary.md`
 4. `exp-v4-idempotent/summary.md`
 5. `t3large-high-load-rerun-2026-04-05.md`
+6. `exp-v3-outbox/v3-baseline-report-2026-04-05.md`
+7. `exp-v4-idempotent/v4-baseline-report-2026-04-05.md`
 
 ## Primary Metrics
 

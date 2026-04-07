@@ -3,13 +3,15 @@
 ## Scope
 
 이 문서는 `exp-v3-outbox` 기준선을 정리한다.
+현재 표는 2026-04-07 multi-ASG 분리 인프라 재실행 결과를 기준으로 갱신했다.
 
 ## Aggregated Results
 
 | scenario | repeats | POST /posts p95 avg (ms) | error rate avg | image completion latency p95 avg (ms) | pending outbox avg | orphan pending posts avg |
 |---|---:|---:|---:|---:|---:|---:|
-| medium_10rps | 3 | 66.05 | 0.001716 | 2177.80 | 0.00 | 0.00 |
-| heavy_20rps | 2 | 998.99 | 0.015588 | 47956.00 | n/a | n/a |
+| medium_10rps | 1 | 127.31 | 0.000033 | 48018.25 | 0.00 | 0.00 |
+| heavy_20rps | 1 | 1140.08 | 0.000017 | 88290.75 | n/a | n/a |
+| burst_5_to_30 | 1 | 57.27 | 0.000000 | 74904.00 | 0.00 | 529.00 |
 
 ## Raw Files
 
@@ -20,18 +22,7 @@
 
 ## Notes
 
-- `V3`는 `medium_10rps` 3회, `heavy_20rps` 2회까지 수집됐다.
-- `burst_5_to_30`은 App EC2가 `heavy` 이후 SSH/health 응답을 잃어 아직 미수집 상태다.
-- `outbox-heavy_20rps-run2.json`은 부하 직후 snapshot 접속 실패로 `captureStatus=unavailable`만 남겼다.
-
-## t3.large High-Load Rerun
-
-| scenario | repeats | POST /posts p95 (ms) | error rate | image completion latency p95 (ms) | pending outbox | orphan pending posts | dropped iterations |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| heavy_20rps | 1 | 1100.66 | 0.000906 | 109644.00 | 263 | 282 | 1554 |
-| burst_5_to_30 | 1 | 194.36 | 0.000109 | 83331.70 | 0 | 0 | 1499 |
-
-메모:
-
-- `heavy_20rps-t3large-rerun1`은 queue 설정 불일치로 무효이며 보고에는 포함하지 않는다.
-- `t3.large` 재실행으로 `V3`의 고부하 수집을 끝까지 완주할 수 있었지만, 완료 지연과 잔여 outbox는 여전히 크게 남는다.
+- 이번 결과는 `db EC2 + app ASG 2대 + ALB` 분리 인프라에서 시나리오별 1회 재실행한 값이다.
+- 목적은 multi-node relay 정합성과 high-load completion 병목을 다시 확인하는 것이었다.
+- request path는 유지됐지만, completion latency와 dropped iterations는 여전히 높다.
+- `outbox-heavy_20rps-run1.json`은 snapshot은 남았지만 pending/outbox가 `n/a`로 기록된 구간이 있어 raw 파일 확인이 필요하다.

@@ -1,6 +1,6 @@
 {
-  "totalOutboxCount": 1189,
+  "totalOutboxCount": 488,
   "pendingOutboxCount": 0,
-  "publishedOutboxCount": 1189,
-  "orphanPendingPostCount": 0
+  "publishedOutboxCount": 488,
+  "orphanPendingPostCount": 240
 }

@@ -46,6 +46,10 @@ app_instance_id() {
   tf_output app_instance_id
 }
 
+app_asg_name() {
+  optional_tf_output app_asg_name
+}
+
 k6_instance_id() {
   tf_output k6_instance_id
 }
@@ -54,11 +58,71 @@ app_public_ip() {
   tf_output app_public_ip
 }
 
+app_alb_dns_name() {
+  optional_tf_output app_alb_dns_name
+}
+
 k6_public_ip() {
   tf_output k6_public_ip
 }
 
+db_instance_id() {
+  optional_tf_output db_instance_id
+}
+
+db_public_ip() {
+  optional_tf_output db_public_ip
+}
+
+db_private_ip() {
+  optional_tf_output db_private_ip
+}
+
+app_base_url() {
+  local alb_dns
+  alb_dns="$(app_alb_dns_name)"
+  if [[ -n "${alb_dns}" && "${alb_dns}" != "null" ]]; then
+    printf 'http://%s:8080' "${alb_dns}"
+    return 0
+  fi
+  printf 'http://%s:8080' "$(app_public_ip)"
+}
+
+app_instance_ids() {
+  local asg
+  asg="$(app_asg_name)"
+  if [[ -n "${asg}" && "${asg}" != "null" ]]; then
+    aws autoscaling describe-auto-scaling-groups \
+      --auto-scaling-group-names "${asg}" \
+      --query 'AutoScalingGroups[0].Instances[?LifecycleState==`InService`].InstanceId' \
+      --output text | tr '\t' '\n' | sed '/^$/d'
+    return 0
+  fi
+  app_instance_id
+}
+
+app_public_ips() {
+  local ids
+  ids="$(app_instance_ids | tr '\n' ' ')"
+  if [[ -z "${ids// }" ]]; then
+    return 0
+  fi
+  aws ec2 describe-instances \
+    --instance-ids ${ids} \
+    --query 'Reservations[].Instances[].PublicIpAddress' \
+    --output text | tr '\t' '\n' | sed '/^$/d'
+}
+
 app_private_ip() {
+  if [[ -n "$(app_asg_name)" && "$(app_asg_name)" != "null" ]]; then
+    local first_id
+    first_id="$(app_instance_ids | head -n 1)"
+    aws ec2 describe-instances \
+      --instance-ids "${first_id}" \
+      --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+      --output text
+    return 0
+  fi
   aws ec2 describe-instances \
     --instance-ids "$(app_instance_id)" \
     --query 'Reservations[0].Instances[0].PrivateIpAddress' \
@@ -147,7 +211,11 @@ ssh_opts() {
 }
 
 app_ssh_host() {
-  app_public_ip
+  app_public_ips | head -n 1
+}
+
+db_ssh_host() {
+  db_public_ip
 }
 
 k6_ssh_host() {

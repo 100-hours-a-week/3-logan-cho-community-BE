@@ -2,106 +2,65 @@
 
 실행 일시:
 - 2026-04-05
+- 2026-04-07
 
 실행 기준:
 - 브랜치: `experiment/image-pipeline-evolution`
+- 기준선 1: single app node baseline
+- 기준선 2: `db EC2 + app ASG + ALB` 분리 인프라 재실행
 - 1차 비교 지표: `k6` 기준 `POST /posts p95`, `API error rate`
-- 추가 안정성 지표: `duplicate side effect count`, `duplicate callback ignored count`, `DLQ count`
-- 상태: `smoke + medium_10rps 1회 + stability probes + t3.large high-load rerun`
+- 추가 지표: `image completion latency p95`, `duplicate side effect count`, `DLQ count`
 
 원본 결과:
 - `docs/experiments/results/exp-v4-idempotent/k6/*-summary.json`
 - `docs/experiments/results/exp-v4-idempotent/k6/*-stdout.log`
 - `docs/experiments/results/exp-v4-idempotent/metrics/*.json`
-- `docs/experiments/results/exp-v4-idempotent/probes/*.json`
 
-## Smoke
+## Scenario Results
 
-- `POST /posts p95`: `769.96ms`
-- `API error rate`: `0.000000`
-- `image completion p95`: `4095ms`
-- `duplicate side effect count`: `0`
-- `DLQ count`: `0`
+### multi_asg_rerun_2026_04_07
 
-## Medium
+- topology: `db EC2 1대 + app ASG 2대 + ALB 1개 + k6/observability 1대`
+- repeats: 시나리오별 1회
+- 목적: multi-node callback/idempotency 정합성과 high-load completion 병목 재확인
 
-- 파일: `docs/experiments/results/exp-v4-idempotent/k6/medium_10rps-run1-summary.json`
-- `POST /posts p95`: `62.32ms`
-- `API error rate`: `0.001732`
-- `image completion p95`: `3158.85ms`
-- `processed job count`: `1189`
-- `duplicate ignored count`: `1`
-- `duplicate side effect count`: `0`
-- `DLQ count`: `0`
-- 해석: `V4`는 `medium_10rps`에서도 요청 경로 응답은 `V2/V3` 수준으로 유지하고, 중복 callback이 관찰돼도 side effect는 추가 반영되지 않았다.
+### medium_10rps
 
-## Probe Results
-
-### duplicate delivery
-
-- 파일: `docs/experiments/results/exp-v4-idempotent/probes/duplicate-delivery.json`
-- `duplicateIgnoredCount`: `2`
-- `duplicateSideEffectCount`: `0`
-- 해석: 같은 `imageJobId` callback이 2회 추가로 들어와도 side effect는 1회만 반영됐다.
-
-### poison message
-
-- 파일: `docs/experiments/results/exp-v4-idempotent/probes/poison-message.json`
-- 상태: 주입 및 redrive 확인 완료
-- 증거:
-  - Lambda log에서 `NoSuchKey` 실패 확인
-  - main queue `in-flight` 후 `DLQ count = 1` 확인
-- 해석: poison message는 main queue 안에서 무한 재시도되지 않고 최종적으로 `DLQ`로 격리됐다.
-
-## Interpretation
-
-- `V4`는 `outbox + relay` 위에 `processed jobs` 저장소를 추가해 callback 소비를 idempotent 하게 만들었다.
-- duplicate replay에 대해 `duplicateIgnoredCount = 2`, `duplicateSideEffectCount = 0`을 확인했다.
-- poison message는 실제로 Lambda 실패를 만들었고, 최종적으로 `DLQ`에 격리되는 것도 확인했다.
-- 이번 문서는 `full load baseline`이 아니라 `stability-focused partial baseline`이다. 이후 `heavy`, `burst`는 같은 포맷으로 누적한다.
-
-## t3.large High-Load Rerun
-
-- 환경: `App EC2 t3.large`, `k6 EC2 t3.small`
-- 목적: `idempotent + DLQ` 계층이 `heavy`, `burst`에서도 side effect 없이 유지되는지 확인
-- 파일:
-  - `docs/experiments/results/exp-v4-idempotent/k6/heavy_20rps-t3large-fixed1-summary.json`
-  - `docs/experiments/results/exp-v4-idempotent/k6/burst_5_to_30-t3large-fixed1-summary.json`
-  - `docs/experiments/results/exp-v4-idempotent/metrics/processed-heavy_20rps-t3large-fixed1.json`
-  - `docs/experiments/results/exp-v4-idempotent/metrics/processed-burst_5_to_30-t3large-fixed1.json`
-  - `docs/experiments/results/exp-v4-idempotent/metrics/dlq-heavy_20rps-t3large-fixed1.json`
-  - `docs/experiments/results/exp-v4-idempotent/metrics/dlq-burst_5_to_30-t3large-fixed1.json`
+- repeats: 1
+- POST /posts p95 avg(ms): 67.48
+- API error rate avg: 0.000066
+- image completion latency p95 avg(ms): 36349.60
+- duplicate side effect count avg: 0.00
+- duplicate callback ignored avg: 0.00
+- DLQ count avg: 0.00
+- dropped iterations: 710
 
 ### heavy_20rps
 
 - repeats: 1
-- POST /posts p95(ms): 1052.95
-- API error rate: 0.000847
-- image completion p95(ms): 107657.00
-- dropped iterations: 1506
-- processed job count: 588
-- duplicate ignored count: 3
-- duplicate side effect count: 0
-- DLQ count: 0
-- pending outbox count: 295
-- orphan pending post count: 300
+- POST /posts p95 avg(ms): 87.96
+- API error rate avg: 0.000000
+- image completion latency p95 avg(ms): 76560.70
+- duplicate side effect count avg: 0.00
+- duplicate callback ignored avg: 0.00
+- DLQ count avg: 0.00
+- dropped iterations: 1592
 
 ### burst_5_to_30
 
 - repeats: 1
-- POST /posts p95(ms): 231.85
-- API error rate: 0.000114
-- image completion p95(ms): 78163.80
-- dropped iterations: 1469
-- processed job count: 1365
-- duplicate ignored count: 3
-- duplicate side effect count: 0
-- DLQ count: 0
-- pending outbox count: 180
-- orphan pending post count: 180
+- POST /posts p95 avg(ms): 65.36
+- API error rate avg: 0.000344
+- image completion latency p95 avg(ms): 68516.45
+- duplicate side effect count avg: 0.00
+- duplicate callback ignored avg: 0.00
+- DLQ count avg: 0.00
+- dropped iterations: 2096
 
-### Rerun Interpretation
+## Interpretation
 
-- `V4`도 `heavy`, `burst`에서 응답 경로 p95와 에러율은 `V3`와 비슷한 수준이다.
-- 대신 `processed jobs` 기준 duplicate side effect는 계속 `0`이고, 고부하 중에도 `DLQ count`는 `0`으로 유지됐다.
-- 즉 `V4`의 주효과는 latency 개선이 아니라 "고부하에서도 correctness 규칙을 깨지 않는다"는 점이다.
+- `V4`는 outbox 위에 idempotent consumer와 DLQ를 추가해 중복 소비와 poison message를 격리하는 단계다.
+- `duplicate side effect count`는 processed jobs 저장소 기준으로 집계한다.
+- `DLQ count`는 보조 안정성 지표이며, 본문 비교의 1차 지표는 여전히 `POST /posts p95`, `API error rate`다.
+- multi-ASG 재실행에서도 request path p95와 API error rate는 안정적이었고, `duplicate side effect count`, `DLQ count`는 모두 0이었다.
+- 반면 `completion p95`와 dropped iterations는 여전히 높아, correctness는 확보했지만 후단 처리량 병목은 남아 있음을 보여준다.

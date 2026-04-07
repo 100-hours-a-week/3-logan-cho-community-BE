@@ -1,9 +1,29 @@
 output "app_instance_id" {
-  value = aws_instance.app.id
+  value = var.enable_app_asg ? null : aws_instance.app[0].id
 }
 
 output "app_public_ip" {
-  value = aws_instance.app.public_ip
+  value = var.enable_app_asg ? null : aws_instance.app[0].public_ip
+}
+
+output "app_asg_name" {
+  value = var.enable_app_asg ? aws_autoscaling_group.app[0].name : null
+}
+
+output "app_alb_dns_name" {
+  value = var.enable_app_asg ? aws_lb.app[0].dns_name : null
+}
+
+output "db_instance_id" {
+  value = var.enable_app_asg ? aws_instance.db[0].id : null
+}
+
+output "db_public_ip" {
+  value = var.enable_app_asg ? aws_instance.db[0].public_ip : null
+}
+
+output "db_private_ip" {
+  value = var.enable_app_asg ? aws_instance.db[0].private_ip : null
 }
 
 output "k6_instance_id" {
@@ -32,4 +52,8 @@ output "app_security_group_id" {
 
 output "k6_security_group_id" {
   value = aws_security_group.k6.id
+}
+
+output "db_security_group_id" {
+  value = var.enable_app_asg ? aws_security_group.db[0].id : null
 }

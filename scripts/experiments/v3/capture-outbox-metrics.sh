@@ -12,7 +12,14 @@ require_cmd timeout
 
 SCENARIO="${SCENARIO:?SCENARIO is required}"
 RUN_LABEL="${RUN_LABEL:?RUN_LABEL is required}"
-APP_HOST="${APP_SSH_HOST_OVERRIDE:-$(app_ssh_host)}"
+DB_HOST="${DB_SSH_HOST_OVERRIDE:-}"
+if [[ -z "${DB_HOST}" ]]; then
+  if [[ -n "$(db_instance_id)" && "$(db_instance_id)" != "null" ]]; then
+    DB_HOST="$(db_ssh_host)"
+  else
+    DB_HOST="${APP_SSH_HOST_OVERRIDE:-$(app_ssh_host)}"
+  fi
+fi
 RESULT_ROOT="${RESULT_ROOT:-docs/experiments/results/exp-v3-outbox}"
 OUT_DIR="${PROJECT_ROOT}/${RESULT_ROOT}/metrics"
 OUT_PATH="${OUT_DIR}/outbox-${SCENARIO}-${RUN_LABEL}.json"
@@ -24,7 +31,7 @@ if ! json_payload="$(
     -o StrictHostKeyChecking=no \
     -o UserKnownHostsFile="${HOME}/.ssh/known_hosts" \
     -o ConnectTimeout=10 \
-    "$(ssh_user)@${APP_HOST}" "sudo docker exec mongo mongosh 'mongodb://127.0.0.1:27017/millions?replicaSet=rs0&directConnection=true' --quiet --eval '
+    "$(ssh_user)@${DB_HOST}" "sudo docker exec mongo mongosh 'mongodb://127.0.0.1:27017/millions?replicaSet=rs0&directConnection=true' --quiet --eval '
 const dbx = db.getSiblingDB(\"millions\");
 const outbox = dbx.image_job_outbox;
 const posts = dbx.posts;

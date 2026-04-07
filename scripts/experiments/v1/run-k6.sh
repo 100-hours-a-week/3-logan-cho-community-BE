@@ -11,7 +11,7 @@ require_cmd ssh
 
 SCENARIO="${SCENARIO:-smoke}"
 RUN_LABEL="${RUN_LABEL:-}"
-APP_URL="${APP_URL:-http://$(app_public_ip):8080}"
+APP_URL="${APP_URL:-$(app_base_url)}"
 ACCESS_TOKEN="${ACCESS_TOKEN:-}"
 K6_HOST="${K6_SSH_HOST_OVERRIDE:-$(k6_ssh_host)}"
 IMAGE_PATH="${IMAGE_PATH:-${PROJECT_ROOT}/docs/images/write-post.png}"

@@ -28,6 +28,7 @@ import sys
 out_path = sys.argv[1]
 param_path = sys.argv[2].rstrip("/")
 bucket_override = sys.argv[3]
+db_private_ip = os.environ.get("DB_PRIVATE_IP_OVERRIDE", "127.0.0.1")
 
 with open("/tmp/image-pipeline-params.json", "r", encoding="utf-8") as f:
     payload = json.load(f)
@@ -42,9 +43,9 @@ for entry in payload["Parameters"]:
 values["PROFILE"] = "prod"
 values["SPRING_CLOUD_AWS_PARAMETERSTORE_ENABLED"] = "false"
 values["SPRING_CONFIG_IMPORT"] = ""
-values["DB_HOST"] = "jdbc:mysql://127.0.0.1:3306/millions?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul"
-values["MONGO_URL"] = "mongodb://127.0.0.1:27017/millions?replicaSet=rs0&directConnection=true"
-values["REDIS_HOST"] = "127.0.0.1"
+values["DB_HOST"] = f"jdbc:mysql://{db_private_ip}:3306/millions?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul"
+values["MONGO_URL"] = f"mongodb://{db_private_ip}:27017/millions?replicaSet=rs0&directConnection=true"
+values["REDIS_HOST"] = db_private_ip
 values["REDIS_PORT"] = "6379"
 values["IS_ELASTIC_CACHE"] = "false"
 values["JAVA_TOOL_OPTIONS"] = "-Duser.timezone=Asia/Seoul"

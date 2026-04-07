@@ -2,49 +2,26 @@
 
 ## Scope
 
-이 문서는 `exp-v4-idempotent`의 초기 기준선과 안정성 probe 결과를 정리한다.
-현재 범위는 `smoke`, `medium_10rps 1회`, `duplicate delivery`, `poison message -> DLQ` 확인까지다.
+이 문서는 `exp-v4-idempotent` 기준선을 정리한다.
+현재 표는 2026-04-07 multi-ASG 분리 인프라 재실행 결과를 기준으로 갱신했다.
 
-## Smoke Result
+## Aggregated Results
 
-| probe | POST /posts p95 (ms) | error rate | image completion p95 (ms) | duplicate side effect count | DLQ count |
-|---|---:|---:|---:|---:|---:|
-| smoke | 769.96 | 0.000000 | 4095.00 | 0 | 0 |
-
-## Medium Result
-
-| scenario | repeats | POST /posts p95 (ms) | error rate | image completion p95 (ms) | processed jobs | duplicate ignored count | duplicate side effect count | DLQ count |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| medium_10rps | 1 | 62.32 | 0.001732 | 3158.85 | 1189 | 1 | 0 | 0 |
-
-## Stability Probes
-
-| probe | result |
-|---|---|
-| duplicate delivery | `duplicateIgnoredCount = 2`, `duplicateSideEffectCount = 0` |
-| poison message | `NoSuchKey` 실패 주입 확인, `DLQ count = 1` 확인 |
-
-## Interpretation
-
-- `V4`의 주효과는 요청 경로 개선이 아니라 소비 안정성 보강이다.
-- `medium_10rps`에서도 요청 p95는 낮게 유지됐고, processed jobs 저장소 기준으로 duplicate side effect는 발생하지 않았다.
-- poison message는 최종적으로 `DLQ`로 격리됐다.
+| scenario | repeats | POST /posts p95 avg (ms) | error rate avg | image completion latency p95 avg (ms) | duplicate side effect avg | DLQ count avg |
+|---|---:|---:|---:|---:|---:|---:|
+| medium_10rps | 1 | 67.48 | 0.000066 | 36349.60 | 0.00 | 0.00 |
+| heavy_20rps | 1 | 87.96 | 0.000000 | 76560.70 | 0.00 | 0.00 |
+| burst_5_to_30 | 1 | 65.36 | 0.000344 | 68516.45 | 0.00 | 0.00 |
 
 ## Raw Files
 
 - summary: `docs/experiments/results/exp-v4-idempotent/summary.md`
 - k6 summaries: `docs/experiments/results/exp-v4-idempotent/k6/*-summary.json`
 - metrics: `docs/experiments/results/exp-v4-idempotent/metrics/*.json`
-- probes: `docs/experiments/results/exp-v4-idempotent/probes/*.json`
 
-## t3.large High-Load Rerun
+## Notes
 
-| scenario | repeats | POST /posts p95 (ms) | error rate | image completion p95 (ms) | duplicate ignored count | duplicate side effect count | DLQ count | dropped iterations |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| heavy_20rps | 1 | 1052.95 | 0.000847 | 107657.00 | 3 | 0 | 0 | 1506 |
-| burst_5_to_30 | 1 | 231.85 | 0.000114 | 78163.80 | 3 | 0 | 0 | 1469 |
-
-메모:
-
-- `V4`는 `heavy`, `burst`에서도 duplicate side effect를 만들지 않았고 `DLQ count`도 증가하지 않았다.
-- 성능 수치 자체는 `V3`와 유사하므로, `V4`는 성능 버전이 아니라 correctness/stability 버전으로 해석하는 것이 맞다.
+- 이번 결과는 `db EC2 + app ASG 2대 + ALB` 분리 인프라에서 시나리오별 1회 재실행한 값이다.
+- 목적은 multi-node callback/idempotent consumer 정합성을 확인하고, high-load completion 병목을 다시 측정하는 것이었다.
+- `duplicate side effect count`, `DLQ count`는 전 시나리오에서 0을 유지했다.
+- request path p95는 `V3`보다 안정적이지만, completion latency는 여전히 길다.
