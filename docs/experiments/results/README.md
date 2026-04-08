@@ -12,8 +12,10 @@
 
 - 요약: `docs/experiments/results/exp-v2-async/summary.md`
 - 상세 리포트: `docs/experiments/results/exp-v2-async/v2-baseline-report-2026-04-04.md`
+- fault injection 리포트: `docs/experiments/results/exp-v2-async/v2-fault-injection-report-2026-04-08.md`
 - raw k6: `docs/experiments/results/exp-v2-async/k6/*`
 - raw queue: `docs/experiments/results/exp-v2-async/metrics/queue-*.json`
+- fault probes: `docs/experiments/results/exp-v2-async/probes/*.json`
 
 ### V3 Outbox
 

@@ -13,6 +13,7 @@
 - `docs/experiments/results/exp-v2-async/k6/*-summary.json`
 - `docs/experiments/results/exp-v2-async/k6/*-stdout.log`
 - `docs/experiments/results/exp-v2-async/metrics/queue-*.json`
+- `docs/experiments/results/exp-v2-async/probes/*.json`
 
 ## Scenario Results
 
@@ -76,3 +77,12 @@
 - `V2`는 `t3.large`에서도 API 실패 없이 `heavy`, `burst`를 처리했다.
 - 다만 요청 경로 p95 자체가 크게 더 좋아지지는 않았고, 병목은 계속 queue backlog와 completion latency에 남았다.
 - 즉 `V2`의 핵심 개선은 App 인스턴스 스케일업보다 "동기 경로 제거"에 있었다.
+
+## Fault Injection
+
+- 문서: `docs/experiments/results/exp-v2-async/v2-fault-injection-report-2026-04-08.md`
+- 목적: `V3`, `V4`에서 보강한 reliability/correctness 포인트가 `V2`에선 실제로 어떤 failure mode로 드러나는지 작은 실험으로 고정
+- probe:
+  - `save-publish-gap.json`: Mongo 저장 직후 SQS publish 전에 실패를 주입했을 때 orphan `PENDING` post가 남는지 확인
+  - `duplicate-callback-multi-node.json`: 같은 callback을 app node 2대에 다시 보내도 `V2`는 둘 다 200으로 받아들이고 side effect를 다시 적용하는지 확인
+  - `poison-message-no-dlq.json`: DLQ가 없을 때 poison message가 메인 queue retry 경로에 그대로 남는지 확인

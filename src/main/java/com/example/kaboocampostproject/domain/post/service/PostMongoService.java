@@ -83,6 +83,7 @@ public class PostMongoService {
                 imageJobOutboxService.savePostWithOutbox(post, this::buildAsyncMessage);
             } else {
                 postRepository.save(post);
+                maybeInjectFailureAfterSaveBeforePublish(postCreatReqDTO);
                 imageJobPublisher.publish(buildAsyncMessage(post));
             }
             return PostConverter.toPostCreate(post);
@@ -167,6 +168,22 @@ public class PostMongoService {
                 imageJobProcessedRepository.save(duplicate);
             }
             return false;
+        }
+    }
+
+    private void maybeInjectFailureAfterSaveBeforePublish(PostCreatReqDTO request) {
+        if (!imagePipelineProperties.isFailAfterSaveBeforePublishEnabled()) {
+            return;
+        }
+
+        String title = request.title();
+        String prefix = imagePipelineProperties.getFailAfterSaveTitlePrefix();
+        if (title == null || prefix == null || prefix.isBlank()) {
+            return;
+        }
+
+        if (title.startsWith(prefix)) {
+            throw new IllegalStateException("fault injection: fail after save before publish");
         }
     }
 

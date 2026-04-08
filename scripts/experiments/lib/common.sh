@@ -245,6 +245,17 @@ scp_to() {
     "${source_path}" "$(ssh_user)@${host}:${dest_path}"
 }
 
+upload_to_s3_via_instance_role() {
+  local source_path="$1"
+  local host="$2"
+  local s3_uri="$3"
+  local remote_path="/tmp/$(basename "${source_path}")"
+
+  ensure_file "${source_path}"
+  scp_to "${source_path}" "${host}" "${remote_path}"
+  ssh_run "${host}" "aws s3 cp '${remote_path}' '${s3_uri}' >/dev/null"
+}
+
 callback_secret_file() {
   printf '%s' "${HOME}/.cache/image-pipeline-experiments/callback-secret"
 }

@@ -1,0 +1,15 @@
+{
+  "probe": "duplicate_callback_multi_node",
+  "postId": "69d5ca9a26787525a68f96d8",
+  "imageJobId": "9737f1cc-daef-441d-af98-99e1ca914be0",
+  "firstNode": "43.200.2.162",
+  "secondNode": "3.34.190.9",
+  "firstStatus": 200,
+  "secondStatus": 200,
+  "completedAtBefore": "2026-04-08T03:25:15.818Z",
+  "completedAtAfter": "2026-04-08T03:26:16.244Z",
+  "imageStatus": "COMPLETED",
+  "duplicateAcceptedByBothNodes": true,
+  "sideEffectReapplied": true,
+  "interpretation": "Without idempotency, the same callback is accepted on multiple app nodes and re-applies completion side effects."
+}

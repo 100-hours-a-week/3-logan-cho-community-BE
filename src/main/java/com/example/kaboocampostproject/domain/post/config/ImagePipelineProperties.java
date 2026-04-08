@@ -34,4 +34,10 @@ public class ImagePipelineProperties {
 
     @Value("${image.pipeline.idempotency-enabled:false}")
     private boolean idempotencyEnabled;
+
+    @Value("${image.pipeline.fault.fail-after-save-before-publish-enabled:false}")
+    private boolean failAfterSaveBeforePublishEnabled;
+
+    @Value("${image.pipeline.fault.fail-after-save-title-prefix:[fault-save-publish]}")
+    private String failAfterSaveTitlePrefix;
 }

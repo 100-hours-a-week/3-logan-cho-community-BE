@@ -50,6 +50,7 @@ values["REDIS_PORT"] = "6379"
 values["IS_ELASTIC_CACHE"] = "false"
 values["JAVA_TOOL_OPTIONS"] = "-Duser.timezone=Asia/Seoul"
 if bucket_override:
+    values["AWS_S3_BUCKET"] = bucket_override
     values["AWS_S3_BUCKET_NAME"] = bucket_override
 
 optional_keys = [
@@ -62,6 +63,8 @@ optional_keys = [
     "IMAGE_PIPELINE_OUTBOX_RELAY_FIXED_DELAY_MS",
     "IMAGE_PIPELINE_OUTBOX_RELAY_BATCH_SIZE",
     "IMAGE_PIPELINE_IDEMPOTENCY_ENABLED",
+    "IMAGE_PIPELINE_FAULT_FAIL_AFTER_SAVE_BEFORE_PUBLISH_ENABLED",
+    "IMAGE_PIPELINE_FAULT_FAIL_AFTER_SAVE_TITLE_PREFIX",
 ]
 for key in optional_keys:
     value = os.environ.get(key)

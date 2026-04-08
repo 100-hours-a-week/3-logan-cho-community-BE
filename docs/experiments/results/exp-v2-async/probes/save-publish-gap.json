@@ -1,0 +1,11 @@
+{
+  "probe": "save_publish_gap",
+  "createStatus": 500,
+  "title": "[fault-save-publish]-manual-1775618599",
+  "postSaved": true,
+  "postId": "69d5ca292f2c09150fafc2d4",
+  "imageStatus": "PENDING",
+  "imageJobId": "d92d0524-8ec5-4ce8-b451-5d8406561e90",
+  "completedAt": null,
+  "interpretation": "V2 save -> publish gap can leave an orphan PENDING post when the process fails after Mongo save and before SQS publish"
+}
