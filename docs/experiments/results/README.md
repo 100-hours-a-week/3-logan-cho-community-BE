@@ -2,6 +2,8 @@
 
 ## Stage Documents
 
+- 엔지니어링 보고서: `docs/experiments/results/image-pipeline-engineering-report-2026-04-08.md`
+
 ### V1 Sync
 
 - 요약: `docs/experiments/results/exp-v1-sync/summary.md`
