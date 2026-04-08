@@ -1,0 +1,35 @@
+version_label        = "v1"
+aws_region           = "ap-northeast-2"
+vpc_id               = "vpc-xxxxxxxx"
+app_subnet_id        = "subnet-appxxxxxxx"
+k6_subnet_id         = "subnet-k6xxxxxxx"
+ssh_allowed_cidrs    = ["0.0.0.0/0"]
+app_ingress_cidrs    = ["0.0.0.0/0"]
+observability_allowed_cidrs = ["0.0.0.0/0"]
+app_ami_id           = "ami-xxxxxxxx"
+k6_ami_id            = "ami-xxxxxxxx"
+app_instance_type    = "t3.small"
+k6_instance_type     = "t3.small"
+key_name             = "experiment-key"
+s3_bucket_name       = "community-be-image-experiments"
+temp_prefix_root     = "experiments/temp/"
+temp_expiration_days = 2
+
+app_environment = {
+  SPRING_PROFILES_ACTIVE = "prod"
+}
+
+k6_environment = {}
+
+enable_async_pipeline = false
+enable_dlq            = false
+
+lambda_subnet_ids             = []
+lambda_security_group_ids     = []
+lambda_package_path           = null
+lambda_memory_size            = 1024
+lambda_timeout                = 30
+lambda_reserved_concurrency   = 2
+lambda_batch_size             = 1
+sqs_visibility_timeout_seconds = 120
+sqs_message_retention_seconds  = 345600

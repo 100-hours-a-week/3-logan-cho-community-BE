@@ -1,0 +1,617 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /opt/image-pipeline-k6/image-pipeline-v2.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 240 max VUs, 2m30s max duration (incl. graceful stop):
+              * medium_10rps: 10.00 iterations/s for 2m0s (maxVUs: 80-240, gracefulStop: 30s)
+
+
+running (0m00.9s), 010/080 VUs, 0 complete and 0 interrupted iterations
+medium_10rps   [   1% ] 010/080 VUs  0m00.9s/2m0s  10.00 iters/s
+time="2026-04-07T07:26:42Z" level=error msg="GoError: create post failed: 500 {\"isSuccess\":false,\"code\":\"500\",\"message\":\"서버 내부 오류가 발생했습니다.\"}\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:187:9(212))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:26:42Z" level=error msg="GoError: create post failed: 500 {\"isSuccess\":false,\"code\":\"500\",\"message\":\"서버 내부 오류가 발생했습니다.\"}\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:187:9(212))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (0m01.9s), 018/080 VUs, 2 complete and 0 interrupted iterations
+medium_10rps   [   2% ] 018/080 VUs  0m01.9s/2m0s  10.00 iters/s
+
+running (0m02.9s), 028/080 VUs, 2 complete and 0 interrupted iterations
+medium_10rps   [   2% ] 028/080 VUs  0m02.9s/2m0s  10.00 iters/s
+
+running (0m03.9s), 038/080 VUs, 2 complete and 0 interrupted iterations
+medium_10rps   [   3% ] 038/080 VUs  0m03.9s/2m0s  10.00 iters/s
+time="2026-04-07T07:26:45Z" level=error msg="GoError: image processing failed for postId=69d4b1b2052dabf25193ac79\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:120:11(90))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (0m04.9s), 044/080 VUs, 6 complete and 0 interrupted iterations
+medium_10rps   [   4% ] 044/080 VUs  0m04.9s/2m0s  10.00 iters/s
+
+running (0m05.9s), 045/080 VUs, 15 complete and 0 interrupted iterations
+medium_10rps   [   5% ] 045/080 VUs  0m05.9s/2m0s  10.00 iters/s
+
+running (0m06.9s), 052/080 VUs, 18 complete and 0 interrupted iterations
+medium_10rps   [   6% ] 052/080 VUs  0m06.9s/2m0s  10.00 iters/s
+
+running (0m07.9s), 060/080 VUs, 20 complete and 0 interrupted iterations
+medium_10rps   [   7% ] 060/080 VUs  0m07.9s/2m0s  10.00 iters/s
+
+running (0m08.9s), 070/080 VUs, 20 complete and 0 interrupted iterations
+medium_10rps   [   7% ] 070/080 VUs  0m08.9s/2m0s  10.00 iters/s
+
+running (0m09.9s), 080/080 VUs, 20 complete and 0 interrupted iterations
+medium_10rps   [   8% ] 080/080 VUs  0m09.9s/2m0s  10.00 iters/s
+
+running (0m10.9s), 085/085 VUs, 20 complete and 0 interrupted iterations
+medium_10rps   [   9% ] 085/085 VUs  0m10.9s/2m0s  10.00 iters/s
+
+running (0m11.9s), 090/090 VUs, 20 complete and 0 interrupted iterations
+medium_10rps   [  10% ] 090/090 VUs  0m11.9s/2m0s  10.00 iters/s
+
+running (0m12.9s), 095/095 VUs, 20 complete and 0 interrupted iterations
+medium_10rps   [  11% ] 095/095 VUs  0m12.9s/2m0s  10.00 iters/s
+
+running (0m13.9s), 100/100 VUs, 20 complete and 0 interrupted iterations
+medium_10rps   [  12% ] 100/100 VUs  0m13.9s/2m0s  10.00 iters/s
+
+running (0m14.9s), 102/103 VUs, 25 complete and 0 interrupted iterations
+medium_10rps   [  12% ] 102/103 VUs  0m14.9s/2m0s  10.00 iters/s
+
+running (0m15.9s), 105/106 VUs, 29 complete and 0 interrupted iterations
+medium_10rps   [  13% ] 105/106 VUs  0m15.9s/2m0s  10.00 iters/s
+
+running (0m16.9s), 107/108 VUs, 35 complete and 0 interrupted iterations
+medium_10rps   [  14% ] 107/108 VUs  0m16.9s/2m0s  10.00 iters/s
+
+running (0m17.9s), 110/111 VUs, 39 complete and 0 interrupted iterations
+medium_10rps   [  15% ] 110/111 VUs  0m17.9s/2m0s  10.00 iters/s
+
+running (0m18.9s), 113/113 VUs, 44 complete and 0 interrupted iterations
+medium_10rps   [  16% ] 113/113 VUs  0m18.9s/2m0s  10.00 iters/s
+
+running (0m19.9s), 116/117 VUs, 47 complete and 0 interrupted iterations
+medium_10rps   [  17% ] 116/117 VUs  0m19.9s/2m0s  10.00 iters/s
+
+running (0m20.9s), 119/121 VUs, 50 complete and 0 interrupted iterations
+medium_10rps   [  17% ] 119/121 VUs  0m20.9s/2m0s  10.00 iters/s
+
+running (0m21.9s), 124/125 VUs, 51 complete and 0 interrupted iterations
+medium_10rps   [  18% ] 124/125 VUs  0m21.9s/2m0s  10.00 iters/s
+
+running (0m22.9s), 129/130 VUs, 51 complete and 0 interrupted iterations
+medium_10rps   [  19% ] 129/130 VUs  0m22.9s/2m0s  10.00 iters/s
+
+running (0m23.9s), 134/134 VUs, 52 complete and 0 interrupted iterations
+medium_10rps   [  20% ] 134/134 VUs  0m23.9s/2m0s  10.00 iters/s
+
+running (0m24.9s), 137/137 VUs, 56 complete and 0 interrupted iterations
+medium_10rps   [  21% ] 137/137 VUs  0m24.9s/2m0s  10.00 iters/s
+
+running (0m25.9s), 139/139 VUs, 62 complete and 0 interrupted iterations
+medium_10rps   [  22% ] 139/139 VUs  0m25.9s/2m0s  10.00 iters/s
+
+running (0m26.9s), 140/142 VUs, 68 complete and 0 interrupted iterations
+medium_10rps   [  22% ] 140/142 VUs  0m26.9s/2m0s  10.00 iters/s
+
+running (0m27.9s), 145/145 VUs, 70 complete and 0 interrupted iterations
+medium_10rps   [  23% ] 145/145 VUs  0m27.9s/2m0s  10.00 iters/s
+
+running (0m28.9s), 148/148 VUs, 74 complete and 0 interrupted iterations
+medium_10rps   [  24% ] 148/148 VUs  0m28.9s/2m0s  10.00 iters/s
+
+running (0m29.9s), 150/151 VUs, 79 complete and 0 interrupted iterations
+medium_10rps   [  25% ] 150/151 VUs  0m29.9s/2m0s  10.00 iters/s
+
+running (0m30.9s), 154/155 VUs, 81 complete and 0 interrupted iterations
+medium_10rps   [  26% ] 154/155 VUs  0m30.9s/2m0s  10.00 iters/s
+
+running (0m31.9s), 158/159 VUs, 83 complete and 0 interrupted iterations
+medium_10rps   [  27% ] 158/159 VUs  0m31.9s/2m0s  10.00 iters/s
+
+running (0m32.9s), 163/163 VUs, 84 complete and 0 interrupted iterations
+medium_10rps   [  27% ] 163/163 VUs  0m32.9s/2m0s  10.00 iters/s
+
+running (0m33.9s), 168/168 VUs, 84 complete and 0 interrupted iterations
+medium_10rps   [  28% ] 168/168 VUs  0m33.9s/2m0s  10.00 iters/s
+
+running (0m34.9s), 169/170 VUs, 91 complete and 0 interrupted iterations
+medium_10rps   [  29% ] 169/170 VUs  0m34.9s/2m0s  10.00 iters/s
+
+running (0m35.9s), 171/172 VUs, 97 complete and 0 interrupted iterations
+medium_10rps   [  30% ] 171/172 VUs  0m35.9s/2m0s  10.00 iters/s
+
+running (0m36.9s), 175/175 VUs, 100 complete and 0 interrupted iterations
+medium_10rps   [  31% ] 175/175 VUs  0m36.9s/2m0s  10.00 iters/s
+
+running (0m37.9s), 180/180 VUs, 100 complete and 0 interrupted iterations
+medium_10rps   [  32% ] 180/180 VUs  0m37.9s/2m0s  10.00 iters/s
+
+running (0m38.9s), 185/185 VUs, 100 complete and 0 interrupted iterations
+medium_10rps   [  32% ] 185/185 VUs  0m38.9s/2m0s  10.00 iters/s
+
+running (0m39.9s), 190/190 VUs, 100 complete and 0 interrupted iterations
+medium_10rps   [  33% ] 190/190 VUs  0m39.9s/2m0s  10.00 iters/s
+
+running (0m40.9s), 195/195 VUs, 100 complete and 0 interrupted iterations
+medium_10rps   [  34% ] 195/195 VUs  0m40.9s/2m0s  10.00 iters/s
+
+running (0m41.9s), 199/200 VUs, 101 complete and 0 interrupted iterations
+medium_10rps   [  35% ] 199/200 VUs  0m41.9s/2m0s  10.00 iters/s
+
+running (0m42.9s), 204/205 VUs, 101 complete and 0 interrupted iterations
+medium_10rps   [  36% ] 204/205 VUs  0m42.9s/2m0s  10.00 iters/s
+
+running (0m43.9s), 209/209 VUs, 102 complete and 0 interrupted iterations
+medium_10rps   [  37% ] 209/209 VUs  0m43.9s/2m0s  10.00 iters/s
+
+running (0m44.9s), 214/214 VUs, 102 complete and 0 interrupted iterations
+medium_10rps   [  37% ] 214/214 VUs  0m44.9s/2m0s  10.00 iters/s
+
+running (0m45.9s), 216/218 VUs, 106 complete and 0 interrupted iterations
+medium_10rps   [  38% ] 216/218 VUs  0m45.9s/2m0s  10.00 iters/s
+
+running (0m46.9s), 219/220 VUs, 111 complete and 0 interrupted iterations
+medium_10rps   [  39% ] 219/220 VUs  0m46.9s/2m0s  10.00 iters/s
+
+running (0m47.9s), 220/221 VUs, 119 complete and 0 interrupted iterations
+medium_10rps   [  40% ] 220/221 VUs  0m47.9s/2m0s  10.00 iters/s
+
+running (0m48.9s), 223/223 VUs, 124 complete and 0 interrupted iterations
+medium_10rps   [  41% ] 223/223 VUs  0m48.9s/2m0s  10.00 iters/s
+
+running (0m49.9s), 224/225 VUs, 131 complete and 0 interrupted iterations
+medium_10rps   [  42% ] 224/225 VUs  0m49.9s/2m0s  10.00 iters/s
+
+running (0m50.9s), 223/225 VUs, 142 complete and 0 interrupted iterations
+medium_10rps   [  42% ] 223/225 VUs  0m50.9s/2m0s  10.00 iters/s
+
+running (0m51.9s), 226/228 VUs, 146 complete and 0 interrupted iterations
+medium_10rps   [  43% ] 226/228 VUs  0m51.9s/2m0s  10.00 iters/s
+
+running (0m52.9s), 231/231 VUs, 148 complete and 0 interrupted iterations
+medium_10rps   [  44% ] 231/231 VUs  0m52.9s/2m0s  10.00 iters/s
+
+running (0m53.9s), 234/234 VUs, 152 complete and 0 interrupted iterations
+medium_10rps   [  45% ] 234/234 VUs  0m53.9s/2m0s  10.00 iters/s
+
+running (0m54.9s), 239/239 VUs, 152 complete and 0 interrupted iterations
+medium_10rps   [  46% ] 239/239 VUs  0m54.9s/2m0s  10.00 iters/s
+time="2026-04-07T07:27:36Z" level=warning msg="Insufficient VUs, reached 240 active VUs and cannot initialize more" executor=constant-arrival-rate scenario=medium_10rps
+
+running (0m55.9s), 240/240 VUs, 153 complete and 0 interrupted iterations
+medium_10rps   [  47% ] 240/240 VUs  0m55.9s/2m0s  10.00 iters/s
+
+running (0m56.9s), 240/240 VUs, 155 complete and 0 interrupted iterations
+medium_10rps   [  47% ] 240/240 VUs  0m56.9s/2m0s  10.00 iters/s
+
+running (0m57.9s), 239/240 VUs, 157 complete and 0 interrupted iterations
+medium_10rps   [  48% ] 239/240 VUs  0m57.9s/2m0s  10.00 iters/s
+
+running (0m58.9s), 240/240 VUs, 159 complete and 0 interrupted iterations
+medium_10rps   [  49% ] 240/240 VUs  0m58.9s/2m0s  10.00 iters/s
+
+running (0m59.9s), 240/240 VUs, 160 complete and 0 interrupted iterations
+medium_10rps   [  50% ] 240/240 VUs  0m59.9s/2m0s  10.00 iters/s
+
+running (1m00.9s), 240/240 VUs, 164 complete and 0 interrupted iterations
+medium_10rps   [  51% ] 240/240 VUs  1m00.9s/2m0s  10.00 iters/s
+
+running (1m01.9s), 240/240 VUs, 166 complete and 0 interrupted iterations
+medium_10rps   [  52% ] 240/240 VUs  1m01.9s/2m0s  10.00 iters/s
+
+running (1m02.9s), 240/240 VUs, 166 complete and 0 interrupted iterations
+medium_10rps   [  52% ] 240/240 VUs  1m02.9s/2m0s  10.00 iters/s
+
+running (1m03.9s), 240/240 VUs, 167 complete and 0 interrupted iterations
+medium_10rps   [  53% ] 240/240 VUs  1m03.9s/2m0s  10.00 iters/s
+
+running (1m04.9s), 240/240 VUs, 167 complete and 0 interrupted iterations
+medium_10rps   [  54% ] 240/240 VUs  1m04.9s/2m0s  10.00 iters/s
+
+running (1m05.9s), 240/240 VUs, 167 complete and 0 interrupted iterations
+medium_10rps   [  55% ] 240/240 VUs  1m05.9s/2m0s  10.00 iters/s
+
+running (1m06.9s), 240/240 VUs, 169 complete and 0 interrupted iterations
+medium_10rps   [  56% ] 240/240 VUs  1m06.9s/2m0s  10.00 iters/s
+
+running (1m07.9s), 240/240 VUs, 170 complete and 0 interrupted iterations
+medium_10rps   [  57% ] 240/240 VUs  1m07.9s/2m0s  10.00 iters/s
+
+running (1m08.9s), 240/240 VUs, 174 complete and 0 interrupted iterations
+medium_10rps   [  57% ] 240/240 VUs  1m08.9s/2m0s  10.00 iters/s
+
+running (1m09.9s), 240/240 VUs, 175 complete and 0 interrupted iterations
+medium_10rps   [  58% ] 240/240 VUs  1m09.9s/2m0s  10.00 iters/s
+
+running (1m10.9s), 240/240 VUs, 178 complete and 0 interrupted iterations
+medium_10rps   [  59% ] 240/240 VUs  1m10.9s/2m0s  10.00 iters/s
+
+running (1m11.9s), 240/240 VUs, 183 complete and 0 interrupted iterations
+medium_10rps   [  60% ] 240/240 VUs  1m11.9s/2m0s  10.00 iters/s
+
+running (1m12.9s), 240/240 VUs, 190 complete and 0 interrupted iterations
+medium_10rps   [  61% ] 240/240 VUs  1m12.9s/2m0s  10.00 iters/s
+
+running (1m13.9s), 239/240 VUs, 193 complete and 0 interrupted iterations
+medium_10rps   [  62% ] 239/240 VUs  1m13.9s/2m0s  10.00 iters/s
+
+running (1m14.9s), 240/240 VUs, 195 complete and 0 interrupted iterations
+medium_10rps   [  62% ] 240/240 VUs  1m14.9s/2m0s  10.00 iters/s
+
+running (1m15.9s), 240/240 VUs, 197 complete and 0 interrupted iterations
+medium_10rps   [  63% ] 240/240 VUs  1m15.9s/2m0s  10.00 iters/s
+
+running (1m16.9s), 240/240 VUs, 201 complete and 0 interrupted iterations
+medium_10rps   [  64% ] 240/240 VUs  1m16.9s/2m0s  10.00 iters/s
+
+running (1m17.9s), 240/240 VUs, 202 complete and 0 interrupted iterations
+medium_10rps   [  65% ] 240/240 VUs  1m17.9s/2m0s  10.00 iters/s
+
+running (1m18.9s), 240/240 VUs, 203 complete and 0 interrupted iterations
+medium_10rps   [  66% ] 240/240 VUs  1m18.9s/2m0s  10.00 iters/s
+
+running (1m19.9s), 240/240 VUs, 203 complete and 0 interrupted iterations
+medium_10rps   [  67% ] 240/240 VUs  1m19.9s/2m0s  10.00 iters/s
+
+running (1m20.9s), 240/240 VUs, 206 complete and 0 interrupted iterations
+medium_10rps   [  67% ] 240/240 VUs  1m20.9s/2m0s  10.00 iters/s
+
+running (1m21.9s), 240/240 VUs, 209 complete and 0 interrupted iterations
+medium_10rps   [  68% ] 240/240 VUs  1m21.9s/2m0s  10.00 iters/s
+
+running (1m22.9s), 240/240 VUs, 211 complete and 0 interrupted iterations
+medium_10rps   [  69% ] 240/240 VUs  1m22.9s/2m0s  10.00 iters/s
+
+running (1m23.9s), 240/240 VUs, 213 complete and 0 interrupted iterations
+medium_10rps   [  70% ] 240/240 VUs  1m23.9s/2m0s  10.00 iters/s
+
+running (1m24.9s), 240/240 VUs, 216 complete and 0 interrupted iterations
+medium_10rps   [  71% ] 240/240 VUs  1m24.9s/2m0s  10.00 iters/s
+
+running (1m25.9s), 240/240 VUs, 221 complete and 0 interrupted iterations
+medium_10rps   [  72% ] 240/240 VUs  1m25.9s/2m0s  10.00 iters/s
+
+running (1m26.9s), 240/240 VUs, 223 complete and 0 interrupted iterations
+medium_10rps   [  72% ] 240/240 VUs  1m26.9s/2m0s  10.00 iters/s
+
+running (1m27.9s), 240/240 VUs, 225 complete and 0 interrupted iterations
+medium_10rps   [  73% ] 240/240 VUs  1m27.9s/2m0s  10.00 iters/s
+
+running (1m28.9s), 240/240 VUs, 227 complete and 0 interrupted iterations
+medium_10rps   [  74% ] 240/240 VUs  1m28.9s/2m0s  10.00 iters/s
+
+running (1m29.9s), 240/240 VUs, 233 complete and 0 interrupted iterations
+medium_10rps   [  75% ] 240/240 VUs  1m29.9s/2m0s  10.00 iters/s
+
+running (1m30.9s), 240/240 VUs, 238 complete and 0 interrupted iterations
+medium_10rps   [  76% ] 240/240 VUs  1m30.9s/2m0s  10.00 iters/s
+
+running (1m31.9s), 240/240 VUs, 242 complete and 0 interrupted iterations
+medium_10rps   [  77% ] 240/240 VUs  1m31.9s/2m0s  10.00 iters/s
+
+running (1m32.9s), 240/240 VUs, 244 complete and 0 interrupted iterations
+medium_10rps   [  77% ] 240/240 VUs  1m32.9s/2m0s  10.00 iters/s
+
+running (1m33.9s), 240/240 VUs, 244 complete and 0 interrupted iterations
+medium_10rps   [  78% ] 240/240 VUs  1m33.9s/2m0s  10.00 iters/s
+
+running (1m34.9s), 240/240 VUs, 244 complete and 0 interrupted iterations
+medium_10rps   [  79% ] 240/240 VUs  1m34.9s/2m0s  10.00 iters/s
+
+running (1m35.9s), 240/240 VUs, 244 complete and 0 interrupted iterations
+medium_10rps   [  80% ] 240/240 VUs  1m35.9s/2m0s  10.00 iters/s
+
+running (1m36.9s), 240/240 VUs, 245 complete and 0 interrupted iterations
+medium_10rps   [  81% ] 240/240 VUs  1m36.9s/2m0s  10.00 iters/s
+
+running (1m37.9s), 240/240 VUs, 245 complete and 0 interrupted iterations
+medium_10rps   [  82% ] 240/240 VUs  1m37.9s/2m0s  10.00 iters/s
+
+running (1m38.9s), 240/240 VUs, 246 complete and 0 interrupted iterations
+medium_10rps   [  82% ] 240/240 VUs  1m38.9s/2m0s  10.00 iters/s
+
+running (1m39.9s), 240/240 VUs, 246 complete and 0 interrupted iterations
+medium_10rps   [  83% ] 240/240 VUs  1m39.9s/2m0s  10.00 iters/s
+
+running (1m40.9s), 240/240 VUs, 246 complete and 0 interrupted iterations
+medium_10rps   [  84% ] 240/240 VUs  1m40.9s/2m0s  10.00 iters/s
+
+running (1m41.9s), 240/240 VUs, 246 complete and 0 interrupted iterations
+medium_10rps   [  85% ] 240/240 VUs  1m41.9s/2m0s  10.00 iters/s
+
+running (1m42.9s), 240/240 VUs, 246 complete and 0 interrupted iterations
+medium_10rps   [  86% ] 240/240 VUs  1m42.9s/2m0s  10.00 iters/s
+
+running (1m43.9s), 240/240 VUs, 247 complete and 0 interrupted iterations
+medium_10rps   [  87% ] 240/240 VUs  1m43.9s/2m0s  10.00 iters/s
+
+running (1m44.9s), 240/240 VUs, 248 complete and 0 interrupted iterations
+medium_10rps   [  87% ] 240/240 VUs  1m44.9s/2m0s  10.00 iters/s
+
+running (1m45.9s), 240/240 VUs, 248 complete and 0 interrupted iterations
+medium_10rps   [  88% ] 240/240 VUs  1m45.9s/2m0s  10.00 iters/s
+
+running (1m46.9s), 240/240 VUs, 248 complete and 0 interrupted iterations
+medium_10rps   [  89% ] 240/240 VUs  1m46.9s/2m0s  10.00 iters/s
+
+running (1m47.9s), 240/240 VUs, 248 complete and 0 interrupted iterations
+medium_10rps   [  90% ] 240/240 VUs  1m47.9s/2m0s  10.00 iters/s
+
+running (1m48.9s), 240/240 VUs, 248 complete and 0 interrupted iterations
+medium_10rps   [  91% ] 240/240 VUs  1m48.9s/2m0s  10.00 iters/s
+
+running (1m49.9s), 240/240 VUs, 248 complete and 0 interrupted iterations
+medium_10rps   [  92% ] 240/240 VUs  1m49.9s/2m0s  10.00 iters/s
+
+running (1m50.9s), 240/240 VUs, 248 complete and 0 interrupted iterations
+medium_10rps   [  92% ] 240/240 VUs  1m50.9s/2m0s  10.00 iters/s
+
+running (1m51.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [  93% ] 240/240 VUs  1m51.9s/2m0s  10.00 iters/s
+
+running (1m52.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [  94% ] 240/240 VUs  1m52.9s/2m0s  10.00 iters/s
+
+running (1m53.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [  95% ] 240/240 VUs  1m53.9s/2m0s  10.00 iters/s
+
+running (1m54.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [  96% ] 240/240 VUs  1m54.9s/2m0s  10.00 iters/s
+
+running (1m55.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [  97% ] 240/240 VUs  1m55.9s/2m0s  10.00 iters/s
+
+running (1m56.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [  97% ] 240/240 VUs  1m56.9s/2m0s  10.00 iters/s
+
+running (1m57.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [  98% ] 240/240 VUs  1m57.9s/2m0s  10.00 iters/s
+
+running (1m58.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [  99% ] 240/240 VUs  1m58.9s/2m0s  10.00 iters/s
+
+running (1m59.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps   [ 100% ] 240/240 VUs  1m59.9s/2m0s  10.00 iters/s
+
+running (2m00.9s), 240/240 VUs, 250 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:42Z" level=error msg="GoError: image processing timeout for postId=69d4b1b14bf9c860588ec6d5\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m01.9s), 239/240 VUs, 251 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:42Z" level=error msg="GoError: image processing timeout for postId=69d4b1b24bf9c860588ec6de\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:42Z" level=error msg="GoError: image processing timeout for postId=69d4b1b24bf9c860588ec6da\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:42Z" level=error msg="GoError: image processing timeout for postId=69d4b1b24bf9c860588ec6dc\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:43Z" level=error msg="GoError: image processing timeout for postId=69d4b1b34bf9c860588ec6e2\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:43Z" level=error msg="GoError: image processing timeout for postId=69d4b1b34bf9c860588ec6e6\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m02.9s), 234/240 VUs, 256 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:43Z" level=error msg="GoError: image processing timeout for postId=69d4b1b34bf9c860588ec6e4\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:43Z" level=error msg="GoError: image processing timeout for postId=69d4b1b34bf9c860588ec6e8\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:43Z" level=error msg="GoError: image processing timeout for postId=69d4b1b24bf9c860588ec6e0\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:43Z" level=error msg="GoError: image processing timeout for postId=69d4b1b34bf9c860588ec6ea\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:44Z" level=error msg="GoError: image processing timeout for postId=69d4b1b44bf9c860588ec6ec\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:44Z" level=error msg="GoError: image processing timeout for postId=69d4b1b44bf9c860588ec6ee\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:44Z" level=error msg="GoError: image processing timeout for postId=69d4b1b44bf9c860588ec6f0\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:44Z" level=error msg="GoError: image processing timeout for postId=69d4b1b44bf9c860588ec6f2\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:44Z" level=error msg="GoError: image processing timeout for postId=69d4b1b44bf9c860588ec6f4\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m03.9s), 225/240 VUs, 265 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:44Z" level=error msg="GoError: image processing timeout for postId=69d4b1b44bf9c860588ec6f8\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:44Z" level=error msg="GoError: image processing timeout for postId=69d4b1b44bf9c860588ec6f6\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:45Z" level=error msg="GoError: image processing timeout for postId=69d4b1b44bf9c860588ec6fa\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:45Z" level=error msg="GoError: image processing timeout for postId=69d4b1b54bf9c860588ec6fc\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:45Z" level=error msg="GoError: image processing timeout for postId=69d4b1b54bf9c860588ec6fe\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m04.9s), 220/240 VUs, 270 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:45Z" level=error msg="GoError: image processing timeout for postId=69d4b1b54bf9c860588ec700\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:45Z" level=error msg="GoError: image processing timeout for postId=69d4b1b54bf9c860588ec702\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:46Z" level=error msg="GoError: image processing timeout for postId=69d4b1b54bf9c860588ec704\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:46Z" level=error msg="GoError: image processing timeout for postId=69d4b1b64bf9c860588ec708\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:46Z" level=error msg="GoError: image processing timeout for postId=69d4b1b64bf9c860588ec706\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m05.9s), 215/240 VUs, 275 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:47Z" level=error msg="GoError: image processing timeout for postId=69d4b1b74bf9c860588ec70e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:47Z" level=error msg="GoError: image processing timeout for postId=69d4b1b74bf9c860588ec710\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:47Z" level=error msg="GoError: image processing timeout for postId=69d4b1b64bf9c860588ec70a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:47Z" level=error msg="GoError: image processing timeout for postId=69d4b1b74bf9c860588ec712\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m06.9s), 211/240 VUs, 279 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:48Z" level=error msg="GoError: image processing timeout for postId=69d4b1b74bf9c860588ec70c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:48Z" level=error msg="GoError: image processing timeout for postId=69d4b1b84bf9c860588ec71a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:48Z" level=error msg="GoError: image processing timeout for postId=69d4b1b84bf9c860588ec71c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:48Z" level=error msg="GoError: image processing timeout for postId=69d4b1b84bf9c860588ec71e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:48Z" level=error msg="GoError: image processing timeout for postId=69d4b1b74bf9c860588ec714\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:48Z" level=error msg="GoError: image processing timeout for postId=69d4b1b84bf9c860588ec720\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m07.9s), 205/240 VUs, 285 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:48Z" level=error msg="GoError: image processing timeout for postId=69d4b1b84bf9c860588ec716\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:48Z" level=error msg="GoError: image processing timeout for postId=69d4b1b84bf9c860588ec724\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:49Z" level=error msg="GoError: image processing timeout for postId=69d4b1b84bf9c860588ec718\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:49Z" level=error msg="GoError: image processing timeout for postId=69d4b1b94bf9c860588ec726\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:49Z" level=error msg="GoError: image processing timeout for postId=69d4b1b94bf9c860588ec728\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:49Z" level=error msg="GoError: image processing timeout for postId=69d4b1b94bf9c860588ec72a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:49Z" level=error msg="GoError: image processing timeout for postId=69d4b1b94bf9c860588ec72c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:49Z" level=error msg="GoError: image processing timeout for postId=69d4b1b94bf9c860588ec72e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:49Z" level=error msg="GoError: image processing timeout for postId=69d4b1b84bf9c860588ec722\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m08.9s), 196/240 VUs, 294 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:50Z" level=error msg="GoError: image processing timeout for postId=69d4b1b94bf9c860588ec732\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:50Z" level=error msg="GoError: image processing timeout for postId=69d4b1ba4bf9c860588ec736\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:50Z" level=error msg="GoError: image processing timeout for postId=69d4b1b94bf9c860588ec730\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m09.9s), 193/240 VUs, 297 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:50Z" level=error msg="GoError: image processing timeout for postId=69d4b1ba4bf9c860588ec738\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:51Z" level=error msg="GoError: image processing timeout for postId=69d4b1ba4bf9c860588ec734\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:51Z" level=error msg="GoError: image processing timeout for postId=69d4b1bb4bf9c860588ec73a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m10.9s), 190/240 VUs, 300 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:52Z" level=error msg="GoError: image processing timeout for postId=69d4b1bb4bf9c860588ec73c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:52Z" level=error msg="GoError: image processing timeout for postId=69d4b1bc4bf9c860588ec73e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m11.9s), 188/240 VUs, 302 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+
+running (2m12.9s), 188/240 VUs, 302 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:54Z" level=error msg="GoError: image processing timeout for postId=69d4b1bd4bf9c860588ec740\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m13.9s), 187/240 VUs, 303 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:55Z" level=error msg="GoError: image processing timeout for postId=69d4b1be4bf9c860588ec742\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:55Z" level=error msg="GoError: image processing timeout for postId=69d4b1bf4bf9c860588ec748\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:55Z" level=error msg="GoError: image processing timeout for postId=69d4b1be4bf9c860588ec744\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:55Z" level=error msg="GoError: image processing timeout for postId=69d4b1bf4bf9c860588ec750\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m14.9s), 183/240 VUs, 307 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:55Z" level=error msg="GoError: image processing timeout for postId=69d4b1be4bf9c860588ec746\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:56Z" level=error msg="GoError: image processing timeout for postId=69d4b1bf4bf9c860588ec74a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:56Z" level=error msg="GoError: image processing timeout for postId=69d4b1c04bf9c860588ec752\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:56Z" level=error msg="GoError: image processing timeout for postId=69d4b1bf4bf9c860588ec74c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:56Z" level=error msg="GoError: image processing timeout for postId=69d4b1bf4bf9c860588ec74e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m15.9s), 178/240 VUs, 312 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:57Z" level=error msg="GoError: image processing timeout for postId=69d4b1c04bf9c860588ec754\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:57Z" level=error msg="GoError: image processing timeout for postId=69d4b1c14bf9c860588ec758\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:57Z" level=error msg="GoError: image processing timeout for postId=69d4b1c04bf9c860588ec756\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m16.9s), 175/240 VUs, 315 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+
+running (2m17.9s), 175/240 VUs, 315 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:28:59Z" level=error msg="GoError: image processing timeout for postId=69d4b1c24bf9c860588ec760\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:59Z" level=error msg="GoError: image processing timeout for postId=69d4b1c14bf9c860588ec75a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:59Z" level=error msg="GoError: image processing timeout for postId=69d4b1c24bf9c860588ec75c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:28:59Z" level=error msg="GoError: image processing timeout for postId=69d4b1c24bf9c860588ec75e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m18.9s), 171/240 VUs, 319 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:00Z" level=error msg="GoError: image processing timeout for postId=69d4b1c34bf9c860588ec762\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:00Z" level=error msg="GoError: image processing timeout for postId=69d4b1c34bf9c860588ec764\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:00Z" level=error msg="GoError: image processing timeout for postId=69d4b1c34bf9c860588ec766\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m19.9s), 168/240 VUs, 322 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:01Z" level=error msg="GoError: image processing timeout for postId=69d4b1c44bf9c860588ec768\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:01Z" level=error msg="GoError: image processing timeout for postId=69d4b1c44bf9c860588ec76a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:01Z" level=error msg="GoError: image processing timeout for postId=69d4b1c44bf9c860588ec76c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:01Z" level=error msg="GoError: image processing timeout for postId=69d4b1c44bf9c860588ec76e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m20.9s), 164/240 VUs, 326 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:01Z" level=error msg="GoError: image processing timeout for postId=69d4b1c44bf9c860588ec770\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:02Z" level=error msg="GoError: image processing timeout for postId=69d4b1c54bf9c860588ec772\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m21.9s), 162/240 VUs, 328 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:02Z" level=error msg="GoError: image processing timeout for postId=69d4b1c54bf9c860588ec774\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:03Z" level=error msg="GoError: image processing timeout for postId=69d4b1c64bf9c860588ec776\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:03Z" level=error msg="GoError: image processing timeout for postId=69d4b1c64bf9c860588ec778\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:03Z" level=error msg="GoError: image processing timeout for postId=69d4b1c64bf9c860588ec77a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m22.9s), 158/240 VUs, 332 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:04Z" level=error msg="GoError: image processing timeout for postId=69d4b1c74bf9c860588ec77c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:04Z" level=error msg="GoError: image processing timeout for postId=69d4b1c74bf9c860588ec77e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:04Z" level=error msg="GoError: image processing timeout for postId=69d4b1c74bf9c860588ec780\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m23.9s), 155/240 VUs, 335 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:04Z" level=error msg="GoError: image processing timeout for postId=69d4b1c74bf9c860588ec782\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:04Z" level=error msg="GoError: image processing timeout for postId=69d4b1c84bf9c860588ec788\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:05Z" level=error msg="GoError: image processing timeout for postId=69d4b1c84bf9c860588ec784\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:05Z" level=error msg="GoError: image processing timeout for postId=69d4b1c84bf9c860588ec786\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m24.9s), 151/240 VUs, 339 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:05Z" level=error msg="GoError: image processing timeout for postId=69d4b1c94bf9c860588ec78a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:06Z" level=error msg="GoError: image processing timeout for postId=69d4b1c94bf9c860588ec78c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:06Z" level=error msg="GoError: image processing timeout for postId=69d4b1c94bf9c860588ec78e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:06Z" level=error msg="GoError: image processing timeout for postId=69d4b1c94bf9c860588ec790\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m25.9s), 147/240 VUs, 343 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:06Z" level=error msg="GoError: image processing timeout for postId=69d4b1ca4bf9c860588ec794\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:07Z" level=error msg="GoError: image processing timeout for postId=69d4b1ca4bf9c860588ec792\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m26.9s), 145/240 VUs, 345 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:08Z" level=error msg="GoError: image processing timeout for postId=69d4b1cb4bf9c860588ec796\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:08Z" level=error msg="GoError: image processing timeout for postId=69d4b1cb4bf9c860588ec798\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m27.9s), 143/240 VUs, 347 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:08Z" level=error msg="GoError: image processing timeout for postId=69d4b1cb4bf9c860588ec79a\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:09Z" level=error msg="GoError: image processing timeout for postId=69d4b1cc4bf9c860588ec79c\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:09Z" level=error msg="GoError: image processing timeout for postId=69d4b1cc4bf9c860588ec79e\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m28.9s), 140/240 VUs, 350 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+time="2026-04-07T07:29:09Z" level=error msg="GoError: image processing timeout for postId=69d4b1cc4bf9c860588ec7a0\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:10Z" level=error msg="GoError: image processing timeout for postId=69d4b1cd4bf9c860588ec7a2\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:10Z" level=error msg="GoError: image processing timeout for postId=69d4b1cd4bf9c860588ec7a4\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:10Z" level=error msg="GoError: image processing timeout for postId=69d4b1ce4bf9c860588ec7aa\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+time="2026-04-07T07:29:10Z" level=error msg="GoError: image processing timeout for postId=69d4b1cd4bf9c860588ec7a6\n\tat go.k6.io/k6/internal/js/modules/k6.(*K6).Fail-fm (native)\n\tat waitForCompletion (file:///opt/image-pipeline-k6/image-pipeline-v2.js:127:7(110))\n\tat default (file:///opt/image-pipeline-k6/image-pipeline-v2.js:196:20(242))\n" executor=constant-arrival-rate scenario=medium_10rps source=stacktrace
+
+running (2m29.9s), 135/240 VUs, 355 complete and 0 interrupted iterations
+medium_10rps ↓ [ 100% ] 240/240 VUs  2m0s  10.00 iters/s
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 1470   9.758096/s
+    checks_succeeded...: 99.86% 1468 out of 1470
+    checks_failed......: 0.13%  2 out of 1470
+
+    ✓ presign status 200
+    ✓ upload status 200 or 204
+    ✗ create post status 200
+      ↳  99% — ✓ 488 / ✗ 2
+
+    CUSTOM
+    create_post_duration...........: avg=47.143566    min=19.239685 med=30.20766  max=913.796259 p(90)=55.374803 p(95)=67.475751
+    create_post_success............: 99.59% 488 out of 490
+    image_completion_duration......: avg=13837.125506 min=1030      med=12115     max=62617      p(90)=24681.6   p(95)=36349.6  
+    image_completion_success.......: 69.97% 247 out of 353
+    image_upload_duration..........: avg=44.040211    min=25.522137 med=39.020864 max=116.542654 p(90)=58.470439 p(95)=61.876864
+    presign_duration...............: avg=9.577205     min=3.151287  med=5.571493  max=543.318331 p(90)=12.077016 p(95)=19.675003
+
+    HTTP
+    http_req_duration..............: avg=9.53ms       min=2.89ms    med=6.73ms    max=1.51s      p(90)=12.34ms   p(95)=21.61ms  
+      { expected_response:true }...: avg=9.49ms       min=2.89ms    med=6.72ms    max=1.51s      p(90)=12.33ms   p(95)=21.58ms  
+    http_req_failed................: 0.00%  2 out of 30304
+    http_reqs......................: 30304  201.162819/s
+
+    EXECUTION
+    dropped_iterations.............: 710    4.713094/s
+    iteration_duration.............: avg=45.37s       min=645.9ms   med=16.21s    max=2m1s       p(90)=2m1s      p(95)=2m1s     
+    iterations.....................: 355    2.356547/s
+    vus............................: 135    min=10         max=240
+    vus_max........................: 240    min=80         max=240
+
+    NETWORK
+    data_received..................: 28 MB  184 kB/s
+    data_sent......................: 74 MB  494 kB/s
+
+
+
+
+running (2m30.6s), 000/240 VUs, 355 complete and 135 interrupted iterations
+medium_10rps ✓ [ 100% ] 135/240 VUs  2m0s  10.00 iters/s

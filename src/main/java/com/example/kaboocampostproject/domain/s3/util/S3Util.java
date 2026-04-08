@@ -6,10 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
 import software.amazon.awssdk.services.s3.model.HeadObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.core.ResponseBytes;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
@@ -25,6 +29,10 @@ public class S3Util {
 
     private final S3Presigner s3Presigner;
     private final S3Client s3Client;
+
+    public String getBucket() {
+        return bucket;
+    }
 
     public String createPresignedUrl(String objectKey, String mimeType) {
         try {
@@ -56,6 +64,35 @@ public class S3Util {
             s3Client.deleteObject(deleteRequest);
         } catch (Exception e) {
             throw new S3Exception(S3ErrorCode.DELETE_FAILED);
+        }
+    }
+
+    public byte[] getObjectBytes(String objectKey) {
+        try {
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(objectKey)
+                    .build();
+
+            ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(getObjectRequest);
+            return objectBytes.asByteArray();
+        } catch (Exception e) {
+            throw new S3Exception(S3ErrorCode.FILE_NOT_FOUND);
+        }
+    }
+
+    public void putObject(String objectKey, byte[] bytes, String contentType) {
+        try {
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(objectKey)
+                    .contentType(contentType)
+                    .contentLength((long) bytes.length)
+                    .build();
+
+            s3Client.putObject(putObjectRequest, RequestBody.fromBytes(bytes));
+        } catch (Exception e) {
+            throw new S3Exception(S3ErrorCode.PRESIGNED_URL_FAILED);
         }
     }
 

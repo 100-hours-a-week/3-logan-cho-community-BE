@@ -3,6 +3,7 @@ package com.example.kaboocampostproject.global.error;
 import com.example.kaboocampostproject.domain.auth.jwt.exception.JwtException;
 import com.example.kaboocampostproject.global.response.CustomResponse;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     // 컨트롤러 메서드에서 @Valid 어노테이션을 사용하여 DTO의 유효성 검사를 수행
@@ -60,6 +62,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<CustomResponse<Void>> customExceptionHandler(Exception exception){
+        log.error("unhandled exception", exception);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(CustomResponse.onFailure("500", "서버 내부 오류가 발생했습니다."));
     }

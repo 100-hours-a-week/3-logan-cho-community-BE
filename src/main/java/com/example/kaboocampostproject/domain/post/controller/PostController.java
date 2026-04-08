@@ -1,10 +1,15 @@
 package com.example.kaboocampostproject.domain.post.controller;
 
 import com.example.kaboocampostproject.domain.member.anotations.MemberIdInfo;
+import com.example.kaboocampostproject.domain.post.config.ImagePipelineProperties;
+import com.example.kaboocampostproject.domain.post.dto.req.AsyncImageJobCallbackReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.req.PostCreatReqDTO;
 import com.example.kaboocampostproject.domain.post.dto.req.PostUpdateReqDTO;
+import com.example.kaboocampostproject.domain.post.dto.res.PostCreateResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostDetailResDTO;
 import com.example.kaboocampostproject.domain.post.dto.res.PostSliceResDTO;
+import com.example.kaboocampostproject.domain.post.error.PostErrorCode;
+import com.example.kaboocampostproject.domain.post.error.PostException;
 import com.example.kaboocampostproject.domain.post.service.PostMongoService;
 import com.example.kaboocampostproject.global.cursor.Cursor;
 import com.example.kaboocampostproject.global.response.CustomResponse;
@@ -20,12 +25,13 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostMongoService postMongoService;
+    private final ImagePipelineProperties imagePipelineProperties;
 
     @PostMapping
-    public ResponseEntity<CustomResponse<Void>> createPost(@MemberIdInfo Long memberId,
-                                                           @RequestBody PostCreatReqDTO postCreatReqDTO) {
-        postMongoService.create(memberId, postCreatReqDTO);
-        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.CREATED));
+    public ResponseEntity<CustomResponse<PostCreateResDTO>> createPost(@MemberIdInfo Long memberId,
+                                                                       @RequestBody PostCreatReqDTO postCreatReqDTO) {
+        PostCreateResDTO created = postMongoService.create(memberId, postCreatReqDTO);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.CREATED, created));
     }
 
     @GetMapping("/{postId}")
@@ -79,5 +85,16 @@ public class PostController {
                                                          @MemberIdInfo Long memberId) {
         postMongoService.unLikePost(memberId, postId);
         return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.NO_CONTENT));
+    }
+
+    @PostMapping("/internal/image-jobs/{postId}")
+    public ResponseEntity<CustomResponse<Void>> completeImageJob(@PathVariable String postId,
+                                                                 @RequestHeader("X-Experiment-Callback-Secret") String callbackSecret,
+                                                                 @RequestBody AsyncImageJobCallbackReqDTO request) {
+        if (!imagePipelineProperties.getCallbackSecret().equals(callbackSecret)) {
+            throw new PostException(PostErrorCode.POST_IMAGE_JOB_CALLBACK_UNAUTHORIZED);
+        }
+        postMongoService.completeAsyncImageJob(postId, request);
+        return ResponseEntity.ok(CustomResponse.onSuccess(HttpStatus.OK));
     }
 }

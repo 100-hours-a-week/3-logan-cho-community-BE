@@ -37,7 +37,7 @@ public class S3Controller {
     public ResponseEntity<CustomResponse<PresignedUrlListResDTO>> getPostImagePresignedUrl(
             @RequestBody @Valid UploadListReqDTO request) {
 
-        FileDomain fileDomain = FileDomain.POST;
+        FileDomain fileDomain = FileDomain.POST_TEMP;
 
         PresignedUrlListResDTO resDTO = s3Service.generatePresignedUrls(fileDomain, request);
 

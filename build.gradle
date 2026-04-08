@@ -62,7 +62,9 @@ dependencies {
     implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.3.0")
 
     implementation "software.amazon.awssdk:s3"
+    implementation "software.amazon.awssdk:sqs"
     implementation "io.awspring.cloud:spring-cloud-aws-starter-parameter-store"
+    implementation 'net.coobird:thumbnailator:0.4.20'
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'

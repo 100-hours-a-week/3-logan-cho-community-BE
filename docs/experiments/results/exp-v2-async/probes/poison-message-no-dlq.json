@@ -1,0 +1,13 @@
+{
+  "probe": "poison_message_without_dlq",
+  "dlqConfigured": false,
+  "queueSamples": [
+    {"t": 0, "visible": 0, "notVisible": 1},
+    {"t": 5, "visible": 0, "notVisible": 1},
+    {"t": 10, "visible": 0, "notVisible": 1},
+    {"t": 15, "visible": 0, "notVisible": 1},
+    {"t": 20, "visible": 0, "notVisible": 1},
+    {"t": 25, "visible": 0, "notVisible": 1}
+  ],
+  "interpretation": "V2 has no DLQ, so a poison message stays on the main queue retry path instead of being quarantined."
+}

@@ -1,0 +1,5 @@
+{
+  "lambdaFailure": "NoSuchKey",
+  "dlqApproximateMessageCount": 1,
+  "dlqInFlightCount": 0
+}
